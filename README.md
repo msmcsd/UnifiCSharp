@@ -68,3 +68,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# GitHub Pages Setup
+
+1. `npm install gh-pages --save-dev`
+2. In `package.json`, add
+   1. "homepage": "https://msmcsd.github.io/unifi" under "version"
+   2. "predeploy": "npm run build" as the first line in "scripts' section
+   3. "deploy": "gh-pages -d build" after "predeploy"
+3. Push changes to repo
+4. Run `npm run deploy` to publish changes to GitHub Pages
+5. Browse [https://msmcsd.github.io/unifi](https://msmcsd.github.io/unifi) to see changes
+
+## Project Folders
+
+This repo contains projects for both client and server. The `server` folder contains C# Web API project.
