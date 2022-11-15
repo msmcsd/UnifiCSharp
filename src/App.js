@@ -1,7 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [weather, setWeather] = useState([
+    {date: '', temperatureC: 0, temperatureF: 0, summary: ""}
+  ])
+
+  useEffect(() => {
+    fetch('http://localhost:5000/WeatherForecast')
+      .then(response => response.json())
+      .then(data => setWeather(data))
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,7 +26,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          {weather.length}
         </a>
       </header>
     </div>

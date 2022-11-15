@@ -34,7 +34,7 @@ namespace API
             });
             services.AddCors(p => p.AddPolicy("corsapp", builder =>
             {
-                builder.WithOrigins("http://localhost:3000", "https://msmcsd.github.io/unifi/").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("http://localhost:3000", "https://msmcsd.github.io").AllowAnyMethod().AllowAnyHeader();
             }));
         }
 
