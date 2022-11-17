@@ -1,0 +1,1422 @@
+[
+	{
+		"Name": "Setup_Protect_Bootstrapper_Install_Env",
+		"CommandGroup": "Function",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF $[CompileMode]==Debug copy \"${DebugInstallersFolder}\\${ProtectBootstrapperName}\" \"${InstallerDownloadFolder}\"",
+				"DisplayText": "Copy Debug installer or not"
+			}
+		]
+	},
+	{
+		"Name": "Setup_Protect_Msi_Install_Env",
+		"CommandGroup": "Function",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF $[CompileMode]==Debug copy \"${DebugInstallersFolder}\\{ProtectMsiNameByVmArch}\" \"${InstallerDownloadFolder}\"",
+				"DisplayText": "Copy Debug installer or not"
+			}
+		]
+	},
+	{
+		"Name": "Setup_Protect_Install_Env",
+		"CommandGroup": "Function",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF EXIST \"$[CylanceDesktopFolder]\" (rd /s /q \"$[CylanceDesktopFolder]\")",
+				"DisplayText": "Remove Cylance Desktop Directory"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C mkdir \"$[CylanceDesktopFolder]\"",
+				"DisplayText": "Create Cylance Desktop Directory"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C copy \"$[GetConfigPath]\" \"$[CylanceDesktopFolder]\"",
+				"DisplayText": "Copy config.xml"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LogLevel /t REG_DWORD /d 3 /f",
+				"DisplayText": "Set Log Level in Registry"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SelfProtectionLevel /t REG_DWORD /d 1 /f",
+				"DisplayText": "Set Self Protection in Registry"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF NOT EXIST ${MsiLogFolder} (mkdir ${MsiLogFolder})",
+				"DisplayText": "Create ${MsiLogFolder} directory"
+			}
+		]
+	},	
+	{
+		"Name": "Set up install env",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Msi_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Protect Msi Admin/q",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Msi_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Protect Installer",
+				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
+			}
+		]
+	},
+	{
+		"Name": "Protect Msi Admin/UI",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Msi_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Protect Installer",
+				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
+			}
+		]
+	},	
+	{
+		"Name": "Protect Msi User/q",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Msi_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Protect Installer",
+				"RunAs": "User",
+				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
+			}
+		]
+	},
+	{
+		"Name": "Protect Msi User/UI",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Msi_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Protect Installer",
+				"RunAs": "User",
+				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
+			}
+		]
+	},
+	{
+		"Name": "Protect Bootstrapper Admin/q",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run installer",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
+		"Name": "Protect Bootstrapper Admin/UI",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] SELFPROTECTION=1",
+				"DisplayText": "Run  installer",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
+		"Name": "Protect Bootstrapper User/q",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run installer",
+				"RunAs": "User",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
+		"Name": "Protect Bootstrapper User/UI",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
+			{
+				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run installer",
+				"RunAs": "User",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
+		"Name": "Uninstall Protect",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/x ${UserDesktopFolder}\\{ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qb",
+				"DisplayText": "Uninstall Protect",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
+		"Name": "Uninstall Protect/User",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/x ${ProtectProductCode} /L*V ${MsiUninstallLogPath} /qb",
+				"DisplayText": "Uninstall Protect Using Product Code",
+				"Callback": "ShowFilesVersions",
+				"RunAs": "User"
+			}
+		]
+	},
+	{
+		"Name": "Install Optics",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C mkdir C:\\ProgramData\\Cylance\\Optics\\Configuration",
+				"DisplayText": "Create directory"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C copy \"${VmWareSharedFolder}\\Shortcuts\\OpticsConfiguration.xml\" C:\\ProgramData\\Cylance\\Optics\\Configuration",
+				"DisplayText": "Copy configuration file"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C copy \"${VmWareSharedFolder}\\TestTools\\Installers\\Optics\\CylanceOptics_x${Arch86}.msi\" \"${InstallerDownloadFolder}\"",
+				"DisplayText": "Copy configuration file"
+			},
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i ${InstallerDownloadFolder}\\CylanceOptics_x${Arch86}.msi /qb",
+				"DisplayText": "Run MSI installer"
+			}
+		]
+	},
+	{
+		"Name": "Service",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "sc.exe",
+				"Arguments": "query CylanceSvc",
+				"DisplayText": "Service Status",
+				"KeywordForSuccess": "Running"
+			},
+			{
+				"Command": "sc.exe",
+				"Arguments": "query CylanceDrv",
+				"DisplayText": "Driver Status",
+				"KeywordForSuccess": "Running"
+			},
+			{
+				"Command": "sc.exe",
+				"Arguments": "start CylanceSvc",
+				"DisplayText": "Start Service"
+			},
+			{
+				"Command": "\"${CylanceUiPath}\" ",
+				"Arguments": "-update",
+				"DisplayText": "Check for Update",
+				"Callback": "ShowFilesVersions",
+				"MinimizeWindow": true,
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "\"${CylanceUiPath}\" ",
+				"Arguments": "-registeramsi",
+				"DisplayText": "Register AMSI",
+				"MinimizeWindow": true
+			}
+		]
+	},
+	{
+		"Name": "ELAM/AM-PPL",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "sc.exe",
+				"Arguments": "qprotection CylanceSvc",
+				"DisplayText": "AM-PPL Service Status",
+				"KeywordForSuccess": "ANTIMALWARE LIGHT",
+				"Win8OrLater": true
+			},
+			{
+				"Command": "sc.exe",
+				"Arguments": "query CyElamDrv",
+				"DisplayText": "ELAM Driver Status",
+				"KeywordForSuccess": "KERNEL_DRIVER"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF EXIST C:\\Windows\\ELAMBKUP\\CyElamDrv${Arch32}.sys (ECHO Yes) ELSE (ECHO No)",
+				"DisplayText": "ELAM Backup File Exists",
+				"KeywordForSuccess": "Yes"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF EXIST ${SystemFolder}\\drivers\\CyElamDrv${Arch32}.sys (ECHO Yes) ELSE (ECHO No)",
+				"DisplayText": "ELAM Driver File in Drivers",
+				"KeywordForSuccess": "Yes"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C reg query HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\CyElamDrv",
+				"DisplayText": "ELAM Driver Key in Registry",
+				"KeywordForSuccess": "CyElamDrv"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF EXIST C:\\Windows\\System32\\drivers\\CyElamDrv${Arch32}.sys.bak (ECHO Yes) ELSE (ECHO No)",
+				"DisplayText": "ELAM .bak File Exists",
+				"KeywordForSuccess": "No"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d cmd.exe /C \"$[CylanceDesktopFolder]\\CylanceSvc.exe\" /shutdown",
+				"DisplayText": "Stop AM-PPL Service"
+			}
+		]
+	},
+	{
+		"Name": "Version",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "wmic",
+				"Arguments": "datafile where name=\"${VersionDll}\" get Version /value",
+				"DisplayText": "Protect",
+				"DllPath": "{VersionDll}",
+				"KeywordForSuccess": "3.0.1000.25",
+				"Visible": false
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "$[CylanceDesktopFolder]\\Cylance.Host.Versions.dll",
+				"DisplayText": "Protect",
+				"DllPath": "{VersionDll}",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "${DriverPath}",
+				"DisplayText": "Driver",
+				"DllPath": "${DriverPath}",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "${ElamDriverPath}",
+				"DisplayText": "ELAM",
+				"DllPath": "${ElamDriverPath}",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "$[CylanceDesktopFolder]\\Cylance.Host.Updater.dll",
+				"DisplayText": "Updater",
+				"DllPath": "{UpdaterDll}",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "$[CylanceDesktopFolder]\\Cylance.Host.Installer.CustomActions.CA_x${Arch32}.dll",
+				"DisplayText": "CA",
+				"DllPath": "{CustomActionDll}",
+				"Type": "Code"
+			}
+		]
+	},
+	{
+		"Name": "Misc",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C copy \"${VmWareSharedFolder}\\TestTools\\policy.xml\" \"$[CylanceDesktopFolder]\\\" /Y",
+				"DisplayText": "Copy policy.xml"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C del \"$[CylanceDesktopFolder]\\policy.xml\"",
+				"DisplayText": "Delete policy.xml"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C dir \"$[CylanceDesktopFolder]\"",
+				"DisplayText": "Show Desktop folder",
+				"KeywordForSuccess": "CylanceSvc.exe",
+				"Visible": false
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C xcopy \"C:\\Program Files\\Cylance\\LocalUpdates\" \"C:\\Program Files\\Cylance\\LocalUpdates1\" /E/H/C/I",
+				"DisplayText": "Backup LocalUpdates folder",
+				"KeywordForSuccess": "",
+				"Visible": false,
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C xcopy \"C:\\Program Files\\Cylance\\Desktop\\d\" \"C:\\Program Files\\Cylance\\Desktop\\d1\" /E/H/C/I",
+				"DisplayText": "Backup d folder",
+				"KeywordForSuccess": "",
+				"ShowOnMachine": "Test"
+			}
+		]
+	},
+	{
+		"Name": "WMI",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C dir C:\\Windows\\Microsoft.NET\\assembly\\GAC_MSIL\\Cylance.Host.WmiProvider",
+				"DisplayText": "Show Assembly Cache",
+				"KeywordForSuccess": "Cylance.Host.WmiProvider"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C dir C:\\Windows\\assembly\\GAC_MSIL | find \"Cylance\"",
+				"DisplayText": "Show GAC Folder"
+			},
+			{
+				"Command": "powershell",
+				"Arguments": "get-wmiobject -namespace root\\cylance -class protect",
+				"DisplayText": "Show WMI",
+				"KeywordForSuccess": "ApplicationState : Protected"
+			}
+		]
+	},
+	{
+		"Name": "Registry",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C reg query HKLM\\SOFTWARE\\Microsoft\\Fusion\\GACChangeNotification /s | find \"Cylance\"",
+				"DisplayText": "Registry"
+			},
+			{
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\Cylance\\Desktop",
+				"DisplayText": "Protect Key"
+			},
+			{
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall",
+				"DisplayText": ".RebootRequired key",
+				"Platform": "x64"
+			},
+			{
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall",
+				"DisplayText": ".RebootRequired key",
+				"Platform": "x86"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C FOR /F \"tokens=2* skip=2\" %a in ('reg query \"HKLM\\SOFTWARE\\Cylance\\Desktop\" /v \"Path\"') do echo %b",
+				"DisplayText": "Show Install Folder"
+			}
+		]
+	},
+	{
+		"Name": "Rollback Test",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "FileCopy",
+				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Rollback Updater",
+				"Type": "code",
+				"ShowOnMachine": "Test",
+				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "ShowRollbackPosition",
+				"Arguments": "",
+				"DisplayText": "Show Rollback Position",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LastUpdateRuntime /t REG_SZ /d 0 /f",
+				"DisplayText": "Clear Last Update Time",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "FileDelete",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Delete Protect Log File",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "$[ProtectLogPath], $[GetRollbackLogSaveDirectory]",
+				"DisplayText": "Copy Log File",
+				"Type": "Code",
+				"Visible": false,
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "BackupRollbackLogFile",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Backup Log File",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${NotepadPath}",
+				"Arguments": "\"$[GetLatestRollbackFile]\"",
+				"DisplayText": "Open Rollback Log File",
+				"ShowOnMachine": "Test"
+			}
+		]
+	},
+	{
+		"Name": "Report",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "ClearReport",
+				"Arguments": "",
+				"DisplayText": "Clear Report",
+				"Type": "Code"
+			},
+			{
+				"Command": "ShowReport",
+				"Arguments": "true",
+				"DisplayText": "Show Installed Report",
+				"Type": "Code"
+			},
+			{
+				"Command": "ShowReport",
+				"Arguments": "false",
+				"DisplayText": "Show Uninstalled Report",
+				"Type": "Code"
+			},
+			{
+				"Command": "MonitorLog",
+				"Arguments": "$[ProtectLogPath], true, 5",
+				"DisplayText": "Monitor End of CyUpdate",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "SetRollback",
+				"Arguments": "$[CylanceDesktopFolder], Add-AMPPL, AfterServiceStopped",
+				"DisplayText": "Set Rollback Postition",
+				"Type": "Code",
+				"ShowOnMachine": "Test",
+				"Visible": false
+			}
+		]
+	},
+	{
+		"Name": "Tail",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"CyUpdate(\"",
+				"DisplayText": "Follow CyUpdate(",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"reboot\"",
+				"DisplayText": "Follow Reboot Key",
+				"ShowOnMachine": "All"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 2 \"Error\"",
+				"DisplayText": "Filter Error",
+				"ShowOnMachine": "All"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"${DevLogPath}\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Dev"
+			}
+		]
+	},
+	{
+		"Name": "Compile",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "python",
+				"Arguments": "C:\\Projects\\CylanceProtect.py",
+				"DisplayText": "Full Build",
+				"ShowOnMachine": "Dev",
+				"Visible": false
+			},
+			{
+				"Command": "python",
+				"Arguments": "C:\\Projects\\dna\\dna.py --dna_config ${UserProfileFolder}\\.dnaconfig --dna_file C:\\Projects\\CylanceProtect\\dna\\project.dna build protect",
+				"DisplayText": "Build Solution+Bootstrapper",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "python",
+				"Arguments": "C:\\Projects\\dna\\dna.py --dna_config ${UserProfileFolder}\\.dnaconfig --dna_file C:\\Projects\\CylanceProtect\\dna\\project.dna sync-deps protect",
+				"DisplayText": "Sync Deps",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:major=3;minor=0;build=0000;revision=0 C:\\Projects\\CylanceProtect\\src\\CyProtect.sln",
+				"DisplayText": "Compile Debug Protect",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 /property:Platform=x64 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Installerx64\\Cylance.Host.Installerx64.wixproj",
+				"DisplayText": "Build 64-bit Installer",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 /property:Platform=x86 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Installer\\Cylance.Host.Installer.wixproj",
+				"DisplayText": "Build 32-bit Installer",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Bootstrapper\\Cylance.Host.Bootstrapper.wixproj",
+				"DisplayText": "Build Bootstrapper",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c copy \"C:\\Projects\\CylanceProtect\\bin\\Installers\\en-us\\CylanceProtectSetup_Debug_x64.msi\" \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\\Debug\\CylanceProtect_x64.msi\" /y",
+				"DisplayText": "Copy 64-bit Installer",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c copy \"C:\\Projects\\CylanceProtect\\bin\\Installers\\en-us\\CylanceProtectSetup_Debug_x86.msi\" \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\\Debug\\CylanceProtect_x86.msi\" /y",
+				"DisplayText": "Copy 32-bit Installer",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c copy \"C:\\Projects\\CylanceProtect\\bin\\Installers\\CylanceProtectSetup_Debug.exe\" \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\\Debug\\CylanceProtectSetup.exe\" /y",
+				"DisplayText": "Copy Bootstrapper",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c cd C:\\Projects\\CylanceProtect & git checkout -- src/Build/CommonAssemblyInfo.cs & git checkout -- src/CyPackage/Resources/Compressed* & git checkout -- src/CyUpgrade/Resources/Compressed* & del src/CyPackage/Resources/CompressedDataFile &  del src/CyPackage/Resources/CompressedIndexFile",
+				"DisplayText": "Reset Changed Files",
+				"ShowOnMachine": "Dev"
+			}
+		]
+	},
+	{
+		"Name": "Taskbar Commands",
+		"CommandGroup": "Taskbar",
+		"Commands": [
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "${SystemFolder}\\services.msc",
+				"DisplayText": "Services",
+				"IconSourcePath": "${SystemFolder}\\filemgmt.dll",
+				"ApiMethod": "OpenService"
+			},
+			{
+				"Command": "${SystemFolder}\\eventvwr.exe",
+				"DisplayText": "Event Viewer",
+				"IconSourcePath": "${SystemFolder}\\miguiresource.dll",
+				"ApiMethod": "OpenEventViewer"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d ${RegistryPath}",
+				"DisplayText": "Registry",
+				"IconSourcePath": "${RegistryPath}",
+				"ApiMethod": "OpenRegistry"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "\"$[CylanceDesktopFolder]\"",
+				"DisplayText": "Cylance Desktop",
+				"IconSourcePath": "${ExplorerPath}",
+				"ApiMethod": "OpenDesktopFolder"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "\"${SystemFolder}\\drivers\"",
+				"DisplayText": "Drivers Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"ApiMethod": "OpenDriversFolder"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "${UserProfileFolder}\\AppData\\Local\\Temp",
+				"DisplayText": "Temp Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"ApiMethod": "OpenDriversFolder"
+			},
+			{
+				"Command": "${NotepadPath}",
+				"DisplayText": "Notepad++",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenNotepad++"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[ProtectLogPath]\"",
+				"DisplayText": "Protect Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenProtectLog"
+			},
+			{
+				"Command": "${NotepadPath}",
+				"Arguments": "${MsiInstallLogPath}",
+				"DisplayText": "Install Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenInstallLog",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${NotepadPath}",
+				"Arguments": "${MsiUninstallLogPath}",
+				"DisplayText": "Uninstall Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenUninstallLog",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c cd ${UserProfileFolder}\\AppData\\Local\\Temp\\ & for /f \"delims=\" %F in ('dir /b /s ${UserProfileFolder}\\AppData\\Local\\Temp\\Cylance_Protect*CylanceProtectSetup*.log  2^>nul') do echo \"${NotepadPath}\" %F > a.bat & a.bat",
+				"DisplayText": "Bootstrapper Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenUninstallLog",
+				"ShowOnMachine": "Test",
+				"Visible": false
+			},
+			{
+				"Command": "${NotepadPath}",
+				"Arguments": "${BootstrapperInstallLogPath}",
+				"DisplayText": "Bootstrapper Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenUninstallLog",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[OpticsLogPath]\"",
+				"DisplayText": "Optics Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d \"C:\\Program Files\\LogExpert\\LogExpert.exe\" \"$[ProtectLogPath]\"",
+				"DisplayText": "Protect Log",
+				"IconSourcePath": "C:\\Program Files\\LogExpert\\LogExpert.exe",
+				"Visible": false,
+				"ApiMethod": "OpenLogExpert"
+			},
+			{
+				"Command": "${OrcaPath}",
+				"Arguments": "$[GetMsiInstallerPath]",
+				"DisplayText": "Orca",
+				"IconSourcePath": "${OrcaPath}",
+				"ApiMethod": "OpenOrca"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "${SystemFolder}\\appwiz.cpl",
+				"DisplayText": "Uninstall",
+				"IconSourcePath": "${SystemFolder}\\shell32.dll",
+				"IconIndex": 207,
+				"ApiMethod": "OpenAddRemove",
+				"RunAs": "User"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d cmd.exe /K cd $[CylanceDesktopFolder]",
+				"DisplayText": "A/Cylance",
+				"IconSourcePath": "${CmdPath}",
+				"ApiMethod": "OpenDesktopFolder"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d cmd.exe /K cd ${UserDesktopFolder}",
+				"DisplayText": "A/User Desktop",
+				"IconSourcePath": "${CmdPath}",
+				"ApiMethod": "OpenUserDesktopFolder"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd ${UserDesktopFolder}\"",
+				"DisplayText": "U/User Desktop",
+				"IconSourcePath": "${CmdPath}",
+				"ApiMethod": "OpenUserDesktopFolder",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\Projects\\CylanceProtect",
+				"DisplayText": "Protect Folder",
+				"IconSourcePath": "${CmdPath}",
+				"ShowOnMachine": "Dev",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\Projects\\Updater",
+				"DisplayText": "Updater Folder",
+				"IconSourcePath": "${CmdPath}",
+				"ShowOnMachine": "Dev",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\repos\\TestTool",
+				"DisplayText": "TestTools Folder",
+				"IconSourcePath": "${CmdPath}",
+				"ShowOnMachine": "Dev",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false
+			},
+			{
+				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
+				"DisplayText": "CyUpgrade",
+				"IconSourcePath": "${CmdPath}",
+				"MinimizeWindow": true,
+				"Callback": "ShowFilesVersions",
+				"ApiMethod": "RunCyUpgrade",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${UserDesktopFolder}\\DDP_ATP_Upgrade.exe",
+				"DisplayText": "ESSE Upgrade",
+				"IconSourcePath": "${CmdPath}",
+				"MinimizeWindow": true,
+				"ApiMethod": "RunESSEUpgrade",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[CylanceDesktopFolder]\\config.xml\"",
+				"DisplayText": "Protect config",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenConfigXml"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C shutdown.exe /r -t 1",
+				"DisplayText": "Reboot",
+				"IconSourcePath": "${CmdPath}",
+				"ApiMethod": "RebootMachine",
+				"ShowOnMachine": "Test"
+			},			
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d \"${NotepadPath}\" \"${DevLogPath}\"",
+				"DisplayText": "Open Dev Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "OpenDevLog",
+				"ShowOnMachine": "Dev"
+			},			
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d cmd.exe /c del \"${DevLogPath}\"",
+				"DisplayText": "Delete Dev Log",
+				"IconSourcePath": "${NotepadPath}",
+				"ApiMethod": "DeleteDevLog",
+				"ShowOnMachine": "Dev"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "${ProtectDebugFolder}",
+				"DisplayText": "Dev Debug Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"ApiMethod": "OpenDevDebugFolder",
+				"ShowOnMachine": "Dev"
+			}
+		]
+	},
+	{
+		"Name": "Downloads",
+		"CommandGroup": "Download",
+		"Commands": [
+			{
+				"Command": "TestJobs/job/jshih/job/agent-p-publish-install-test",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest Me"
+			},
+			{
+				"Command": "Protect/job/Agent/job/BC/job/agent-b-branch-dna",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest BC"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/1560/job/agent-x-1560-dna",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest 1560"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/3-0/job/agent-x-3-0-dna",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest 3.0"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest 3.1"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/1570/job/agent-x-1570-dna",
+				"Arguments": "49",
+				"DisplayText": "2.0.1578.42"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/1580/job/agent-x-1580-dna",
+				"Arguments": "55",
+				"DisplayText": "2.1.1580.42"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/1590/job/agent-x-1590-dna",
+				"Arguments": "21",
+				"DisplayText": "2.1.1590.15"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/3-0/job/agent-x-3-0-dna",
+				"Arguments": "43",
+				"DisplayText": "3.0.1005.38"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna",
+				"Arguments": "41",
+				"DisplayText": "3.1.1000.33"
+			},
+			{
+				"Command": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna",
+				"Arguments": "52",
+				"DisplayText": "3.1.1000.41"
+			},
+			{
+				"Command": "TestJobs/job/jshih/job/agent-p-publish-install-test",
+				"Arguments": "955",
+				"DisplayText": "3.2.9200.12159"
+			},
+			{
+				"Command": "Protect/job/Agent/job/BC/job/agent-b-branch-dna",
+				"Arguments": "2329",
+				"DisplayText": "3.1.9700.33140"
+			},
+			{
+				"Command": "",
+				"Arguments": "",
+				"DisplayText": "------- Dell -------"
+			},
+			{
+				"Command": "Dell/job/BC/job/DTD/job/win",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest DTD BC"
+			},
+			{
+				"Command": "Dell/job/Release/job/DTD/job/win",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest DTD Release"
+			},
+			{
+				"Command": "Dell/job/BC/job/ESSE/job/win",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest ESSE BC"
+			},
+			{
+				"Command": "Dell/job/Release/job/ESSE/job/win",
+				"Arguments": "lastSuccessfulBuild",
+				"DisplayText": "Latest ESSE Release"
+			},
+			{
+				"Command": "Dell/job/Release/job/ESSE/job/win",
+				"Arguments": "66",
+				"DisplayText": "ESSE 2.1.1565.1"
+			},
+			{
+				"Command": "Dell/job/Release/job/DTD/job/win",
+				"Arguments": "38",
+				"DisplayText": "DTD 2.1.1552.10"
+			},
+			{
+				"Command": "Dell/job/BC/job/DTD/job/win",
+				"Arguments": "355",
+				"DisplayText": "DTD BC 2.1.1586.99"
+			}
+		]
+	},
+	{
+		"Name": "Rollback-Add AM-PPL",
+		"CommandGroup": "Rollback",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"DisplayText": "None",
+				"Arguments": "00"
+			},
+			{
+				"DisplayText": "AfterServiceStopped",
+				"Arguments": "01"
+			},
+			{
+				"DisplayText": "AfterAppFilesCopied",
+				"Arguments": "02"
+			},
+			{
+				"DisplayText": "AfterGacUpdated",
+				"Arguments": "03"
+			},
+			{
+				"DisplayText": "AfterDriverStopped",
+				"Arguments": "04"
+			},
+			{
+				"DisplayText": "AfterDriverFilesCopied",
+				"Arguments": "05"
+			},
+			{
+				"DisplayText": "AfterCatalogAdded",
+				"Arguments": "06"
+			},
+			{
+				"DisplayText": "AfterElamFilesCopied",
+				"Arguments": "07"
+			},
+			{
+				"DisplayText": "AfterElamDriverAdded",
+				"Arguments": "08"
+			},
+			{
+				"DisplayText": "AfterAmpplAdded",
+				"Arguments": "09"
+			},
+			{
+				"DisplayText": "AfterDriverStarted",
+				"Arguments": "10"
+			},
+			{
+				"DisplayText": "AfterServiceStarted",
+				"Arguments": "11"
+			},
+			{
+				"DisplayText": "AfterMsiUpdated",
+				"Arguments": "12"
+			}
+		]
+	},
+	{
+		"Name": "Rollback-Remove AM-PPL",
+		"CommandGroup": "Rollback",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"DisplayText": "None",
+				"Arguments": "00"
+			},
+			{
+				"DisplayText": "AfterAmpplRemoved",
+				"Arguments": "01"
+			},
+			{
+				"DisplayText": "AfterServiceStopped",
+				"Arguments": "02"
+			},
+			{
+				"DisplayText": "AfterCatalogRemoved",
+				"Arguments": "03"
+			},
+			{
+				"DisplayText": "AfterAppFilesCopied",
+				"Arguments": "04"
+			},
+			{
+				"DisplayText": "AfterGacUpdated",
+				"Arguments": "05"
+			},
+			{
+				"DisplayText": "AfterDriverStopped",
+				"Arguments": "06"
+			},
+			{
+				"DisplayText": "AfterDriverFilesCopied",
+				"Arguments": "07"
+			},
+			{
+				"DisplayText": "AfterElamDriverRemoved",
+				"Arguments": "08"
+			},
+			{
+				"DisplayText": "AfterDriverStarted",
+				"Arguments": "09"
+			},
+			{
+				"DisplayText": "AfterServiceStarted",
+				"Arguments": "10"
+			},
+			{
+				"DisplayText": "AfterMsiUpdated",
+				"Arguments": "11"
+			}
+		]
+	},
+	{
+		"Name": "Rollback-Update AM-PPL",
+		"CommandGroup": "Rollback",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"DisplayText": "None",
+				"Arguments": "00"
+			},
+			{
+				"DisplayText": "AfterServiceStopped",
+				"Arguments": "01"
+			},
+			{
+				"DisplayText": "AfterCatalogRemoved",
+				"Arguments": "02"
+			},
+			{
+				"DisplayText": "AfterAppFilesCopied",
+				"Arguments": "03"
+			},
+			{
+				"DisplayText": "AfterGacUpdated",
+				"Arguments": "04"
+			},
+			{
+				"DisplayText": "AfterDriverStopped",
+				"Arguments": "05"
+			},
+			{
+				"DisplayText": "AfterDriverFilesCopied",
+				"Arguments": "06"
+			},
+			{
+				"DisplayText": "AfterCatalogAdded",
+				"Arguments": "07"
+			},
+			{
+				"DisplayText": "AfterElamFilesCopied",
+				"Arguments": "08"
+			},
+			{
+				"DisplayText": "AfterDriverStarted",
+				"Arguments": "09"
+			},
+			{
+				"DisplayText": "AfterServiceStarted",
+				"Arguments": "10"
+			},
+			{
+				"DisplayText": "AfterMsiUpdated",
+				"Arguments": "11"
+			}
+		]
+	},
+	{
+		"Name": "Online Update",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "SetRollback",
+				"Arguments": "$[CylanceDesktopFolder], Add-AMPPL, AfterServiceStopped",
+				"DisplayText": "Rollback at Add-AMPPL AfterServiceStopped",
+				"Type": "Code",
+				"BatchEnabled": false
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Rollback Updater",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "FileDelete",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Delete Protect Log File",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "\"${CylanceUiPath}\" ",
+				"Arguments": "-update",
+				"DisplayText": "Check for Update",
+				"Callback": "ShowFilesVersions",
+				"FireAndForget": true,
+				"MinimizeWindow": true,
+				"BatchEnabled": false
+			},
+			{
+				"Command": "ClearReport",
+				"Arguments": "",
+				"DisplayText": "Clear Report",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Updater DLL",
+				"Type": "Code",
+				"BatchEnabled": false
+			},
+			{
+				"Command": "MonitorLog",
+				"Arguments": "$[ProtectLogPath], true, 5",
+				"DisplayText": "Monitor End of CyUpdate",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "BackupRollbackLogFile",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Backup Log File",
+				"Type": "Code",
+				"ShowOnMachine": "Test",
+				"BatchEnabled": false
+			},
+			{
+				"Command": "ShowReport",
+				"Arguments": "true",
+				"DisplayText": "Show Installed Report",
+				"Callback": "ShowFilesVersions",
+				"Type": "Code",
+				"BatchEnabled": true
+			}
+		]
+	},
+	{
+		"Name": "Offline Update",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "SetRollback",
+				"Arguments": "$[CylanceDesktopFolder], Add-AMPPL, AfterMsiUpdated",
+				"DisplayText": "Rollback at Add-AMPPL AfterMsiUpdated",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "ClearReport",
+				"Arguments": "",
+				"DisplayText": "Clear Report",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Updater DLL",
+				"Type": "Code",
+				"BatchEnabled": false
+			},
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/BC/job/feature-branch-choice/job/feature-elam-am-ppl, 71, true, 3.0.9200.71",
+				"DisplayText": "Download CyUpgrade 3.0.9200.71",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "FileDelete",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Delete Protect Log File",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "\"${UserDesktopFolder}\\CyUpgrade.exe\" ",
+				"Arguments": "",
+				"DisplayText": "Run CyUpgrade.exe",
+				"Callback": "ShowFilesVersions",
+				"MinimizeWindow": true,
+				"BatchEnabled": true,
+				"FireAndForget": true
+			},
+			{
+				"Command": "MonitorLog",
+				"Arguments": "$[ProtectLogPath], true, 5",
+				"DisplayText": "Monitor End of CyUpdate",
+				"Type": "Code",
+				"BatchEnabled": false
+			},
+			{
+				"Command": "MonitorLog",
+				"Arguments": "$[ProtectLogPath], false, 10",
+				"DisplayText": "Monitor End of CyUpgrade",
+				"Type": "Code",
+				"BatchEnabled": true
+			},
+			{
+				"Command": "BackupRollbackLogFile",
+				"Arguments": "$[ProtectLogPath], $[CylanceDesktopFolder]",
+				"DisplayText": "Backup Rollback Log File",
+				"Type": "Code",
+				"BatchEnabled": false
+			},
+			{
+				"Command": "ShowReport",
+				"Arguments": "true",
+				"DisplayText": "Show Installed Report",
+				"Callback": "ShowFilesVersions",
+				"Type": "Code",
+				"BatchEnabled": true
+			}
+		]
+	},
+	{
+		"Name": "Variables",
+		"CommandGroup": "Variable",
+		"Commands": [
+			{
+				"Variable": "ProtectProductCode",
+				"Value": "{2E64FC5C-9286-4A31-916B-0D8AE4B22954}"
+			},
+			{
+				"Variable": "R01Token",
+				"Value": "DSDDE1OVnh1KK7k6D0Ibgm8U"
+			},
+			{
+				"Variable": "R02Token",
+				"Value": "hwpEexMwONRqALA1qugvUgDn"
+			},
+			{
+				"Variable": "QA2Token",		
+				"Value": "6m36TsuuTssnXRziimGtDXBz"
+			},
+			{
+				"Variable": "MsiLogFolder",		
+				"Value": "C:\\temp"
+			},
+			{
+				"Variable": "ProjectsFolder",		
+				"Value": "C:\\Projects"
+			},
+			{
+				"Variable": "ProtectJenkinsUrl",
+				"Value": "https://build-agent.d.cylance.com/job/{0}/{1}/artifact/windows/publish/installer/{2}"
+			},
+			{
+				"Variable": "DellJenkinsUrl",
+				"Value": "https://build-agent.d.cylance.com/job/{0}/{1}/artifact/publish/installer/{2}"
+			},
+			{
+				"Variable": "AllBuildsInfoUrl",
+				"Value": "https://build-agent.d.cylance.com/job/{0}/api/json?tree=builds[actions[parameters[name,value]],result,displayName,number]"
+			}
+		]
+	}
+]

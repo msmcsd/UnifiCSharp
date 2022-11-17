@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using UnifiCommands;
+using UnifiCommands.Commands;
+using UnifiCommands.Logging;
+using UnifiCommands.Observers.Report;
+
+namespace Unifi.Observers.Animation
+{
+    /// <summary>
+    /// Runs a list of commands. Reports start and end of command back to the observer.
+    /// </summary>
+    internal class BatchCommandExecutor : IObservable
+    {
+        private readonly List<CommandInfo> _commandInfos;
+        private readonly bool _checkReturnValue;
+        private readonly object _uiObserver;
+        private readonly ILogger _logger;
+        private readonly object _mainForm;
+        private IObserver _observer;
+
+        public BatchCommandExecutor(List<CommandInfo> commandInfos, bool checkReturnValue, object uiObserver, ILogger logger, object mainForm)
+        {
+            _commandInfos = commandInfos;
+            _checkReturnValue = checkReturnValue;
+            _uiObserver = uiObserver;
+            _logger = logger;
+            _mainForm = mainForm;
+        }
+
+        public async void Execute()
+        {
+            List<CommandTask> tasks = new List<CommandTask>();
+
+            foreach (var info in _commandInfos)
+            {
+                Command command = CommandFactory.CreateCommand(info, _logger, _mainForm);
+
+                if (command == null) return;
+
+                if (command is IUiObservable observable)
+                {
+                    observable.RegisterObserver(_uiObserver as IUiObserver);
+                }
+
+                tasks.Add(new CommandTask
+                {
+                    CommandInfo = info,
+                    Task = () => command.Execute()
+                });
+            }
+
+            bool ret = true;
+
+            Task currentTask = Task.FromResult("");
+            foreach (var task in tasks)
+            {
+                NotifyObserverCommandStart(task.CommandInfo);
+                if (task.CommandInfo.FireAndForget)
+                {
+                    _ = Task.Run(() => task.Task());
+                }
+                else
+                {
+                    Task<Task> continuation = currentTask.ContinueWith(t => task.Task(),
+                        TaskContinuationOptions.OnlyOnRanToCompletion);
+
+                    currentTask = continuation.Unwrap();
+
+                    Task result = null;
+                    await continuation.ContinueWith(t => { result = continuation.Result; }
+                    );
+
+                    if (_checkReturnValue)
+                    {
+                        if (result == null)
+                        {
+                            ret = false;
+                            NotifyObserverCommandEnd(task.CommandInfo);
+                            break;
+                        }
+
+                        // _console.LogInfo($"ret={result.Status}");
+                    }
+                }
+                NotifyObserverCommandEnd(task.CommandInfo);
+            }
+
+            if (_checkReturnValue)
+            {
+                _logger.LogInfo("<<Batch command finished" + (ret ? "" : " early"));
+            }
+        }
+
+        public void RegisterObserver(IObserver observer)
+        {
+            _observer = observer;
+            Debug.WriteLine(GetType(), _observer != null ? $"Observer of type {_observer.GetType()} registered" : $"{nameof(_observer)} is null");
+        }
+
+        public void NotifyObserverCommandStart(CommandInfo info)
+        {
+            Debug.WriteLine(GetType(), $"Command starts {info.Command}");
+            _observer?.StatusUpdateAtCommandStart(info);
+        }
+        public void NotifyObserverCommandEnd(CommandInfo info)
+        {
+            _observer?.StatusUpdateAtCommandEnd(info);
+            Debug.WriteLine(GetType(), $"Command ends {info.Command}");
+        }
+    }
+
+    internal class CommandTask
+    {
+        public CommandInfo CommandInfo { get; set; }
+        public Func<Task> Task { get; set; }
+    }
+}

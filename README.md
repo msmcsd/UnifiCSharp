@@ -82,4 +82,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Project Folders
 
-This repo contains projects for both client and server. The `server` folder contains C# Web API project.
+This repo contains projects for both client and server. 
+	The `server` folder contains C# Web API project.
+	The `desktop` folder contains C# desktop project and a shared Dll project for processing commands.
+	All other folders are for React client.
