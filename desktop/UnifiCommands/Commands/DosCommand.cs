@@ -27,14 +27,14 @@ namespace UnifiCommands.Commands
             Timer callbackTimer = null;
             bool hasCallback = !string.IsNullOrEmpty(_command.Callback);
             ElapsedEventHandler del = null;
-            // if (hasCallback)
-            // {
-            //     callbackTimer = new Timer(2000);
-            //     MethodInfo method = MainForm.Instance.GetType().GetMethod(_command.Callback, BindingFlags.Instance | BindingFlags.NonPublic);
-            //     del = (ElapsedEventHandler)Delegate.CreateDelegate(typeof(ElapsedEventHandler), MainForm.Instance, method);
-            //     callbackTimer.Elapsed += del;
-            //     callbackTimer.AutoReset = true;
-            // }
+            if (hasCallback)
+            {
+                callbackTimer = new Timer(2000);
+                MethodInfo method = _command.MainForm.GetType().GetMethod(_command.Callback, BindingFlags.Instance | BindingFlags.NonPublic);
+                del = (ElapsedEventHandler)Delegate.CreateDelegate(typeof(ElapsedEventHandler), _command.MainForm, method);
+                callbackTimer.Elapsed += del;
+                callbackTimer.AutoReset = true;
+            }
 
             string ret = _executor.Run(_command, callbackTimer);
 

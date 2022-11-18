@@ -95,7 +95,6 @@
     <Compile Include="Consoles\DesktopLogger.cs" />
     <Compile Include="Consoles\TextBoxConsole.cs" />
     <Compile Include="Consoles\Debugging.cs" />
-    <Compile Include="MainForm.cs" />
     <Compile Include="Observers\Animation\BatchCommandExecutor.cs" />
     <Compile Include="Observers\Animation\BatchListboxUpdater.cs" />
     <Compile Include="Observers\Animation\IObservable.cs" />

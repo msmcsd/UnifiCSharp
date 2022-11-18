@@ -222,7 +222,7 @@ namespace Unifi.Forms
 
             if (File.Exists(ToolsConfigPath))
             {
-                _commandsProvider = new JsonCommandsProvider(ToolsConfigPath, _showOnMachine);
+                _commandsProvider = new JsonCommandsProvider(ToolsConfigPath, _showOnMachine, this);
                 Text = $@"{Text} Loaded using JSON";
             }
             else
@@ -238,7 +238,6 @@ namespace Unifi.Forms
 
             _logger = new DesktopLogger(txtConsole);
             // Logging.Initialize(_logger);
-            MainForm.Initialize(this);
             
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;

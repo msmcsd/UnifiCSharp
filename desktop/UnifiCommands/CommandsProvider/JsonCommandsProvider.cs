@@ -43,7 +43,9 @@ namespace UnifiCommands.CommandsProvider
 
         public List<TestTask> BatchTasks { get; set; }
 
-        public JsonCommandsProvider(string configFile, CommandInfo.ShowCommandOnMachine showOnMachine)
+        private readonly object _mainForm;
+
+        public JsonCommandsProvider(string configFile, CommandInfo.ShowCommandOnMachine showOnMachine, object mainForm)
         {
             if (!File.Exists(configFile))
             {
@@ -51,6 +53,7 @@ namespace UnifiCommands.CommandsProvider
             }
 
             _showOnMachine = showOnMachine;
+            _mainForm = mainForm;
 
             LoadTasksFromJson(configFile);
         }
@@ -138,6 +141,7 @@ namespace UnifiCommands.CommandsProvider
                 foreach (var command in task.Commands)
                 {
                     command.Command = Variables.ReplaceLoadTimeVariables(command.Command);
+                    command.MainForm = _mainForm;
 
                     if (!string.IsNullOrEmpty(command.Arguments))
                         command.Arguments = Variables.ReplaceLoadTimeVariables(command.Arguments);

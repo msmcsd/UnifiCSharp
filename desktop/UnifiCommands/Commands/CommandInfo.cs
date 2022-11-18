@@ -127,6 +127,12 @@ namespace UnifiCommands.Commands
         public bool CreateNewWindow { get; set; }
 
         /// <summary>
+        /// This is the reference to the dekstop form. Used for calling functions in the form thru reflection.
+        /// This field is not set in JSON.
+        /// </summary>
+        public object MainForm { get; set; }
+
+        /// <summary>
         /// Clones the original command so it does not get overwritten.
         /// </summary>
         /// <returns></returns>

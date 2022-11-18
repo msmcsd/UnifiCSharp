@@ -51,12 +51,6 @@ namespace Unifi.UserControls
                 return false;
             }
 
-            if (MainForm.Instance == null)
-            {
-                MessageBox.Show(@"MainForm is not assigned.");
-                return false;
-            }
-
             return true;
         }
 
@@ -81,8 +75,8 @@ namespace Unifi.UserControls
             if (!(lstCommand.SelectedItem is CommandInfo info)) return;
 
             CommandInfo clone = (CommandInfo)info.Clone();
-            clone.Command = Variables.ReplaceRunTimeVariables(clone.Command, MainForm.Instance);
-            clone.Arguments = Variables.ReplaceRunTimeVariables(clone.Arguments, MainForm.Instance);
+            clone.Command = Variables.ReplaceRunTimeVariables(clone.Command, clone.MainForm);
+            clone.Arguments = Variables.ReplaceRunTimeVariables(clone.Arguments, clone.MainForm);
 
             Logger.LogCommand(clone.FullCommand, false);
         }
