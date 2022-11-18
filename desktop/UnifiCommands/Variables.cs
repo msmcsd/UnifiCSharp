@@ -30,6 +30,8 @@ namespace UnifiCommands
 
         public static string JsonConfigFileName = "Unifi.json";
 
+        public static string LocalJsonConfigPath = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), JsonConfigFileName);
+
         public static string ProgramPath => Path.Combine(VmWareSharedFolder, @"TestTools\Program");
 
         public static string JsonConfigPath => Path.Combine(ProgramPath, JsonConfigFileName);

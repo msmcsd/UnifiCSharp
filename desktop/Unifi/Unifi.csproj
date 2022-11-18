@@ -201,7 +201,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>xcopy "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\Unifi.json" $(TargetDir) /j /Y
-xcopy "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\Unifi.json" $(SolutionDir) /j /Y</PreBuildEvent>
+xcopy "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\Unifi.json" $(SolutionDir) /j /Y
+xcopy "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\Unifi.json" C:\repos\unifi\server\api\bin\Debug\net6.0 /j /Y</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>if exist "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\$(PlatformName)\" rmdir  "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\$(PlatformName)\" /s /q

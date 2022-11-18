@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using UnifiCommands;
+using UnifiCommands.Commands;
+using UnifiCommands.CommandsProvider;
 
 namespace api.Controllers
 {
@@ -12,9 +15,11 @@ namespace api.Controllers
     public class CommandController : ControllerBase
     {
         private readonly ILogger<CommandController> _logger;
+        private readonly ICommandsProvider _commandsProvider;
 
-        public CommandController(ILogger<CommandController> logger)
+        public CommandController(ILogger<CommandController> logger, ICommandsProvider commandsProvider)
         {
+            _commandsProvider = commandsProvider;
             _logger = logger;
         }
 
@@ -26,9 +31,10 @@ namespace api.Controllers
         }
 
         [HttpGet("Commands")]
-        public string GetAllCommands()
+        public List<CommandInfo> GetAllCommands()
         {
-            return "all commands";
+            var a = _commandsProvider.DownloadCommands;
+            return a;
         }
 
         [HttpPut]

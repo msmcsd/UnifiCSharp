@@ -171,7 +171,7 @@ namespace UnifiCommands.Commands.CodeCommands
         }
     }
 
-    internal enum InstallerType
+    public enum InstallerType
     {
         Msi,
         Bootstrapper,

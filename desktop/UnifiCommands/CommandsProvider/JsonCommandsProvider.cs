@@ -45,8 +45,9 @@ namespace UnifiCommands.CommandsProvider
 
         private readonly object _mainForm;
 
-        public JsonCommandsProvider(string configFile, CommandInfo.ShowCommandOnMachine showOnMachine, object mainForm)
+        public JsonCommandsProvider(CommandInfo.ShowCommandOnMachine showOnMachine, object mainForm)
         {
+            string configFile = Variables.LocalJsonConfigPath;
             if (!File.Exists(configFile))
             {
                 throw new FileNotFoundException($"File not found. {configFile}.");

@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.Security.Permissions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnifiCommands">
+      <HintPath>..\..\desktop\UnifiCommands\bin\Release\UnifiCommands.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

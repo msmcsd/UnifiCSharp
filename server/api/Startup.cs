@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using UnifiCommands;
+using UnifiCommands.CommandsProvider;
 
 namespace API
 {
@@ -36,6 +38,8 @@ namespace API
             {
                 builder.WithOrigins("http://localhost:3000", "https://msmcsd.github.io").AllowAnyMethod().AllowAnyHeader();
             }));
+
+            services.AddSingleton<ICommandsProvider>(new JsonCommandsProvider(UnifiCommands.Utils.GetShowCommandOnMachine(), null));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,11 +2,12 @@
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using UnifiCommands.Commands;
 using UnifiCommands.Commands.CodeCommands;
 
 namespace UnifiCommands
 {
-    internal class Utils
+    public class Utils
     {
         [DllImport("Shell32.dll", EntryPoint = "ExtractIconExW", CharSet = CharSet.Unicode, ExactSpelling = true,
             CallingConvention = CallingConvention.StdCall)]
@@ -80,6 +81,12 @@ namespace UnifiCommands
             {
                 return false;
             }
+        }
+
+        public static CommandInfo.ShowCommandOnMachine GetShowCommandOnMachine()
+        {
+            bool isDevMachine = Environment.MachineName.Equals("WindowsDev", StringComparison.InvariantCultureIgnoreCase);
+            return isDevMachine ? CommandInfo.ShowCommandOnMachine.Dev : CommandInfo.ShowCommandOnMachine.Test;
         }
     }
 }

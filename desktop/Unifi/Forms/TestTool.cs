@@ -28,20 +28,13 @@ namespace Unifi.Forms
     {
 #region Variables for Loading Tasks with JSON
 
-        private string ToolsConfigPath => 
-            Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), Variables.JsonConfigFileName);
-
         private ICommandsProvider _commandsProvider;
 
 #endregion
 
         private const string CategoryPrefix = "--";
 
-        private static readonly bool IsDevMachine = Environment.MachineName.Equals("WindowsDev", StringComparison.InvariantCultureIgnoreCase);
-        private readonly CommandInfo.ShowCommandOnMachine _showOnMachine = 
-            IsDevMachine
-            ? CommandInfo.ShowCommandOnMachine.Dev
-            : CommandInfo.ShowCommandOnMachine.Test;
+        private CommandInfo.ShowCommandOnMachine _showOnMachine;
 
         private ProgramSettings _programSettings;
         private CommandsRunner _commandsRunner;
@@ -209,7 +202,7 @@ namespace Unifi.Forms
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "cmd.exe",
-                        Arguments = $"/C xcopy \"{Variables.JsonConfigPath}\" \"{ToolsConfigPath}\" /j /Y",
+                        Arguments = $"/C xcopy \"{Variables.JsonConfigPath}\" \"{Variables.LocalJsonConfigPath}\" /j /Y",
                         CreateNoWindow = true,
                         UseShellExecute = false
                     }
@@ -220,9 +213,9 @@ namespace Unifi.Forms
 
             Text = $"Unifi {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
 
-            if (File.Exists(ToolsConfigPath))
+            if (File.Exists(Variables.LocalJsonConfigPath))
             {
-                _commandsProvider = new JsonCommandsProvider(ToolsConfigPath, _showOnMachine, this);
+                _commandsProvider = new JsonCommandsProvider(_showOnMachine, this);
                 Text = $@"{Text} Loaded using JSON";
             }
             else
@@ -236,6 +229,7 @@ namespace Unifi.Forms
                 Text += " (Administrator)";
             }
 
+            _showOnMachine = UnifiCommands.Utils.GetShowCommandOnMachine();
             _logger = new DesktopLogger(txtConsole);
             // Logging.Initialize(_logger);
             
