@@ -20,6 +20,7 @@ using UnifiCommands.Commands;
 using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
+using System.Security.Principal;
 
 namespace Unifi.Forms
 {
@@ -190,6 +191,15 @@ namespace Unifi.Forms
             Variables.CylanceDesktopFolder = path;
         }
 
+        private bool IsElevated()
+        {
+            using(WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+        }
+
         private void LoadControls()
         {
             if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
@@ -219,6 +229,11 @@ namespace Unifi.Forms
             {
                 // _commandsProvider = new DefaultCommandsProvider();
                 Text = $@"{Text} Loaded using defaults";
+            }
+
+            if (IsElevated())
+            {
+                Text += " (Administrator)";
             }
 
             _logger = new DesktopLogger(txtConsole);
