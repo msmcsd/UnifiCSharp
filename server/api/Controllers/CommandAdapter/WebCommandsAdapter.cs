@@ -11,8 +11,6 @@ namespace api.Controllers.CommandAdapter
     /// </summary>
     public class WebCommandsAdapter
     {
-        private readonly CommandInfo _commandInfo;
-
         private WebCommandInfo _webCommandInfo;
 
         public WebCommandInfo WebCommandInfo => _webCommandInfo;
@@ -20,7 +18,7 @@ namespace api.Controllers.CommandAdapter
         public WebCommandsAdapter(CommandInfo commandInfo)
         {
 
-            _commandInfo ?? throw new ArgumentNullException($"{nameof(commandInfo)} is null");
+            if (commandInfo == null) throw new ArgumentNullException($"{nameof(commandInfo)} is null");
 
             _webCommandInfo = new WebCommandInfo
             {
