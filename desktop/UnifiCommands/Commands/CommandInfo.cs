@@ -127,16 +127,23 @@ namespace UnifiCommands.Commands
         public bool CreateNewWindow { get; set; }
 
         /// <summary>
+        /// Source for the values of the runtime variables.
+        /// 
         /// When AppType is
         /// Desktop: This is the reference to the main form. Used for calling functions in the form thru reflection.
-        /// Web: An ExpandoObject created to hold the info passed from React client. The property names of the object
-        ///      would be the same as the function names in the main desktop form.
+        ///          The property is assigned once when JsonCommandsProvider is instantiated.
+        /// Web:     An ExpandoObject created to hold the info passed from React client. The property names of the
+        ///          object would be the same as the function names in the main desktop form.
+        ///          The property is assigned on a per user-action basis where the ExpandoObject is created and assigned.
+        ///      
         /// This field is not set in JSON.
         /// </summary>
         public object VariableValueSource { get; set; }
         
         /// <summary>
-        /// Used by web app to identify
+        /// Used by React client to identify which command to run. Since not all fields in CommandIno is sent to client,
+        /// this property is used to look up the command info list and return the actual command info. This property is
+        /// expected to be uniquie among all commands.
         /// </summary>
         public string ApiMethod { get; set; }
 

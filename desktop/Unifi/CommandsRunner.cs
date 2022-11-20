@@ -10,7 +10,6 @@ namespace Unifi
     {
         private readonly IObserver _observer;
         private readonly ILogger _logger;
-        private readonly object _mainForm;
         private readonly AppType _appType;
         private readonly object _uiObserver;
         private readonly bool _checkReturnValue;

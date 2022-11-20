@@ -19,8 +19,6 @@ namespace Unifi.UserControls
 
         public ILogger Logger { get; set; }
 
-        public object MainForm { get; set; }
-
         public ReportGrid()
         {
             InitializeComponent();

@@ -212,8 +212,9 @@ namespace Unifi.Forms
                 p.WaitForExit();
             }
 
-            Text = $"Unifi {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
+            Text = $"{Assembly.GetExecutingAssembly().GetName().Name} {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
 
+            _showOnMachine = UnifiCommands.Utils.GetShowCommandOnMachine();
             if (File.Exists(Variables.LocalJsonConfigPath))
             {
                 _commandsProvider = new JsonCommandsProvider(_showOnMachine, this);
@@ -230,13 +231,11 @@ namespace Unifi.Forms
                 Text += " (Administrator)";
             }
 
-            _showOnMachine = UnifiCommands.Utils.GetShowCommandOnMachine();
             _logger = new DesktopLogger(txtConsole);
             // Logging.Initialize(_logger);
             
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
-            reportGrid1.MainForm = this;
             _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
 
             PopulateDosCommandGroups();
