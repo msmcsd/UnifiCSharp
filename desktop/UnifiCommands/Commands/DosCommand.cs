@@ -30,8 +30,8 @@ namespace UnifiCommands.Commands
             if (hasCallback)
             {
                 callbackTimer = new Timer(2000);
-                MethodInfo method = _command.MainForm.GetType().GetMethod(_command.Callback, BindingFlags.Instance | BindingFlags.NonPublic);
-                del = (ElapsedEventHandler)Delegate.CreateDelegate(typeof(ElapsedEventHandler), _command.MainForm, method);
+                MethodInfo method = _command.VariableValueSource.GetType().GetMethod(_command.Callback, BindingFlags.Instance | BindingFlags.NonPublic);
+                del = (ElapsedEventHandler)Delegate.CreateDelegate(typeof(ElapsedEventHandler), _command.VariableValueSource, method);
                 callbackTimer.Elapsed += del;
                 callbackTimer.AutoReset = true;
             }

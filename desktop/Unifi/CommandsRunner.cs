@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unifi.Observers.Animation;
+using UnifiCommands;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 
@@ -10,6 +11,7 @@ namespace Unifi
         private readonly IObserver _observer;
         private readonly ILogger _logger;
         private readonly object _mainForm;
+        private readonly AppType _appType;
         private readonly object _uiObserver;
         private readonly bool _checkReturnValue;
 
@@ -21,18 +23,19 @@ namespace Unifi
         /// <param name="checkReturnValue"></param>
         /// <param name="logger"></param>
         /// <param name="mainForm"></param>
-        public CommandsRunner(object uiObserver, bool checkReturnValue, IObserver observer, ILogger logger, object mainForm)
+        public CommandsRunner(object uiObserver, bool checkReturnValue, IObserver observer, ILogger logger, object mainForm, AppType appType)
         {
             _uiObserver = uiObserver;
             _checkReturnValue = checkReturnValue;
             _observer = observer;
             _logger = logger;
             _mainForm = mainForm;
+            _appType = appType;
         }
 
         public void RunCommands(List<CommandInfo> commandInfos)
         {
-            var b = new BatchCommandExecutor(commandInfos, _checkReturnValue, _uiObserver, _logger, _mainForm);
+            var b = new BatchCommandExecutor(commandInfos, _checkReturnValue, _uiObserver, _logger, _mainForm, _appType);
             if (_observer != null)
             {
                 b.RegisterObserver(_observer);

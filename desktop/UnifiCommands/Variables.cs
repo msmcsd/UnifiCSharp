@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using UnifiCommands.VariableProcessors;
 
 namespace UnifiCommands
 {
@@ -147,71 +148,5 @@ namespace UnifiCommands
 
         #endregion
 
-        /// <summary>
-        /// Replaces variables in Json when the program starts. The values of the variables typically remain unchanged after program starts.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string ReplaceLoadTimeVariables(string path)
-        {
-            return ReplaceVariables(path, new LoadTimeVariable(), typeof(Variables), BindingFlags.Public | BindingFlags.Static, null);
-        }
-
-        /// <summary>
-        /// Replaces variables in Json before a command is run. The value of a variable is typically determined by values from controls in the UI.
-        /// </summary>
-        /// <param name="propertyName">The property to call.</param>
-        /// <param name="formObject">The form the property is in.</param>
-        /// <returns></returns>
-        public static string ReplaceRunTimeVariables(string propertyName, object formObject)
-        {
-            return ReplaceVariables(propertyName, new RunTimeVariable(), formObject.GetType(), BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, formObject);
-        }
-
-        /// <summary>
-        /// Replaces a variable by calling a method thru reflection.
-        /// </summary>
-        /// <param name="propertyName">The property to call.</param>
-        /// <param name="variable">The character that wraps a property.</param>
-        /// <param name="type">The type the the object that the property is in.</param>
-        /// <param name="bindingFlags">Binding flags used by reflection to get the property.</param>
-        /// <param name="instanceObject">The instance of the object to get the property from.</param>
-        /// <returns></returns>
-        private static string ReplaceVariables(string propertyName, IVariable variable, Type type, BindingFlags bindingFlags, object instanceObject)
-        {
-            if (string.IsNullOrEmpty(propertyName)) return "";
-
-            propertyName = propertyName.Trim();
-            int start = propertyName.IndexOf(variable.LeftIndicator, StringComparison.Ordinal);
-            while (start >= 0)
-            {
-                int end = propertyName.IndexOf(variable.RightIndicator, start, StringComparison.Ordinal);
-                string property = propertyName.Substring(start + variable.LeftIndicator.Length, end - start - variable.LeftIndicator.Length);
-                string variableValue = (string)type.GetProperty(property, bindingFlags).GetValue(instanceObject);
-                propertyName = propertyName.Replace(variable.LeftIndicator + property + variable.RightIndicator, variableValue);
-
-                start = propertyName.IndexOf(variable.LeftIndicator, StringComparison.Ordinal);
-            }
-
-            return propertyName;
-        }
-    }
-
-    internal interface IVariable
-    {
-        string LeftIndicator { get; }
-        string RightIndicator { get; }
-    }
-
-    internal class LoadTimeVariable : IVariable
-    {
-        public string LeftIndicator => "${";
-        public string RightIndicator => "}";
-    }
-
-    internal class RunTimeVariable : IVariable
-    {
-        public string LeftIndicator => "$[";
-        public string RightIndicator => "]";
     }
 }

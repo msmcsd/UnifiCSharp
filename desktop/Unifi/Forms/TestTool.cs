@@ -21,6 +21,7 @@ using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using System.Security.Principal;
+using UnifiCommands.VariableProcessors;
 
 namespace Unifi.Forms
 {
@@ -236,7 +237,7 @@ namespace Unifi.Forms
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
             reportGrid1.MainForm = this;
-            _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, this);
+            _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, this, AppType.Desktop);
 
             PopulateDosCommandGroups();
             PopulateTaskbarCommands();
@@ -575,14 +576,15 @@ namespace Unifi.Forms
         private void ShowFilesVersions(object source, ElapsedEventArgs e)
         {
             var ds = new List<CommandInfo> { };
-            
+            VariableConverter converter = new DesktopRuntimeVariableConverter(this);
+
             foreach (var item in _listVersion.Items)
             {
                 CommandInfo info = (CommandInfo) item;
                 ds.Add(info);
                 if (!info.Command.Equals("FileVersion", StringComparison.InvariantCultureIgnoreCase)) continue;
             
-                string filePath = Variables.ReplaceRunTimeVariables(info.Arguments, this);
+                string filePath = converter.ReplaceVariables(info.Arguments);
                 UpdateFileVersion(info, filePath);
             }
 
@@ -641,7 +643,7 @@ namespace Unifi.Forms
         /// <param name="checkReturnValue"></param>
         private void RunCommands(List<CommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
         {
-            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, reportGrid1, _logger, this);
+            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, reportGrid1, _logger, this, AppType.Desktop);
             b.RegisterObserver(observer);
             b.Execute();
         }
@@ -654,7 +656,7 @@ namespace Unifi.Forms
         {
             foreach (var info in commandInfos)
             {
-                Command command = CommandFactory.CreateCommand(info, _logger, this);
+                Command command = CommandFactory.CreateCommand(info, _logger, this, AppType.Desktop);
                 command.LogParameters();
             }
         }

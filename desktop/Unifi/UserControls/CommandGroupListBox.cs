@@ -6,6 +6,7 @@ using UnifiCommands;
 using UnifiCommands.Commands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
+using UnifiCommands.VariableProcessors;
 
 namespace Unifi.UserControls
 {
@@ -75,8 +76,9 @@ namespace Unifi.UserControls
             if (!(lstCommand.SelectedItem is CommandInfo info)) return;
 
             CommandInfo clone = (CommandInfo)info.Clone();
-            clone.Command = Variables.ReplaceRunTimeVariables(clone.Command, clone.MainForm);
-            clone.Arguments = Variables.ReplaceRunTimeVariables(clone.Arguments, clone.MainForm);
+            VariableConverter converter = new DesktopRuntimeVariableConverter(clone.VariableValueSource);
+            clone.Command = converter.ReplaceVariables(clone.Command);
+            clone.Arguments = converter.ReplaceVariables(clone.Arguments);
 
             Logger.LogCommand(clone.FullCommand, false);
         }

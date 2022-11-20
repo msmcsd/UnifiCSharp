@@ -7,6 +7,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnifiCommands.Commands;
+using UnifiCommands.VariableProcessors;
 
 namespace UnifiCommands.CommandsProvider
 {
@@ -135,26 +136,28 @@ namespace UnifiCommands.CommandsProvider
 
         private void ReplaceLoadTimeVariables()
         {
+            VariableConverter converter = new LoadTimeVariableConverter();
+
             foreach (var task in TestTasks)
             {
                 task.Commands = FilterCommands(task.Commands);
 
                 foreach (var command in task.Commands)
                 {
-                    command.Command = Variables.ReplaceLoadTimeVariables(command.Command);
-                    command.MainForm = _mainForm;
+                    command.Command = converter.ReplaceVariables(command.Command);
+                    command.VariableValueSource = _mainForm;
 
                     if (!string.IsNullOrEmpty(command.Arguments))
-                        command.Arguments = Variables.ReplaceLoadTimeVariables(command.Arguments);
+                        command.Arguments = converter.ReplaceVariables(command.Arguments);
 
                     if (!string.IsNullOrEmpty(command.IconSourcePath))
-                        command.IconSourcePath = Variables.ReplaceLoadTimeVariables(command.IconSourcePath);
+                        command.IconSourcePath = converter.ReplaceVariables(command.IconSourcePath);
 
                     if (!string.IsNullOrEmpty(command.DisplayText))
-                        command.DisplayText = Variables.ReplaceLoadTimeVariables(command.DisplayText);
+                        command.DisplayText = converter.ReplaceVariables(command.DisplayText);
 
                     // if (!string.IsNullOrEmpty(command.DllPath))
-                    //     command.DllPath = Variables.ReplaceLoadTimeVariables(command.DllPath);
+                    //     command.DllPath = converter.ReplaceVariable(command.DllPath);
                 }
             }
         }

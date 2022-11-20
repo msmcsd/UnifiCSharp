@@ -127,10 +127,13 @@ namespace UnifiCommands.Commands
         public bool CreateNewWindow { get; set; }
 
         /// <summary>
-        /// This is the reference to the dekstop form. Used for calling functions in the form thru reflection.
+        /// When AppType is
+        /// Desktop: This is the reference to the main form. Used for calling functions in the form thru reflection.
+        /// Web: An ExpandoObject created to hold the info passed from React client. The property names of the object
+        ///      would be the same as the function names in the main desktop form.
         /// This field is not set in JSON.
         /// </summary>
-        public object MainForm { get; set; }
+        public object VariableValueSource { get; set; }
         
         /// <summary>
         /// Used by web app to identify

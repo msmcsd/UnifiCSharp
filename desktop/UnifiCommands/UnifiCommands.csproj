@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppType.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="CommandsProvider\DefaultCommandsProvider.cs" />
     <Compile Include="CommandsProvider\JsonCommandsProvider.cs" />
@@ -80,6 +81,10 @@
     <Compile Include="Rollback.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Variables.cs" />
+    <Compile Include="VariableProcessors\LoadTimeVariableConverter.cs" />
+    <Compile Include="VariableProcessors\VariableConverter.cs" />
+    <Compile Include="VariableProcessors\DesktopRuntimeVariableConverter.cs" />
+    <Compile Include="VariableProcessors\WebRuntimeVariableConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Observers\Animation\" />

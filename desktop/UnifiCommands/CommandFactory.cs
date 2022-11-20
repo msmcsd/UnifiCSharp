@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using UnifiCommands;
+using UnifiCommands.VariableProcessors;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 
@@ -9,29 +9,35 @@ namespace UnifiCommands
 {
     public class CommandFactory
     {
-        private static CommandInfo ReplaceVariables(CommandInfo commandInfo, object mainForm)
+        private static CommandInfo ReplaceVariables(CommandInfo commandInfo, object mainForm, AppType appType)
         {
             CommandInfo newCommandInfo = commandInfo.Clone() as CommandInfo;
-            newCommandInfo.Command = Variables.ReplaceRunTimeVariables(newCommandInfo.Command, mainForm);
-            newCommandInfo.Arguments = Variables.ReplaceRunTimeVariables(newCommandInfo.Arguments, mainForm);
+            VariableConverter converter;
+            if (appType == AppType.Desktop)
+                converter = new DesktopRuntimeVariableConverter(mainForm);
+            else
+                converter = new WebRuntimeVariableConverter(null);
+
+            newCommandInfo.Command = converter.ReplaceVariables(newCommandInfo.Command);
+            newCommandInfo.Arguments = converter.ReplaceVariables(newCommandInfo.Arguments);
 
             return newCommandInfo;
         }
 
-        public static Command CreateCommand(CommandInfo commandInfo, ILogger logger, object mainForm)
+        public static Command CreateCommand(CommandInfo commandInfo, ILogger logger, object mainForm, AppType appType)
         {
-            return commandInfo.Type == CommandInfo.CommandType.Dos ? CreateDosCommand(commandInfo, logger, mainForm) : CreateCodeCommand(commandInfo, logger, mainForm);
+            return commandInfo.Type == CommandInfo.CommandType.Dos ? CreateDosCommand(commandInfo, logger, mainForm, appType) : CreateCodeCommand(commandInfo, logger, mainForm, appType);
         }
 
-        private static Command CreateDosCommand(CommandInfo commandInfo, ILogger logger, object mainForm)
+        private static Command CreateDosCommand(CommandInfo commandInfo, ILogger logger, object mainForm, AppType appType)
         {
-            commandInfo = ReplaceVariables(commandInfo, mainForm);
+            commandInfo = ReplaceVariables(commandInfo, mainForm, appType);
             return new DosCommand(commandInfo, logger);
         }
 
-        private static Command CreateCodeCommand(CommandInfo commandInfo, ILogger logger, object mainForm)
+        private static Command CreateCodeCommand(CommandInfo commandInfo, ILogger logger, object mainForm, AppType appType)
         {
-            commandInfo = ReplaceVariables(commandInfo, mainForm);
+            commandInfo = ReplaceVariables(commandInfo, mainForm, appType);
 
             string typeName = $"UnifiCommands.Commands.CodeCommands.{commandInfo.Command}Command, UnifiCommands";
             Type t = Type.GetType(typeName);

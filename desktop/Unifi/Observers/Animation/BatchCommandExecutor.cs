@@ -19,15 +19,17 @@ namespace Unifi.Observers.Animation
         private readonly object _uiObserver;
         private readonly ILogger _logger;
         private readonly object _mainForm;
+        private readonly AppType _appType;
         private IObserver _observer;
 
-        public BatchCommandExecutor(List<CommandInfo> commandInfos, bool checkReturnValue, object uiObserver, ILogger logger, object mainForm)
+        public BatchCommandExecutor(List<CommandInfo> commandInfos, bool checkReturnValue, object uiObserver, ILogger logger, object mainForm, AppType appType)
         {
             _commandInfos = commandInfos;
             _checkReturnValue = checkReturnValue;
             _uiObserver = uiObserver;
             _logger = logger;
             _mainForm = mainForm;
+            _appType = appType;
         }
 
         public async void Execute()
@@ -36,7 +38,7 @@ namespace Unifi.Observers.Animation
 
             foreach (var info in _commandInfos)
             {
-                Command command = CommandFactory.CreateCommand(info, _logger, _mainForm);
+                Command command = CommandFactory.CreateCommand(info, _logger, _mainForm, _appType);
 
                 if (command == null) return;
 
