@@ -237,7 +237,7 @@ namespace Unifi.Forms
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
             reportGrid1.MainForm = this;
-            _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, this, AppType.Desktop);
+            _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
 
             PopulateDosCommandGroups();
             PopulateTaskbarCommands();
@@ -643,7 +643,7 @@ namespace Unifi.Forms
         /// <param name="checkReturnValue"></param>
         private void RunCommands(List<CommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
         {
-            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, reportGrid1, _logger, this, AppType.Desktop);
+            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, reportGrid1, _logger, AppType.Desktop);
             b.RegisterObserver(observer);
             b.Execute();
         }
@@ -656,7 +656,7 @@ namespace Unifi.Forms
         {
             foreach (var info in commandInfos)
             {
-                Command command = CommandFactory.CreateCommand(info, _logger, this, AppType.Desktop);
+                Command command = CommandFactory.CreateCommand(info, _logger, AppType.Desktop);
                 command.LogParameters();
             }
         }

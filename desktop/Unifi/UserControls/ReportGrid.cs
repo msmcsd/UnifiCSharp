@@ -92,7 +92,7 @@ namespace Unifi.UserControls
                     }
                     else
                     {
-                        Command command = CommandFactory.CreateCommand(commandInfo, Logger, MainForm, AppType.Desktop);
+                        Command command = CommandFactory.CreateCommand(commandInfo, Logger, AppType.Desktop);
                         output = command.Execute().GetAwaiter().GetResult();
                     }
 
@@ -151,7 +151,7 @@ namespace Unifi.UserControls
             CommandInfo commandInfo = (CommandInfo)lstReport.SelectedItems[0].Tag;
             if (commandInfo == null) return;
 
-            Command command = CommandFactory.CreateCommand(commandInfo, Logger, MainForm, AppType.Desktop);
+            Command command = CommandFactory.CreateCommand(commandInfo, Logger, AppType.Desktop);
 
             await command.Execute();
         }

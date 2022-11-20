@@ -9,12 +9,17 @@ namespace UnifiCommands
 {
     public class CommandFactory
     {
-        private static CommandInfo ReplaceVariables(CommandInfo commandInfo, object mainForm, AppType appType)
+        public static Command CreateCommand(CommandInfo commandInfo, ILogger logger, AppType appType)
+        {
+            return commandInfo.Type == CommandInfo.CommandType.Dos ? CreateDosCommand(commandInfo, logger, appType) : CreateCodeCommand(commandInfo, logger, appType);
+        }
+
+        private static CommandInfo ReplaceVariables(CommandInfo commandInfo, AppType appType)
         {
             CommandInfo newCommandInfo = commandInfo.Clone() as CommandInfo;
             VariableConverter converter;
             if (appType == AppType.Desktop)
-                converter = new DesktopRuntimeVariableConverter(mainForm);
+                converter = new DesktopRuntimeVariableConverter(newCommandInfo.VariableValueSource);
             else
                 converter = new WebRuntimeVariableConverter(null);
 
@@ -24,20 +29,15 @@ namespace UnifiCommands
             return newCommandInfo;
         }
 
-        public static Command CreateCommand(CommandInfo commandInfo, ILogger logger, object mainForm, AppType appType)
+        private static Command CreateDosCommand(CommandInfo commandInfo, ILogger logger, AppType appType)
         {
-            return commandInfo.Type == CommandInfo.CommandType.Dos ? CreateDosCommand(commandInfo, logger, mainForm, appType) : CreateCodeCommand(commandInfo, logger, mainForm, appType);
-        }
-
-        private static Command CreateDosCommand(CommandInfo commandInfo, ILogger logger, object mainForm, AppType appType)
-        {
-            commandInfo = ReplaceVariables(commandInfo, mainForm, appType);
+            commandInfo = ReplaceVariables(commandInfo, appType);
             return new DosCommand(commandInfo, logger);
         }
 
-        private static Command CreateCodeCommand(CommandInfo commandInfo, ILogger logger, object mainForm, AppType appType)
+        private static Command CreateCodeCommand(CommandInfo commandInfo, ILogger logger, AppType appType)
         {
-            commandInfo = ReplaceVariables(commandInfo, mainForm, appType);
+            commandInfo = ReplaceVariables(commandInfo, appType);
 
             string typeName = $"UnifiCommands.Commands.CodeCommands.{commandInfo.Command}Command, UnifiCommands";
             Type t = Type.GetType(typeName);

@@ -22,20 +22,18 @@ namespace Unifi
         /// <param name="uiObserver"></param>
         /// <param name="checkReturnValue"></param>
         /// <param name="logger"></param>
-        /// <param name="mainForm"></param>
-        public CommandsRunner(object uiObserver, bool checkReturnValue, IObserver observer, ILogger logger, object mainForm, AppType appType)
+        public CommandsRunner(object uiObserver, bool checkReturnValue, IObserver observer, ILogger logger, AppType appType)
         {
             _uiObserver = uiObserver;
             _checkReturnValue = checkReturnValue;
             _observer = observer;
             _logger = logger;
-            _mainForm = mainForm;
             _appType = appType;
         }
 
         public void RunCommands(List<CommandInfo> commandInfos)
         {
-            var b = new BatchCommandExecutor(commandInfos, _checkReturnValue, _uiObserver, _logger, _mainForm, _appType);
+            var b = new BatchCommandExecutor(commandInfos, _checkReturnValue, _uiObserver, _logger, _appType);
             if (_observer != null)
             {
                 b.RegisterObserver(_observer);
