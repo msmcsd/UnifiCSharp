@@ -131,6 +131,11 @@ namespace UnifiCommands.Commands
         /// This field is not set in JSON.
         /// </summary>
         public object MainForm { get; set; }
+        
+        /// <summary>
+        /// Used by web app to identify
+        /// </summary>
+        public string ApiMethod { get; set; }
 
         /// <summary>
         /// Clones the original command so it does not get overwritten.
