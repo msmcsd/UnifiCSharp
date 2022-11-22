@@ -27,7 +27,8 @@ namespace api.Controllers
         [Route("[controller]")]
         public string GetCommand(string commandGroup, string displayText)
         {
-            return "";
+            FullCommandInfo command = _commandsProvider.FindCommand(commandGroup, displayText);
+            return command==null ? "Not found" : "Found";
         }
 
         [HttpGet("Commands")]

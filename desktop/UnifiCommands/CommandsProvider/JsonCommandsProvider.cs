@@ -247,5 +247,13 @@ namespace UnifiCommands.CommandsProvider
                 }
             }
         }
+
+        public FullCommandInfo FindCommand(string commandGroup, string displayText)
+        {
+            if (!Enum.TryParse(commandGroup, true, out CommandGroup group)) return null;
+
+            return TestTasks.FirstOrDefault(t => t.CommandGroup == group)
+                            .Commands?.FirstOrDefault(c => c.DisplayText.Equals(displayText, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }
