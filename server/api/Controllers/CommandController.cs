@@ -25,9 +25,9 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("[controller]")]
-        public string GetCommand(string id)
+        public string GetCommand(string commandGroup, string displayText)
         {
-            return id;
+            return "";
         }
 
         [HttpGet("Commands")]

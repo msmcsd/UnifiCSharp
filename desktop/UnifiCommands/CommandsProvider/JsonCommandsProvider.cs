@@ -107,7 +107,7 @@ namespace UnifiCommands.CommandsProvider
 
             if (_appType == AppType.Web)
             {
-                CopyToWebTasks();
+                CreateWebTasks();
             }
         }
 
@@ -115,7 +115,7 @@ namespace UnifiCommands.CommandsProvider
         /// Instantiate WebTestTasks object which use WebCommandInfo as Command. This object contains less info
         /// than TestTasks so less info is sent back to web client from server.
         /// </summary>
-        private void CopyToWebTasks()
+        private void CreateWebTasks()
         {
             WebTestTasks = new List<WebTestTask>();
 
@@ -124,13 +124,17 @@ namespace UnifiCommands.CommandsProvider
                 var webtask = new WebTestTask
                 {
                     Name = task.Name,
-                    CommandGroup = task.CommandGroup,
-                    Commands = new List<BaseCommandInfo>()
+                    CommandGroup = task.CommandGroup
                 };
 
-                foreach(var command in task.Commands)
+                if (task.CommandGroup != CommandGroup.Install)
                 {
-                    webtask.Commands.Add(command.CreateBaseCommand());
+                    webtask.Commands = new List<BaseCommandInfo>();
+
+                    foreach (var command in task.Commands)
+                    {
+                        webtask.Commands.Add(command.CreateBaseCommand());
+                    }
                 }
 
                 WebTestTasks.Add(webtask);

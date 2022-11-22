@@ -7,6 +7,13 @@ namespace UnifiCommands.CommandInfo
     public class FullCommandInfo : BaseCommandInfo
     {
         /// <summary>
+        /// 1. Path to the command when Type is Dos. Ex: "cmd.exe".
+        /// 2. Name of the command when Type is Code. Ex: "FileCopy".
+        /// 3. Name of the command when Type is Function. Ex: "Setup_Protect_Install_Env"
+        /// </summary>
+        public string Command { get; set; }
+
+        /// <summary>
         /// Arguments for a Dos command, or constructor parameters of a Code command.
         /// </summary>
         public string Arguments { get; set; }
