@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Unifi.Consoles;
 using UnifiCommands;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.VariableProcessors;
@@ -73,9 +73,9 @@ namespace Unifi.UserControls
                 return;
             }
 
-            if (!(lstCommand.SelectedItem is CommandInfo info)) return;
+            if (!(lstCommand.SelectedItem is FullCommandInfo info)) return;
 
-            CommandInfo clone = (CommandInfo)info.Clone();
+            FullCommandInfo clone = (FullCommandInfo)info.Clone();
             VariableConverter converter = new DesktopRuntimeVariableConverter(clone.VariableValueSource);
             clone.Command = converter.ReplaceVariables(clone.Command);
             clone.Arguments = converter.ReplaceVariables(clone.Arguments);
@@ -109,11 +109,11 @@ namespace Unifi.UserControls
 
             if (listBox == null || listBox.Items.Count <= 0 || e.Index < 0) return;
 
-            CommandInfo info = (CommandInfo)listBox.Items[e.Index];
+            FullCommandInfo info = (FullCommandInfo)listBox.Items[e.Index];
 
             Font font = new Font(listBox.Font.FontFamily, listBox.Font.Size);
 
-            Brush brush = info.Type == CommandInfo.CommandType.Code ? Brushes.Green : Brushes.Black;
+            Brush brush = info.Type == CommandType.Code ? Brushes.Green : Brushes.Black;
 
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {

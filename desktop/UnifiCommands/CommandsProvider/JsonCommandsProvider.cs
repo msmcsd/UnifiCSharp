@@ -6,14 +6,14 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.VariableProcessors;
 
 namespace UnifiCommands.CommandsProvider
 {
     public class JsonCommandsProvider : ICommandsProvider
     {
-        private readonly CommandInfo.ShowCommandOnMachine _showOnMachine;
+        private ShowCommandOnMachine _showOnMachine;
 
         public struct TaskGroup
         {
@@ -26,15 +26,15 @@ namespace UnifiCommands.CommandsProvider
 
         public List<TestTask> DosTasks { get; set; }
 
-        public List<CommandInfo> TaskBarCommands { get; set; }
+        public List<FullCommandInfo> TaskBarCommands { get; set; }
 
-        public List<CommandInfo> DownloadCommands { get; set; }
+        public List<FullCommandInfo> DownloadCommands { get; set; }
 
-        public List<CommandInfo> AddAmpplRollbackPositions { get; set; }
+        public List<FullCommandInfo> AddAmpplRollbackPositions { get; set; }
 
-        public List<CommandInfo> RemoveAmpplRollbackPositions { get; set; }
+        public List<FullCommandInfo> RemoveAmpplRollbackPositions { get; set; }
 
-        public List<CommandInfo> UpdateAmpplRollbackPositions { get; set; }
+        public List<FullCommandInfo> UpdateAmpplRollbackPositions { get; set; }
 
         /// <summary>
         /// A list of commands, like a function, can be reused in the XML.
@@ -44,9 +44,26 @@ namespace UnifiCommands.CommandsProvider
 
         public List<TestTask> BatchTasks { get; set; }
 
-        private readonly object _mainForm;
+        private readonly object _variableValueSource;
 
-        public JsonCommandsProvider(CommandInfo.ShowCommandOnMachine showOnMachine, object mainForm)
+        private readonly AppType _appType;
+
+        public JsonCommandsProvider()
+        {
+            _appType = AppType.Web;
+            
+            ConvertJsonToCommands();
+        }
+
+        public JsonCommandsProvider(object variableValueSource)
+        {
+            _appType = AppType.Desktop;
+            _variableValueSource = variableValueSource;
+            
+            ConvertJsonToCommands();
+        }
+
+        private void ConvertJsonToCommands()
         {
             string configFile = Variables.LocalJsonConfigPath;
             if (!File.Exists(configFile))
@@ -54,8 +71,7 @@ namespace UnifiCommands.CommandsProvider
                 throw new FileNotFoundException($"File not found. {configFile}.");
             }
 
-            _showOnMachine = showOnMachine;
-            _mainForm = mainForm;
+            _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
 
             LoadTasksFromJson(configFile);
         }
@@ -96,7 +112,7 @@ namespace UnifiCommands.CommandsProvider
         /// </summary>
         /// <param name="commands"></param>
         /// <returns></returns>
-        private List<CommandInfo> FilterCommands(List<CommandInfo> commands)
+        private List<FullCommandInfo> FilterCommands(List<FullCommandInfo> commands)
         {
             string platform = Environment.Is64BitOperatingSystem ? "x64" : "x86";
             return commands.Where(c => c.Visible &&
@@ -120,7 +136,7 @@ namespace UnifiCommands.CommandsProvider
         /// Sets the variables in Variables class with values from JSON.
         /// </summary>
         /// <param name="variableCommands"></param>
-        private void SetVariablesValues(List<CommandInfo> variableCommands)
+        private void SetVariablesValues(List<FullCommandInfo> variableCommands)
         {
             foreach (var command in variableCommands)
             {
@@ -145,7 +161,7 @@ namespace UnifiCommands.CommandsProvider
                 foreach (var command in task.Commands)
                 {
                     command.Command = converter.ReplaceVariables(command.Command);
-                    command.VariableValueSource = _mainForm;
+                    command.VariableValueSource = _variableValueSource;
 
                     if (!string.IsNullOrEmpty(command.Arguments))
                         command.Arguments = converter.ReplaceVariables(command.Arguments);
@@ -169,14 +185,14 @@ namespace UnifiCommands.CommandsProvider
         {
             foreach (var task in TestTasks.Where(t => t.CommandGroup != CommandGroup.Function))
             {
-                while (task.Commands.FirstOrDefault(cmd => cmd.Type == CommandInfo.CommandType.Function) != null)
+                while (task.Commands.FirstOrDefault(cmd => cmd.Type == CommandType.Function) != null)
                 {
-                    var commands = new List<CommandInfo>();
+                    var commands = new List<FullCommandInfo>();
                     bool functionReplaced = false;
 
                     foreach (var command in task.Commands)
                     {
-                        if (command.Type == CommandInfo.CommandType.Function)
+                        if (command.Type == CommandType.Function)
                         {
                             var fun = FunctionCommands.FirstOrDefault(f => f.Name == command.Command);
                             if (fun == null) throw new KeyNotFoundException($"Function command {command.Command} not found.");

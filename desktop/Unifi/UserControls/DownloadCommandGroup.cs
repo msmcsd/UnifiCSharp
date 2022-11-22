@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Unifi.Consoles;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 
 namespace Unifi.UserControls
@@ -55,8 +55,8 @@ namespace Unifi.UserControls
                     return;
             }
             
-            CommandInfo commandInfo = (CommandInfo)ListBox.SelectedItem;
-            CommandInfo clone = (CommandInfo)commandInfo.Clone();
+            FullCommandInfo commandInfo = (FullCommandInfo)ListBox.SelectedItem;
+            FullCommandInfo clone = (FullCommandInfo)commandInfo.Clone();
             clone.Command = "DownloadInstaller";
             
             string installerFileName = Utils.GetInstallerNameByType(installerType, commandInfo.Command);
@@ -64,9 +64,9 @@ namespace Unifi.UserControls
             // Command: build job
             // Arguments: Version of installer to download
             clone.Arguments = $"{commandInfo.Command}, {commandInfo.Arguments}, {installerFileName}, {commandInfo.DisplayText}";
-            clone.Type = CommandInfo.CommandType.Code;
+            clone.Type = CommandType.Code;
             
-            CommandsRunner.RunCommands(new List<CommandInfo> { clone });
+            CommandsRunner.RunCommands(new List<FullCommandInfo> { clone });
         }
     }
 }

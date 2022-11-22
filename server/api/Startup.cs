@@ -39,7 +39,7 @@ namespace API
                 builder.WithOrigins("http://localhost:3000", "https://msmcsd.github.io").AllowAnyMethod().AllowAnyHeader();
             }));
 
-            services.AddSingleton<ICommandsProvider>(new JsonCommandsProvider(UnifiCommands.Utils.GetShowCommandOnMachine(), null));
+            services.AddSingleton<ICommandsProvider>(new JsonCommandsProvider());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

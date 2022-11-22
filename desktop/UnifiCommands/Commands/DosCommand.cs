@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
 using UnifiCommands.CommandExecutors;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
 using Timer = System.Timers.Timer;
 
@@ -13,10 +14,10 @@ namespace UnifiCommands.Commands
     /// </summary>
     public class DosCommand : Command
     {
-        private readonly CommandInfo _command;
+        private readonly FullCommandInfo _command;
         private readonly CommandExecutor _executor;
 
-        public DosCommand(CommandInfo command, ILogger logger) : base(logger)
+        public DosCommand(FullCommandInfo command, ILogger logger) : base(logger)
         {
             _command = command;
             _executor = new DosCommandExecutor(logger);

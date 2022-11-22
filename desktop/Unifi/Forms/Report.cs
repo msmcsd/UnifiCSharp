@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Unifi.Consoles;
 using UnifiCommands.CommandExecutors;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
 using UnifiCommands.Report;
 
@@ -12,7 +12,7 @@ namespace Unifi.Forms
 {
     internal partial class Report : Form
     {
-        private readonly List<CommandInfo> _commands;
+        private readonly List<FullCommandInfo> _commands;
         private readonly bool _isInstall;
         
         // Used when running individual test where output goes to console on the form.
@@ -31,7 +31,7 @@ namespace Unifi.Forms
             InitializeComponent();
         }
 
-        public Report(List<CommandInfo> commands, bool isIsInstall) : this()
+        public Report(List<FullCommandInfo> commands, bool isIsInstall) : this()
         {
             _commands = commands;
             _isInstall = isIsInstall;
@@ -127,7 +127,7 @@ namespace Unifi.Forms
         {
             if (lstReport.SelectedItems.Count <= 0) return;
             
-            CommandInfo command = (CommandInfo)lstReport.SelectedItems[0].Tag;
+            FullCommandInfo command = (FullCommandInfo)lstReport.SelectedItems[0].Tag;
             if (command == null) return;
             
             _executor.Run(command, null);

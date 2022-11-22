@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 
 namespace UnifiCommands.CommandsProvider
 {
@@ -21,12 +21,12 @@ namespace UnifiCommands.CommandsProvider
         /// <summary>
         /// Determines if the task is visible on Dev or Test VM or both.
         /// </summary>
-        public CommandInfo.ShowCommandOnMachine ShowTaskOnMachine { get; set; } = CommandInfo.ShowCommandOnMachine.All;
+        public ShowCommandOnMachine ShowTaskOnMachine { get; set; } = ShowCommandOnMachine.All;
 
         /// <summary>
         /// List of commands for this command group.
         /// </summary>
-        public List<CommandInfo> Commands { get; set; }
+        public List<FullCommandInfo> Commands { get; set; }
     }
 
     public enum CommandGroup

@@ -1,4 +1,5 @@
-﻿using UnifiCommands.Commands;
+﻿using UnifiCommands.CommandInfo;
+using UnifiCommands.Commands;
 
 namespace UnifiCommands.Report
 {
@@ -10,6 +11,6 @@ namespace UnifiCommands.Report
 
         public bool Passed { get; set; }
 
-        public CommandInfo Command { get; set; }
+        public FullCommandInfo Command { get; set; }
     }
 }

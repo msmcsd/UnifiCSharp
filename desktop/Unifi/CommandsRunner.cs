@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unifi.Observers.Animation;
 using UnifiCommands;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
 
 namespace Unifi
@@ -30,7 +30,7 @@ namespace Unifi
             _appType = appType;
         }
 
-        public void RunCommands(List<CommandInfo> commandInfos)
+        public void RunCommands(List<FullCommandInfo> commandInfos)
         {
             var b = new BatchCommandExecutor(commandInfos, _checkReturnValue, _uiObserver, _logger, _appType);
             if (_observer != null)

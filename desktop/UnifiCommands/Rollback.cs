@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 
 namespace UnifiCommands
@@ -13,6 +14,6 @@ namespace UnifiCommands
             public static string None = "None";
         }
 
-        public static Dictionary<string, List<CommandInfo>> RollbackPositionsList { get; set; }
+        public static Dictionary<string, List<FullCommandInfo>> RollbackPositionsList { get; set; }
     }
 }

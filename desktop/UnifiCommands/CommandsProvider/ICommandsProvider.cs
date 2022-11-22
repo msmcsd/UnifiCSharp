@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 
 namespace UnifiCommands.CommandsProvider
 {
@@ -7,15 +7,15 @@ namespace UnifiCommands.CommandsProvider
     {
         List<TestTask> DosTasks { get; set; }
 
-        List<CommandInfo> TaskBarCommands { get; set; }
+        List<FullCommandInfo> TaskBarCommands { get; set; }
 
-        List<CommandInfo> DownloadCommands { get; set; }
+        List<FullCommandInfo> DownloadCommands { get; set; }
 
-        List<CommandInfo> AddAmpplRollbackPositions { get; set; }
+        List<FullCommandInfo> AddAmpplRollbackPositions { get; set; }
 
-        List<CommandInfo> RemoveAmpplRollbackPositions { get; set; }
+        List<FullCommandInfo> RemoveAmpplRollbackPositions { get; set; }
 
-        List<CommandInfo> UpdateAmpplRollbackPositions { get; set; }
+        List<FullCommandInfo> UpdateAmpplRollbackPositions { get; set; }
 
         List<TestTask> FunctionCommands { get; set; }
 

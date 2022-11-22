@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 
 namespace Unifi.Observers.Animation
 {
@@ -19,7 +19,7 @@ namespace Unifi.Observers.Animation
         private static readonly string[] PrefixRunning = { "|", "/", "-", "\\"};
         private int _animationIndex;
         
-        private CommandInfo _currentCommand;
+        private FullCommandInfo _currentCommand;
 
         private readonly ListBox _listBox;
 
@@ -45,7 +45,7 @@ namespace Unifi.Observers.Animation
             RefreshListBox();
         }
 
-        public void StatusUpdateAtCommandStart(CommandInfo info)
+        public void StatusUpdateAtCommandStart(FullCommandInfo info)
         {
             if (_listBox.Items.Count <= 0) return;
 
@@ -58,7 +58,7 @@ namespace Unifi.Observers.Animation
             _statusTimer.Start();
         }
 
-        public void StatusUpdateAtCommandEnd(CommandInfo info)
+        public void StatusUpdateAtCommandEnd(FullCommandInfo info)
         {
             if (_listBox.Items.Count <= 0) return;
 
@@ -82,11 +82,11 @@ namespace Unifi.Observers.Animation
             _listBox.Invoke(new MethodInvoker(() => _listBox.Refresh()));
         }
 
-        private CommandInfo GetCommandInfo(CommandInfo info)
+        private FullCommandInfo GetCommandInfo(FullCommandInfo info)
         {
             foreach (var item in _listBox.Items)
             {
-                if (item is CommandInfo c && c.DisplayText.Equals(info.DisplayText))
+                if (item is FullCommandInfo c && c.DisplayText.Equals(info.DisplayText))
                 {
                     return c;
                 }

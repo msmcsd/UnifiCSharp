@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Timers;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 
@@ -13,7 +14,7 @@ namespace UnifiCommands.CommandExecutors
     {
         public ReportCommandExecutor(ILogger logger) : base(logger) { }
 
-        public override string Run(CommandInfo commandInfo, Timer callbackTimer)
+        public override string Run(FullCommandInfo commandInfo, Timer callbackTimer)
         {
             if (!CommandSupportedOnPlatform(commandInfo))
             {

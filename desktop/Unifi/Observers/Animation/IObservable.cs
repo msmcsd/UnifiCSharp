@@ -1,4 +1,4 @@
-﻿using UnifiCommands.Commands;
+﻿using UnifiCommands.CommandInfo;
 
 namespace Unifi.Observers.Animation
 {
@@ -10,9 +10,9 @@ namespace Unifi.Observers.Animation
     {
         void RegisterObserver(IObserver observer);
         
-        void NotifyObserverCommandStart(CommandInfo info);
+        void NotifyObserverCommandStart(FullCommandInfo info);
 
-        void NotifyObserverCommandEnd(CommandInfo info);
+        void NotifyObserverCommandEnd(FullCommandInfo info);
     }
 
     /// <summary>
@@ -21,8 +21,8 @@ namespace Unifi.Observers.Animation
     /// </summary>
     interface IObserver
     {
-        void StatusUpdateAtCommandStart(CommandInfo info);
+        void StatusUpdateAtCommandStart(FullCommandInfo info);
         
-        void StatusUpdateAtCommandEnd(CommandInfo info);
+        void StatusUpdateAtCommandEnd(FullCommandInfo info);
     }
 }

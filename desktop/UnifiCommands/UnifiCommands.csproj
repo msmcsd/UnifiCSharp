@@ -69,10 +69,11 @@
     <Compile Include="CommandExecutors\CommandExecutor.cs" />
     <Compile Include="CommandExecutors\DosCommandExecutor.cs" />
     <Compile Include="CommandExecutors\ReportCommandExecutor.cs" />
-    <Compile Include="Commands\CommandInfo.cs" />
+    <Compile Include="CommandInfo\FullCommandInfo.cs" />
     <Compile Include="Commands\DosCommand.cs" />
     <Compile Include="CommandsProvider\ICommandsProvider.cs" />
     <Compile Include="CommandsProvider\TestTask.cs" />
+    <Compile Include="CommandInfo\BaseCommandInfo.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logging.cs" />
     <Compile Include="Observers\Report\IUiObservable.cs" />

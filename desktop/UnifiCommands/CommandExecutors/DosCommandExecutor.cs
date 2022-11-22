@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Timers;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
 using Timer = System.Timers.Timer;
 
@@ -15,7 +15,7 @@ namespace UnifiCommands.CommandExecutors
     {
         public DosCommandExecutor(ILogger logger) : base(logger) { }
 
-        public override string Run(CommandInfo commandInfo, Timer callbackTimer)
+        public override string Run(FullCommandInfo commandInfo, Timer callbackTimer)
         {
             if (commandInfo.DisplayText.StartsWith("-")) return null;
 
@@ -40,7 +40,7 @@ namespace UnifiCommands.CommandExecutors
             p.StartInfo.RedirectStandardOutput = commandInfo.RedirectOutputToConsole;
             p.StartInfo.RedirectStandardError = commandInfo.RedirectOutputToConsole;
 
-            if (commandInfo.RunAs == CommandInfo.RunAsUserType.User)
+            if (commandInfo.RunAs == RunAsUserType.User)
             {
                 p.StartInfo.Domain = Environment.UserDomainName;
                 p.StartInfo.UserName = Environment.UserName;
@@ -125,7 +125,7 @@ namespace UnifiCommands.CommandExecutors
         /// <param name="e"></param>
         private void OnMinimizeWindow(object source, ElapsedEventArgs e)
         {
-            CommandInfo command = (CommandInfo)source;
+            FullCommandInfo command = (FullCommandInfo)source;
             string caption = command.Command.Replace("\"", "");
             var handle = FindWindow("ConsoleWindowClass", caption);
             if (handle != IntPtr.Zero)

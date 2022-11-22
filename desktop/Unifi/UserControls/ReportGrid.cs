@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using UnifiCommands;
 using UnifiCommands.CommandExecutors;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
@@ -84,7 +85,7 @@ namespace Unifi.UserControls
                     if (!commandInfo.Visible || string.IsNullOrEmpty(commandInfo.KeywordForSuccess)) continue;
 
                     string output;
-                    if (commandInfo.Type == CommandInfo.CommandType.Dos)
+                    if (commandInfo.Type == CommandType.Dos)
                     {
                         output = reportExecutor.Run(commandInfo, null);
                     }
@@ -146,7 +147,7 @@ namespace Unifi.UserControls
         {
             if (lstReport.SelectedItems.Count <= 0) return;
 
-            CommandInfo commandInfo = (CommandInfo)lstReport.SelectedItems[0].Tag;
+            FullCommandInfo commandInfo = (FullCommandInfo)lstReport.SelectedItems[0].Tag;
             if (commandInfo == null) return;
 
             Command command = CommandFactory.CreateCommand(commandInfo, Logger, AppType.Desktop);

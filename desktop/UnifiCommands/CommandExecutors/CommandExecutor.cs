@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Timers;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 
@@ -10,14 +11,14 @@ namespace UnifiCommands.CommandExecutors
     {
         protected readonly ILogger Logger;
 
-        public abstract string Run(CommandInfo commandInfo, Timer callbackTimer);
+        public abstract string Run(FullCommandInfo commandInfo, Timer callbackTimer);
 
         protected CommandExecutor(ILogger logger)
         {
             Logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} is null");
         }
 
-        protected bool CommandSupportedOnPlatform(CommandInfo commandInfo)
+        protected bool CommandSupportedOnPlatform(FullCommandInfo commandInfo)
         {
             bool supported = !IsWindowsServer() && Environment.OSVersion.Version.CompareTo(new Version("6.2")) >= 0 ||
                              IsWindowsServer() && Environment.OSVersion.Version.CompareTo(new Version("6.3")) >= 0;
@@ -31,7 +32,7 @@ namespace UnifiCommands.CommandExecutors
             return true;
         }
 
-        protected void LogCommand(CommandInfo commandInfo)
+        protected void LogCommand(FullCommandInfo commandInfo)
         {
             Logger.LogCommand($">>{commandInfo.Command} {commandInfo.Arguments}", false);
         }

@@ -82,11 +82,5 @@ namespace UnifiCommands
                 return false;
             }
         }
-
-        public static CommandInfo.ShowCommandOnMachine GetShowCommandOnMachine()
-        {
-            bool isDevMachine = Environment.MachineName.Equals("WindowsDev", StringComparison.InvariantCultureIgnoreCase);
-            return isDevMachine ? CommandInfo.ShowCommandOnMachine.Dev : CommandInfo.ShowCommandOnMachine.Test;
-        }
     }
 }

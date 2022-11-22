@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 
 namespace Unifi.UserControls
 {
@@ -13,10 +13,10 @@ namespace Unifi.UserControls
 
         protected override void OnListClick(object sender, System.EventArgs e)
         {
-            CommandInfo info = ((ListBox)sender).SelectedItem as CommandInfo;
+            FullCommandInfo info = ((ListBox)sender).SelectedItem as FullCommandInfo;
             if (info == null) return;
         
-            CommandsRunner.RunCommands(new List<CommandInfo> { info });
+            CommandsRunner.RunCommands(new List<FullCommandInfo> { info });
         }
 
     }

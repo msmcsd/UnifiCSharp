@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using UnifiCommands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 using UnifiCommands.Observers.Report;
@@ -14,14 +15,14 @@ namespace Unifi.Observers.Animation
     /// </summary>
     internal class BatchCommandExecutor : IObservable
     {
-        private readonly List<CommandInfo> _commandInfos;
+        private readonly List<FullCommandInfo> _commandInfos;
         private readonly bool _checkReturnValue;
         private readonly object _uiObserver;
         private readonly ILogger _logger;
         private readonly AppType _appType;
         private IObserver _observer;
 
-        public BatchCommandExecutor(List<CommandInfo> commandInfos, bool checkReturnValue, object uiObserver, ILogger logger, AppType appType)
+        public BatchCommandExecutor(List<FullCommandInfo> commandInfos, bool checkReturnValue, object uiObserver, ILogger logger, AppType appType)
         {
             _commandInfos = commandInfos;
             _checkReturnValue = checkReturnValue;
@@ -100,12 +101,12 @@ namespace Unifi.Observers.Animation
             Debug.WriteLine(GetType(), _observer != null ? $"Observer of type {_observer.GetType()} registered" : $"{nameof(_observer)} is null");
         }
 
-        public void NotifyObserverCommandStart(CommandInfo info)
+        public void NotifyObserverCommandStart(FullCommandInfo info)
         {
             Debug.WriteLine(GetType(), $"Command starts {info.Command}");
             _observer?.StatusUpdateAtCommandStart(info);
         }
-        public void NotifyObserverCommandEnd(CommandInfo info)
+        public void NotifyObserverCommandEnd(FullCommandInfo info)
         {
             _observer?.StatusUpdateAtCommandEnd(info);
             Debug.WriteLine(GetType(), $"Command ends {info.Command}");
@@ -114,7 +115,7 @@ namespace Unifi.Observers.Animation
 
     internal class CommandTask
     {
-        public CommandInfo CommandInfo { get; set; }
+        public FullCommandInfo CommandInfo { get; set; }
         public Func<Task> Task { get; set; }
     }
 }

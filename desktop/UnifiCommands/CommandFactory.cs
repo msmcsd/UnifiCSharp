@@ -4,19 +4,20 @@ using System.Reflection;
 using UnifiCommands.VariableProcessors;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
+using UnifiCommands.CommandInfo;
 
 namespace UnifiCommands
 {
     public class CommandFactory
     {
-        public static Command CreateCommand(CommandInfo commandInfo, ILogger logger, AppType appType)
+        public static Command CreateCommand(FullCommandInfo commandInfo, ILogger logger, AppType appType)
         {
-            return commandInfo.Type == CommandInfo.CommandType.Dos ? CreateDosCommand(commandInfo, logger, appType) : CreateCodeCommand(commandInfo, logger, appType);
+            return commandInfo.Type == CommandType.Dos ? CreateDosCommand(commandInfo, logger, appType) : CreateCodeCommand(commandInfo, logger, appType);
         }
 
-        private static CommandInfo ReplaceVariables(CommandInfo commandInfo, AppType appType)
+        private static FullCommandInfo ReplaceVariables(FullCommandInfo commandInfo, AppType appType)
         {
-            CommandInfo newCommandInfo = commandInfo.Clone() as CommandInfo;
+            FullCommandInfo newCommandInfo = commandInfo.Clone() as FullCommandInfo;
             VariableConverter converter;
             if (appType == AppType.Desktop)
                 converter = new DesktopRuntimeVariableConverter(newCommandInfo.VariableValueSource);
@@ -29,13 +30,13 @@ namespace UnifiCommands
             return newCommandInfo;
         }
 
-        private static Command CreateDosCommand(CommandInfo commandInfo, ILogger logger, AppType appType)
+        private static Command CreateDosCommand(FullCommandInfo commandInfo, ILogger logger, AppType appType)
         {
             commandInfo = ReplaceVariables(commandInfo, appType);
             return new DosCommand(commandInfo, logger);
         }
 
-        private static Command CreateCodeCommand(CommandInfo commandInfo, ILogger logger, AppType appType)
+        private static Command CreateCodeCommand(FullCommandInfo commandInfo, ILogger logger, AppType appType)
         {
             commandInfo = ReplaceVariables(commandInfo, appType);
 

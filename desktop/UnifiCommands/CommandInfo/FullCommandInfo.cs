@@ -1,35 +1,15 @@
-﻿using System;
-
-namespace UnifiCommands.Commands
+﻿
+namespace UnifiCommands.CommandInfo
 {
     /// <summary>
     /// Represents a command as provided in Json.
     /// </summary>
-    public class CommandInfo : ICloneable
+    public class FullCommandInfo : BaseCommandInfo
     {
-        public enum CommandType
-        {
-            Dos = 0,
-            Code = 1,
-            Function = 2
-        }
-
-        /// <summary>
-        /// 1. Path to the command when Type is Dos. Ex: "cmd.exe".
-        /// 2. Name of the command when Type is Code. Ex: "FileCopy".
-        /// 3. Name of the command when Type is Function. Ex: "Setup_Protect_Install_Env"
-        /// </summary>
-        public string Command { get; set; }
-
         /// <summary>
         /// Arguments for a Dos command, or constructor parameters of a Code command.
         /// </summary>
         public string Arguments { get; set; }
-
-        /// <summary>
-        /// Describes what the command does. This displays on UI.
-        /// </summary>
-        public string DisplayText { get; set; } = "";
 
         /// <summary>
         /// Path to load the icon from for a task in the task bar.
@@ -139,37 +119,6 @@ namespace UnifiCommands.Commands
         /// This field is not set in JSON.
         /// </summary>
         public object VariableValueSource { get; set; }
-        
-        /// <summary>
-        /// Used by React client to identify which command to run. Since not all fields in CommandIno is sent to client,
-        /// this property is used to look up the command info list and return the actual command info. This property is
-        /// expected to be uniquie among all commands.
-        /// </summary>
-        public string ApiMethod { get; set; }
-
-        /// <summary>
-        /// Clones the original command so it does not get overwritten.
-        /// </summary>
-        /// <returns></returns>
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
-
-        [Flags]
-        public enum ShowCommandOnMachine
-        {
-            Test = 1,
-            Dev = 2,
-            All = 3
-        }
-
-        public enum RunAsUserType
-        {
-            Admin,
-            User
-        }
 
     }
-
 }

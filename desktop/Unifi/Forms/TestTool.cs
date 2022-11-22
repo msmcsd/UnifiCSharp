@@ -22,6 +22,7 @@ using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using System.Security.Principal;
 using UnifiCommands.VariableProcessors;
+using UnifiCommands.CommandInfo;
 
 namespace Unifi.Forms
 {
@@ -34,8 +35,6 @@ namespace Unifi.Forms
 #endregion
 
         private const string CategoryPrefix = "--";
-
-        private CommandInfo.ShowCommandOnMachine _showOnMachine;
 
         private ProgramSettings _programSettings;
         private CommandsRunner _commandsRunner;
@@ -214,10 +213,9 @@ namespace Unifi.Forms
 
             Text = $"{Assembly.GetExecutingAssembly().GetName().Name} {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
 
-            _showOnMachine = UnifiCommands.Utils.GetShowCommandOnMachine();
             if (File.Exists(Variables.LocalJsonConfigPath))
             {
-                _commandsProvider = new JsonCommandsProvider(_showOnMachine, this);
+                _commandsProvider = new JsonCommandsProvider(this);
                 Text = $@"{Text} Loaded using JSON";
             }
             else
@@ -393,7 +391,7 @@ namespace Unifi.Forms
                     ? "Win7"
                     : Environment.Is64BitOperatingSystem ? "x64" : "x86";
 
-                CommandInfo command = lstRollbackPosition.SelectedItem as CommandInfo;
+                FullCommandInfo command = lstRollbackPosition.SelectedItem as FullCommandInfo;
                 string rollbackPositionFolder = command == null ? "" : $"{command.Arguments}-{command.DisplayText}";
                 string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}\{rollbackCategory}\{rollbackPositionFolder}");
 
@@ -462,10 +460,8 @@ namespace Unifi.Forms
             pnlTaskBar.Controls.Clear();
             for (int i = tasks.Count - 1; i >= 0; i--)
             {
-                CommandInfo command = tasks[i];
+                FullCommandInfo command = tasks[i];
 
-                // if (!command.Visible || (command.ShowOnMachine & _showOnMachine) != _showOnMachine) continue;
-                
                 Button btn = new Button
                 {
                     Dock = DockStyle.Left,
@@ -487,7 +483,7 @@ namespace Unifi.Forms
         {
             if (sender == null) return;
 
-            CommandInfo commandInfo = (CommandInfo) ((Button) sender).Tag;
+            FullCommandInfo commandInfo = (FullCommandInfo) ((Button) sender).Tag;
             if (commandInfo == null)
             {
                 Trace.Fail("Task is null");
@@ -496,7 +492,7 @@ namespace Unifi.Forms
 
             commandInfo.CreateNewWindow = true;
 
-            RunCommands(new List<CommandInfo> { commandInfo });
+            RunCommands(new List<FullCommandInfo> { commandInfo });
         }
 
         private void PopulateInstallCommands()
@@ -520,7 +516,7 @@ namespace Unifi.Forms
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.UpdateAmpplPositions,_commandsProvider.UpdateAmpplRollbackPositions);
 
-            Rollback.RollbackPositionsList = new Dictionary<string, List<CommandInfo>>
+            Rollback.RollbackPositionsList = new Dictionary<string, List<FullCommandInfo>>
             {
                 {Rollback.RollbackCategoryName.AddAmppl,  _commandsProvider.AddAmpplRollbackPositions},
                 {Rollback.RollbackCategoryName.RemoveAmppl,  _commandsProvider.RemoveAmpplRollbackPositions},
@@ -530,7 +526,7 @@ namespace Unifi.Forms
             grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
         }
 
-        private void PopulateRollbackPositions(string category, IEnumerable<CommandInfo> rollbackPositions)
+        private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)
         {
             var commandInfos = rollbackPositions?.ToList();
             if (commandInfos == null || string.IsNullOrEmpty(category) || commandInfos.Count <= 0) return;
@@ -574,12 +570,12 @@ namespace Unifi.Forms
         /// <param name="e"></param>
         private void ShowFilesVersions(object source, ElapsedEventArgs e)
         {
-            var ds = new List<CommandInfo> { };
+            var ds = new List<FullCommandInfo> { };
             VariableConverter converter = new DesktopRuntimeVariableConverter(this);
 
             foreach (var item in _listVersion.Items)
             {
-                CommandInfo info = (CommandInfo) item;
+                FullCommandInfo info = (FullCommandInfo) item;
                 ds.Add(info);
                 if (!info.Command.Equals("FileVersion", StringComparison.InvariantCultureIgnoreCase)) continue;
             
@@ -592,7 +588,7 @@ namespace Unifi.Forms
             _listVersion.DataSource = ds;
         }
 
-        private void UpdateFileVersion(CommandInfo commandInfo, string filePath)
+        private void UpdateFileVersion(FullCommandInfo commandInfo, string filePath)
         {
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -640,7 +636,7 @@ namespace Unifi.Forms
         /// <param name="commandInfos"></param>
         /// <param name="observer"></param>
         /// <param name="checkReturnValue"></param>
-        private void RunCommands(List<CommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
+        private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
         {
             var b = new BatchCommandExecutor(commandInfos, checkReturnValue, reportGrid1, _logger, AppType.Desktop);
             b.RegisterObserver(observer);
@@ -651,7 +647,7 @@ namespace Unifi.Forms
         /// Displays each command and its arguments in the list.
         /// </summary>
         /// <param name="commandInfos"></param>
-        private void DisplayCommands(List<CommandInfo> commandInfos)
+        private void DisplayCommands(List<FullCommandInfo> commandInfos)
         {
             foreach (var info in commandInfos)
             {
@@ -665,13 +661,13 @@ namespace Unifi.Forms
             ListBox listBox = (ListBox)sender;
             if (sender == null || e == null || e.Index < 0) return;
 
-            CommandInfo info = (CommandInfo)listBox.Items[e.Index];
+            FullCommandInfo info = (FullCommandInfo)listBox.Items[e.Index];
 
             Font font = info.DisplayText.StartsWith(CategoryPrefix) ?
                 new Font(listBox.Font.FontFamily, listBox.Font.Size, FontStyle.Bold) :
                 new Font(listBox.Font.FontFamily, listBox.Font.Size);
 
-            Brush brush = info.Type == CommandInfo.CommandType.Code ? Brushes.Green : Brushes.Black;
+            Brush brush = info.Type == CommandType.Code ? Brushes.Green : Brushes.Black;
 
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
@@ -691,7 +687,7 @@ namespace Unifi.Forms
 
             // Updates the data source again since the commands' display text might have changed.
             PopulateBatchCommandDataSource();
-            RunCommands((List<CommandInfo>)lstBatchCommand.DataSource, new BatchListboxUpdater(lstBatchCommand), true);
+            RunCommands((List<FullCommandInfo>)lstBatchCommand.DataSource, new BatchListboxUpdater(lstBatchCommand), true);
         }
 
         private async void btnSetFunctionsToRun_Click(object sender, EventArgs e)
