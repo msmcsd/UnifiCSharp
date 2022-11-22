@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31019.35
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unifi", "Unifi\Unifi.csproj", "{4186176C-D957-4B20-8E6A-55721261DD99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnifiApi", "Api\UnifiApi.csproj", "{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tail", "Tail\Tail.csproj", "{ED8E929F-8497-43BD-BF60-C844AFB3EF78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnifiDesktop", "Desktop\UnifiDesktop\UnifiDesktop.csproj", "{4186176C-D957-4B20-8E6A-55721261DD99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tail", "Desktop\Tail\Tail.csproj", "{ED8E929F-8497-43BD-BF60-C844AFB3EF78}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnifiCommands", "UnifiCommands\UnifiCommands.csproj", "{3D560782-BB3A-4183-9A4B-E3087F2CC7B1}"
 EndProject
@@ -19,6 +21,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Debug|x64.Build.0 = Debug|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Debug|x86.Build.0 = Debug|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Release|x64.ActiveCfg = Release|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Release|x64.Build.0 = Release|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{567C41F9-5E35-4AA4-A779-6B0AAFFFDBA8}.Release|x86.Build.0 = Release|Any CPU
 		{4186176C-D957-4B20-8E6A-55721261DD99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4186176C-D957-4B20-8E6A-55721261DD99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4186176C-D957-4B20-8E6A-55721261DD99}.Debug|x64.ActiveCfg = Debug|x64
@@ -39,10 +53,10 @@ Global
 		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Debug|x86.Build.0 = Debug|x86
 		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x64.ActiveCfg = Release|Any CPU
-		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x64.Build.0 = Release|Any CPU
-		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x86.ActiveCfg = Release|Any CPU
-		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x86.Build.0 = Release|Any CPU
+		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x64.ActiveCfg = Release|x64
+		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x64.Build.0 = Release|x64
+		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x86.ActiveCfg = Release|x86
+		{ED8E929F-8497-43BD-BF60-C844AFB3EF78}.Release|x86.Build.0 = Release|x86
 		{3D560782-BB3A-4183-9A4B-E3087F2CC7B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D560782-BB3A-4183-9A4B-E3087F2CC7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D560782-BB3A-4183-9A4B-E3087F2CC7B1}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -60,6 +74,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1AF3C4E8-F533-47F7-8D4F-A4365EC55555}
+		SolutionGuid = {ABB97A11-49A4-469C-9B50-6853344D8B6C}
 	EndGlobalSection
 EndGlobal

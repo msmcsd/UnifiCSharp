@@ -29,7 +29,7 @@ namespace UnifiCommands
         #region VMWare constants
         public static string VmWareSharedFolder => @"\\vmware-host\Shared Folders\VMWare-Share";
 
-        public static string JsonConfigFileName = "Unifi.json";
+        public static string JsonConfigFileName = "UnifiDesktop.json";
 
         public static string LocalJsonConfigPath = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), JsonConfigFileName);
 
