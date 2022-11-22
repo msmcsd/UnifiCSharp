@@ -23,6 +23,8 @@ namespace UnifiCommands.CommandsProvider
         }
 
         public List<TestTask> TestTasks { get; set; }
+        
+        public List<WebTestTask> WebTestTasks { get; set; }
 
         public List<TestTask> DosTasks { get; set; }
 
@@ -102,6 +104,37 @@ namespace UnifiCommands.CommandsProvider
             FunctionCommands = TestTasks.Where(t => t.CommandGroup == CommandGroup.Function).ToList();
 
             ReplaceFunctionCommands();
+
+            if (_appType == AppType.Web)
+            {
+                CopyToWebTasks();
+            }
+        }
+
+        /// <summary>
+        /// Instantiate WebTestTasks object which use WebCommandInfo as Command. This object contains less info
+        /// than TestTasks so less info is sent back to web client from server.
+        /// </summary>
+        private void CopyToWebTasks()
+        {
+            WebTestTasks = new List<WebTestTask>();
+
+            foreach(var task in TestTasks.Where(t => t.UsedInWeb))
+            {
+                var webtask = new WebTestTask
+                {
+                    Name = task.Name,
+                    CommandGroup = task.CommandGroup,
+                    Commands = new List<BaseCommandInfo>()
+                };
+
+                foreach(var command in task.Commands)
+                {
+                    webtask.Commands.Add(command.CreateBaseCommand());
+                }
+
+                WebTestTasks.Add(webtask);
+            }
         }
 
         /// <summary>

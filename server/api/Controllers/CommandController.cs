@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UnifiCommands;
-using UnifiCommands.Commands;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 
 namespace api.Controllers
@@ -31,9 +31,9 @@ namespace api.Controllers
         }
 
         [HttpGet("Commands")]
-        public List<CommandInfo> GetAllCommands()
+        public List<WebTestTask> GetAllCommands()
         {
-            var a = _commandsProvider.DownloadCommands;
+            var a = _commandsProvider.WebTestTasks;
             return a;
         }
 

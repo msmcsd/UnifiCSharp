@@ -22,5 +22,7 @@ namespace UnifiCommands.CommandsProvider
         List<TestTask> BatchTasks { get; set; }
 
         List<TestTask> TestTasks { get; set; }
+        
+        List<WebTestTask> WebTestTasks { get; set; }
     }
 }

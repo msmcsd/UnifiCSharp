@@ -120,5 +120,20 @@ namespace UnifiCommands.CommandInfo
         /// </summary>
         public object VariableValueSource { get; set; }
 
+        /// <summary>
+        /// Creates a BaseCommandInfo object and copy the values of corresponding properties from FullCommandInfo.
+        /// </summary>
+        /// <returns></returns>
+        public BaseCommandInfo CreateBaseCommand()
+        {
+            var clone = new BaseCommandInfo();
+            foreach(var property in clone.GetType().GetProperties())
+            {
+                var p = GetType().GetProperty(property.Name);
+                var o = p.GetValue(this);
+                property.SetValue(clone, o);
+            }
+            return clone;
+        }
     }
 }

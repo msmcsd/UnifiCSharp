@@ -27,6 +27,33 @@ namespace UnifiCommands.CommandsProvider
         /// List of commands for this command group.
         /// </summary>
         public List<FullCommandInfo> Commands { get; set; }
+
+        /// <summary>
+        /// Used to determine if the command group is needed in web client.
+        /// This is to minimize the amount of data sent back to web client.
+        /// </summary>
+        public bool UsedInWeb => CommandGroup != CommandGroup.Function && CommandGroup != CommandGroup.Function && CommandGroup != CommandGroup.Variable;
+
+        /// <summary>
+        /// When CommandGroup is Install, ApiMethod will refer to this command group instead of individual command
+        /// since all commands need to run. For individual command like Dos Command, each command will have its own ApiMethod.
+        /// </summary>
+        public string ApiMethod { get; set; }
+    }
+
+    public class WebTestTask
+    {
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Used to group similar commands, which are populated in the same list box.
+        /// </summary>
+        public CommandGroup CommandGroup { get; set; }
+
+        /// <summary>
+        /// List of commands for this command group.
+        /// </summary>
+        public List<BaseCommandInfo> Commands { get; set; }
     }
 
     public enum CommandGroup
