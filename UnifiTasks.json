@@ -641,6 +641,30 @@
 		]
 	},
 	{
+		"Name": "Deploy",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c \"C:\\Windows\\System32\\inetsrv\\inetmgr.exe\"",
+				"DisplayText": "Open IIS",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c ${ExplorerPath} C:\\inetpub\\wwwroot\\Unifi\\API",
+				"DisplayText": "IIS Api folder",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployToIIS.bat\"",
+				"DisplayText": "Deploy to IIS",
+				"ShowOnMachine": "Test"
+			}
+		]
+	},
+	{
 		"Name": "Compile",
 		"CommandGroup": "Dos",
 		"Commands": [
