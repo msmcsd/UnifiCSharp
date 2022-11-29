@@ -134,7 +134,7 @@ namespace UnifiCommands
 
         public static string ProtectDebugFolder => Path.Combine(ProtectProjectFolder, @"src\bin\Debug");
 
-        public static string DevLogPath => $@"{ProtectDebugFolder}\log\[GetLogFileName]";
+        public static string DevLogPath => $@"{ProtectDebugFolder}\log\$[GetProtectLogFileName]";
 
         public static string ProtectJenkinsUrl { get; set; }    // Retrieved at runtime from JSON.
 
