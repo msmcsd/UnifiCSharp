@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppType.cs" />
+    <Compile Include="CommandExecutors\BatchCommandExecutor.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="CommandsProvider\DefaultCommandsProvider.cs" />
     <Compile Include="CommandsProvider\JsonCommandsProvider.cs" />

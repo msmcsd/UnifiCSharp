@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
+using UnifiCommands.CommandExecutors;
+using UnifiCommands.Logging;
 
 namespace api.Controllers
 {
@@ -28,7 +28,21 @@ namespace api.Controllers
         public string GetCommand(string commandGroup, string displayText)
         {
             FullCommandInfo command = _commandsProvider.FindCommand(commandGroup, displayText);
-            return command==null ? "Not found" : "Found";
+            if (command == null) return "Command not found";
+
+            UnifiCommands.Logging.ILogger webLogger = new WebLogger();
+            RunCommands(new List<FullCommandInfo>() { command}, webLogger);
+            (webLogger as IDisposable).Dispose();
+            
+            return "Command finishes running";
+        }
+
+        //private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
+        private void RunCommands(List<FullCommandInfo> commandInfos, UnifiCommands.Logging.ILogger logger, bool checkReturnValue = false)
+        {
+            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, null, logger, AppType.Desktop);
+            //b.RegisterObserver(observer);
+            b.Execute();
         }
 
         [HttpGet("Commands")]

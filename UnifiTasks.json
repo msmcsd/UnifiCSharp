@@ -628,8 +628,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 2 \"Error\"",
-				"DisplayText": "Filter Error",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"AMSI provider\"",
+				"DisplayText": "Follow AMSI",
 				"ShowOnMachine": "All"
 			},
 			{
@@ -947,7 +947,7 @@
 				"DisplayText": "Open Dev Log",
 				"IconSourcePath": "${NotepadPath}",
 				"ApiMethod": "OpenDevLog",
-				"ShowOnMachine": "Dev"
+				"ShowOnMachine": "Test"
 			},			
 			{
 				"Command": "${PsExecPath}",
@@ -1018,8 +1018,8 @@
 			},
 			{
 				"Command": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna",
-				"Arguments": "41",
-				"DisplayText": "3.1.1000.33"
+				"Arguments": "30",
+				"DisplayText": "3.1.1000.23"
 			},
 			{
 				"Command": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna",
@@ -1033,8 +1033,8 @@
 			},
 			{
 				"Command": "Protect/job/Agent/job/BC/job/agent-b-branch-dna",
-				"Arguments": "2424",
-				"DisplayText": "3.1.9700.36036"
+				"Arguments": "2437",
+				"DisplayText": "3.1.9700.36049"
 			},
 			{
 				"Command": "",
