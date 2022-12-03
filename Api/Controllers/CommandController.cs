@@ -31,7 +31,7 @@ namespace api.Controllers
             if (command == null) return "Command not found";
 
             UnifiCommands.Logging.ILogger webLogger = new WebLogger();
-            RunCommands(new List<FullCommandInfo>() { command}, webLogger);
+            RunCommands(new List<FullCommandInfo>() { command }, webLogger);
             (webLogger as IDisposable).Dispose();
             
             return "Command finishes running";

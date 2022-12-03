@@ -1,55 +1,95 @@
+using SocketIOClient;
+using SocketIOClient.Messages;
 using System;
-using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using UnifiCommands.Logging;
 
 public class WebLogger : ILogger, IDisposable
 {
-    // Establish the remote endpoint
-    // for the socket. This example
-    // uses port 11111 on the local
-    // computer.
-
-    private readonly Socket _sender;
     private bool _disposed = false;
-    
+    SocketIO _client = new SocketIO("http://localhost:10000/");
+
+    private enum SocketEvent
+    {
+        Error,
+        Info,
+        CommandInfo,
+        Progress
+    }
+
     public WebLogger()
     {
-        IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
-        IPAddress ipAddr = ipHost.AddressList[0];
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 11111);
+        //_client.On("hi", response =>
+        //{
+        //    // You can print the returned data first to decide what to do next.
+        //    // output: ["hi client"]
+        //    Console.WriteLine(response);
 
-        _sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-        _sender.Connect(localEndPoint);
+        //    string text = response.GetValue<string>();
 
-        Console.WriteLine("Socket connected to -> {0} ", _sender.RemoteEndPoint.ToString());
+        //    // The socket.io server code looks like this:
+        //    // socket.emit('hi', 'hi client');
+        //});
+
+        _client.On("disconnecting", response =>
+        {
+            LogInfo($"{GetType().Name} disconnecting from socket serer");
+            // You can print the returned data first to decide what to do next.
+            // output: ["ok",{"id":1,"name":"tom"}]
+            //Console.WriteLine($"From server >> {response}");
+
+            // Get the first data in the response
+            //string text = response.GetValue<string>();
+            //Console.WriteLine($"From server >> {text}");
+            // Get the second data in the response
+            //var dto = response.GetValue<TestDTO>(1);
+
+            // The socket.io server code looks like this:
+            // socket.emit('hi', 'ok', { id: 1, name: 'tom'});
+        });
+
+        _client.OnConnected += async (sender, e) =>
+        {
+            LogInfo($"{GetType().Name} connected to socket server.");
+            //Console.WriteLine($"Connected.");
+            // Emit a string
+
+            //string s = "test string";
+            //Console.WriteLine($"Sending to server: {s}");
+            //await _client.EmitAsync("ping", s);
+
+            // Emit a string and an object
+            //var dto = new TestDTO { Id = 123, Name = "bob" };
+            //await client.EmitAsync("register", "source", dto);
+        };
+
+        _client.ConnectAsync();
+
     }
 
     public void LogCommand(string message, bool newLine)
     {
-        SendMessageToSocketServer($"[COMMAND]{message}");
+        SendMessageToSocketServer(SocketEvent.CommandInfo, message);
     }
 
     public void LogError(string message)
     {
-        SendMessageToSocketServer($"[ERROR]{message}");
+        SendMessageToSocketServer(SocketEvent.Error, message);
     }
 
     public void LogInfo(string message)
     {
-        SendMessageToSocketServer($"[INFO]{message}");
+        SendMessageToSocketServer(SocketEvent.Info, message);
     }
 
     public void LogProgress(string message)
     {
-        SendMessageToSocketServer($"[PROGRESS]{message}");
+        SendMessageToSocketServer(SocketEvent.Progress, message);
     }
 
-    private void SendMessageToSocketServer(string message)
+    private void SendMessageToSocketServer(SocketEvent socketEvent, string message)
     {
-        byte[] messageSent = Encoding.ASCII.GetBytes($"{message}<EOF>");
-        int byteSent = _sender.Send(messageSent);
+        _client.EmitAsync(socketEvent.ToString(), message);
     }
 
     public void Dispose()
@@ -70,13 +110,16 @@ public class WebLogger : ILogger, IDisposable
                 // Dispose managed resources.
                 try
                 {
-                    _sender.Shutdown(SocketShutdown.Both);
+                    foreach(var e in Enum.GetNames(typeof(SocketEvent)))
+                    {
+                        _client.Off(e);
+                    }
+                    _client.DisconnectAsync();
                 }
                 finally
                 {
-                    _sender.Close();
+                    _client.Dispose();
                 }
-                _sender.Dispose();
             }
 
             // Note disposing has been done.

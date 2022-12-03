@@ -7,7 +7,8 @@ ExecuteClient();
 string s = Console.ReadLine();
 while (!string.IsNullOrEmpty(s))
 {
-    await client.EmitAsync("ping", s);
+    string[] p = s.Split(new char[] { ',' });     
+    await client.EmitAsync(p[0], p[1]);
     s = Console.ReadLine();
 }
 
