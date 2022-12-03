@@ -1,92 +1,62 @@
-﻿using System.Net.Sockets;
-using System.Net;
-using System.Text;
+﻿using SocketIOClient;
+
+SocketIO client = new SocketIO("http://localhost:10000/");
 
 ExecuteClient();
 
-static void ExecuteClient()
+string s = Console.ReadLine();
+while (!string.IsNullOrEmpty(s))
 {
-    try
+    await client.EmitAsync("ping", s);
+    s = Console.ReadLine();
+}
+
+Console.ReadKey();
+
+async void ExecuteClient()
+{
+
+    client.On("hi", response =>
     {
+        // You can print the returned data first to decide what to do next.
+        // output: ["hi client"]
+        Console.WriteLine(response);
 
-        // Establish the remote endpoint
-        // for the socket. This example
-        // uses port 11111 on the local
-        // computer.
-        IPHostEntry ipHost = Dns.GetHostEntry(Dns.GetHostName());
-        IPAddress ipAddr = ipHost.AddressList[0];
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 11111);
+        string text = response.GetValue<string>();
 
-        try
-        {
-            while (true)
-            {
-                // Creation TCP/IP Socket using
-                // Socket Class Constructor
-                Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        // The socket.io server code looks like this:
+        // socket.emit('hi', 'hi client');
+    });
 
-                // Connect Socket to the remote
-                // endpoint using method Connect()
-                sender.Connect(localEndPoint);
-
-                // We print EndPoint information
-                // that we are connected
-                Console.WriteLine("Socket connected to -> {0} ", sender.RemoteEndPoint.ToString());
-
-                // Creation of message that
-                // we will send to Server
-                string s = Console.ReadLine();
-                byte[] messageSent = Encoding.ASCII.GetBytes($"{s}<EOF>");
-                int byteSent = sender.Send(messageSent);
-
-                // Data buffer
-                byte[] messageReceived = new byte[1024];
-
-                // We receive the message using
-                // the method Receive(). This
-                // method returns number of bytes
-                // received, that we'll use to
-                // convert them to string
-                int byteRecv = sender.Receive(messageReceived);
-                Console.WriteLine("Message from Server -> {0}",
-                        Encoding.ASCII.GetString(messageReceived,
-                                                    0, byteRecv));
-
-                // Close Socket using
-                // the method Close()
-                try
-                {
-                    sender.Shutdown(SocketShutdown.Both);
-                }
-                finally
-                {
-                    sender.Close();
-                }
-            }
-        }
-
-        // Manage of Socket's Exceptions
-        catch (ArgumentNullException ane)
-        {
-
-            Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
-        }
-
-        catch (SocketException se)
-        {
-
-            Console.WriteLine("SocketException : {0}", se.ToString());
-        }
-
-        catch (Exception e)
-        {
-            Console.WriteLine("Unexpected exception : {0}", e.ToString());
-        }
-    }
-
-    catch (Exception e)
+    client.On("pong", response =>
     {
+        // You can print the returned data first to decide what to do next.
+        // output: ["ok",{"id":1,"name":"tom"}]
+        //Console.WriteLine($"From server >> {response}");
 
-        Console.WriteLine(e.ToString());
-    }
+        // Get the first data in the response
+        string text = response.GetValue<string>();
+        Console.WriteLine($"From server >> {text}");
+        // Get the second data in the response
+        //var dto = response.GetValue<TestDTO>(1);
+
+        // The socket.io server code looks like this:
+        // socket.emit('hi', 'ok', { id: 1, name: 'tom'});
+    });
+
+    client.OnConnected += async (sender, e) =>
+    {
+        Console.WriteLine($"Connected.");
+        // Emit a string
+
+        string s = "test string";
+        Console.WriteLine($"Sending to server: {s}");
+        await client.EmitAsync("ping", s);
+
+        // Emit a string and an object
+        //var dto = new TestDTO { Id = 123, Name = "bob" };
+        //await client.EmitAsync("register", "source", dto);
+    };
+    
+    await client.ConnectAsync();
 }
