@@ -25,6 +25,6 @@ namespace UnifiCommands.CommandsProvider
         
         List<WebTestTask> WebTestTasks { get; set; }
 
-        FullCommandInfo FindCommand(string commandGroup, string displayText);
+        FullCommandInfo FindCommand(string taskName, string displayText);
     }
 }

@@ -112,13 +112,13 @@ public class WebLogger : ILogger, IDisposable
                 {
                     foreach(var e in Enum.GetNames(typeof(SocketEvent)))
                     {
-                        _client.Off(e);
+                        //_client?.Off(e);
                     }
-                    _client.DisconnectAsync();
+                    //_client?.DisconnectAsync();
                 }
                 finally
                 {
-                    _client.Dispose();
+                    //_client?.Dispose();
                 }
             }
 

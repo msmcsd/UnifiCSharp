@@ -25,16 +25,16 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("[controller]")]
-        public string GetCommand(string commandGroup, string displayText)
+        public string GetCommand(string taskName, string displayText)
         {
-            FullCommandInfo command = _commandsProvider.FindCommand(commandGroup, displayText);
+            FullCommandInfo command = _commandsProvider.FindCommand(taskName, displayText);
             if (command == null) return "Command not found";
 
             UnifiCommands.Logging.ILogger webLogger = new WebLogger();
             RunCommands(new List<FullCommandInfo>() { command }, webLogger);
             (webLogger as IDisposable).Dispose();
             
-            return "Command finishes running";
+            return "{\"result\": \"Command finishes running\"}";
         }
 
         //private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)

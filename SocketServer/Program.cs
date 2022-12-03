@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using SocketIOSharp.Common;
 using SocketIOSharp.Server;
+using System.Net.Sockets;
+using System.Text;
 
-ExecuteServer();
+//ExecuteServer();
+StartTcpListener();
 
 static void ExecuteServer()
 {
@@ -46,4 +49,46 @@ static void ExecuteServer()
 
     Console.WriteLine("Press enter to continue...");
     Console.Read();
+}
+
+static void StartTcpListener()
+{
+    TcpListener serverSocket = new TcpListener(10000);
+    int requestCount = 0;
+    TcpClient clientSocket = default(TcpClient);
+    serverSocket.Start();
+    Console.WriteLine(" >> Server Started");
+    clientSocket = serverSocket.AcceptTcpClient();
+    Console.WriteLine(" >> Accept connection from client");
+    requestCount = 0;
+
+    while ((true))
+    {
+        try
+        {
+            //requestCount = requestCount + 1;
+            NetworkStream networkStream = clientSocket.GetStream();
+            //byte[] bytesFrom = new byte[10025];
+            //networkStream.Read(bytesFrom, 0, (int)clientSocket.ReceiveBufferSize);
+            //string dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
+            //dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
+            //Console.WriteLine(" >> Data from client - " + dataFromClient);
+
+            //string serverResponse = "Last Message from client" + dataFromClient;
+            string serverResponse = "Last Message from client";
+            Byte[] sendBytes = Encoding.ASCII.GetBytes(serverResponse);
+            networkStream.Write(sendBytes, 0, sendBytes.Length);
+            networkStream.Flush();
+            Console.WriteLine(" >> " + serverResponse);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
+    clientSocket.Close();
+    serverSocket.Stop();
+    Console.WriteLine(" >> exit");
+    Console.ReadLine();
 }

@@ -11,9 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tail", "Desktop\Tail\Tail.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnifiCommands", "UnifiCommands\UnifiCommands.csproj", "{3D560782-BB3A-4183-9A4B-E3087F2CC7B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketClient", "SocketClient\SocketClient.csproj", "{C2836713-811C-4544-993A-2CFE15FE8107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketClient", "SocketClient\SocketClient.csproj", "{C2836713-811C-4544-993A-2CFE15FE8107}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer", "SocketServer\SocketServer.csproj", "{7EC56F95-D05D-4E73-81A2-B146FF5009AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocketServer", "SocketServer\SocketServer.csproj", "{7EC56F95-D05D-4E73-81A2-B146FF5009AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspWebSocketServer", "AspWebSocketServer\AspWebSocketServer.csproj", "{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspWebSocketClient", "AspWebSocketClient\AspWebSocketClient.csproj", "{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +101,30 @@ Global
 		{7EC56F95-D05D-4E73-81A2-B146FF5009AF}.Release|x64.Build.0 = Release|Any CPU
 		{7EC56F95-D05D-4E73-81A2-B146FF5009AF}.Release|x86.ActiveCfg = Release|Any CPU
 		{7EC56F95-D05D-4E73-81A2-B146FF5009AF}.Release|x86.Build.0 = Release|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Debug|x64.Build.0 = Debug|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Debug|x86.Build.0 = Debug|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Release|x64.ActiveCfg = Release|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Release|x64.Build.0 = Release|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Release|x86.ActiveCfg = Release|Any CPU
+		{D35DDB84-AB1C-44B3-86EE-1BF058ABA432}.Release|x86.Build.0 = Release|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Debug|x64.Build.0 = Debug|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Debug|x86.Build.0 = Debug|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Release|x64.ActiveCfg = Release|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Release|x64.Build.0 = Release|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Release|x86.ActiveCfg = Release|Any CPU
+		{70BDEEF6-ABF6-4A32-9E41-433EE843DB18}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
