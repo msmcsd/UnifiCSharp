@@ -58,6 +58,6 @@ async void ExecuteClient()
         //var dto = new TestDTO { Id = 123, Name = "bob" };
         //await client.EmitAsync("register", "source", dto);
     };
-    
+
     await client.ConnectAsync();
 }

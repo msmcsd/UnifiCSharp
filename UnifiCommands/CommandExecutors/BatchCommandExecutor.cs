@@ -32,7 +32,7 @@ namespace UnifiCommands.CommandExecutors
             _appType = appType;
         }
 
-        public async void Execute()
+        public async Task Execute()
         {
             List<CommandTask> tasks = new List<CommandTask>();
 

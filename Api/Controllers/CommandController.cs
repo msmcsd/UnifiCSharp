@@ -7,6 +7,8 @@ using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.CommandExecutors;
 using UnifiCommands.Logging;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace api.Controllers
 {
@@ -25,24 +27,27 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("[controller]")]
-        public string GetCommand(string taskName, string displayText)
+        public async Task<string> GetCommand(string taskName, string displayText)
         {
             FullCommandInfo command = _commandsProvider.FindCommand(taskName, displayText);
             if (command == null) return "Command not found";
 
-            UnifiCommands.Logging.ILogger webLogger = new WebLogger();
-            RunCommands(new List<FullCommandInfo>() { command }, webLogger);
+            AutoResetEvent ev = new AutoResetEvent(false); // Ensure socket server is connected before running commands.
+            UnifiCommands.Logging.ILogger webLogger = new WebLogger(ev);
+            ev.WaitOne();
+            
+            await RunCommands(new List<FullCommandInfo>() { command }, webLogger);
             (webLogger as IDisposable).Dispose();
             
             return "{\"result\": \"Command finishes running\"}";
         }
 
         //private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
-        private void RunCommands(List<FullCommandInfo> commandInfos, UnifiCommands.Logging.ILogger logger, bool checkReturnValue = false)
+        private async Task RunCommands(List<FullCommandInfo> commandInfos, UnifiCommands.Logging.ILogger logger, bool checkReturnValue = false)
         {
-            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, null, logger, AppType.Desktop);
+            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, null, logger, AppType.Web);
             //b.RegisterObserver(observer);
-            b.Execute();
+            await b.Execute();
         }
 
         [HttpGet("Commands")]

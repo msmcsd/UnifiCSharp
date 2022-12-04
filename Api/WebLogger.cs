@@ -2,6 +2,7 @@ using SocketIOClient;
 using SocketIOClient.Messages;
 using System;
 using System.Net.Sockets;
+using System.Threading;
 using UnifiCommands.Logging;
 
 public class WebLogger : ILogger, IDisposable
@@ -17,7 +18,7 @@ public class WebLogger : ILogger, IDisposable
         Progress
     }
 
-    public WebLogger()
+    public WebLogger(AutoResetEvent ev)
     {
         //_client.On("hi", response =>
         //{
@@ -51,6 +52,7 @@ public class WebLogger : ILogger, IDisposable
         _client.OnConnected += async (sender, e) =>
         {
             LogInfo($"{GetType().Name} connected to socket server.");
+            ev.Set();
             //Console.WriteLine($"Connected.");
             // Emit a string
 
@@ -64,7 +66,6 @@ public class WebLogger : ILogger, IDisposable
         };
 
         _client.ConnectAsync();
-
     }
 
     public void LogCommand(string message, bool newLine)
@@ -89,6 +90,8 @@ public class WebLogger : ILogger, IDisposable
 
     private void SendMessageToSocketServer(SocketEvent socketEvent, string message)
     {
+        if (string.IsNullOrEmpty(message)) return;
+
         _client.EmitAsync(socketEvent.ToString(), message);
     }
 
@@ -112,13 +115,13 @@ public class WebLogger : ILogger, IDisposable
                 {
                     foreach(var e in Enum.GetNames(typeof(SocketEvent)))
                     {
-                        //_client?.Off(e);
+                        _client?.Off(e);
                     }
-                    //_client?.DisconnectAsync();
+                    _client?.DisconnectAsync();
                 }
                 finally
                 {
-                    //_client?.Dispose();
+                    _client?.Dispose();
                 }
             }
 
