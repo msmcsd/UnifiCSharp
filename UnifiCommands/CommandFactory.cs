@@ -22,7 +22,7 @@ namespace UnifiCommands
             if (appType == AppType.Desktop)
                 converter = new DesktopRuntimeVariableConverter(newCommandInfo.VariableValueSource);
             else
-                converter = new WebRuntimeVariableConverter(null);
+                converter = new WebRuntimeVariableConverter(newCommandInfo.VariableValueSource);
 
             newCommandInfo.Command = converter.ReplaceVariables(newCommandInfo.Command);
             newCommandInfo.Arguments = converter.ReplaceVariables(newCommandInfo.Arguments);

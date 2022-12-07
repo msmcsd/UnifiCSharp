@@ -1,10 +1,11 @@
 using SocketIOClient;
-using SocketIOClient.Messages;
 using System;
-using System.Net.Sockets;
 using System.Threading;
 using UnifiCommands.Logging;
 
+/// <summary>
+/// Implemented using socket.io-client-csharp https://github.com/doghappy/socket.io-client-csharp/tree/master/src/SocketIOClient
+/// </summary>
 public class WebLogger : ILogger, IDisposable
 {
     private bool _disposed = false;
@@ -14,7 +15,7 @@ public class WebLogger : ILogger, IDisposable
     {
         Error,
         Info,
-        CommandInfo,
+        Parameters,
         Progress
     }
 
@@ -70,7 +71,7 @@ public class WebLogger : ILogger, IDisposable
 
     public void LogCommand(string message, bool newLine)
     {
-        SendMessageToSocketServer(SocketEvent.CommandInfo, message);
+        SendMessageToSocketServer(SocketEvent.Parameters, message);
     }
 
     public void LogError(string message)
