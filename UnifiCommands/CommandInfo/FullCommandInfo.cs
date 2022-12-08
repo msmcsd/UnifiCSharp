@@ -1,4 +1,7 @@
 ﻿
+using UnifiCommands.Logging;
+using UnifiCommands.VariableProcessors;
+
 namespace UnifiCommands.CommandInfo
 {
     /// <summary>
@@ -141,6 +144,20 @@ namespace UnifiCommands.CommandInfo
                 property.SetValue(clone, o);
             }
             return clone;
+        }
+
+        public static string ShowCommand(FullCommandInfo commandInfo, ILogger logger, VariableConverter converter)
+        {
+            if (commandInfo == null) return $"{nameof(Command)} is null";
+            if (logger == null) return $"{nameof(logger)} is null";
+            if (converter == null) return $"{nameof(converter)} is null";
+
+            commandInfo.Command = converter.ReplaceVariables(commandInfo.Command);
+            commandInfo.Arguments = converter.ReplaceVariables(commandInfo.Arguments);
+
+            logger.LogCommand(commandInfo.FullCommand, false);
+
+            return "";
         }
     }
 }

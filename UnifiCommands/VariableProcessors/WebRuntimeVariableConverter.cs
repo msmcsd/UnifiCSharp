@@ -26,7 +26,7 @@ namespace UnifiCommands.VariableProcessors
 
         protected override string ReplaceString(string propertyName)
         {
-            var p = _variables.FirstOrDefault(key => key.ToString().Equals(propertyName, StringComparison.InvariantCultureIgnoreCase));
+            var p = _variables.FirstOrDefault(kvp => kvp.Key.Equals(propertyName, StringComparison.InvariantCultureIgnoreCase));
             return p.Equals(default(KeyValuePair<string, object>)) ? "" : p.Value.ToString();
         }
     }

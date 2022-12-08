@@ -15,6 +15,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Text.Json.Nodes;
+using UnifiCommands.Commands;
+using UnifiCommands.VariableProcessors;
 
 namespace api.Controllers
 {
@@ -35,34 +37,58 @@ namespace api.Controllers
         [Route("[controller]")]
         public async Task<string> GetCommand(string taskName, string displayText, string parameters)
         {
+            return await ExecuteCommand(taskName, displayText, parameters, true);
+        }
+
+        [HttpGet]
+        [Route("[controller]/Show")]
+        public async Task<string> ShowCommand(string taskName, string displayText, string parameters)
+        {
+            return await ExecuteCommand(taskName, displayText, parameters, false);
+        }
+
+        private async Task<string> ExecuteCommand(string taskName, string displayText, string parameters, bool execute)
+        {
             FullCommandInfo command = _commandsProvider.FindCommand(taskName, displayText);
-            if (command == null) return "Command not found";
+            if (command == null) return "{\"result\": \"Command not found\"}";
 
-            var expConverter = new ExpandoObjectConverter();
             dynamic variables = null;
-            parameters = parameters.Replace("\\\"", "\"");
-            parameters = parameters.Replace("\\\\", "\\");
-            if (parameters.EndsWith("\"")) parameters = parameters.Substring(0, parameters.Length - 1);
-            if (parameters.StartsWith("\"")) parameters = parameters.Substring(1);
-            try
-            {
-                 variables = JsonConvert.DeserializeObject<ExpandoObject>(parameters, expConverter);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return "Exception parsing parameters";
-            }
 
+            if (!string.IsNullOrEmpty(parameters))
+            {
+                var expConverter = new ExpandoObjectConverter();
+                parameters = parameters.Replace("\\\"", "\"");
+                parameters = parameters.Replace("\\\\", "\\");
+                if (parameters.EndsWith("\"")) parameters = parameters.Substring(0, parameters.Length - 1);
+                if (parameters.StartsWith("\"")) parameters = parameters.Substring(1);
+                try
+                {
+                    variables = JsonConvert.DeserializeObject<ExpandoObject>(parameters, expConverter);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return "{\"result\": \"" + e.Message + "\"}";
+                }
+            }
             AutoResetEvent ev = new AutoResetEvent(false); // Ensure socket server is connected before running commands.
             UnifiCommands.Logging.ILogger webLogger = new WebLogger(ev);
             ev.WaitOne();
-            
+
             command.VariableValueSource = variables;
-            await RunCommands(new List<FullCommandInfo>() { command }, webLogger);
+            string msg = "Command finished running";
+            if (execute)
+            {
+                await RunCommands(new List<FullCommandInfo>() { command }, webLogger);
+            }
+            else
+            {
+                string s = FullCommandInfo.ShowCommand(command, webLogger, new WebRuntimeVariableConverter(variables));
+                if (!string.IsNullOrEmpty(s)) msg = s;
+            }
             //(webLogger as IDisposable).Dispose();
 
-            return "{\"result\": \"Command finishes running\"}";
+            return "{\"result\": \"" + msg + "\"}";
         }
 
         //private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
@@ -78,13 +104,6 @@ namespace api.Controllers
         {
             var a = _commandsProvider.WebTestTasks;
             return a;
-        }
-
-        [HttpPut]
-        [Route("[controller]")]
-        public string RunCommand(string commandId)
-        {
-            return $"Run {commandId}";
         }
     }
 }
