@@ -244,7 +244,7 @@
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/x ${UserDesktopFolder}\\{ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qb",
+				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qb",
 				"DisplayText": "Uninstall Protect",
 				"Callback": "ShowFilesVersions"
 			}
@@ -641,9 +641,21 @@
 		]
 	},
 	{
-		"Name": "Deploy",
+		"Name": "Deploy Api",
 		"CommandGroup": "Dos",
 		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c C:\\repos\\UnifiCSharp\\Api\\publish.bat",
+				"DisplayText": "Publish to Deploy Center",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployApiToIIS.bat\"",
+				"DisplayText": "Deploy to IIS",
+				"ShowOnMachine": "Test"
+			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c \"C:\\Windows\\System32\\inetsrv\\inetmgr.exe\"",
@@ -653,14 +665,47 @@
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c ${ExplorerPath} C:\\inetpub\\wwwroot\\Unifi\\API",
-				"DisplayText": "IIS Api folder",
+				"DisplayText": "Open IIS Api Folder",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployToIIS.bat\"",
+				"Arguments": "/c C:\\windows\\system32\\inetsrv\\appcmd stop site UnifiApi",
+				"DisplayText": "Stop Api Server",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c C:\\windows\\system32\\inetsrv\\appcmd start site UnifiApi",
+				"DisplayText": "Start Api Server",
+				"ShowOnMachine": "Test"
+			}
+		]
+	},	
+	{
+		"Name": "Deploy Socket",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c C:\\repos\\socket-server\\publish.bat",
+				"DisplayText": "Copy To Deploy Center",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocketToIIS.bat\"",
 				"DisplayText": "Deploy to IIS",
 				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\inetpub\\wwwroot\\Unifi\\SocketServer\" & npm start",
+				"DisplayText": "Start Socket Server",
+				"IconSourcePath": "${CmdPath}",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false,
+				"CreateNewWindow": true
 			}
 		]
 	},
@@ -947,7 +992,7 @@
 				"DisplayText": "Open Dev Log",
 				"IconSourcePath": "${NotepadPath}",
 				"ApiMethod": "OpenDevLog",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Dev"
 			},			
 			{
 				"Command": "${PsExecPath}",
@@ -1033,8 +1078,8 @@
 			},
 			{
 				"Command": "Protect/job/Agent/job/BC/job/agent-b-branch-dna",
-				"Arguments": "2437",
-				"DisplayText": "3.1.9700.36049"
+				"Arguments": "2452",
+				"DisplayText": "3.1.9700.36064"
 			},
 			{
 				"Command": "",
@@ -1411,7 +1456,7 @@
 			},
 			{
 				"Variable": "R01Token",
-				"Value": "DSDDE1OVnh1KK7k6D0Ibgm8U"
+				"Value": "DSDDE1OVnh1KK7k6D0Ibgm8U_"
 			},
 			{
 				"Variable": "R02Token",
