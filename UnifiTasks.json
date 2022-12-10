@@ -710,6 +710,24 @@
 		]
 	},
 	{
+		"Name": "Deploy Client",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c C:\\repos\\unifi\\publish.bat",
+				"DisplayText": "Publish To Deploy Center",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployClientToIIS.bat\"",
+				"DisplayText": "Deploy to IIS",
+				"ShowOnMachine": "Test"
+			}
+		]
+	},
+	{
 		"Name": "Compile",
 		"CommandGroup": "Dos",
 		"Commands": [

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Unifi.Consoles;
 using UnifiCommands.CommandInfo;
-using UnifiCommands.CommandsProvider;
+using UnifiCommands.Commands.CodeCommands;
+using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace Unifi.UserControls
 {
@@ -56,15 +56,16 @@ namespace Unifi.UserControls
             }
             
             FullCommandInfo commandInfo = (FullCommandInfo)ListBox.SelectedItem;
-            FullCommandInfo clone = (FullCommandInfo)commandInfo.Clone();
-            clone.Command = "DownloadInstaller";
+            FullCommandInfo clone = SetUpCommand(commandInfo, installerType);
+            //FullCommandInfo clone = (FullCommandInfo)commandInfo.Clone();
+            //clone.Command = "DownloadInstaller";
             
-            string installerFileName = Utils.GetInstallerNameByType(installerType, commandInfo.Command);
+            //string installerFileName = DownloadInstallerCommand.GetInstallerNameByType(installerType, commandInfo.Command);
             
-            // Command: build job
-            // Arguments: Version of installer to download
-            clone.Arguments = $"{commandInfo.Command}, {commandInfo.Arguments}, {installerFileName}, {commandInfo.DisplayText}";
-            clone.Type = CommandType.Code;
+            //// Command: build job
+            //// Arguments: Version of installer to download
+            //clone.Arguments = $"{commandInfo.Command}, {commandInfo.Arguments}, {installerFileName}, {commandInfo.DisplayText}";
+            //clone.Type = CommandType.Code;
             
             CommandsRunner.RunCommands(new List<FullCommandInfo> { clone });
         }

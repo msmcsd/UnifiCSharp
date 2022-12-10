@@ -250,8 +250,10 @@ namespace UnifiCommands.CommandsProvider
 
         public FullCommandInfo FindCommand(string commandGroup, string displayText)
         {
-            return TestTasks.FirstOrDefault(t => t.Name.Equals(commandGroup, StringComparison.InvariantCultureIgnoreCase))
-                            .Commands?.FirstOrDefault(c => c.DisplayText.Equals(displayText, StringComparison.InvariantCultureIgnoreCase));
+            FullCommandInfo command = TestTasks.FirstOrDefault(t => t.Name.Equals(commandGroup, StringComparison.InvariantCultureIgnoreCase))
+                                     .Commands?.FirstOrDefault(c => c.DisplayText.Equals(displayText, StringComparison.InvariantCultureIgnoreCase));
+
+            return command == null ? null : (FullCommandInfo)command.Clone();
         }
     }
 }

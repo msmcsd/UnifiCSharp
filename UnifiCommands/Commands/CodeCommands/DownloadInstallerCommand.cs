@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
+using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
@@ -169,12 +171,64 @@ namespace UnifiCommands.Commands.CodeCommands
 
             return "";
         }
-    }
 
-    public enum InstallerType
-    {
-        Msi,
-        Bootstrapper,
-        CyUpgrade
+        public static string GetInstallerNameByType(InstallerType installerType, string jobUrl)
+        {
+            switch (installerType)
+            {
+                case InstallerType.Msi: return GetMsiInstallerName(jobUrl);
+                case InstallerType.CyUpgrade: return GetCyUpgradeName(jobUrl);
+                default: return GetBootstrapperName(jobUrl);
+            }
+        }
+
+        public static string GetMsiInstallerName(string jobUrl)
+        {
+            if (jobUrl.ToLower().Contains("/dtd/")) return Variables.DtdInstallerName;
+            if (jobUrl.ToLower().Contains("/esse/")) return Variables.EsseInstallerName;
+
+            return Variables.ProtectMsiNameByVmArch;
+        }
+
+        public static string GetCyUpgradeName(string jobUrl)
+        {
+            if (jobUrl.ToLower().Contains("esse")) return Variables.EsseUpgradeInstallerName;
+            if (!jobUrl.ToLower().Contains("dtd")) return Variables.ProtectUpgradeInstallerName;
+
+            return "";
+        }
+
+        public static string GetBootstrapperName(string jobUrl)
+        {
+            return Variables.ProtectBootstrapperName;
+        }
+
+        /// <summary>
+        /// Makes a clone of "command" which contains download urls and sets the command to a DownloadInstaller command.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="installerType"></param>
+        /// <returns></returns>
+        public static FullCommandInfo SetUpCommand(FullCommandInfo command, InstallerType installerType)
+        {
+            FullCommandInfo clone = (FullCommandInfo)command.Clone();
+            clone.Command = "DownloadInstaller";
+
+            string installerFileName = GetInstallerNameByType(installerType, command.Command);
+
+            // Command: build job
+            // Arguments: Version of installer to download
+            clone.Arguments = $"{command.Command}, {command.Arguments}, {installerFileName}, {command.DisplayText}";
+            clone.Type = CommandType.Code;
+
+            return clone;
+        }
+
+        public enum InstallerType
+        {
+            Msi,
+            Bootstrapper,
+            CyUpgrade
+        }
     }
 }

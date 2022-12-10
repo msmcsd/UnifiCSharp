@@ -39,37 +39,6 @@ namespace Unifi
             return null;
         }
 
-        public static string GetMsiInstallerName(string jobUrl)
-        {
-            if (jobUrl.ToLower().Contains("/dtd/")) return Variables.DtdInstallerName;
-            if (jobUrl.ToLower().Contains("/esse/")) return Variables.EsseInstallerName;
-
-            return Variables.ProtectMsiNameByVmArch;
-        }
-
-        public static string GetCyUpgradeName(string jobUrl)
-        {
-            if (jobUrl.ToLower().Contains("esse")) return Variables.EsseUpgradeInstallerName;
-            if (!jobUrl.ToLower().Contains("dtd")) return Variables.ProtectUpgradeInstallerName;
-
-            return "";
-        }
-
-        public static string GetBootstrapperName(string jobUrl)
-        {
-            return Variables.ProtectBootstrapperName;
-        }
-
-        public static string GetInstallerNameByType(InstallerType installerType, string jobUrl)
-        {
-            switch (installerType)
-            {
-                case InstallerType.Msi: return GetMsiInstallerName(jobUrl);
-                case InstallerType.CyUpgrade: return GetCyUpgradeName(jobUrl);
-                default: return GetBootstrapperName(jobUrl);
-            }
-        }
-
         public static bool IsVersion(string version)
         {
             try

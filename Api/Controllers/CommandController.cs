@@ -17,6 +17,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.Json.Nodes;
 using UnifiCommands.Commands;
 using UnifiCommands.VariableProcessors;
+using UnifiApi.RestCommands;
 
 namespace api.Controllers
 {
@@ -37,61 +38,28 @@ namespace api.Controllers
         [Route("[controller]")]
         public async Task<string> GetCommand(string taskName, string displayText, string parameters)
         {
-            return await ExecuteCommand(taskName, displayText, parameters, true);
+            //return await ExecuteCommand(taskName, displayText, parameters, true);
+            var cmd = new UnifiApi.RestCommands.DosCommand(_commandsProvider, taskName, displayText, parameters);
+            return await cmd.Execute();
         }
 
         [HttpGet]
         [Route("[controller]/Show")]
         public async Task<string> ShowCommand(string taskName, string displayText, string parameters)
         {
-            return await ExecuteCommand(taskName, displayText, parameters, false);
+            //return await ExecuteCommand(taskName, displayText, parameters, false);
+            var cmd = new DisplayCommand(_commandsProvider, taskName, displayText, parameters);
+            return await cmd.Execute();
         }
 
-        private async Task<string> ExecuteCommand(string taskName, string displayText, string parameters, bool execute)
+        [HttpGet]
+        [Route("[controller]/Download")]
+        public async Task<string> DownloadCommand(string taskName, string displayText, string parameters)
         {
-            FullCommandInfo command = _commandsProvider.FindCommand(taskName, displayText);
-            if (command == null) return "{\"result\": \"Command not found\"}";
-
-            dynamic variables = null;
-
-            if (!string.IsNullOrEmpty(parameters))
-            {
-                var expConverter = new ExpandoObjectConverter();
-                parameters = parameters.Replace("\\\"", "\"");
-                parameters = parameters.Replace("\\\\", "\\");
-                if (parameters.EndsWith("\"")) parameters = parameters.Substring(0, parameters.Length - 1);
-                if (parameters.StartsWith("\"")) parameters = parameters.Substring(1);
-                try
-                {
-                    variables = JsonConvert.DeserializeObject<ExpandoObject>(parameters, expConverter);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return "{\"result\": \"" + e.Message + "\"}";
-                }
-            }
-            AutoResetEvent ev = new AutoResetEvent(false); // Ensure socket server is connected before running commands.
-            UnifiCommands.Logging.ILogger webLogger = new WebLogger(ev);
-            ev.WaitOne();
-
-            command.VariableValueSource = variables;
-            string msg = "Command finished running";
-            if (execute)
-            {
-                await RunCommands(new List<FullCommandInfo>() { command }, webLogger);
-            }
-            else
-            {
-                string s = FullCommandInfo.ShowCommand(command, webLogger, new WebRuntimeVariableConverter(variables));
-                if (!string.IsNullOrEmpty(s)) msg = s;
-            }
-            //(webLogger as IDisposable).Dispose();
-
-            return "{\"result\": \"" + msg + "\"}";
+            var cmd = new DownloadCommand(_commandsProvider, taskName, displayText, parameters);
+            return await cmd.Execute();
         }
 
-        //private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
         private async Task RunCommands(List<FullCommandInfo> commandInfos, UnifiCommands.Logging.ILogger logger, bool checkReturnValue = false)
         {
             var b = new BatchCommandExecutor(commandInfos, checkReturnValue, null, logger, AppType.Web);

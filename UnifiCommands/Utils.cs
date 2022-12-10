@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using UnifiCommands.Commands;
 using UnifiCommands.Commands.CodeCommands;
+using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace UnifiCommands
 {

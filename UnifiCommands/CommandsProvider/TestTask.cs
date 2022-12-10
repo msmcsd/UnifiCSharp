@@ -67,11 +67,4 @@ namespace UnifiCommands.CommandsProvider
         Function,
         Variable
     }
-
-    public enum InstallerType
-    {
-        Msi,
-        CyUpgrade,
-        Bootstrapper
-    }
 }

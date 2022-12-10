@@ -1,0 +1,108 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Threading;
+using System.Threading.Tasks;
+using UnifiCommands;
+using UnifiCommands.CommandExecutors;
+using UnifiCommands.CommandInfo;
+using UnifiCommands.CommandsProvider;
+using UnifiCommands.Logging;
+
+namespace UnifiApi.RestCommands
+{
+    /// <summary>
+    /// Base class for rest commands.
+    /// </summary>
+    internal abstract class WebCommand
+    {
+        private readonly ICommandsProvider _commandsProvider;
+        private readonly string _taskName;
+        private readonly string _displayText;
+        private string _parameters;
+        protected ILogger logger;
+        protected FullCommandInfo command;
+        protected dynamic variables;
+
+        protected WebCommand(ICommandsProvider commandsProvider, string taskName, string displayText): this (commandsProvider, taskName, displayText, null)
+        {
+        }
+
+        protected WebCommand(ICommandsProvider commandsProvider, string taskName, string displayText, string parameters)
+        {
+            _commandsProvider = commandsProvider;
+            _taskName = taskName;
+            _displayText = displayText;
+            _parameters = parameters;
+        }
+
+        protected virtual bool ConvertParameters(out dynamic variables, out string result)
+        {
+            result = "";
+            variables = null;
+
+            if (string.IsNullOrEmpty(_parameters)) return false;
+
+            _parameters = _parameters.Replace("\\\"", "\"");
+            _parameters = _parameters.Replace("\\\\", "\\");
+            if (_parameters.EndsWith("\"")) _parameters = _parameters.Substring(0, _parameters.Length - 1);
+            if (_parameters.StartsWith("\"")) _parameters = _parameters.Substring(1);
+
+            var expConverter = new ExpandoObjectConverter();
+            try
+            {
+                variables = JsonConvert.DeserializeObject<ExpandoObject>(_parameters, expConverter);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                result = "{\"result\": \"" + e.Message + "\"}";
+                return false;
+            }
+
+            return true;
+        }
+
+        protected virtual async Task<string> ExecuteCommand()
+        {
+            return "";
+        }
+
+        public async Task<string> Execute()
+        {
+            command = _commandsProvider.FindCommand(_taskName, _displayText);
+            if (command == null) return "{\"result\": \"Command not found\"}";
+
+            if (!ConvertParameters(out variables, out string result))
+            {
+                return result;
+            }
+
+            AutoResetEvent ev = new AutoResetEvent(false); // Ensure socket server is connected before running commands.
+            logger = new WebLogger(ev);
+            ev.WaitOne();
+
+            command.VariableValueSource = variables;
+            string msg = "Command finished running";
+            string s = await ExecuteCommand();
+            if (!string.IsNullOrEmpty(s)) msg = s;
+
+            // TODO: Might need this. A client might still connects to socker server and receives broadcasts after command finishes.
+            // Currently commented so the last line of log from command shows in the log. "[Dos] Finished".
+            //(webLogger as IDisposable).Dispose(); 
+
+            return "{\"result\": \"" + msg + "\"}";
+        }
+
+        public static async Task RunCommands(FullCommandInfo command, bool checkReturnValue, object uiObserver, ILogger logger)
+        {
+            var b = new BatchCommandExecutor(new List<FullCommandInfo> { command }, false, null, logger, AppType.Web);
+            //b.RegisterObserver(observer);
+            await b.Execute();
+        }
+    }
+
+
+}

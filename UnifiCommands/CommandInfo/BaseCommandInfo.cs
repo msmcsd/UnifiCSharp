@@ -19,7 +19,7 @@ namespace UnifiCommands.CommandInfo
         //public string ApiMethod { get; set; }
 
         /// <summary>
-        /// Clones the original command so it does not get overwritten.
+        /// Clones the original command so the runtime variables do not get overwritten.
         /// </summary>
         /// <returns></returns>
         public object Clone()
