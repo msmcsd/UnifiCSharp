@@ -11,3 +11,5 @@ if exist %ApiPublishFolder% rmdir %ApiPublishFolder% /s /q
 mkdir %ApiPublishFolder%
 dotnet publish C:\repos\UnifiCSharp\Api\UnifiApi.csproj -c Release -r win-x86 --no-self-contained -o %ApiPublishFolder%
 copy "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Program\UnifiTasks.json" %ApiPublishFolder% /y
+
+copy C:\repos\UnifiCSharp\Api\DeployApiToIIS.bat "\\vmware-host\Shared Folders\VMWare-Share\TestTools\Deploy" /y
