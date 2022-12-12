@@ -14,7 +14,7 @@ namespace UnifiApi.RestCommands
 
         protected override Task<string> ExecuteCommand()
         {
-            FullCommandInfo.ShowCommand(command, logger, new WebRuntimeVariableConverter(variables));
+            FullCommandInfo.DisplayCommand(command, logger, new WebRuntimeVariableConverter(variables));
             return Task.FromResult("");
         }
     }

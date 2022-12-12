@@ -1,4 +1,5 @@
 ﻿
+using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.VariableProcessors;
 
@@ -146,7 +147,8 @@ namespace UnifiCommands.CommandInfo
             return clone;
         }
 
-        public static string ShowCommand(FullCommandInfo commandInfo, ILogger logger, VariableConverter converter)
+        // Displays a command.
+        public static string DisplayCommand(FullCommandInfo commandInfo, ILogger logger, VariableConverter converter)
         {
             if (commandInfo == null) return $"{nameof(Command)} is null";
             if (logger == null) return $"{nameof(logger)} is null";
@@ -156,6 +158,27 @@ namespace UnifiCommands.CommandInfo
             commandInfo.Arguments = converter.ReplaceVariables(commandInfo.Arguments);
 
             logger.LogCommand(commandInfo.FullCommand, false);
+
+            return "";
+        }
+
+        /// <summary>
+        /// Displays all commands in a task.
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="logger"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static string DisplayTask(TestTask task, ILogger logger, VariableConverter converter)
+        {
+            if (task == null) return $"{nameof(task)} is null";
+            if (logger == null) return $"{nameof(logger)} is null";
+            if (converter == null) return $"{nameof(converter)} is null";
+
+            foreach(var command in task.Commands)
+            {
+                DisplayCommand(command, logger, converter);
+            }
 
             return "";
         }

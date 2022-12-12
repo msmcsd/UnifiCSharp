@@ -1,23 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using UnifiCommands;
-using UnifiCommands.CommandInfo;
-using UnifiCommands.CommandsProvider;
-using UnifiCommands.CommandExecutors;
-using UnifiCommands.Logging;
-using System.Threading;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Dynamic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using System.Text.Json.Nodes;
-using UnifiCommands.Commands;
-using UnifiCommands.VariableProcessors;
 using UnifiApi.RestCommands;
+using UnifiCommands.CommandsProvider;
 
 namespace api.Controllers
 {
@@ -38,17 +24,31 @@ namespace api.Controllers
         [Route("[controller]")]
         public async Task<string> GetCommand(string taskName, string displayText, string parameters)
         {
-            //return await ExecuteCommand(taskName, displayText, parameters, true);
             var cmd = new UnifiApi.RestCommands.DosCommand(_commandsProvider, taskName, displayText, parameters);
             return await cmd.Execute();
         }
 
         [HttpGet]
-        [Route("[controller]/Show")]
-        public async Task<string> ShowCommand(string taskName, string displayText, string parameters)
+        [Route("[controller]/DisplayCommand")]
+        public async Task<string> DisplayCommand(string taskName, string displayText, string parameters)
         {
-            //return await ExecuteCommand(taskName, displayText, parameters, false);
             var cmd = new DisplayCommand(_commandsProvider, taskName, displayText, parameters);
+            return await cmd.Execute();
+        }
+
+        [HttpGet]
+        [Route("[controller]/DisplayTask")]
+        public async Task<string> DisplayTask(string taskName, string parameters)
+        {
+            var cmd = new DisplayTaskCommand(_commandsProvider, taskName, parameters);
+            return await cmd.Execute();
+        }
+        
+        [HttpGet]
+        [Route("[controller]/Install")]
+        public async Task<string> Install(string taskName, string parameters)
+        {
+            var cmd = new InstallCommand(_commandsProvider, taskName, parameters);
             return await cmd.Execute();
         }
 
@@ -58,13 +58,6 @@ namespace api.Controllers
         {
             var cmd = new DownloadCommand(_commandsProvider, taskName, displayText, parameters);
             return await cmd.Execute();
-        }
-
-        private async Task RunCommands(List<FullCommandInfo> commandInfos, UnifiCommands.Logging.ILogger logger, bool checkReturnValue = false)
-        {
-            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, null, logger, AppType.Web);
-            //b.RegisterObserver(observer);
-            await b.Execute();
         }
 
         [HttpGet("Commands")]

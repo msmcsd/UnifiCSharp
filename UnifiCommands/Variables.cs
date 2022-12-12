@@ -28,18 +28,20 @@ namespace UnifiCommands
 
         #region VMWare constants
         public static string VmWareSharedFolder => @"\\vmware-host\Shared Folders\VMWare-Share";
+        
+        public static string TestToolsFolder => @"\\vmware-host\Shared Folders\VMWare-Share\TestTools";
 
         public static string JsonConfigFileName = "UnifiTasks.json";
 
         public static string LocalJsonConfigPath = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), JsonConfigFileName);
 
-        public static string ProgramPath => Path.Combine(VmWareSharedFolder, @"TestTools\Program");
+        public static string ProgramPath => Path.Combine(TestToolsFolder, "Program");
 
         public static string JsonConfigPath => Path.Combine(ProgramPath, JsonConfigFileName);
 
-        public static string InstallersFolder => Path.Combine(VmWareSharedFolder, @"TestTools\Installers");
+        public static string InstallersFolder => Path.Combine(TestToolsFolder, @"Installers");
 
-        public static string DebugInstallersFolder => Path.Combine(VmWareSharedFolder, @"TestTools\Installers\Debug");
+        public static string DebugInstallersFolder => Path.Combine(InstallersFolder, @"Debug");
 
         public static string ProgramSettingFilePath => Path.Combine(ProgramPath, "Settings.json");
 
@@ -78,7 +80,7 @@ namespace UnifiCommands
         #endregion
 
         #region Protect Config Constants
-        public static string ConfigPath => Path.Combine(VmWareSharedFolder, @"Shortcuts\{0}\config.xml");
+        public static string ConfigFolder => Path.Combine(TestToolsFolder, "config");
 
         public static string R01Token { get; set; } // Retrieved at runtime from JSON.
 

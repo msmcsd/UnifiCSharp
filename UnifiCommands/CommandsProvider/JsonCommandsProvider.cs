@@ -255,5 +255,12 @@ namespace UnifiCommands.CommandsProvider
 
             return command == null ? null : (FullCommandInfo)command.Clone();
         }
+
+        public TestTask FindTask(string taskName)
+        {
+            TestTask task = TestTasks.FirstOrDefault(t => t.Name.Equals(taskName, StringComparison.InvariantCultureIgnoreCase));
+
+            return task;
+        }
     }
 }

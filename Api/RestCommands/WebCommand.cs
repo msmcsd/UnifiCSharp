@@ -70,12 +70,33 @@ namespace UnifiApi.RestCommands
             return "";
         }
 
-        public async Task<string> Execute()
+        protected virtual bool FindCommand(out string result)
         {
+            result = "";
             command = _commandsProvider.FindCommand(_taskName, _displayText);
-            if (command == null) return "{\"result\": \"Command not found\"}";
+            if (command == null)
+            {
+                result = "{\"result\": \"Command not found\"}";
+                return false;
+            }
 
-            if (!ConvertParameters(out variables, out string result))
+            return true;
+        }
+
+        protected virtual void SetVariableValueSource()
+        {
+            command.VariableValueSource = variables;
+        }
+
+        public virtual async Task<string> Execute()
+        {
+            string result;
+            if (!FindCommand(out result))
+            {
+                return result;
+            }
+
+            if (!ConvertParameters(out variables, out result))
             {
                 return result;
             }
@@ -84,7 +105,8 @@ namespace UnifiApi.RestCommands
             logger = new WebLogger(ev);
             ev.WaitOne();
 
-            command.VariableValueSource = variables;
+            SetVariableValueSource();
+
             string msg = "Command finished running";
             string s = await ExecuteCommand();
             if (!string.IsNullOrEmpty(s)) msg = s;
@@ -96,9 +118,9 @@ namespace UnifiApi.RestCommands
             return "{\"result\": \"" + msg + "\"}";
         }
 
-        public static async Task RunCommands(FullCommandInfo command, bool checkReturnValue, object uiObserver, ILogger logger)
+        public static async Task RunCommands(List<FullCommandInfo> commands, bool checkReturnValue, object uiObserver, ILogger logger)
         {
-            var b = new BatchCommandExecutor(new List<FullCommandInfo> { command }, false, null, logger, AppType.Web);
+            var b = new BatchCommandExecutor(commands, false, null, logger, AppType.Web);
             //b.RegisterObserver(observer);
             await b.Execute();
         }

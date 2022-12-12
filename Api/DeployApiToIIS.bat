@@ -1,3 +1,5 @@
+REM This file should be run on target machine.
+
 REM set CurrentFolder=%~dp0
 set CurrentFolder="\\vmware-host\Shared Folders\VMWare-Share\TestTools\Deploy\"
 set Appcmd=C:\windows\system32\inetsrv\appcmd
@@ -25,7 +27,7 @@ if %PROCESSOR_ARCHITECTURE% == x86 (
 	set Arch=x64
 )
 
-REM Create or Update UnifiApi site
+REM Create or Update Unifi Api site
 set ApiDeploySrcFolder=%CurrentFolder%API\%Arch%\
 set ApiDeployDstFolder=C:\inetpub\wwwroot\Unifi\Api\
 set ApiSite=Unifi

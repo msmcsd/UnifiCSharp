@@ -40,7 +40,11 @@ namespace UnifiCommands.CommandExecutors
             p.StartInfo.RedirectStandardOutput = commandInfo.RedirectOutputToConsole;
             p.StartInfo.RedirectStandardError = commandInfo.RedirectOutputToConsole;
 
-            if (commandInfo.RunAs == RunAsUserType.User)
+            if (commandInfo.RunAs == RunAsUserType.Admin)
+            {
+                p.StartInfo.Verb = "runas";
+            }
+            else
             {
                 p.StartInfo.Domain = Environment.UserDomainName;
                 p.StartInfo.UserName = Environment.UserName;

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 
 namespace UnifiApi.RestCommands
@@ -12,7 +14,7 @@ namespace UnifiApi.RestCommands
 
         protected override async Task<string> ExecuteCommand()
         {
-            await WebCommand.RunCommands(command, false, null, logger);
+            await WebCommand.RunCommands(new List<FullCommandInfo>() { command }, false, null, logger);
             return "";
         }
     }

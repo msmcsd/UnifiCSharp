@@ -26,7 +26,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C IF $[CompileMode]==Debug copy \"${DebugInstallersFolder}\\{ProtectMsiNameByVmArch}\" \"${InstallerDownloadFolder}\"",
+				"Arguments": "/C IF $[CompileMode]==Debug copy \"${DebugInstallersFolder}\\${ProtectMsiNameByVmArch}\" \"${InstallerDownloadFolder}\"",
 				"DisplayText": "Copy Debug installer or not"
 			}
 		]
@@ -47,7 +47,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C copy \"$[GetConfigPath]\" \"$[CylanceDesktopFolder]\"",
+				"Arguments": "/C copy \"${ConfigFolder}\\$[GetConfig]\\config.xml\" \"$[CylanceDesktopFolder]\"",
 				"DisplayText": "Copy config.xml"
 			},
 			{
@@ -297,13 +297,15 @@
 				"Command": "sc.exe",
 				"Arguments": "query CylanceSvc",
 				"DisplayText": "Service Status",
-				"KeywordForSuccess": "Running"
+				"KeywordForSuccess": "Running",
+				"RunAs": "Admin"
 			},
 			{
 				"Command": "sc.exe",
 				"Arguments": "query CylanceDrv",
 				"DisplayText": "Driver Status",
-				"KeywordForSuccess": "Running"
+				"KeywordForSuccess": "Running",
+				"RunAs": "Admin"
 			},
 			{
 				"Command": "sc.exe",
@@ -1474,7 +1476,7 @@
 			},
 			{
 				"Variable": "R01Token",
-				"Value": "DSDDE1OVnh1KK7k6D0Ibgm8U_"
+				"Value": "DSDDE1OVnh1KK7k6D0Ibgm8U"
 			},
 			{
 				"Variable": "R02Token",

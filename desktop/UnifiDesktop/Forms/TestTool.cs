@@ -321,20 +321,17 @@ namespace Unifi.Forms
             }
         }
 
-        private string GetConfigPath
+        private string GetConfig
         {
             get
             {
-                string server;
 
                 if (rbR02.Checked)
-                    server = rbR02.Text;
+                    return rbR02.Text;
                 else if (rbQa2.Checked)
-                    server = rbQa2.Text;
+                    return rbQa2.Text;
                 else
-                    server = rbR01.Text;
-
-                return string.Format(Variables.ConfigPath, server);
+                    return rbR01.Text;
             }
         }
 

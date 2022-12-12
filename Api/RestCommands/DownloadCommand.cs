@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
@@ -32,7 +34,7 @@ namespace UnifiApi.RestCommands
             }
 
             command = SetUpCommand(command, installerType);
-            await RunCommands(command, false, null, logger);
+            await RunCommands(new List<FullCommandInfo>() { command }, false, null, logger);
             
             return "";
         }
