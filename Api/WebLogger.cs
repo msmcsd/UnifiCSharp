@@ -9,7 +9,8 @@ using UnifiCommands.Logging;
 public class WebLogger : ILogger, IDisposable
 {
     private bool _disposed = false;
-    SocketIO _client = new SocketIO("http://localhost:10000/");
+    private SocketIO _client = new SocketIO("http://localhost:10000/");
+    private string _socketId;
 
     private enum SocketEvent
     {
@@ -54,6 +55,9 @@ public class WebLogger : ILogger, IDisposable
         {
             LogInfo($"{GetType().Name} connected to socket server.");
             ev.Set();
+
+            _socketId = (sender as SocketIO).Id;
+            Log("connect to socket server");
             //Console.WriteLine($"Connected.");
             // Emit a string
 
@@ -102,6 +106,11 @@ public class WebLogger : ILogger, IDisposable
         GC.SuppressFinalize(this);
     }
 
+    private void Log(string message)
+    {
+        Console.WriteLine($"[{DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.ffff tt")}][{_socketId}] {GetType().Name} {message}");
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         // Check to see if Dispose has already been called.
@@ -117,12 +126,15 @@ public class WebLogger : ILogger, IDisposable
                     foreach(var e in Enum.GetNames(typeof(SocketEvent)))
                     {
                         _client?.Off(e);
+                        Log($"unregistering socket event {e}");
                     }
                     _client?.DisconnectAsync();
+                    Log("disconnect socket");
                 }
                 finally
                 {
                     _client?.Dispose();
+                    Log("socket object disposed");
                 }
             }
 

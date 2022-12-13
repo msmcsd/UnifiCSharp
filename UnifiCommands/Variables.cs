@@ -80,7 +80,7 @@ namespace UnifiCommands
         #endregion
 
         #region Protect Config Constants
-        public static string ConfigFolder => Path.Combine(TestToolsFolder, "config");
+        public static string ConfigFolder => Path.Combine(TestToolsFolder, "configs");
 
         public static string R01Token { get; set; } // Retrieved at runtime from JSON.
 

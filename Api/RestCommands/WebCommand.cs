@@ -113,7 +113,7 @@ namespace UnifiApi.RestCommands
 
             // TODO: Might need this. A client might still connects to socker server and receives broadcasts after command finishes.
             // Currently commented so the last line of log from command shows in the log. "[Dos] Finished".
-            //(webLogger as IDisposable).Dispose(); 
+            (logger as IDisposable).Dispose();
 
             return "{\"result\": \"" + msg + "\"}";
         }
