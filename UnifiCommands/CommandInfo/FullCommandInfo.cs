@@ -82,7 +82,7 @@ namespace UnifiCommands.CommandInfo
 
         public override string ToString() => DisplayText;
 
-        public string FullCommand => $">> {Command} {Arguments}";
+        public string FullCommand => $"[Command] {Command} {Arguments}";
 
         /// <summary>
         /// Checks if the command is for 64-bit or 32-bit.

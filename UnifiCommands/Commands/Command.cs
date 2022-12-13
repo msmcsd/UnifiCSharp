@@ -31,16 +31,16 @@ namespace UnifiCommands.Commands
 
         protected void LogCommandEnd()
         {
-            LogInfo("Finished");
+            Logger.LogCommand($"{GetCommandName()}Finished {new string('-', 100)}", true);
         }
 
         protected void LogCommand(params string[] commands)
         {
             if (commands.Length < 1) return;
 
-            Logger.LogCommand($">>{GetCommandName()}{commands[0]}", false);
+            Logger.LogCommand($"{GetCommandName()}{commands[0]}", false);
             for (int i = 1; i < commands.Length; i++)
-                Logger.LogCommand($">>{GetCommandName()}{commands[i]}", false);
+                Logger.LogCommand($"{GetCommandName()}{commands[i]}", false);
         }
 
         protected void LogInfo(string info)
