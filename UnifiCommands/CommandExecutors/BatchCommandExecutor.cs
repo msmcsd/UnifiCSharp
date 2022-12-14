@@ -34,6 +34,16 @@ namespace UnifiCommands.CommandExecutors
 
         public async Task Execute()
         {
+            // This fixes the program flow of downloading files returns to early in web app since
+            // await continuation.ContinueWith(t => { result = continuation.Result; });
+            // does not really wait when there is only one command.
+            if (_commandInfos.Count == 1)
+            {
+                Command command = CommandFactory.CreateCommand(_commandInfos[0], _logger, _appType);
+                await command.Execute();
+                return;
+            }
+
             List<CommandTask> tasks = new List<CommandTask>();
 
             foreach (var info in _commandInfos)
@@ -72,8 +82,7 @@ namespace UnifiCommands.CommandExecutors
                     currentTask = continuation.Unwrap();
 
                     Task result = null;
-                    await continuation.ContinueWith(t => { result = continuation.Result; }
-                    );
+                    await continuation.ContinueWith(t => { result = continuation.Result; });
 
                     if (_checkReturnValue)
                     {

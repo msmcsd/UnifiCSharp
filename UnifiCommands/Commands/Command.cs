@@ -31,7 +31,7 @@ namespace UnifiCommands.Commands
 
         protected void LogCommandEnd()
         {
-            Logger.LogCommand($"{GetCommandName()}Finished {new string('-', 100)}", true);
+            Logger.LogCommand($"{GetCommandName()}Finished {new string('-', 90)}", true);
         }
 
         protected void LogCommand(params string[] commands)
