@@ -9,6 +9,11 @@ namespace UnifiCommands.CommandInfo
         /// </summary>
         public string DisplayText { get; set; } = "";
 
+        /// <summary>
+        /// Image used to display next to the command in client Drawer.
+        /// </summary>
+        public string TaskImage { get; set; } 
+
         //public override string ToString() => DisplayText;
 
         /// <summary>
