@@ -1,6 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnifiCommands.CommandExecutors;
+using UnifiCommands.CommandInfo;
+using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.Observers.Report;
+using UnifiCommands.Report;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
@@ -25,6 +30,7 @@ namespace UnifiCommands.Commands.CodeCommands
         protected override Task<string> ExecuteCommand()
         {
             NotifyObserver();
+
             return Task.FromResult("");
         }
 
@@ -42,7 +48,56 @@ namespace UnifiCommands.Commands.CodeCommands
         /// </summary>
         public void NotifyObserver()
         {
-            _observer.ShowReport(_isInstallReport);
+            _observer?.ShowReport(_isInstallReport);
+        }
+
+        public static List<ReportItem> RunReport(List<TestTask> dosTasks, bool isInstall, ILogger logger, AppType appType)
+        {
+            List<ReportItem> reportItems = new List<ReportItem>();
+            ReportCommandExecutor reportExecutor = new ReportCommandExecutor(logger);
+
+            int id = 0;
+            foreach (var task in dosTasks)
+            {
+                string category = task.Name;
+                string preCategory = "";
+
+                foreach (var commandInfo in task.Commands)
+                {
+                    if (!commandInfo.Visible || string.IsNullOrEmpty(commandInfo.KeywordForSuccess)) continue;
+
+                    string output;
+                    if (commandInfo.Type == CommandType.Dos)
+                    {
+                        output = reportExecutor.Run(commandInfo, null);
+                    }
+                    else
+                    {
+                        Command command = CommandFactory.CreateCommand(commandInfo, logger, appType);
+                        output = command.Execute().GetAwaiter().GetResult();
+                    }
+
+                    bool containsKeyword = output.ToLower().Contains(commandInfo.KeywordForSuccess.ToLower());
+
+                    if (!isInstall) containsKeyword = !containsKeyword;
+
+                    reportItems.Add(new ReportItem
+                    {
+                        Id = id,
+                        Category = category == preCategory ? "" : category,
+                        Test = commandInfo.DisplayText,
+                        Keyword = commandInfo.KeywordForSuccess,
+                        Passed = containsKeyword,
+                        Command = commandInfo
+                    });
+
+                    id++;
+
+                    preCategory = category;
+                }
+            }
+
+            return reportItems;
         }
     }
 }

@@ -40,6 +40,13 @@ namespace UnifiCommands.CommandExecutors
             if (_commandInfos.Count == 1)
             {
                 Command command = CommandFactory.CreateCommand(_commandInfos[0], _logger, _appType);
+                if (command == null) return;
+
+                if (command is IUiObservable observable)
+                {
+                    observable.RegisterObserver(_uiObserver as IUiObserver);
+                }
+
                 await command.Execute();
                 return;
             }

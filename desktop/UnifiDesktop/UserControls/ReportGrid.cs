@@ -7,6 +7,7 @@ using UnifiCommands;
 using UnifiCommands.CommandExecutors;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
+using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.Observers.Report;
@@ -54,7 +55,7 @@ namespace Unifi.UserControls
             }
 
             InvokeUiMethod(SetupListView);
-            List<ReportItem> reportItems = RunReport(DosTasks, isInstall);
+            List<ReportItem> reportItems = ShowReportCommand.RunReport(DosTasks, isInstall, Logger, AppType.Desktop);
             InvokeUiMethod(() => PopulateReport(reportItems));
         }
 
@@ -68,50 +69,6 @@ namespace Unifi.UserControls
                 lstReport.BeginInvoke(new MethodInvoker(action));
             else
                 action.Invoke();
-        }
-
-        private List<ReportItem> RunReport(List<TestTask> dosTasks, bool isInstall)
-        {
-            List<ReportItem> reportItems = new List<ReportItem>();
-            ReportCommandExecutor reportExecutor = new ReportCommandExecutor(Logger);
-
-            foreach (var task in dosTasks)
-            {
-                string category = task.Name;
-                string preCategory = "";
-
-                foreach (var commandInfo in task.Commands)
-                {
-                    if (!commandInfo.Visible || string.IsNullOrEmpty(commandInfo.KeywordForSuccess)) continue;
-
-                    string output;
-                    if (commandInfo.Type == CommandType.Dos)
-                    {
-                        output = reportExecutor.Run(commandInfo, null);
-                    }
-                    else
-                    {
-                        Command command = CommandFactory.CreateCommand(commandInfo, Logger, AppType.Desktop);
-                        output = command.Execute().GetAwaiter().GetResult();
-                    }
-
-                    bool containsKeyword = output.ToLower().Contains(commandInfo.KeywordForSuccess.ToLower());
-
-                    if (!isInstall) containsKeyword = !containsKeyword;
-
-                    reportItems.Add(new ReportItem
-                    {
-                        Category = category == preCategory ? "" : category,
-                        Test = commandInfo.DisplayText,
-                        Passed = containsKeyword,
-                        Command = commandInfo
-                    });
-
-                    preCategory = category;
-                }
-            }
-
-            return reportItems;
         }
 
         private void PopulateReport(IEnumerable<ReportItem> reportItems)

@@ -636,6 +636,12 @@
 			},
 			{
 				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" Error: \"",
+				"DisplayText": "Follow Error",
+				"ShowOnMachine": "All"
+			},
+			{
+				"Command": "Tail",
 				"Arguments": "\"${DevLogPath}\" 1 \" inventory\"",
 				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Dev"
@@ -811,94 +817,95 @@
 				"Arguments": "${SystemFolder}\\services.msc",
 				"DisplayText": "Services",
 				"IconSourcePath": "${SystemFolder}\\filemgmt.dll",
-				"ApiMethod": "OpenService"
+				"TaskImage": "Service.bmp"
 			},
 			{
 				"Command": "${SystemFolder}\\eventvwr.exe",
 				"DisplayText": "Event Viewer",
 				"IconSourcePath": "${SystemFolder}\\miguiresource.dll",
-				"ApiMethod": "OpenEventViewer"
+				"TaskImage": "EventVwr.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d ${RegistryPath}",
 				"DisplayText": "Registry",
 				"IconSourcePath": "${RegistryPath}",
-				"ApiMethod": "OpenRegistry"
+				"TaskImage": "Registry.bmp"
 			},
 			{
 				"Command": "${ExplorerPath}",
 				"Arguments": "\"$[CylanceDesktopFolder]\"",
 				"DisplayText": "Cylance Desktop",
 				"IconSourcePath": "${ExplorerPath}",
-				"ApiMethod": "OpenDesktopFolder"
+				"TaskImage": "Explorer.bmp"
 			},
 			{
 				"Command": "${ExplorerPath}",
 				"Arguments": "\"${SystemFolder}\\drivers\"",
 				"DisplayText": "Drivers Folder",
 				"IconSourcePath": "${ExplorerPath}",
-				"ApiMethod": "OpenDriversFolder"
+				"TaskImage": "Explorer.bmp"
 			},
 			{
 				"Command": "${ExplorerPath}",
 				"Arguments": "${UserProfileFolder}\\AppData\\Local\\Temp",
 				"DisplayText": "Temp Folder",
 				"IconSourcePath": "${ExplorerPath}",
-				"ApiMethod": "OpenDriversFolder"
+				"TaskImage": "Explorer.bmp"
 			},
 			{
 				"Command": "${NotepadPath}",
 				"DisplayText": "Notepad++",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenNotepad++"
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[ProtectLogPath]\"",
 				"DisplayText": "Protect Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenProtectLog"
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "${NotepadPath}",
 				"Arguments": "${MsiInstallLogPath}",
 				"DisplayText": "Install Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenInstallLog",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "${NotepadPath}",
 				"Arguments": "${MsiUninstallLogPath}",
 				"DisplayText": "Uninstall Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenUninstallLog",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c cd ${UserProfileFolder}\\AppData\\Local\\Temp\\ & for /f \"delims=\" %F in ('dir /b /s ${UserProfileFolder}\\AppData\\Local\\Temp\\Cylance_Protect*CylanceProtectSetup*.log  2^>nul') do echo \"${NotepadPath}\" %F > a.bat & a.bat",
 				"DisplayText": "Bootstrapper Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenUninstallLog",
 				"ShowOnMachine": "Test",
-				"Visible": false
+				"Visible": false,
+				"TaskImage": "Cmd.mp"
 			},
 			{
 				"Command": "${NotepadPath}",
 				"Arguments": "${BootstrapperInstallLogPath}",
 				"DisplayText": "Bootstrapper Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenUninstallLog",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[OpticsLogPath]\"",
 				"DisplayText": "Optics Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
@@ -906,14 +913,14 @@
 				"DisplayText": "Protect Log",
 				"IconSourcePath": "C:\\Program Files\\LogExpert\\LogExpert.exe",
 				"Visible": false,
-				"ApiMethod": "OpenLogExpert"
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "${OrcaPath}",
 				"Arguments": "$[GetMsiInstallerPath]",
 				"DisplayText": "Orca",
 				"IconSourcePath": "${OrcaPath}",
-				"ApiMethod": "OpenOrca"
+				"TaskImage": "Orca.bmp"
 			},
 			{
 				"Command": "${ExplorerPath}",
@@ -921,31 +928,31 @@
 				"DisplayText": "Uninstall",
 				"IconSourcePath": "${SystemFolder}\\shell32.dll",
 				"IconIndex": 207,
-				"ApiMethod": "OpenAddRemove",
-				"RunAs": "User"
+				"RunAs": "User",
+				"TaskImage": "Uninstall.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d cmd.exe /K cd $[CylanceDesktopFolder]",
 				"DisplayText": "A/Cylance",
 				"IconSourcePath": "${CmdPath}",
-				"ApiMethod": "OpenDesktopFolder"
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d cmd.exe /K cd ${UserDesktopFolder}",
 				"DisplayText": "A/User Desktop",
 				"IconSourcePath": "${CmdPath}",
-				"ApiMethod": "OpenUserDesktopFolder"
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/K \"cd ${UserDesktopFolder}\"",
 				"DisplayText": "U/User Desktop",
 				"IconSourcePath": "${CmdPath}",
-				"ApiMethod": "OpenUserDesktopFolder",
 				"RunAs": "User",
-				"RedirectOutputToConsole": false
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "cmd.exe",
@@ -954,7 +961,8 @@
 				"IconSourcePath": "${CmdPath}",
 				"ShowOnMachine": "Dev",
 				"RunAs": "User",
-				"RedirectOutputToConsole": false
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "cmd.exe",
@@ -963,7 +971,8 @@
 				"IconSourcePath": "${CmdPath}",
 				"ShowOnMachine": "Dev",
 				"RunAs": "User",
-				"RedirectOutputToConsole": false
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "cmd.exe",
@@ -972,7 +981,8 @@
 				"IconSourcePath": "${CmdPath}",
 				"ShowOnMachine": "Dev",
 				"RunAs": "User",
-				"RedirectOutputToConsole": false
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
@@ -980,55 +990,55 @@
 				"IconSourcePath": "${CmdPath}",
 				"MinimizeWindow": true,
 				"Callback": "ShowFilesVersions",
-				"ApiMethod": "RunCyUpgrade",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${UserDesktopFolder}\\DDP_ATP_Upgrade.exe",
 				"DisplayText": "ESSE Upgrade",
 				"IconSourcePath": "${CmdPath}",
 				"MinimizeWindow": true,
-				"ApiMethod": "RunESSEUpgrade",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[CylanceDesktopFolder]\\config.xml\"",
 				"DisplayText": "Protect config",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenConfigXml"
+				"TaskImage": "Notepad++.bmp"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/C shutdown.exe /r -t 1",
 				"DisplayText": "Reboot",
 				"IconSourcePath": "${CmdPath}",
-				"ApiMethod": "RebootMachine",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"TaskImage": "Cmd.bmp"
 			},			
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d \"${NotepadPath}\" \"${DevLogPath}\"",
 				"DisplayText": "Open Dev Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "OpenDevLog",
-				"ShowOnMachine": "Dev"
+				"ShowOnMachine": "Dev",
+				"TaskImage": "Notepad++.bmp"
 			},			
 			{
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d cmd.exe /c del \"${DevLogPath}\"",
 				"DisplayText": "Delete Dev Log",
 				"IconSourcePath": "${NotepadPath}",
-				"ApiMethod": "DeleteDevLog",
-				"ShowOnMachine": "Dev"
+				"ShowOnMachine": "Dev",
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${ExplorerPath}",
 				"Arguments": "${ProtectDebugFolder}",
 				"DisplayText": "Dev Debug Folder",
 				"IconSourcePath": "${ExplorerPath}",
-				"ApiMethod": "OpenDevDebugFolder",
-				"ShowOnMachine": "Dev"
+				"ShowOnMachine": "Dev",
+				"TaskImage": "Explorer.bmp"
 			}
 		]
 	},
@@ -1088,8 +1098,8 @@
 			},
 			{
 				"Command": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna",
-				"Arguments": "68",
-				"DisplayText": "3.1.1000.46"
+				"Arguments": "54",
+				"DisplayText": "3.1.1001.42"
 			},
 			{
 				"Command": "TestJobs/job/jshih/job/agent-p-publish-install-test",

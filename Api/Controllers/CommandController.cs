@@ -24,7 +24,15 @@ namespace api.Controllers
         [Route("[controller]")]
         public async Task<string> GetCommand(string taskName, string displayText, string parameters)
         {
-            var cmd = new UnifiApi.RestCommands.DosCommand(_commandsProvider, taskName, displayText, parameters);
+            var cmd = new DosCommand(_commandsProvider, taskName, displayText, parameters);
+            return await cmd.Execute();
+        }
+        
+        [HttpGet]
+        [Route("[controller]/Report")]
+        public async Task<string> ReportCommand(string taskName, string displayText, string parameters)
+        {
+            var cmd = new ShowReportCommand(_commandsProvider, taskName, displayText, parameters);
             return await cmd.Execute();
         }
 

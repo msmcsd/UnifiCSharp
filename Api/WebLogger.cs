@@ -17,7 +17,8 @@ public class WebLogger : ILogger, IDisposable
         Error,
         Info,
         Parameters,
-        Progress
+        Progress,
+        Report
     }
 
     public WebLogger(AutoResetEvent ev)
@@ -91,6 +92,11 @@ public class WebLogger : ILogger, IDisposable
     public void LogProgress(string message)
     {
         SendMessageToSocketServer(SocketEvent.Progress, message);
+    }
+
+    public void SendReport(string json)
+    {
+        SendMessageToSocketServer(SocketEvent.Report, json);
     }
 
     private void SendMessageToSocketServer(SocketEvent socketEvent, string message)

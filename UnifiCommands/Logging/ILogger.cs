@@ -10,5 +10,7 @@ namespace UnifiCommands.Logging
         void LogProgress(string message);
 
         void LogCommand(string message, bool newLine);
+
+        void SendReport(string json);
     }
 }

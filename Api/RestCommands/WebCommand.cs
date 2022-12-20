@@ -18,10 +18,11 @@ namespace UnifiApi.RestCommands
     /// </summary>
     internal abstract class WebCommand
     {
-        private readonly ICommandsProvider _commandsProvider;
         private readonly string _taskName;
         private readonly string _displayText;
         private string _parameters;
+
+        protected readonly ICommandsProvider CommandsProvider;
         protected ILogger logger;
         protected FullCommandInfo command;
         protected dynamic variables;
@@ -32,7 +33,7 @@ namespace UnifiApi.RestCommands
 
         protected WebCommand(ICommandsProvider commandsProvider, string taskName, string displayText, string parameters)
         {
-            _commandsProvider = commandsProvider;
+            CommandsProvider = commandsProvider;
             _taskName = taskName;
             _displayText = displayText;
             _parameters = parameters;
@@ -73,7 +74,7 @@ namespace UnifiApi.RestCommands
         protected virtual bool FindCommand(out string result)
         {
             result = "";
-            command = _commandsProvider.FindCommand(_taskName, _displayText);
+            command = CommandsProvider.FindCommand(_taskName, _displayText);
             if (command == null)
             {
                 result = "{\"result\": \"Command not found\"}";
@@ -120,7 +121,7 @@ namespace UnifiApi.RestCommands
 
         public static async Task RunCommands(List<FullCommandInfo> commands, bool checkReturnValue, object uiObserver, ILogger logger)
         {
-            var b = new BatchCommandExecutor(commands, false, null, logger, AppType.Web);
+            var b = new BatchCommandExecutor(commands, false, uiObserver, logger, AppType.Web);
             //b.RegisterObserver(observer);
             await b.Execute();
         }
