@@ -1,4 +1,5 @@
 REM This file should be run on target machine.
+iisreset /stop
 
 REM set CurrentFolder=%~dp0
 set CurrentFolder="\\vmware-host\Shared Folders\VMWare-Share\TestTools\Deploy\"
@@ -60,6 +61,6 @@ REM if exist %SocketDeployDstFolder% rmdir %SocketDeployDstFolder% /s /q
 REM 
 REM xcopy %ApiDeploySrcFolder% %SocketDeployDstFolder% /E/H/C/I
 
-
+iisreset /start
 
 explorer http://localhost:5000/Api/Commands
