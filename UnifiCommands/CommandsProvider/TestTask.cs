@@ -33,7 +33,7 @@ namespace UnifiCommands.CommandsProvider
         /// Used to determine if the command group is needed in web client.
         /// This is to minimize the amount of data sent back to web client.
         /// </summary>
-        public bool UsedInWeb => CommandGroup != CommandGroup.Function && CommandGroup != CommandGroup.Function && CommandGroup != CommandGroup.Variable;
+        public bool UsedInWeb => CommandGroup != CommandGroup.Function;
 
         /// <summary>
         /// When CommandGroup is Install, ApiMethod will refer to this command group instead of individual command

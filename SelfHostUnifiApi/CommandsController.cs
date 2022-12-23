@@ -70,6 +70,15 @@ namespace SelfHostUnifiApi
             return await cmd.Execute();
         }
 
+        [HttpGet]
+        //[Route("[controller]/Install")]
+        [ActionName("Install")]
+        public async Task<string> Install(string taskName, string parameters)
+        {
+            var cmd = new InstallCommand(_commandsProvider, taskName, parameters);
+            return await cmd.Execute();
+        }
+
         public IEnumerable<WebTestTask> GetAllTasks()
         {
             return _commandsProvider.WebTestTasks;

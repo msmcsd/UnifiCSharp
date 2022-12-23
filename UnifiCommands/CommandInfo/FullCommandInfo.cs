@@ -96,16 +96,6 @@ namespace UnifiCommands.CommandInfo
         public RunAsUserType RunAs { get; set; } = RunAsUserType.Admin;
 
         /// <summary>
-        /// Used when command group is Variable only to define variable name.
-        /// </summary>
-        public string Variable { get; set; }
-
-        /// <summary>
-        /// Used when command group is Variable only to define variable value.
-        /// </summary>
-        public string Value { get; set; }
-
-        /// <summary>
         /// Redirects output of DOS prompt to Console or not.
         /// When opening a new DOS prompt, instead of running a DOS command, set this to false;
         /// </summary>

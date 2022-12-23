@@ -14,8 +14,20 @@ namespace UnifiCommands.CommandInfo
         /// <summary>
         /// Image used to display next to the command in client Drawer.
         /// </summary>
-        [JsonProperty("taskImage")]
-        public string TaskImage { get; set; } 
+        [JsonProperty("taskImage", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaskImage { get; set; }
+
+        /// <summary>
+        /// Used when command group is Variable only to define variable name.
+        /// </summary>
+        [JsonProperty("variable", NullValueHandling = NullValueHandling.Ignore)]
+        public string Variable { get; set; }
+
+        /// <summary>
+        /// Used when command group is Variable only to define variable value.
+        /// </summary>
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        public string Value { get; set; }
 
         //public override string ToString() => DisplayText;
 
