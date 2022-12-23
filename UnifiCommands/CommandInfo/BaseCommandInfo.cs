@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace UnifiCommands.CommandInfo
 {
@@ -7,11 +8,13 @@ namespace UnifiCommands.CommandInfo
         /// <summary>
         /// Describes what the command does. This displays on UI.
         /// </summary>
+        [JsonProperty("displayText")]
         public string DisplayText { get; set; } = "";
 
         /// <summary>
         /// Image used to display next to the command in client Drawer.
         /// </summary>
+        [JsonProperty("taskImage")]
         public string TaskImage { get; set; } 
 
         //public override string ToString() => DisplayText;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using UnifiCommands.CommandInfo;
 
 namespace UnifiCommands.CommandsProvider
@@ -43,16 +44,19 @@ namespace UnifiCommands.CommandsProvider
 
     public class WebTestTask
     {
+        [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Used to group similar commands, which are populated in the same list box.
         /// </summary>
+        [JsonProperty("commandGroup")]
         public CommandGroup CommandGroup { get; set; }
 
         /// <summary>
         /// List of commands for this command group.
         /// </summary>
+        [JsonProperty("commands")]
         public List<BaseCommandInfo> Commands { get; set; }
     }
 
