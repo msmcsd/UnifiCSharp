@@ -52,12 +52,12 @@
 			},
 			{
 				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LogLevel /t REG_DWORD /d 3 /f",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LogLevel /t REG_DWORD /d 3 /f",
 				"DisplayText": "Set Log Level in Registry"
 			},
 			{
 				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SelfProtectionLevel /t REG_DWORD /d 1 /f",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SelfProtectionLevel /t REG_DWORD /d 1 /f",
 				"DisplayText": "Set Self Protection in Registry"
 			},
 			{
@@ -89,7 +89,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"Callback": "ShowFilesVersions"
 			},
@@ -111,7 +111,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"Callback": "ShowFilesVersions"
 			},
@@ -133,7 +133,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"RunAs": "User",
 				"Callback": "ShowFilesVersions"
@@ -156,7 +156,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"$[GetInstallerFullPath]\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"RunAs": "User",
 				"Callback": "ShowFilesVersions"
@@ -178,7 +178,7 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
 				"Callback": "ShowFilesVersions"
@@ -195,7 +195,7 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] SELFPROTECTION=1",
 				"DisplayText": "Run  installer",
 				"Callback": "ShowFilesVersions"
@@ -212,7 +212,7 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
 				"RunAs": "User",
@@ -230,7 +230,7 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "\"$[GetBootstrapperFullPath]\"",
+				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
 				"RunAs": "User",
@@ -371,7 +371,7 @@
 			},
 			{
 				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d cmd.exe /C \"$[CylanceDesktopFolder]\\CylanceSvc.exe\" /shutdown",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C \"$[CylanceDesktopFolder]\\CylanceSvc.exe\" /shutdown",
 				"DisplayText": "Stop AM-PPL Service"
 			}
 		]
@@ -540,7 +540,7 @@
 			},
 			{
 				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LastUpdateRuntime /t REG_SZ /d 0 /f",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LastUpdateRuntime /t REG_SZ /d 0 /f",
 				"DisplayText": "Clear Last Update Time",
 				"ShowOnMachine": "Test"
 			},
@@ -702,8 +702,20 @@
 			},
 			{
 				"Command": "cmd.exe",
+				"Arguments": "/c C:\\repos\\socket-server\\publish.bat index.js",
+				"DisplayText": "Copy To index.js Deploy Center",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
 				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocketToIIS.bat\"",
 				"DisplayText": "Deploy to IIS",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocketToIIS.bat\" index.js",
+				"DisplayText": "Deploy index.js to IIS",
 				"ShowOnMachine": "Test"
 			},
 			{
@@ -827,7 +839,7 @@
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d ${RegistryPath}",
+				"Arguments": "-s -i -d -accepteula ${RegistryPath}",
 				"DisplayText": "Registry",
 				"IconSourcePath": "${RegistryPath}",
 				"TaskImage": "Registry.bmp"
@@ -861,7 +873,7 @@
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[ProtectLogPath]\"",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"$[ProtectLogPath]\"",
 				"DisplayText": "Protect Log",
 				"IconSourcePath": "${NotepadPath}",
 				"TaskImage": "Notepad++.bmp"
@@ -901,7 +913,7 @@
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[OpticsLogPath]\"",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"$[OpticsLogPath]\"",
 				"DisplayText": "Optics Log",
 				"IconSourcePath": "${NotepadPath}",
 				"ShowOnMachine": "Test",
@@ -909,7 +921,7 @@
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d \"C:\\Program Files\\LogExpert\\LogExpert.exe\" \"$[ProtectLogPath]\"",
+				"Arguments": "-s -i -d -accepteula \"C:\\Program Files\\LogExpert\\LogExpert.exe\" \"$[ProtectLogPath]\"",
 				"DisplayText": "Protect Log",
 				"IconSourcePath": "C:\\Program Files\\LogExpert\\LogExpert.exe",
 				"Visible": false,
@@ -933,14 +945,14 @@
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d cmd.exe /K cd $[CylanceDesktopFolder]",
+				"Arguments": "-s -i -d -accepteula cmd.exe /K cd $[CylanceDesktopFolder]",
 				"DisplayText": "A/Cylance",
 				"IconSourcePath": "${CmdPath}",
 				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d cmd.exe /K cd ${UserDesktopFolder}",
+				"Arguments": "-s -i -d -accepteula cmd.exe /K cd ${UserDesktopFolder}",
 				"DisplayText": "A/User Desktop",
 				"IconSourcePath": "${CmdPath}",
 				"TaskImage": "Cmd.bmp"
@@ -1003,7 +1015,7 @@
 			},
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d \"${NotepadPath}\" \"$[CylanceDesktopFolder]\\config.xml\"",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"$[CylanceDesktopFolder]\\config.xml\"",
 				"DisplayText": "Protect config",
 				"IconSourcePath": "${NotepadPath}",
 				"TaskImage": "Notepad++.bmp"
@@ -1018,7 +1030,7 @@
 			},			
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d \"${NotepadPath}\" \"${DevLogPath}\"",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"${DevLogPath}\"",
 				"DisplayText": "Open Dev Log",
 				"IconSourcePath": "${NotepadPath}",
 				"ShowOnMachine": "Dev",
@@ -1026,7 +1038,7 @@
 			},			
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d cmd.exe /c del \"${DevLogPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /c del \"${DevLogPath}\"",
 				"DisplayText": "Delete Dev Log",
 				"IconSourcePath": "${NotepadPath}",
 				"ShowOnMachine": "Dev",
@@ -1495,6 +1507,14 @@
 			{
 				"Variable": "QA2Token",		
 				"Value": "6m36TsuuTssnXRziimGtDXBz"
+			},
+			{
+				"Variable": "Msi64",		
+				"Value": "CylanceProtect_x64.msi"
+			},
+			{
+				"Variable": "Msi32",		
+				"Value": "CylanceProtect_x86.msi"
 			},
 			{
 				"Variable": "MsiLogFolder",		

@@ -344,26 +344,26 @@ namespace Unifi.Forms
             }
         }
 
-        private string GetInstallerFullPath
-        {
-            get
-            {
-                string installer;
-                if (lstDownload.SelectedItem == null)
-                    installer = Variables.ProtectMsiNameByVmArch;
-                else
-                {
-                    if (lstDownload.Text.ToLower().Contains("dtd"))
-                        installer = Variables.DtdInstallerName;
-                    else if (lstDownload.Text.ToLower().Contains("esse"))
-                        installer = Variables.EsseInstallerName;
-                    else
-                        installer = Variables.ProtectMsiNameByVmArch;
-                }
+        //private string GetInstallerFileName
+        //{
+        //    get
+        //    {
+        //        string installer;
+        //        if (lstDownload.SelectedItem == null)
+        //            installer = Variables.ProtectMsiNameByVmArch;
+        //        else
+        //        {
+        //            if (lstDownload.Text.ToLower().Contains("dtd"))
+        //                installer = Variables.DtdInstallerName;
+        //            else if (lstDownload.Text.ToLower().Contains("esse"))
+        //                installer = Variables.EsseInstallerName;
+        //            else
+        //                installer = Variables.ProtectMsiNameByVmArch;
+        //        }
 
-                return $@"{Variables.InstallerDownloadFolder}\{installer}";
-            }
-        }
+        //        return installer;
+        //    }
+        //}
 
         private string GetBootstrapperFullPath => $@"{Variables.InstallerDownloadFolder}\{Variables.ProtectBootstrapperName}";
 

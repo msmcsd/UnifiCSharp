@@ -37,5 +37,7 @@ namespace Unifi.Consoles
         {
             _console.LogCommand(message, newLine);
         }
+
+        public void SendReport(string report) { }
     }
 }
