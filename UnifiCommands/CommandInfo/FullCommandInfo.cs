@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.VariableProcessors;
@@ -54,11 +55,6 @@ namespace UnifiCommands.CommandInfo
         /// For example, a callback that updates DLL version when Updater is running.
         /// </summary>
         public string Callback { get; set; }
-
-        /// <summary>
-        /// Used to instantiate different kind of commands.
-        /// </summary>
-        public CommandType Type { get; set; } = CommandType.Dos;
 
         /// <summary>
         /// Shows/Hides command in Batch Task. So a command doesn't have to be removed from Json if not used.
@@ -120,6 +116,18 @@ namespace UnifiCommands.CommandInfo
         /// This field is not set in JSON.
         /// </summary>
         public object VariableValueSource { get; set; }
+
+        /// <summary>
+        /// Used when command group is Variable only to define variable name.
+        /// </summary>
+        [JsonProperty("variable", NullValueHandling = NullValueHandling.Ignore)]
+        public string Variable { get; set; }
+
+        /// <summary>
+        /// Used when command group is Variable only to define variable value.
+        /// </summary>
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        public string Value { get; set; }
 
         /// <summary>
         /// Creates a BaseCommandInfo object and copy the values of corresponding properties from FullCommandInfo.

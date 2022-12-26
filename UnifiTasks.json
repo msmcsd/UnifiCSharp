@@ -111,7 +111,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"Callback": "ShowFilesVersions"
 			},
@@ -133,7 +133,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"RunAs": "User",
 				"Callback": "ShowFilesVersions"
@@ -156,7 +156,7 @@
 			},
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"RunAs": "User",
 				"Callback": "ShowFilesVersions"
@@ -1507,14 +1507,6 @@
 			{
 				"Variable": "QA2Token",		
 				"Value": "6m36TsuuTssnXRziimGtDXBz"
-			},
-			{
-				"Variable": "Msi64",		
-				"Value": "CylanceProtect_x64.msi"
-			},
-			{
-				"Variable": "Msi32",		
-				"Value": "CylanceProtect_x86.msi"
 			},
 			{
 				"Variable": "MsiLogFolder",		

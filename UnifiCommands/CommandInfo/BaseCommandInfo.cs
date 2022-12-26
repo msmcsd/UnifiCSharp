@@ -18,16 +18,11 @@ namespace UnifiCommands.CommandInfo
         public string TaskImage { get; set; }
 
         /// <summary>
-        /// Used when command group is Variable only to define variable name.
+        /// Used to instantiate different kind of commands.
+        /// Dos commands are displayed in black. Code commands are displayed in green.
         /// </summary>
-        [JsonProperty("variable", NullValueHandling = NullValueHandling.Ignore)]
-        public string Variable { get; set; }
-
-        /// <summary>
-        /// Used when command group is Variable only to define variable value.
-        /// </summary>
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
-        public string Value { get; set; }
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public CommandType Type { get; set; } = CommandType.Dos;
 
         //public override string ToString() => DisplayText;
 
