@@ -84,7 +84,7 @@ namespace UnifiCommands.Commands.CodeCommands
                     reportItems.Add(new ReportItem
                     {
                         Id = id,
-                        Category = category == preCategory ? "" : category,
+                        Category = appType== AppType.Desktop? category == preCategory ? "" : category : category,
                         Test = commandInfo.DisplayText,
                         Keyword = commandInfo.KeywordForSuccess,
                         Passed = containsKeyword,
