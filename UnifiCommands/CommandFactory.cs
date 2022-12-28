@@ -33,7 +33,7 @@ namespace UnifiCommands
         private static Command CreateDosCommand(FullCommandInfo commandInfo, ILogger logger, AppType appType)
         {
             commandInfo = ReplaceVariables(commandInfo, appType);
-            return new DosCommand(commandInfo, logger);
+            return new DosCommand(commandInfo, logger, appType);
         }
 
         private static Command CreateCodeCommand(FullCommandInfo commandInfo, ILogger logger, AppType appType)

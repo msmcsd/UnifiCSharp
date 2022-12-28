@@ -15,18 +15,20 @@ namespace UnifiCommands.Commands
     public class DosCommand : Command
     {
         private readonly FullCommandInfo _command;
+        private readonly AppType _appType;
         private readonly CommandExecutor _executor;
 
-        public DosCommand(FullCommandInfo command, ILogger logger) : base(logger)
+        public DosCommand(FullCommandInfo command, ILogger logger, AppType appType) : base(logger)
         {
             _command = command;
+            _appType = appType;
             _executor = new DosCommandExecutor(logger);
         }
 
         protected override Task<string> ExecuteCommand()
         {
             Timer callbackTimer = null;
-            bool hasCallback = !string.IsNullOrEmpty(_command.Callback);
+            bool hasCallback = _appType == AppType.Desktop && !string.IsNullOrEmpty(_command.Callback);
             ElapsedEventHandler del = null;
             if (hasCallback)
             {
