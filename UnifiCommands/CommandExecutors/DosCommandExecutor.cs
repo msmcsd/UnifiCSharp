@@ -33,7 +33,8 @@ namespace UnifiCommands.CommandExecutors
                     FileName = commandInfo.Command,
                     Arguments = commandInfo.Arguments,
                     UseShellExecute = false,
-                    CreateNoWindow = !commandInfo.CreateNewWindow
+                    CreateNoWindow = !commandInfo.CreateNewWindow,
+                    WorkingDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
                 }
             };
 
