@@ -196,6 +196,10 @@
       <Project>{3d560782-bb3a-4183-9a4b-e3087f2cc7b1}</Project>
       <Name>UnifiCommands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tail\Tail.csproj">
+      <Project>{ed8e929f-8497-43bd-bf60-c844afb3ef78}</Project>
+      <Name>Tail</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

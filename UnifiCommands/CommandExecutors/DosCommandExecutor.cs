@@ -81,9 +81,17 @@ namespace UnifiCommands.CommandExecutors
                     p.BeginOutputReadLine();
                     p.BeginErrorReadLine();
                 }
-                p.WaitForExit();
+                bool ret = p.WaitForExit(5000);
 
-                Logger.LogInfo($"'{commandInfo.DisplayText}' return code: {p.ExitCode}");
+                if (ret)
+                {
+                    Logger.LogInfo($"'{commandInfo.DisplayText}' return code: {p.ExitCode}");
+                }
+                else
+                {
+                    p.Kill();
+                    Logger.LogError($"'{commandInfo.DisplayText}' did not finish in 5 seconds and was terminated");
+                }
 
             }
             catch (Exception e)
