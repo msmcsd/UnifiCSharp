@@ -654,39 +654,44 @@
 		"Commands": [
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c C:\\repos\\UnifiCSharp\\Api\\publish.bat",
-				"DisplayText": "Publish to Deploy Center",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployApiToFolder.bat\"",
+				"DisplayText": "Deploy to C:\\SelfHostAPI",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployApiToIIS.bat\"",
-				"DisplayText": "Deploy to IIS",
-				"ShowOnMachine": "Test"
+				"Arguments": "/K C:\\SelfHostAPI\\SelfHostUnifiApi.exe",
+				"DisplayText": "Start Api Server",
+				"RedirectOutputToConsole": false,
+				"CreateNewWindow": true
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c \"C:\\Windows\\System32\\inetsrv\\inetmgr.exe\"",
 				"DisplayText": "Open IIS",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"Visible": false
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c ${ExplorerPath} C:\\inetpub\\wwwroot\\Unifi\\API",
 				"DisplayText": "Open IIS Api Folder",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"Visible": false
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c C:\\windows\\system32\\inetsrv\\appcmd stop site UnifiApi",
 				"DisplayText": "Stop Api Server",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"Visible": false
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c C:\\windows\\system32\\inetsrv\\appcmd start site UnifiApi",
 				"DisplayText": "Start Api Server",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"Visible": false
 			}
 		]
 	},	
@@ -696,13 +701,13 @@
 		"Commands": [
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c C:\\repos\\socket-server\\publish.bat",
+				"Arguments": "/c C:\\repos\\unifi-socket-server\\publish.bat",
 				"DisplayText": "Copy To Deploy Center",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c C:\\repos\\socket-server\\publish.bat index.js",
+				"Arguments": "/c C:\\repos\\unifi-socket-server\\publish.bat index.js",
 				"DisplayText": "Copy To index.js Deploy Center",
 				"ShowOnMachine": "Test"
 			},

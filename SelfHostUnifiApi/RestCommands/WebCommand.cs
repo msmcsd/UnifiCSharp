@@ -104,7 +104,7 @@ namespace SelfHostUnifiApi.RestCommands
 
             AutoResetEvent ev = new AutoResetEvent(false); // Ensure socket server is connected before running commands.
             logger = new WebLogger(ev);
-            ev.WaitOne();
+            ev.WaitOne(5000);
 
             SetVariableValueSource();
 

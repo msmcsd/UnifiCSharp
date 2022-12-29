@@ -1,5 +1,6 @@
 ﻿using SocketIOClient;
 using System;
+using System.Net.Sockets;
 using System.Threading;
 using UnifiCommands.Logging;
 
@@ -56,11 +57,11 @@ namespace SelfHostUnifiApi
 
             _client.OnConnected += async (sender, e) =>
             {
-                LogInfo($"{GetType().Name} connected to socket server.");
+                //LogInfo($"{GetType().Name} connected to socket server.");
                 ev.Set();
 
                 _socketId = (sender as SocketIO).Id;
-                Log("connect to socket server");
+                Log("Connect", "connect to socket server");
                 //Console.WriteLine($"Connected.");
                 // Emit a string
 
@@ -106,6 +107,7 @@ namespace SelfHostUnifiApi
             if (string.IsNullOrEmpty(message)) return;
 
             _client.EmitAsync(socketEvent.ToString(), message);
+            Log(socketEvent.ToString(), message);
         }
 
         public void Dispose()
@@ -114,9 +116,9 @@ namespace SelfHostUnifiApi
             GC.SuppressFinalize(this);
         }
 
-        private void Log(string message)
+        private void Log(string socketEvent, string message)
         {
-            Console.WriteLine($"[{DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.ffff tt")}][{_socketId}] {GetType().Name} {message}");
+            Console.WriteLine($"[{DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.ffff tt")}][{_socketId}][{socketEvent}] {message}");
         }
 
         protected virtual void Dispose(bool disposing)
@@ -134,15 +136,15 @@ namespace SelfHostUnifiApi
                         foreach (var e in Enum.GetNames(typeof(SocketEvent)))
                         {
                             _client?.Off(e);
-                            Log($"unregistering socket event {e}");
+                            Log("Unregister", $"unregistering socket event {e}");
                         }
                         _client?.DisconnectAsync();
-                        Log("disconnect socket");
+                        Log("Disconnect", "disconnect socket");
                     }
                     finally
                     {
                         _client?.Dispose();
-                        Log("socket object disposed");
+                        Log("Dispose", "socket object disposed");
                     }
                 }
 
