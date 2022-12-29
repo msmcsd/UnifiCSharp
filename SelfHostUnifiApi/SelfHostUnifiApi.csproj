@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Desktop\Tail\Tail.csproj" />
     <ProjectReference Include="..\UnifiCommands\UnifiCommands.csproj" />
   </ItemGroup>
 
