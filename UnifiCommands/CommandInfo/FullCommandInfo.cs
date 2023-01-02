@@ -118,18 +118,6 @@ namespace UnifiCommands.CommandInfo
         public object VariableValueSource { get; set; }
 
         /// <summary>
-        /// Used when command group is Variable only to define variable name.
-        /// </summary>
-        [JsonProperty("variable", NullValueHandling = NullValueHandling.Ignore)]
-        public string Variable { get; set; }
-
-        /// <summary>
-        /// Used when command group is Variable only to define variable value.
-        /// </summary>
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
-        public string Value { get; set; }
-
-        /// <summary>
         /// Creates a BaseCommandInfo object and copy the values of corresponding properties from FullCommandInfo.
         /// </summary>
         /// <returns></returns>

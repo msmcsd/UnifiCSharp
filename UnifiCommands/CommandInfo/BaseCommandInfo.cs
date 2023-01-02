@@ -24,6 +24,18 @@ namespace UnifiCommands.CommandInfo
         [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public CommandType Type { get; set; } = CommandType.Dos;
 
+        /// <summary>
+        /// Used when command group is Variable only to define variable name.
+        /// </summary>
+        [JsonProperty("variable", NullValueHandling = NullValueHandling.Ignore)]
+        public string Variable { get; set; }
+
+        /// <summary>
+        /// Used when command group is Variable only to define variable value.
+        /// </summary>
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        public string Value { get; set; }
+
         //public override string ToString() => DisplayText;
 
         /// <summary>
