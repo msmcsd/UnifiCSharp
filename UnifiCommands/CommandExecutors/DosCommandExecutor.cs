@@ -89,8 +89,11 @@ namespace UnifiCommands.CommandExecutors
                 }
                 else
                 {
-                    p.Kill();
-                    Logger.LogError($"'{commandInfo.DisplayText}' did not finish in 5 seconds and was terminated");
+                    if (!commandInfo.CreateNewWindow)
+                    {
+                        p.Kill();
+                        Logger.LogError($"'{commandInfo.DisplayText}' did not finish in 5 seconds and was terminated");
+                    }
                 }
 
             }
