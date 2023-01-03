@@ -81,20 +81,20 @@ namespace UnifiCommands.CommandExecutors
                     p.BeginOutputReadLine();
                     p.BeginErrorReadLine();
                 }
-                bool ret = p.WaitForExit(5000);
+                p.WaitForExit();
 
-                if (ret)
-                {
-                    Logger.LogInfo($"'{commandInfo.DisplayText}' return code: {p.ExitCode}");
-                }
-                else
-                {
-                    if (!commandInfo.CreateNewWindow)
-                    {
-                        p.Kill();
-                        Logger.LogError($"'{commandInfo.DisplayText}' did not finish in 5 seconds and was terminated");
-                    }
-                }
+                //if (ret)
+                //{
+                Logger.LogInfo($"'{commandInfo.DisplayText}' return code: {p.ExitCode}");
+                //}
+                //else
+                //{
+                //    if (!commandInfo.CreateNewWindow)
+                //    {
+                //        p.Kill();
+                //        Logger.LogError($"'{commandInfo.DisplayText}' did not finish in 5 seconds and was terminated");
+                //    }
+                //}
 
             }
             catch (Exception e)
