@@ -68,19 +68,8 @@
 		]
 	},	
 	{
-		"Name": "Set up install env",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "Setup_Protect_Msi_Install_Env",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Msi Admin/q",
-		"CommandGroup": "Install",
+		"Name": "Install_Protect_Msi_Admin_Quiet",
+		"CommandGroup": "Function",
 		"Commands": [
 			{
 				"Command": "Setup_Protect_Msi_Install_Env",
@@ -97,6 +86,28 @@
 				"Command": "cmd.exe",
 				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
+			}
+		]
+	},
+	{
+		"Name": "Set up install env",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Msi_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Protect Msi Admin/q",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
 			}
 		]
 	},
@@ -459,6 +470,13 @@
 				"Arguments": "/C xcopy \"C:\\Program Files\\Cylance\\Desktop\\d\" \"C:\\Program Files\\Cylance\\Desktop\\d1\" /E/H/C/I",
 				"DisplayText": "Backup d folder",
 				"KeywordForSuccess": "",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "TestJobs/job/jshih/job/agent-p-publish-install-test, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Me'",
+				"DisplayText": "Download Latest Me",
+				"Type": "Code",
 				"ShowOnMachine": "Test"
 			}
 		]
@@ -1347,6 +1365,44 @@
 			{
 				"DisplayText": "AfterMsiUpdated",
 				"Arguments": "11"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest Me Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "TestJobs/job/jshih/job/agent-p-publish-install-test, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Me'",
+				"DisplayText": "Download Latest Me",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest BC Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/BC/job/agent-b-branch-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest BC'",
+				"DisplayText": "Download Latest BC",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
 			}
 		]
 	},

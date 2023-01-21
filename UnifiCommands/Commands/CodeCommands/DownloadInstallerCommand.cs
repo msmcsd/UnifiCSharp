@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
-using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
