@@ -655,15 +655,21 @@
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployApiToFolder.bat\"",
-				"DisplayText": "Deploy to C:\\SelfHostAPI",
+				"DisplayText": "Deploy to ${UserProfileFolder}\\Desktop\\Unifi\\Api",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/K C:\\SelfHostAPI\\SelfHostUnifiApi.exe",
+				"Arguments": "/K ${UserProfileFolder}\\Desktop\\Unifi\\Api\\SelfHostUnifiApi.exe",
 				"DisplayText": "Start Api Server",
 				"RedirectOutputToConsole": false,
 				"CreateNewWindow": true
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c ${ExplorerPath} ${UserProfileFolder}\\Desktop\\Unifi\\Api",
+				"DisplayText": "Open Api Folder",
+				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
@@ -713,19 +719,19 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocketToIIS.bat\"",
-				"DisplayText": "Deploy to IIS",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocket.bat\"",
+				"DisplayText": "Deploy Socket Server",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocketToIIS.bat\" index.js",
-				"DisplayText": "Deploy index.js to IIS",
+				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeploySocket.bat\" index.js",
+				"DisplayText": "Deploy index.js only",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/K \"cd C:\\inetpub\\wwwroot\\Unifi\\SocketServer\" & npm start",
+				"Arguments": "/K \"cd ${UserProfileFolder}\\Desktop\\Unifi\\SocketServer\" & npm start",
 				"DisplayText": "Start Socket Server",
 				"IconSourcePath": "${CmdPath}",
 				"RunAs": "User",
@@ -1027,7 +1033,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C shutdown.exe /r -t 1",
+				"Arguments": "/C shutdown.exe /r -t 0",
 				"DisplayText": "Reboot",
 				"IconSourcePath": "${CmdPath}",
 				"ShowOnMachine": "Test",
@@ -1120,13 +1126,18 @@
 			},
 			{
 				"Command": "TestJobs/job/jshih/job/agent-p-publish-install-test",
-				"Arguments": "955",
-				"DisplayText": "3.2.9200.12159"
+				"Arguments": "1044",
+				"DisplayText": "3.1.9200.15049"
 			},
 			{
 				"Command": "Protect/job/Agent/job/BC/job/agent-b-branch-dna",
-				"Arguments": "2533",
-				"DisplayText": "3.1.9700.36145"
+				"Arguments": "2631",
+				"DisplayText": "3.1.9700.39044"
+			},
+			{
+				"Command": "Protect/job/Agent/job/BC/job/agent-b-branch-dna",
+				"Arguments": "2628",
+				"DisplayText": "3.1.9700.39041"
 			},
 			{
 				"Command": "",

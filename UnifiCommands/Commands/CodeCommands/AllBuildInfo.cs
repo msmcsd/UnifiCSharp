@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
-    internal class AllBuildsInfo
+    public class AllBuildsInfo
     {
         public List<Build> Builds { get; set; }
     }
 
-    internal class Build
+    public class Build
     {
         [JsonProperty("displayName")]
         public string DisplayName { get; set; }
@@ -23,7 +23,7 @@ namespace UnifiCommands.Commands.CodeCommands
         public List<Action> Actions { get; set; }
     }
 
-    internal class Parameter
+    public class Parameter
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -32,7 +32,7 @@ namespace UnifiCommands.Commands.CodeCommands
         public string Value { get; set; } = "";
     }
 
-    internal class Action
+    public class Action
     {
         [JsonProperty("parameters")]
         public List<Parameter> Parameters { get; set; }

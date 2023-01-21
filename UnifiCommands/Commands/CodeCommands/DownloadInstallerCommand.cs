@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -61,7 +62,80 @@ namespace UnifiCommands.Commands.CodeCommands
         /// <returns></returns>
         private async Task<Build> GetLastSuccessfulWindowsBuildNumber()
         {
-            string url = string.Format(Variables.AllBuildsInfoUrl, _job) + "{0,10}";
+            var successfulBuilds = await GetSuccessfulBuilds(_job, Logger);
+
+            foreach (var b in successfulBuilds)
+            {
+                foreach (var action in b.Actions)
+                {
+                    var windowsPlatform = action.Parameters?.FirstOrDefault(p =>
+                        p.Name.Equals("PlatformChoice", StringComparison.InvariantCultureIgnoreCase) &&
+                        p.Value.IndexOf("Windows", StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+                    if (windowsPlatform != null)
+                    {
+                        Logger.LogInfo($"Last successful Windows build number is {b.BuildNumber}");
+                        return b;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        //private async Task<Build> GetLastSuccessfulWindowsBuildNumber()
+        //{
+        //    string url = string.Format(Variables.AllBuildsInfoUrl, _job) + "{0,10}";
+        //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        //    request.ContentType = "application/json";
+        //    request.Method = "GET";
+
+        //    try
+        //    {
+        //        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        //        if (response.StatusCode == HttpStatusCode.OK)
+        //        {
+        //            using (var reader = new StreamReader(response.GetResponseStream()))
+        //            {
+        //                string json = await reader.ReadToEndAsync();
+        //                var jsonSerializerSettings = new JsonSerializerSettings();
+        //                jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+        //                var allBuilds = JsonConvert.DeserializeObject<AllBuildsInfo>(json, jsonSerializerSettings);
+
+        //                var successfulBuilds = allBuilds.Builds
+        //                    .Where(b => b.Result.Equals("SUCCESS", StringComparison.InvariantCultureIgnoreCase))
+        //                    .OrderByDescending(b => b.BuildNumber).ToList();
+
+
+        //                foreach (var b in successfulBuilds)
+        //                {
+        //                    foreach (var action in b.Actions)
+        //                    {
+        //                        var windowsPlatform = action.Parameters?.FirstOrDefault(p =>
+        //                            p.Name.Equals("PlatformChoice", StringComparison.InvariantCultureIgnoreCase) &&
+        //                            p.Value.IndexOf("Windows", StringComparison.InvariantCultureIgnoreCase) >= 0);
+
+        //                        if (windowsPlatform != null)
+        //                        {
+        //                            Logger.LogInfo($"Last successful Windows build number is {b.BuildNumber}");
+        //                            return b;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Logger.LogError(e.Message);
+        //    }
+
+        //    return null;
+        //}
+
+        public async static Task<List<Build>> GetSuccessfulBuilds(string url, ILogger logger)
+        {
+            url = string.Format(Variables.AllBuildsInfoUrl, url) + "{0,10}";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = "application/json";
             request.Method = "GET";
@@ -82,31 +156,40 @@ namespace UnifiCommands.Commands.CodeCommands
                             .Where(b => b.Result.Equals("SUCCESS", StringComparison.InvariantCultureIgnoreCase))
                             .OrderByDescending(b => b.BuildNumber).ToList();
 
-
-                        foreach (var b in successfulBuilds)
-                        {
-                            foreach (var action in b.Actions)
-                            {
-                                var windowsPlatform = action.Parameters?.FirstOrDefault(p =>
-                                    p.Name.Equals("PlatformChoice", StringComparison.InvariantCultureIgnoreCase) &&
-                                    p.Value.IndexOf("Windows", StringComparison.InvariantCultureIgnoreCase) >= 0);
-
-                                if (windowsPlatform != null)
-                                {
-                                    Logger.LogInfo($"Last successful Windows build number is {b.BuildNumber}");
-                                    return b;
-                                }
-                            }
-                        }
+                        return successfulBuilds;
                     }
                 }
             }
             catch (Exception e)
             {
-                Logger.LogError(e.Message);
+                logger.LogError(e.Message);
             }
 
             return null;
+        }
+
+        public async static Task<string> GetBuildNumberByVersion(string url, string version, ILogger logger)
+        {
+            var builds = await GetSuccessfulBuilds(url, logger);
+            var build = builds.FirstOrDefault(b => b.DisplayName.Contains(version));
+            if (build != null)
+            { 
+                return build.BuildNumber.ToString(); 
+            }
+
+            return "";
+        }
+
+        public async static Task<string> GetVersionByBuildNumber(string url, int buildNumber, ILogger logger)
+        {
+            var builds = await GetSuccessfulBuilds(url, logger);
+            var build = builds.FirstOrDefault(b => b.BuildNumber == buildNumber);
+            if (build != null)
+            { 
+                return GetBuildVersionFromDisplayName(build.DisplayName); 
+            }
+
+            return "";
         }
 
         protected override async Task<string> ExecuteCommand()
@@ -138,11 +221,12 @@ namespace UnifiCommands.Commands.CodeCommands
 
             if (build != null)
             {
-                int i = build.DisplayName.IndexOf("[", StringComparison.InvariantCultureIgnoreCase);
-                if (i >= 0)
-                {
-                    version = build.DisplayName.Substring(i + 1, build.DisplayName.Length - i - 2);
-                }
+                //int i = build.DisplayName.IndexOf("[", StringComparison.InvariantCultureIgnoreCase);
+                //if (i >= 0)
+                //{
+                //    version = build.DisplayName.Substring(i + 1, build.DisplayName.Length - i - 2);
+                //}
+                version = GetBuildVersionFromDisplayName(build.DisplayName);
             }
 
             Logger.LogInfo($"Version to download {version}");
@@ -170,6 +254,16 @@ namespace UnifiCommands.Commands.CodeCommands
             await cmd.DownloadFile();
 
             return "";
+        }
+
+        private static string GetBuildVersionFromDisplayName(string displayName)
+        {
+            int i = displayName.IndexOf("[", StringComparison.InvariantCultureIgnoreCase);
+            if (i >= 0)
+            {
+                return displayName.Substring(i + 1, displayName.Length - i - 2);
+            }
+            return "N/A";
         }
 
         public static string GetInstallerNameByType(InstallerType installerType, string jobUrl)
