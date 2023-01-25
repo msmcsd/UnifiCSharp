@@ -531,6 +531,11 @@
 				"Platform": "x86"
 			},
 			{
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Installer\\UserData\\S-1-5-18\\Products\\C5CF46E2682913A419B6D0A84E2B9245\\InstallProperties",
+				"DisplayText": "Msi Installer key"
+			},
+			{
 				"Command": "cmd.exe",
 				"Arguments": "/C FOR /F \"tokens=2* skip=2\" %a in ('reg query \"HKLM\\SOFTWARE\\Cylance\\Desktop\" /v \"Path\"') do echo %b",
 				"DisplayText": "Show Install Folder"
@@ -773,6 +778,22 @@
 				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployClientToIIS.bat\"",
 				"DisplayText": "Deploy to IIS",
 				"ShowOnMachine": "Test"
+			}
+		]
+	},
+	{
+		"Name": "Driver Logman",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c logman start cydrvlog -p {71F84E52-CFF3-4CF6-A196-9003E27F7A01} 0xFFFFFFFF 0xFF -o ${UserProfileFolder}\\Desktop\\cydrvlog.etl -ets",
+				"DisplayText": "Start logman"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c logman stop cydrvlog -ets",
+				"DisplayText": "Stop logman"
 			}
 		]
 	},
@@ -1598,7 +1619,7 @@
 			},
 			{
 				"Variable": "AllBuildsInfoUrl",
-				"Value": "https://build-agent.d.cylance.com/job/{0}/api/json?tree=builds[actions[parameters[name,value]],result,displayName,number]"
+				"Value": "https://build-agent.d.cylance.com/job/{0}/api/json?tree=builds[actions[parameters[name,value]],result,displayName,number,building]"
 			}
 		]
 	}

@@ -798,6 +798,7 @@ namespace Unifi.Forms
                 }
                 version = cmbVersion.Text;
                 buildNumber = await GetBuildNumberByVersion(url, version, _logger);
+                if (buildNumber == null) return;
             }
             else
             {
@@ -809,6 +810,7 @@ namespace Unifi.Forms
 
                 buildNumber = txtBuildNumber.Text;
                 version = await GetVersionByBuildNumber(url, int.Parse(buildNumber), _logger);
+                if (version == null) return;
             }
 
             FullCommandInfo command = new FullCommandInfo

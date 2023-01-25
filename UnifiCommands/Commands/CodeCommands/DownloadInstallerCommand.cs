@@ -62,6 +62,7 @@ namespace UnifiCommands.Commands.CodeCommands
         private async Task<Build> GetLastSuccessfulWindowsBuildNumber()
         {
             var successfulBuilds = await GetSuccessfulBuilds(_job, Logger);
+            if (successfulBuilds == null) return null;
 
             foreach (var b in successfulBuilds)
             {
@@ -152,7 +153,7 @@ namespace UnifiCommands.Commands.CodeCommands
                         var allBuilds = JsonConvert.DeserializeObject<AllBuildsInfo>(json, jsonSerializerSettings);
 
                         var successfulBuilds = allBuilds.Builds
-                            .Where(b => b.Result.Equals("SUCCESS", StringComparison.InvariantCultureIgnoreCase))
+                            .Where(b => b.Result.Equals("SUCCESS", StringComparison.InvariantCultureIgnoreCase) && !b.building)
                             .OrderByDescending(b => b.BuildNumber).ToList();
 
                         return successfulBuilds;
@@ -170,25 +171,31 @@ namespace UnifiCommands.Commands.CodeCommands
         public async static Task<string> GetBuildNumberByVersion(string url, string version, ILogger logger)
         {
             var builds = await GetSuccessfulBuilds(url, logger);
+            if (builds == null) return null;
+
             var build = builds.FirstOrDefault(b => b.DisplayName.Contains(version));
             if (build != null)
             { 
                 return build.BuildNumber.ToString(); 
             }
 
-            return "";
+            logger.LogError($"Build version {version} not found.");
+            return null;
         }
 
         public async static Task<string> GetVersionByBuildNumber(string url, int buildNumber, ILogger logger)
         {
             var builds = await GetSuccessfulBuilds(url, logger);
+            if (builds == null) return null;
+
             var build = builds.FirstOrDefault(b => b.BuildNumber == buildNumber);
             if (build != null)
             { 
                 return GetBuildVersionFromDisplayName(build.DisplayName); 
             }
 
-            return "";
+            logger.LogError($"Build number {buildNumber} not found.");
+            return null;
         }
 
         protected override async Task<string> ExecuteCommand()

@@ -21,6 +21,9 @@ namespace UnifiCommands.Commands.CodeCommands
 
         [JsonProperty("actions")]
         public List<Action> Actions { get; set; }
+
+        [JsonProperty("building")]
+        public bool building { get; set; }
     }
 
     public class Parameter
