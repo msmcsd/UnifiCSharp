@@ -1,7 +1,10 @@
-﻿using SelfHostUnifiApi.RestCommands;
+﻿using Newtonsoft.Json;
+using SelfHostUnifiApi.RestCommands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using UnifiCommands;
+using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 
 namespace SelfHostUnifiApi
@@ -61,12 +64,22 @@ namespace SelfHostUnifiApi
             return await cmd.Execute();
         }
 
+        //[HttpGet]
+        ////[Route("[controller]/Download")]
+        //[ActionName("Download")]
+        //public async Task<string> DownloadCommand(string taskName, string displayText, string parameters)
+        //{
+        //    var cmd = new DownloadCommand(_commandsProvider, taskName, displayText, parameters);
+        //    return await cmd.Execute();
+        //}
+
         [HttpGet]
         //[Route("[controller]/Download")]
         [ActionName("Download")]
-        public async Task<string> DownloadCommand(string taskName, string displayText, string parameters)
+        public async Task<string> DownloadCommand(string parameters)
         {
-            var cmd = new DownloadCommand(_commandsProvider, taskName, displayText, parameters);
+            var cmd = new DownloadCommand(parameters);
+
             return await cmd.Execute();
         }
 

@@ -25,7 +25,8 @@ namespace SelfHostUnifiApi.RestCommands
         protected readonly ICommandsProvider CommandsProvider;
         protected ILogger logger;
         protected FullCommandInfo command;
-        protected dynamic variables;
+        //protected dynamic variables;
+        protected UiSettings variables;
 
         protected WebCommand(ICommandsProvider commandsProvider, string taskName, string displayText): this (commandsProvider, taskName, displayText, null)
         {
@@ -39,22 +40,23 @@ namespace SelfHostUnifiApi.RestCommands
             _parameters = parameters;
         }
 
-        protected virtual bool ConvertParameters(out dynamic variables, out string result)
+        protected virtual bool ConvertParameters(out UiSettings variables, out string result)
         {
             result = "";
             variables = null;
 
             if (string.IsNullOrEmpty(_parameters)) return false;
 
-            _parameters = _parameters.Replace("\\\"", "\"");
-            _parameters = _parameters.Replace("\\\\", "\\");
-            if (_parameters.EndsWith("\"")) _parameters = _parameters.Substring(0, _parameters.Length - 1);
-            if (_parameters.StartsWith("\"")) _parameters = _parameters.Substring(1);
+            //_parameters = _parameters.Replace("\\\"", "\"");
+            //_parameters = _parameters.Replace("\\\\", "\\");
+            //if (_parameters.EndsWith("\"")) _parameters = _parameters.Substring(0, _parameters.Length - 1);
+            //if (_parameters.StartsWith("\"")) _parameters = _parameters.Substring(1);
 
-            var expConverter = new ExpandoObjectConverter();
+            //var expConverter = new ExpandoObjectConverter();
             try
             {
-                variables = JsonConvert.DeserializeObject<ExpandoObject>(_parameters, expConverter);
+                //variables = JsonConvert.DeserializeObject<ExpandoObject>(_parameters, expConverter);
+                variables = JsonConvert.DeserializeObject<UiSettings>(_parameters);
             }
             catch (Exception e)
             {
@@ -64,6 +66,18 @@ namespace SelfHostUnifiApi.RestCommands
             }
 
             return true;
+        }
+
+        public static UiSettings ConvertJsonToUiSettings(string json)
+        {
+            if (string.IsNullOrEmpty(json)) return null;
+
+            json = json.Replace("\\\"", "\"");
+            json = json.Replace("\\\\", "\\");
+            if (json.EndsWith("\"")) json = json.Substring(0, json.Length - 1);
+            if (json.StartsWith("\"")) json = json.Substring(1);
+
+            return JsonConvert.DeserializeObject<UiSettings>(json);
         }
 
         protected virtual async Task<string> ExecuteCommand()
@@ -92,12 +106,12 @@ namespace SelfHostUnifiApi.RestCommands
         public virtual async Task<string> Execute()
         {
             string result;
-            if (!FindCommand(out result))
+            if (!ConvertParameters(out variables, out result))
             {
                 return result;
             }
 
-            if (!ConvertParameters(out variables, out result))
+            if (!FindCommand(out result))
             {
                 return result;
             }

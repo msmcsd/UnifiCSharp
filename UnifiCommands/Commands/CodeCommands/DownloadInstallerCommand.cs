@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
+using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
@@ -175,8 +176,8 @@ namespace UnifiCommands.Commands.CodeCommands
 
             var build = builds.FirstOrDefault(b => b.DisplayName.Contains(version));
             if (build != null)
-            { 
-                return build.BuildNumber.ToString(); 
+            {
+                return build.BuildNumber.ToString();
             }
 
             logger.LogError($"Build version {version} not found.");
@@ -190,8 +191,8 @@ namespace UnifiCommands.Commands.CodeCommands
 
             var build = builds.FirstOrDefault(b => b.BuildNumber == buildNumber);
             if (build != null)
-            { 
-                return GetBuildVersionFromDisplayName(build.DisplayName); 
+            {
+                return GetBuildVersionFromDisplayName(build.DisplayName);
             }
 
             logger.LogError($"Build number {buildNumber} not found.");
