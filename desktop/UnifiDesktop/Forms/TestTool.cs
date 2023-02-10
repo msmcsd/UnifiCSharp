@@ -264,35 +264,67 @@ namespace Unifi.Forms
 
         private void PopulateDosCommandGroups()
         {
+            tabCommands.Width = 160;
+            var _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
+
+            AddComandGroupsToTab(tabDev, _commandsProvider.DosTasks.Where(t => t.ShowTaskOnMachine == ShowCommandOnMachine.Dev));
+
+            var nonDevTestTasks = GetTestMachineTestTasks();
+            AddComandGroupsToTab(tabTest, nonDevTestTasks);
+
+            ((Control)tabDev).Enabled = _showOnMachine == ShowCommandOnMachine.Dev;
+            if (_showOnMachine != ShowCommandOnMachine.Dev) tabCommands.SelectTab(tabTest);
+        }
+
+        private List<TestTask> GetTestMachineTestTasks()
+        {
+            List<TestTask> testTasks= new List<TestTask>();
+
+            foreach (var t in _commandsProvider.DosTasks.Where(t => t.ShowTaskOnMachine != ShowCommandOnMachine.Dev))
+            {
+                var commands = t.Commands.Where(c => (c.ShowOnMachine & ShowCommandOnMachine.Test) == ShowCommandOnMachine.Test).ToList();
+                if (commands.Count > 0)
+                {
+                    TestTask t1 = (TestTask)t.Clone();
+                    t1.Commands= commands;
+                    testTasks.Add(t1);
+                }
+            }
+
+            return testTasks;
+        }
+
+        private void AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)
+        {
             int left = 0;
             int top = 0;
-            int controlWidth = 150;
             int columns = 1;
+            int controlWidth = 150;
 
-            grpCommandGroups.Controls.Clear();
+            tab.Controls.Clear();
 
-            foreach (var task in _commandsProvider.DosTasks)
+            foreach (var task in tasks)
             {
                 if (task.Commands.Count == 0) continue;
 
                 var ctl = new DosCommandGroup
                 {
-                    CommandsRunner = _commandsRunner, 
+                    CommandsRunner = _commandsRunner,
                     TestTask = task,
                     Width = controlWidth,
                     Logger = _logger
                 };
 
-                grpCommandGroups.Controls.Add(ctl);
+                tab.Controls.Add(ctl);
 
-                if (top + ctl.Height > grpCommandGroups.Height)
+                if (top + ctl.Height > tab.Height)
                 {
                     left = left + ctl.Width;
                     top = 0;
                     columns++;
 
-                    if (ctl.Width * columns > grpCommandGroups.Width)
-                        grpCommandGroups.Width += ctl.Width;
+                    if (ctl.Width * columns > tab.Parent.Width)
+                        tab.Parent.Width += ctl.Width;
                 }
 
                 ctl.Left = left;
@@ -469,9 +501,12 @@ namespace Unifi.Forms
 
         private void PopulateTaskbarCommands()
         {
-            var tasks = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?.Commands;
+            var _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
+            var tasks = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?
+                .Commands.Where(c=> (c.ShowOnMachine & _showOnMachine) == _showOnMachine).ToArray();
+            
             pnlTaskBar.Controls.Clear();
-            for (int i = tasks.Count - 1; i >= 0; i--)
+            for (int i = tasks.Length - 1; i >= 0; i--)
             {
                 FullCommandInfo command = tasks[i];
 

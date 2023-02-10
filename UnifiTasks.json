@@ -549,6 +549,7 @@
 	{
 		"Name": "Rollback Test",
 		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
 		"Visible" : false,
 		"Commands": [
 			{
@@ -685,6 +686,7 @@
 	{
 		"Name": "Deploy Api",
 		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -739,6 +741,7 @@
 	{
 		"Name": "Deploy Socket",
 		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -779,6 +782,7 @@
 	{
 		"Name": "Deploy Client",
 		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -853,7 +857,7 @@
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
 				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DELETE FROM SoftwareInventory;\" \".exit\" ",
-				"DisplayText": "Delta all row"
+				"DisplayText": "Delta all rows"
 			},
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
@@ -892,6 +896,11 @@
 				"DisplayText": "BadRequest"
 			},
 			{
+				"Command": "cmd.exe",
+				"Arguments": "/C FOR /F \"tokens=2* skip=2\" %a in ('reg query \"HKLM\\SOFTWARE\\Cylance\\Desktop\" /v \"SoftwareInventory\"') do echo %b",
+				"DisplayText": "Show value"
+			},
+			{
 				"Command": "\"${PsExecPath}\"",
 				"Arguments": "-s -i -d -accepteula cmd.exe /C reg delete HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /f",
 				"DisplayText": "Delete key"
@@ -901,6 +910,7 @@
 	{
 		"Name": "Compile",
 		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Dev",
 		"Commands": [
 			{
 				"Command": "python",
@@ -968,6 +978,111 @@
 				"Arguments": "/c cd C:\\Projects\\CylanceProtect & git checkout -- src/Build/CommonAssemblyInfo.cs & git checkout -- src/CyPackage/Resources/Compressed* & git checkout -- src/CyUpgrade/Resources/Compressed* & del src/CyPackage/Resources/CompressedDataFile &  del src/CyPackage/Resources/CompressedIndexFile",
 				"DisplayText": "Reset Changed Files",
 				"ShowOnMachine": "Dev"
+			}
+		]
+	},	
+	{
+		"Name": "Open Dos Window",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Dev",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\Projects\\CylanceProtect",
+				"DisplayText": "Protect Folder",
+				"IconSourcePath": "${CmdPath}",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false,
+				"CreateNewWindow": true,
+				"TaskImage": "Cmd.bmp"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\Projects\\Updater",
+				"DisplayText": "Updater Folder",
+				"IconSourcePath": "${CmdPath}",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false,
+				"CreateNewWindow": true,
+				"TaskImage": "Cmd.bmp"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/K \"cd C:\\repos\\TestTool",
+				"DisplayText": "TestTools Folder",
+				"IconSourcePath": "${CmdPath}",
+				"RunAs": "User",
+				"RedirectOutputToConsole": false,
+				"CreateNewWindow": true,
+				"TaskImage": "Cmd.bmp"
+			}
+		]
+	},
+	{
+		"Name": "Open Explorer",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Dev",
+		"Commands": [
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "C:\\Projects\\CylanceProtect",
+				"DisplayText": "Project Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"CreateNewWindow": true,
+				"TaskImage": "Explorer.bmp"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "${ProtectDebugFolder}",
+				"DisplayText": "Dev Debug Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"CreateNewWindow": true,
+				"TaskImage": "Explorer.bmp"
+			}
+		]
+	},
+	{
+		"Name": "Open File",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Dev",
+		"Commands": [
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" C:\\Projects\\CylanceProtect\\src\\bin\\Debug\\config.xml",
+				"DisplayText": "Dev config",
+				"IconSourcePath": "${NotepadPath}",
+				"CreateNewWindow": true,
+				"TaskImage": "Notepad++.bmp"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"${DevLogPath}\"",
+				"DisplayText": "Dev Log",
+				"IconSourcePath": "${NotepadPath}",
+				"CreateNewWindow": true,
+				"TaskImage": "Notepad++.bmp"
+			},			
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d -accepteula cmd.exe /c del \"${DevLogPath}\"",
+				"DisplayText": "Delete Dev Log",
+				"IconSourcePath": "${NotepadPath}",
+				"CreateNewWindow": true,
+				"TaskImage": "Cmd.bmp"
+			},
+			{
+				"Command": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
+				"Arguments": "\"C:\\Program Files\\Cylance\\Desktop\\chp.db\"",
+				"DisplayText": "chp.db (Program Files)",
+				"IconSourcePath": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
+				"CreateNewWindow": true
+			},
+			{
+				"Command": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
+				"Arguments": "\"C:\\ProgramData\\Cylance\\Desktop\\chp.db\"",
+				"DisplayText": "chp.db (ProgramData)",
+				"IconSourcePath": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
+				"CreateNewWindow": true
 			}
 		]
 	},
@@ -1118,36 +1233,6 @@
 				"TaskImage": "Cmd.bmp"
 			},
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/K \"cd C:\\Projects\\CylanceProtect",
-				"DisplayText": "Protect Folder",
-				"IconSourcePath": "${CmdPath}",
-				"ShowOnMachine": "Dev",
-				"RunAs": "User",
-				"RedirectOutputToConsole": false,
-				"TaskImage": "Cmd.bmp"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/K \"cd C:\\Projects\\Updater",
-				"DisplayText": "Updater Folder",
-				"IconSourcePath": "${CmdPath}",
-				"ShowOnMachine": "Dev",
-				"RunAs": "User",
-				"RedirectOutputToConsole": false,
-				"TaskImage": "Cmd.bmp"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/K \"cd C:\\repos\\TestTool",
-				"DisplayText": "TestTools Folder",
-				"IconSourcePath": "${CmdPath}",
-				"ShowOnMachine": "Dev",
-				"RunAs": "User",
-				"RedirectOutputToConsole": false,
-				"TaskImage": "Cmd.bmp"
-			},
-			{
 				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
 				"DisplayText": "CyUpgrade",
 				"IconSourcePath": "${CmdPath}",
@@ -1172,51 +1257,12 @@
 				"TaskImage": "Notepad++.bmp"
 			},
 			{
-				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d -accepteula C:\\Projects\\CylanceProtect\\src\\bin\\Debug\\config.xml",
-				"DisplayText": "Protect Dev config",
-				"IconSourcePath": "${NotepadPath}",
-				"ShowOnMachine": "Dev",
-				"TaskImage": "Notepad++.bmp"
-			},
-			{
 				"Command": "cmd.exe",
 				"Arguments": "/C shutdown.exe /r -t 0",
 				"DisplayText": "Reboot",
 				"IconSourcePath": "${CmdPath}",
 				"ShowOnMachine": "Test",
 				"TaskImage": "Cmd.bmp"
-			},			
-			{
-				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"${DevLogPath}\"",
-				"DisplayText": "Open Dev Log",
-				"IconSourcePath": "${NotepadPath}",
-				"ShowOnMachine": "Dev",
-				"TaskImage": "Notepad++.bmp"
-			},			
-			{
-				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d -accepteula cmd.exe /c del \"${DevLogPath}\"",
-				"DisplayText": "Delete Dev Log",
-				"IconSourcePath": "${NotepadPath}",
-				"ShowOnMachine": "Dev",
-				"TaskImage": "Cmd.bmp"
-			},
-			{
-				"Command": "${ExplorerPath}",
-				"Arguments": "${ProtectDebugFolder}",
-				"DisplayText": "Dev Debug Folder",
-				"IconSourcePath": "${ExplorerPath}",
-				"ShowOnMachine": "Dev",
-				"TaskImage": "Explorer.bmp"
-			},
-			{
-				"Command": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
-				"Arguments": "\"C:\\Program Files\\Cylance\\Desktop\\chp.db\"",
-				"DisplayText": "Open chp.db",
-				"IconSourcePath": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
-				"ShowOnMachine": "Dev"
 			}
 		]
 	},

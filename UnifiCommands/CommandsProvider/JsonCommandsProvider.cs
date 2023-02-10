@@ -153,7 +153,7 @@ namespace UnifiCommands.CommandsProvider
         {
             string platform = Environment.Is64BitOperatingSystem ? "x64" : "x86";
             return commands.Where(c => c.Visible &&
-                                       (c.ShowOnMachine & _showOnMachine) == _showOnMachine &&
+                                       //(c.ShowOnMachine & _showOnMachine) == _showOnMachine &&
                                        (string.IsNullOrEmpty(c.Platform) || c.Platform == platform) &&
                                        c.BatchEnabled).ToList();
         }
@@ -166,7 +166,8 @@ namespace UnifiCommands.CommandsProvider
         /// <returns></returns>
         private List<TestTask> FilterTasks(List<TestTask> tasks)
         {
-            return TestTasks.Where(t => (t.ShowTaskOnMachine & _showOnMachine) == _showOnMachine).ToList();
+            //return TestTasks.Where(t => (t.ShowTaskOnMachine & _showOnMachine) == _showOnMachine).ToList();
+            return tasks;
         }
 
         /// <summary>

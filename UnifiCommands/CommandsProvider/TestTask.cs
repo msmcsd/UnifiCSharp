@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using UnifiCommands.CommandInfo;
 
 namespace UnifiCommands.CommandsProvider
 {
     // Represents a single task, like "Install Protect", as defined in XML.
-    public class TestTask
+    public class TestTask : ICloneable
     {
         public string Name { get; set; }
 
@@ -40,6 +41,12 @@ namespace UnifiCommands.CommandsProvider
         /// since all commands need to run. For individual command like Dos Command, each command will have its own ApiMethod.
         /// </summary>
         public string ApiMethod { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
     }
 
     public class WebTestTask
