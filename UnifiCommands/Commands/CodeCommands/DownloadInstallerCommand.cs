@@ -263,12 +263,17 @@ namespace UnifiCommands.Commands.CodeCommands
             return "";
         }
 
+        // Display Name may look something like this: #1133:[3.1.9200.15138/16838]. Only first version (Windows) is needed.
         private static string GetBuildVersionFromDisplayName(string displayName)
         {
             int i = displayName.IndexOf("[", StringComparison.InvariantCultureIgnoreCase);
             if (i >= 0)
             {
-                return displayName.Substring(i + 1, displayName.Length - i - 2);
+                displayName = displayName.Substring(i + 1, displayName.Length - i - 2);
+                i = displayName.IndexOf("/");
+                if (i > 0) displayName = displayName.Substring(0, i);
+                
+                return displayName;
             }
             return "N/A";
         }
