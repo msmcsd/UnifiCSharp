@@ -148,6 +148,7 @@ namespace UnifiCommands
 
         public const string RegistryKey = "Software\\Cylance\\Desktop";
 
+        public static string DevMachineName { get; set; }
         #endregion
 
     }

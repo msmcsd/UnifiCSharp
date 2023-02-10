@@ -73,8 +73,6 @@ namespace UnifiCommands.CommandsProvider
                 throw new FileNotFoundException($"File not found. {configFile}.");
             }
 
-            _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
-
             LoadTasksFromJson(configFile);
         }
 
@@ -88,6 +86,8 @@ namespace UnifiCommands.CommandsProvider
             TestTasks = JsonConvert.DeserializeObject<List<TestTask>>(json, new StringEnumConverter());
 
             SetVariablesValues(TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Variable)?.Commands);
+            // _showOnMachine depends on result from previous line.
+            _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
 
             TestTasks = FilterTasks(TestTasks);
 

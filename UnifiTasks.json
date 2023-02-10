@@ -47,8 +47,13 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C copy \"${ConfigFolder}\\$[GetConfig]\\config.xml\" \"$[CylanceDesktopFolder]\"",
+				"Arguments": "/C IF Not \"$[CompileMode]\"==\"Debug\" copy \"${ConfigFolder}\\$[GetConfig]\\config.xml\" \"$[CylanceDesktopFolder]\"",
 				"DisplayText": "Copy config.xml"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF \"$[CompileMode]\"==\"Debug\" copy \"${ConfigFolder}\\$[GetConfig]\\NotSigned\\config.xml\" \"$[CylanceDesktopFolder]\"",
+				"DisplayText": "Copy debug config.xml"
 			},
 			{
 				"Command": "\"${PsExecPath}\"",
@@ -473,11 +478,10 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "DownloadInstaller",
-				"Arguments": "TestJobs/job/jshih/job/agent-p-publish-install-test, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Me'",
-				"DisplayText": "Download Latest Me",
-				"Type": "Code",
-				"ShowOnMachine": "Test"
+				"Command": "cmd.exe",
+				"Arguments": "/C FOR /d /r \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\" %d IN (\"3.1.9*\") DO @IF EXIST \"%d\" rd /s /q \"%d\"",
+				"DisplayText": "Delete downloaded installers",
+				"KeywordForSuccess": ""
 			}
 		]
 	},
@@ -545,6 +549,7 @@
 	{
 		"Name": "Rollback Test",
 		"CommandGroup": "Dos",
+		"Visible" : false,
 		"Commands": [
 			{
 				"Command": "FileCopy",
@@ -665,6 +670,12 @@
 			},
 			{
 				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Tail",
 				"Arguments": "\"${DevLogPath}\" 1 \" inventory\"",
 				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Dev"
@@ -686,7 +697,8 @@
 				"Arguments": "/K ${UserProfileFolder}\\Desktop\\Unifi\\Api\\SelfHostUnifiApi.exe",
 				"DisplayText": "Start Api Server",
 				"RedirectOutputToConsole": false,
-				"CreateNewWindow": true
+				"CreateNewWindow": true,
+				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "cmd.exe",
@@ -758,6 +770,7 @@
 				"DisplayText": "Start Socket Server",
 				"IconSourcePath": "${CmdPath}",
 				"RunAs": "User",
+				"ShowOnMachine": "Test",
 				"RedirectOutputToConsole": false,
 				"CreateNewWindow": true
 			}
@@ -784,6 +797,7 @@
 	{
 		"Name": "Driver Logman",
 		"CommandGroup": "Dos",
+		"Visible": false,
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -794,6 +808,93 @@
 				"Command": "cmd.exe",
 				"Arguments": "/c logman stop cydrvlog -ets",
 				"DisplayText": "Stop logman"
+			}
+		]
+	},
+	{
+		"Name": "sqlite3 Commands",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"SELECT COUNT(*) FROM SoftwareInventory;\" \".exit\" ",
+				"DisplayText": "Table row count"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"SELECT COUNT(*) FROM SoftwareInventory WHERE type=0;\" \".exit\" ",
+				"DisplayText": "Full row count"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"SELECT COUNT(*) FROM SoftwareInventory WHERE type=1;\" \".exit\" ",
+				"DisplayText": "Delta row count"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"REPLACE INTO SoftwareInventory VALUES(0, '{\"\"\"assessment_time\"\"\":\"\"\"2023-01-31T10:51:29.4063332-08:00\"\"\",\"\"\"application\"\"\":\"\"\"CylancePRODUCT\"\"\",\"\"\"application_version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"report_type\"\"\":\"\"\"Full\"\"\",\"\"\"host\"\"\":{\"\"\"tenant_id\"\"\":\"\"\"ac32a6f1-c726-4b31-b70a-d1035d0b3c20\"\"\",\"\"\"device_id\"\"\":\"\"\"bf23253a-ce70-40cf-aa9e-6d78049d2882\"\"\",\"\"\"os_info\"\"\":{\"\"\"hostname\"\"\":\"\"\"WINDOWSDEV\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"vendor\"\"\":\"\"\"Microsoft\"\"\",\"\"\"product\"\"\":\"\"\"windows\"\"\",\"\"\"build\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"architecture\"\"\":\"\"\"x64\"\"\",\"\"\"ip_address\"\"\":\"\"\"fe80::1862:7704:d149:5526%12\"\"\"},\"\"\"updates\"\"\":[{\"\"\"code\"\"\":\"\"\"KB2267602\"\"\",\"\"\"product\"\"\":\"\"\"Microsoft_Defender_Antivirus\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"date\"\"\":\"\"\"2023-01-31T16:30:20\"\"\",\"\"\"state\"\"\":\"\"\"installed\"\"\"}]}}');\" \".exit\"",
+				"DisplayText": "Insert Full row"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"REPLACE INTO SoftwareInventory VALUES(1, '{\"\"\"assessment_time\"\"\":\"\"\"2023-01-31T10:51:29.4063332-08:00\"\"\",\"\"\"application\"\"\":\"\"\"CylancePRODUCT\"\"\",\"\"\"application_version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"report_type\"\"\":\"\"\"Delta\"\"\",\"\"\"host\"\"\":{\"\"\"tenant_id\"\"\":\"\"\"ac32a6f1-c726-4b31-b70a-d1035d0b3c20\"\"\",\"\"\"device_id\"\"\":\"\"\"bf23253a-ce70-40cf-aa9e-6d78049d2882\"\"\",\"\"\"os_info\"\"\":{\"\"\"hostname\"\"\":\"\"\"WINDOWSDEV\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"vendor\"\"\":\"\"\"Microsoft\"\"\",\"\"\"product\"\"\":\"\"\"windows\"\"\",\"\"\"build\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"architecture\"\"\":\"\"\"x64\"\"\",\"\"\"ip_address\"\"\":\"\"\"fe80::1862:7704:d149:5526%12\"\"\"},\"\"\"updates\"\"\":[{\"\"\"code\"\"\":\"\"\"KB2267602\"\"\",\"\"\"product\"\"\":\"\"\"Microsoft_Defender_Antivirus\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"date\"\"\":\"\"\"2023-01-31T16:30:20\"\"\",\"\"\"state\"\"\":\"\"\"installed\"\"\"}]}}');\" \".exit\"",
+				"DisplayText": "Insert Delta row"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"SELECT Value FROM SoftwareInventory WHERE Type=0;\" \".exit\" ",
+				"DisplayText": "Show Full row"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"SELECT Value FROM SoftwareInventory WHERE Type=1;\" \".exit\" ",
+				"DisplayText": "Show Delta row"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DELETE FROM SoftwareInventory;\" \".exit\" ",
+				"DisplayText": "Delta all row"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DELETE FROM SoftwareInventory WHERE type=0;\" \".exit\" ",
+				"DisplayText": "Delta full"
+			},
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DELETE FROM SoftwareInventory WHERE type=1;\" \".exit\" ",
+				"DisplayText": "Delete delta"
+			}
+		]
+	},
+	{
+		"Name": "Inventory HTTP status code",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 200 /f",
+				"DisplayText": "OK"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 503 /f",
+				"DisplayText": "ServiceUnavailable"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 429 /f",
+				"DisplayText": "TooManyRequests"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 400 /f",
+				"DisplayText": "BadRequest"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg delete HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /f",
+				"DisplayText": "Delete key"
 			}
 		]
 	},
@@ -1071,6 +1172,14 @@
 				"TaskImage": "Notepad++.bmp"
 			},
 			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d -accepteula C:\\Projects\\CylanceProtect\\src\\bin\\Debug\\config.xml",
+				"DisplayText": "Protect Dev config",
+				"IconSourcePath": "${NotepadPath}",
+				"ShowOnMachine": "Dev",
+				"TaskImage": "Notepad++.bmp"
+			},
+			{
 				"Command": "cmd.exe",
 				"Arguments": "/C shutdown.exe /r -t 0",
 				"DisplayText": "Reboot",
@@ -1101,6 +1210,13 @@
 				"IconSourcePath": "${ExplorerPath}",
 				"ShowOnMachine": "Dev",
 				"TaskImage": "Explorer.bmp"
+			},
+			{
+				"Command": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
+				"Arguments": "\"C:\\Program Files\\Cylance\\Desktop\\chp.db\"",
+				"DisplayText": "Open chp.db",
+				"IconSourcePath": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
+				"ShowOnMachine": "Dev"
 			}
 		]
 	},
@@ -1402,9 +1518,20 @@
 				"ShowOnMachine": "Test"
 			},
 			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 429 /f",
+				"DisplayText": "Set Http Returns 429 Too Many Requests"
+			},
+			{
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},
@@ -1424,6 +1551,12 @@
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},
@@ -1608,6 +1741,10 @@
 			{
 				"Variable": "ProjectsFolder",		
 				"Value": "C:\\Projects"
+			},
+			{
+				"Variable": "DevMachineName",		
+				"Value": "WindowsDev"
 			},
 			{
 				"Variable": "ProtectJenkinsUrl",

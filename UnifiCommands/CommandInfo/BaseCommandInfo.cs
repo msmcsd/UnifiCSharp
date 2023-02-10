@@ -56,7 +56,7 @@ namespace UnifiCommands.CommandInfo
 
         public static ShowCommandOnMachine GetShowCommandOnMachine()
         {
-            bool isDevMachine = Environment.MachineName.Equals("WindowsDev", StringComparison.InvariantCultureIgnoreCase);
+            bool isDevMachine = Environment.MachineName.Equals(Variables.DevMachineName, StringComparison.InvariantCultureIgnoreCase);
             return isDevMachine ? ShowCommandOnMachine.Dev : ShowCommandOnMachine.Test;
         }
     }
