@@ -71,7 +71,6 @@ namespace Unifi.Forms
             this.txtFunctionsToRun = new System.Windows.Forms.TextBox();
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
-            this.grpCommandGroups = new System.Windows.Forms.GroupBox();
             this.grpRollback = new System.Windows.Forms.GroupBox();
             this.lstRollbackPosition = new System.Windows.Forms.ListBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
@@ -83,11 +82,9 @@ namespace Unifi.Forms
             this.grpConsole = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
+            this.tabCommands = new System.Windows.Forms.TabControl();
             this.reportGrid1 = new Unifi.UserControls.ReportGrid();
             this.lstDownload = new Unifi.UserControls.DownloadCommandGroup();
-            this.tabCommands = new System.Windows.Forms.TabControl();
-            this.tabDev = new System.Windows.Forms.TabPage();
-            this.tabTest = new System.Windows.Forms.TabPage();
             this.grpInstallBase.SuspendLayout();
             this.grpInstall.SuspendLayout();
             this.grpConfig.SuspendLayout();
@@ -107,12 +104,11 @@ namespace Unifi.Forms
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabCommands.SuspendLayout();
-            this.tabTest.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpInstallBase
             // 
+            this.grpInstallBase.Controls.Add(this.grpRollback);
             this.grpInstallBase.Controls.Add(this.lstInstall);
             this.grpInstallBase.Controls.Add(this.grpInstall);
             this.grpInstallBase.Controls.Add(this.grpDownload);
@@ -517,7 +513,7 @@ namespace Unifi.Forms
             // btnSetFunctionsToRun
             // 
             this.btnSetFunctionsToRun.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSetFunctionsToRun.Location = new System.Drawing.Point(3, 583);
+            this.btnSetFunctionsToRun.Location = new System.Drawing.Point(3, 225);
             this.btnSetFunctionsToRun.Name = "btnSetFunctionsToRun";
             this.btnSetFunctionsToRun.Size = new System.Drawing.Size(141, 23);
             this.btnSetFunctionsToRun.TabIndex = 11;
@@ -528,7 +524,7 @@ namespace Unifi.Forms
             // txtFunctionsToRun
             // 
             this.txtFunctionsToRun.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtFunctionsToRun.Location = new System.Drawing.Point(3, 606);
+            this.txtFunctionsToRun.Location = new System.Drawing.Point(3, 248);
             this.txtFunctionsToRun.Multiline = true;
             this.txtFunctionsToRun.Name = "txtFunctionsToRun";
             this.txtFunctionsToRun.Size = new System.Drawing.Size(141, 43);
@@ -555,26 +551,14 @@ namespace Unifi.Forms
             this.txtConsole.TabIndex = 1;
             this.txtConsole.Text = "";
             // 
-            // grpCommandGroups
-            // 
-            this.grpCommandGroups.Dock = System.Windows.Forms.DockStyle.Left;
-            this.grpCommandGroups.Location = new System.Drawing.Point(3, 3);
-            this.grpCommandGroups.Name = "grpCommandGroups";
-            this.grpCommandGroups.Padding = new System.Windows.Forms.Padding(5);
-            this.grpCommandGroups.Size = new System.Drawing.Size(169, 652);
-            this.grpCommandGroups.TabIndex = 7;
-            this.grpCommandGroups.TabStop = false;
-            this.grpCommandGroups.Text = "Commands";
-            // 
             // grpRollback
             // 
             this.grpRollback.Controls.Add(this.lstRollbackPosition);
             this.grpRollback.Controls.Add(this.btnSetFunctionsToRun);
             this.grpRollback.Controls.Add(this.txtFunctionsToRun);
-            this.grpRollback.Dock = System.Windows.Forms.DockStyle.Left;
-            this.grpRollback.Location = new System.Drawing.Point(172, 3);
+            this.grpRollback.Location = new System.Drawing.Point(58, 152);
             this.grpRollback.Name = "grpRollback";
-            this.grpRollback.Size = new System.Drawing.Size(147, 652);
+            this.grpRollback.Size = new System.Drawing.Size(147, 294);
             this.grpRollback.TabIndex = 10;
             this.grpRollback.TabStop = false;
             this.grpRollback.Text = "Rollback";
@@ -585,7 +569,7 @@ namespace Unifi.Forms
             this.lstRollbackPosition.FormattingEnabled = true;
             this.lstRollbackPosition.Location = new System.Drawing.Point(3, 16);
             this.lstRollbackPosition.Name = "lstRollbackPosition";
-            this.lstRollbackPosition.Size = new System.Drawing.Size(141, 567);
+            this.lstRollbackPosition.Size = new System.Drawing.Size(141, 209);
             this.lstRollbackPosition.TabIndex = 0;
             this.lstRollbackPosition.Tag = "Rollback";
             this.lstRollbackPosition.Click += new System.EventHandler(this.lstRollbackPosition_Click);
@@ -699,6 +683,16 @@ namespace Unifi.Forms
             this.txtDebugger.TabIndex = 0;
             this.txtDebugger.Text = "";
             // 
+            // tabCommands
+            // 
+            this.tabCommands.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tabCommands.Location = new System.Drawing.Point(173, 0);
+            this.tabCommands.Name = "tabCommands";
+            this.tabCommands.SelectedIndex = 0;
+            this.tabCommands.Size = new System.Drawing.Size(380, 684);
+            this.tabCommands.TabIndex = 16;
+            this.tabCommands.DoubleClick += new System.EventHandler(this.tabCommands_DoubleClick);
+            // 
             // reportGrid1
             // 
             this.reportGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -719,40 +713,6 @@ namespace Unifi.Forms
             this.lstDownload.Size = new System.Drawing.Size(156, 67);
             this.lstDownload.TabIndex = 17;
             this.lstDownload.Visible = false;
-            // 
-            // tabCommands
-            // 
-            this.tabCommands.Controls.Add(this.tabDev);
-            this.tabCommands.Controls.Add(this.tabTest);
-            this.tabCommands.Dock = System.Windows.Forms.DockStyle.Left;
-            this.tabCommands.Location = new System.Drawing.Point(173, 0);
-            this.tabCommands.Name = "tabCommands";
-            this.tabCommands.SelectedIndex = 0;
-            this.tabCommands.Size = new System.Drawing.Size(380, 684);
-            this.tabCommands.TabIndex = 16;
-            this.tabCommands.DoubleClick += new System.EventHandler(this.tabCommands_DoubleClick);
-            // 
-            // tabDev
-            // 
-            this.tabDev.BackColor = System.Drawing.SystemColors.Control;
-            this.tabDev.Location = new System.Drawing.Point(4, 22);
-            this.tabDev.Name = "tabDev";
-            this.tabDev.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDev.Size = new System.Drawing.Size(372, 673);
-            this.tabDev.TabIndex = 0;
-            this.tabDev.Text = "Dev";
-            // 
-            // tabTest
-            // 
-            this.tabTest.BackColor = System.Drawing.SystemColors.Control;
-            this.tabTest.Controls.Add(this.grpRollback);
-            this.tabTest.Controls.Add(this.grpCommandGroups);
-            this.tabTest.Location = new System.Drawing.Point(4, 22);
-            this.tabTest.Name = "tabTest";
-            this.tabTest.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTest.Size = new System.Drawing.Size(372, 658);
-            this.tabTest.TabIndex = 1;
-            this.tabTest.Text = "Test";
             // 
             // TestTool
             // 
@@ -801,8 +761,6 @@ namespace Unifi.Forms
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tabCommands.ResumeLayout(false);
-            this.tabTest.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -816,7 +774,6 @@ namespace Unifi.Forms
         private System.Windows.Forms.RadioButton rbQa2;
         private System.Windows.Forms.RadioButton rbR02;
         private System.Windows.Forms.RadioButton rbR01;
-        private System.Windows.Forms.GroupBox grpCommandGroups;
         private System.Windows.Forms.GroupBox grpRollback;
         private System.Windows.Forms.ListBox lstRollbackPosition;
         private System.Windows.Forms.GroupBox grpReport;
@@ -863,8 +820,6 @@ namespace Unifi.Forms
         private System.Windows.Forms.GroupBox grpInstall;
         private System.Windows.Forms.ComboBox cmbReleaseUrls;
         private System.Windows.Forms.TabControl tabCommands;
-        private System.Windows.Forms.TabPage tabDev;
-        private System.Windows.Forms.TabPage tabTest;
     }
 }
 

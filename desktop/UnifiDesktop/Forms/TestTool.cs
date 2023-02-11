@@ -263,15 +263,27 @@ namespace Unifi.Forms
         private void PopulateDosCommandGroups()
         {
             tabCommands.Width = 160;
+            tabCommands.TabPages.Clear();
             var _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
 
-            AddComandGroupsToTab(tabDev, _commandsProvider.DosTasks.Where(t => t.ShowTaskOnMachine == ShowCommandOnMachine.Dev));
+            foreach(var tabName in Enum.GetNames(typeof(DosTab)))
+            {
+                var tasks = _commandsProvider.DosTasks.Where(t => t.Tab.ToString() == tabName).ToList();
+                if (tasks.Any())
+                {
+                    TabPage page = new TabPage(tabName);
+                    tabCommands.TabPages.Add(page);
+                    AddComandGroupsToTab(page, tasks);
+                }
+            }
 
-            var nonDevTestTasks = GetTestMachineTestTasks();
-            AddComandGroupsToTab(tabTest, nonDevTestTasks);
+            //AddComandGroupsToTab(tabDev, _commandsProvider.DosTasks.Where(t => t.ShowTaskOnMachine == ShowCommandOnMachine.Dev));
 
-            ((Control)tabDev).Enabled = _showOnMachine == ShowCommandOnMachine.Dev;
-            if (_showOnMachine != ShowCommandOnMachine.Dev) tabCommands.SelectTab(tabTest);
+            //var nonDevTestTasks = GetTestMachineTestTasks();
+            //AddComandGroupsToTab(tabTest, nonDevTestTasks);
+
+            //((Control)tabDev).Enabled = _showOnMachine == ShowCommandOnMachine.Dev;
+            //if (_showOnMachine != ShowCommandOnMachine.Dev) tabCommands.SelectTab(tabTest);
         }
 
         private List<TestTask> GetTestMachineTestTasks()
@@ -569,7 +581,11 @@ namespace Unifi.Forms
                 {Rollback.RollbackCategoryName.UpdateAmppl,  _commandsProvider.UpdateAmpplRollbackPositions}
             };
 
-            grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
+            //grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
+            TabPage page = new TabPage("Rollback");
+            grpRollback.Dock = DockStyle.Left;
+            page.Controls.Add(grpRollback);
+            tabCommands.TabPages.Add(page);
         }
 
         private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)

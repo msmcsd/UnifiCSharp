@@ -42,6 +42,11 @@ namespace UnifiCommands.CommandsProvider
         /// </summary>
         public string ApiMethod { get; set; }
 
+        /// <summary>
+        /// Determines which tab this test task will be populated on.
+        /// </summary>
+        public DosTab Tab { get; set; }
+
         public object Clone()
         {
             return MemberwiseClone();
@@ -77,5 +82,13 @@ namespace UnifiCommands.CommandsProvider
         Batch,
         Function,
         Variable
+    }
+
+    public enum DosTab
+    {
+        Test,
+        Dev,
+        AppInventory,
+        Web
     }
 }

@@ -687,6 +687,7 @@
 		"Name": "Deploy Api",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
+		"Tab": "Web",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -742,6 +743,7 @@
 		"Name": "Deploy Socket",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
+		"Tab": "Web",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -783,6 +785,7 @@
 		"Name": "Deploy Client",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
+		"Tab": "Web",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -818,6 +821,7 @@
 	{
 		"Name": "sqlite3 Commands",
 		"CommandGroup": "Dos",
+		"Tab": "AppInventory",
 		"Commands": [
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
@@ -874,6 +878,7 @@
 	{
 		"Name": "Inventory HTTP status code",
 		"CommandGroup": "Dos",
+		"Tab": "AppInventory",
 		"Commands": [
 			{
 				"Command": "\"${PsExecPath}\"",
@@ -911,6 +916,7 @@
 		"Name": "Compile",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Dev",
+		"Tab": "Dev",
 		"Commands": [
 			{
 				"Command": "python",
@@ -985,6 +991,7 @@
 		"Name": "Open Dos Window",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Dev",
+		"Tab": "Dev",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
@@ -1022,6 +1029,7 @@
 		"Name": "Open Explorer",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Dev",
+		"Tab": "Dev",
 		"Commands": [
 			{
 				"Command": "${ExplorerPath}",
@@ -1053,6 +1061,7 @@
 		"Name": "Open File",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Dev",
+		"Tab": "Dev",
 		"Commands": [
 			{
 				"Command": "${PsExecPath}",
