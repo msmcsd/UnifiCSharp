@@ -1025,7 +1025,7 @@
 		"Commands": [
 			{
 				"Command": "${ExplorerPath}",
-				"Arguments": "C:\\Projects\\CylanceProtect",
+				"Arguments": "${ProjectsFolder}\\CylanceProtect",
 				"DisplayText": "Project Folder",
 				"IconSourcePath": "${ExplorerPath}",
 				"CreateNewWindow": true,
@@ -1035,6 +1035,14 @@
 				"Command": "${ExplorerPath}",
 				"Arguments": "${ProtectDebugFolder}",
 				"DisplayText": "Dev Debug Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"CreateNewWindow": true,
+				"TaskImage": "Explorer.bmp"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "${ProjectsFolder}\\CylanceProtect\\libs",
+				"DisplayText": "Dev lib Folder",
 				"IconSourcePath": "${ExplorerPath}",
 				"CreateNewWindow": true,
 				"TaskImage": "Explorer.bmp"
@@ -1048,8 +1056,8 @@
 		"Commands": [
 			{
 				"Command": "${PsExecPath}",
-				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" C:\\Projects\\CylanceProtect\\src\\bin\\Debug\\config.xml",
-				"DisplayText": "Dev config",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" ${ProjectsFolder}\\CylanceProtect\\src\\bin\\Debug\\config.xml",
+				"DisplayText": "Dev config.xml",
 				"IconSourcePath": "${NotepadPath}",
 				"CreateNewWindow": true,
 				"TaskImage": "Notepad++.bmp"

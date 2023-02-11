@@ -232,22 +232,17 @@ namespace Unifi.Forms
             if (File.Exists(Variables.LocalJsonConfigPath))
             {
                 _commandsProvider = new JsonCommandsProvider(this);
-                Text = $@"{Text} Loaded using JSON";
+                //Text = $@"{Text} Loaded using JSON";
             }
             else
             {
                 // _commandsProvider = new DefaultCommandsProvider();
-                Text = $@"{Text} Loaded using defaults";
-            }
-
-            if (IsElevated())
-            {
-                Text += " (Administrator)";
+                //Text = $@"{Text} Loaded using defaults";
             }
 
             _logger = new DesktopLogger(txtConsole);
             // Logging.Initialize(_logger);
-            
+
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
             _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
@@ -258,6 +253,9 @@ namespace Unifi.Forms
             PopulateRollbackPositions();
             PopulateBatchCommandDataSource();
             PopulateInstallCommands();
+
+            Text = $"{Text} {(BaseCommandInfo.GetShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
+            if (IsElevated()) Text += " (Administrator)";
 
             ShowFilesVersions(null, null);
         }
@@ -749,6 +747,11 @@ namespace Unifi.Forms
             {
                 LoadControls();
             }
+        }
+
+        private void tabCommands_DoubleClick(object sender, EventArgs e)
+        {
+            LoadControls();
         }
 
         private void lstInstall_DoubleClick(object sender, EventArgs e)

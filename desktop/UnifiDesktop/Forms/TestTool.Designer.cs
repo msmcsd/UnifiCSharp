@@ -729,6 +729,7 @@ namespace Unifi.Forms
             this.tabCommands.SelectedIndex = 0;
             this.tabCommands.Size = new System.Drawing.Size(380, 699);
             this.tabCommands.TabIndex = 16;
+            this.tabCommands.DoubleClick += new System.EventHandler(this.tabCommands_DoubleClick);
             // 
             // tabDev
             // 
