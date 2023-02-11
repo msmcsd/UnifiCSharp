@@ -253,11 +253,18 @@ namespace Unifi.Forms
             PopulateRollbackPositions();
             PopulateBatchCommandDataSource();
             PopulateInstallCommands();
+            PopulateVersionGrid();
 
             Text = $"{Text} {(BaseCommandInfo.GetShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
             if (IsElevated()) Text += " (Administrator)";
 
             ShowFilesVersions(null, null);
+        }
+
+        private void PopulateVersionGrid()
+        {
+            lstVersion.Commands = _commandsProvider.DosTasks.FirstOrDefault(t => t.Name.Equals("Version"))?.Commands;
+            lstVersion.PopulateItems();
         }
 
         private void PopulateDosCommandGroups()

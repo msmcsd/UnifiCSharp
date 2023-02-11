@@ -143,6 +143,12 @@
     <Compile Include="UserControls\ReportGrid.Designer.cs">
       <DependentUpon>ReportGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\VersionGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\VersionGrid.Designer.cs">
+      <DependentUpon>VersionGrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Forms\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ReportGrid.resx">
       <DependentUpon>ReportGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\VersionGrid.resx">
+      <DependentUpon>VersionGrid.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
