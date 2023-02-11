@@ -739,7 +739,7 @@ namespace Unifi.Forms
             e.Graphics.DrawString(listBox.Items[e.Index].ToString(), font, brush, e.Bounds);
         }
 
-        private void btnRunBatchCommand_Click(object sender, EventArgs e)
+        private void lstBatchCommand_DoubleClick(object sender, EventArgs e)
         {
             if (lstBatchCommand.Items.Count == 0)
             {
@@ -833,52 +833,7 @@ namespace Unifi.Forms
 
         private async void DownloadInstaller(object sender, EventArgs e)
         {
-            string url = GetTagOfSelectedOption(grpJenkin);
 
-            //if (!GetBuildNumber(url, out string argument, out string version)) return;
-            // Get build number and version
-            string buildNumber = null;
-            string version = null;
-            if (rbLatestBuild.Checked)
-            {
-                buildNumber = Variables.LastSuccessfulBuild;
-            }
-            else if (rbBuildVersion.Checked)
-            {
-                if (!Version.TryParse(cmbVersion.Text, out _))
-                {
-                    MessageBox.Show("Invalid version.");
-                    return;
-                }
-                version = cmbVersion.Text;
-                buildNumber = await GetBuildNumberByVersion(url, version, _logger);
-                if (buildNumber == null) return;
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(txtBuildNumber.Text) || !int.TryParse(txtBuildNumber.Text, out _))
-                {
-                    MessageBox.Show("Invalid build number.");
-                    return;
-                }
-
-                buildNumber = txtBuildNumber.Text;
-                version = await GetVersionByBuildNumber(url, int.Parse(buildNumber), _logger);
-                if (version == null) return;
-            }
-
-            FullCommandInfo command = new FullCommandInfo
-            {
-                Command = url,
-                Arguments = buildNumber,
-                DisplayText = version
-            };
-
-            string type = GetTagOfSelectedOption(grpInstaller);
-            InstallerType installerType = (InstallerType)Enum.Parse(typeof(InstallerType), type);
-
-            command = SetUpCommand(command, installerType);
-            _commandsRunner.RunCommands(new List<FullCommandInfo> { command });
         }
 
         private string GetTagOfSelectedOption(GroupBox grp)

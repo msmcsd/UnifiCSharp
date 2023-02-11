@@ -76,7 +76,6 @@ namespace Unifi.Forms
             this.grpReport = new System.Windows.Forms.GroupBox();
             this.lstBatchCommand = new System.Windows.Forms.ListBox();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
-            this.btnRunBatchCommand = new System.Windows.Forms.Button();
             this.cmbBatchCommand = new System.Windows.Forms.ComboBox();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpConsole = new System.Windows.Forms.GroupBox();
@@ -590,17 +589,17 @@ namespace Unifi.Forms
             this.lstBatchCommand.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstBatchCommand.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lstBatchCommand.FormattingEnabled = true;
-            this.lstBatchCommand.Location = new System.Drawing.Point(55, 37);
+            this.lstBatchCommand.Location = new System.Drawing.Point(3, 37);
             this.lstBatchCommand.Name = "lstBatchCommand";
-            this.lstBatchCommand.Size = new System.Drawing.Size(213, 200);
+            this.lstBatchCommand.Size = new System.Drawing.Size(265, 200);
             this.lstBatchCommand.TabIndex = 12;
             this.lstBatchCommand.Tag = "Batch";
             this.lstBatchCommand.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBox_DrawItem);
+            this.lstBatchCommand.DoubleClick += new System.EventHandler(this.lstBatchCommand_DoubleClick);
             // 
             // grpBatchCommand
             // 
             this.grpBatchCommand.Controls.Add(this.lstBatchCommand);
-            this.grpBatchCommand.Controls.Add(this.btnRunBatchCommand);
             this.grpBatchCommand.Controls.Add(this.cmbBatchCommand);
             this.grpBatchCommand.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpBatchCommand.Location = new System.Drawing.Point(3, 16);
@@ -609,17 +608,6 @@ namespace Unifi.Forms
             this.grpBatchCommand.TabIndex = 13;
             this.grpBatchCommand.TabStop = false;
             this.grpBatchCommand.Text = "Batch Command";
-            // 
-            // btnRunBatchCommand
-            // 
-            this.btnRunBatchCommand.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnRunBatchCommand.Location = new System.Drawing.Point(3, 37);
-            this.btnRunBatchCommand.Name = "btnRunBatchCommand";
-            this.btnRunBatchCommand.Size = new System.Drawing.Size(52, 200);
-            this.btnRunBatchCommand.TabIndex = 13;
-            this.btnRunBatchCommand.Text = "Run";
-            this.btnRunBatchCommand.UseVisualStyleBackColor = true;
-            this.btnRunBatchCommand.Click += new System.EventHandler(this.btnRunBatchCommand_Click);
             // 
             // cmbBatchCommand
             // 
@@ -779,7 +767,6 @@ namespace Unifi.Forms
         private System.Windows.Forms.GroupBox grpReport;
         private System.Windows.Forms.ListBox lstBatchCommand;
         private System.Windows.Forms.GroupBox grpBatchCommand;
-        private System.Windows.Forms.Button btnRunBatchCommand;
         private System.Windows.Forms.GroupBox grpBatch;
         private System.Windows.Forms.GroupBox grpConsole;
         private System.Windows.Forms.Button btnSetFunctionsToRun;
