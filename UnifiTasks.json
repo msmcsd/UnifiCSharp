@@ -926,68 +926,57 @@
 				"Command": "python",
 				"Arguments": "C:\\Projects\\CylanceProtect.py",
 				"DisplayText": "Full Build",
-				"ShowOnMachine": "Dev",
 				"Visible": false
 			},
 			{
 				"Command": "python",
 				"Arguments": "C:\\Projects\\dna\\dna.py --dna_config ${UserProfileFolder}\\.dnaconfig --dna_file C:\\Projects\\CylanceProtect\\dna\\project.dna build protect",
-				"DisplayText": "Build Solution+Bootstrapper",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Build Solution+Bootstrapper"
 			},
 			{
 				"Command": "python",
 				"Arguments": "C:\\Projects\\dna\\dna.py --dna_config ${UserProfileFolder}\\.dnaconfig --dna_file C:\\Projects\\CylanceProtect\\dna\\project.dna sync-deps protect",
-				"DisplayText": "Sync Deps",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Sync Deps"
 			},
 			{
 				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:major=3;minor=0;build=0000;revision=0 C:\\Projects\\CylanceProtect\\src\\CyProtect.sln",
-				"DisplayText": "Compile Debug Protect",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Compile Debug Protect"
 			},
 			{
 				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 /property:Platform=x64 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Installerx64\\Cylance.Host.Installerx64.wixproj",
-				"DisplayText": "Build 64-bit Installer",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Build 64-bit Installer"
 			},
 			{
 				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 /property:Platform=x86 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Installer\\Cylance.Host.Installer.wixproj",
-				"DisplayText": "Build 32-bit Installer",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Build 32-bit Installer"
 			},
 			{
 				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Bootstrapper\\Cylance.Host.Bootstrapper.wixproj",
-				"DisplayText": "Build Bootstrapper",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Build Bootstrapper"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c copy \"C:\\Projects\\CylanceProtect\\bin\\Installers\\en-us\\CylanceProtectSetup_Debug_x64.msi\" \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\\Debug\\CylanceProtect_x64.msi\" /y",
-				"DisplayText": "Copy 64-bit Installer",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Copy 64-bit Installer"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c copy \"C:\\Projects\\CylanceProtect\\bin\\Installers\\en-us\\CylanceProtectSetup_Debug_x86.msi\" \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\\Debug\\CylanceProtect_x86.msi\" /y",
-				"DisplayText": "Copy 32-bit Installer",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Copy 32-bit Installer"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c copy \"C:\\Projects\\CylanceProtect\\bin\\Installers\\CylanceProtectSetup_Debug.exe\" \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\\Debug\\CylanceProtectSetup.exe\" /y",
-				"DisplayText": "Copy Bootstrapper",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Copy Bootstrapper"
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/c cd C:\\Projects\\CylanceProtect & git checkout -- src/Build/CommonAssemblyInfo.cs & git checkout -- src/CyPackage/Resources/Compressed* & git checkout -- src/CyUpgrade/Resources/Compressed* & del src/CyPackage/Resources/CompressedDataFile &  del src/CyPackage/Resources/CompressedIndexFile",
-				"DisplayText": "Reset Changed Files",
-				"ShowOnMachine": "Dev"
+				"DisplayText": "Reset Changed Files"
 			}
 		]
 	},	

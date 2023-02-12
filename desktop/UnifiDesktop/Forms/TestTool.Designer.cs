@@ -128,12 +128,14 @@ namespace Unifi.Forms
             this.grpRollback.Controls.Add(this.lstRollbackPosition);
             this.grpRollback.Controls.Add(this.btnSetFunctionsToRun);
             this.grpRollback.Controls.Add(this.txtFunctionsToRun);
-            this.grpRollback.Location = new System.Drawing.Point(58, 152);
+            this.grpRollback.Location = new System.Drawing.Point(73, 151);
             this.grpRollback.Name = "grpRollback";
             this.grpRollback.Size = new System.Drawing.Size(147, 294);
             this.grpRollback.TabIndex = 10;
             this.grpRollback.TabStop = false;
             this.grpRollback.Text = "Rollback";
+            this.grpRollback.Visible = false;
+
             // 
             // lstRollbackPosition
             // 

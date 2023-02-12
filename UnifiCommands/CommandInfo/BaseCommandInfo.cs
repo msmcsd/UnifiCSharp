@@ -54,11 +54,10 @@ namespace UnifiCommands.CommandInfo
             return MemberwiseClone();
         }
 
-        public static ShowCommandOnMachine GetShowCommandOnMachine()
-        {
-            bool isDevMachine = Environment.MachineName.Equals(Variables.DevMachineName, StringComparison.InvariantCultureIgnoreCase);
-            return isDevMachine ? ShowCommandOnMachine.Dev : ShowCommandOnMachine.Test;
-        }
+        public static ShowCommandOnMachine ShowCommandOnMachine =>
+            Environment.MachineName.Equals(Variables.DevMachineName, StringComparison.InvariantCultureIgnoreCase)?
+            ShowCommandOnMachine.Dev : 
+            ShowCommandOnMachine.Test;
     }
 
     public enum CommandType

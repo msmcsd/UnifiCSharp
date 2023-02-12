@@ -255,7 +255,7 @@ namespace Unifi.Forms
             PopulateInstallCommands();
             PopulateVersionGrid();
 
-            Text = $"{Text} {(BaseCommandInfo.GetShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
+            Text = $"{Text} {(BaseCommandInfo.ShowCommandOnMachine == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
             if (IsElevated()) Text += " (Administrator)";
 
             ShowFilesVersions(null, null);
@@ -271,7 +271,6 @@ namespace Unifi.Forms
         {
             tabCommands.Width = 160;
             tabCommands.TabPages.Clear();
-            var _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
 
             foreach(var tabName in Enum.GetNames(typeof(DosTab)))
             {
@@ -283,32 +282,6 @@ namespace Unifi.Forms
                     AddComandGroupsToTab(page, tasks);
                 }
             }
-
-            //AddComandGroupsToTab(tabDev, _commandsProvider.DosTasks.Where(t => t.ShowTaskOnMachine == ShowCommandOnMachine.Dev));
-
-            //var nonDevTestTasks = GetTestMachineTestTasks();
-            //AddComandGroupsToTab(tabTest, nonDevTestTasks);
-
-            //((Control)tabDev).Enabled = _showOnMachine == ShowCommandOnMachine.Dev;
-            //if (_showOnMachine != ShowCommandOnMachine.Dev) tabCommands.SelectTab(tabTest);
-        }
-
-        private List<TestTask> GetTestMachineTestTasks()
-        {
-            List<TestTask> testTasks= new List<TestTask>();
-
-            foreach (var t in _commandsProvider.DosTasks.Where(t => t.ShowTaskOnMachine != ShowCommandOnMachine.Dev))
-            {
-                var commands = t.Commands.Where(c => (c.ShowOnMachine & ShowCommandOnMachine.Test) == ShowCommandOnMachine.Test).ToList();
-                if (commands.Count > 0)
-                {
-                    TestTask t1 = (TestTask)t.Clone();
-                    t1.Commands= commands;
-                    testTasks.Add(t1);
-                }
-            }
-
-            return testTasks;
         }
 
         private void AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)
@@ -318,6 +291,7 @@ namespace Unifi.Forms
             int columns = 1;
             int controlWidth = 150;
 
+            var _showOnMachine = BaseCommandInfo.ShowCommandOnMachine;
             tab.Controls.Clear();
 
             foreach (var task in tasks)
@@ -518,7 +492,7 @@ namespace Unifi.Forms
 
         private void PopulateTaskbarCommands()
         {
-            var _showOnMachine = BaseCommandInfo.GetShowCommandOnMachine();
+            var _showOnMachine = BaseCommandInfo.ShowCommandOnMachine;
             var tasks = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?
                 .Commands.Where(c=> (c.ShowOnMachine & _showOnMachine) == _showOnMachine).ToArray();
             
@@ -576,6 +550,8 @@ namespace Unifi.Forms
         
         private void PopulateRollbackPositions()
         {
+            if (BaseCommandInfo.ShowCommandOnMachine != ShowCommandOnMachine.Test) return;
+
             lstRollbackPosition.Items.Clear();
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
@@ -593,6 +569,7 @@ namespace Unifi.Forms
             grpRollback.Dock = DockStyle.Left;
             page.Controls.Add(grpRollback);
             tabCommands.TabPages.Add(page);
+            grpRollback.Visible = true;
         }
 
         private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)

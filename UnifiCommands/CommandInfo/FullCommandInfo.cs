@@ -74,7 +74,7 @@ namespace UnifiCommands.CommandInfo
         /// <summary>
         /// Determines if the command is visible on Dev or Test VM or both.
         /// </summary>
-        public ShowCommandOnMachine ShowOnMachine { get; set; } = ShowCommandOnMachine.All;
+        public ShowCommandOnMachine ShowOnMachine { get; set; } = CommandInfo.ShowCommandOnMachine.All;
 
         public override string ToString() => DisplayText;
 
