@@ -28,6 +28,8 @@ namespace UnifiCommands.CommandsProvider
 
         public List<TestTask> DosTasks { get; set; }
 
+        public TestTask FileVersionTask { get; set; }
+
         public List<FullCommandInfo> TaskBarCommands { get; set; }
 
         public List<FullCommandInfo> DownloadCommands { get; set; }
@@ -94,6 +96,7 @@ namespace UnifiCommands.CommandsProvider
             ReplaceLoadTimeVariables();
 
             DosTasks = TestTasks.Where(t => t.CommandGroup == CommandGroup.Dos).ToList();
+            FileVersionTask = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.FileVersion);
             TaskBarCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?.Commands;
             DownloadCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download)?.Commands;
             AddAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.AddAmpplPositions)?.Commands;

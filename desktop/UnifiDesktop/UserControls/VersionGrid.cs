@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using Unifi.Annotations;
 using UnifiCommands.CommandInfo;
-using UnifiCommands.Report;
 using UnifiCommands.VariableProcessors;
 
 namespace UnifiDesktop.UserControls
@@ -19,6 +11,8 @@ namespace UnifiDesktop.UserControls
     public partial class VersionGrid : UserControl
     {
         public List<FullCommandInfo> Commands { get; set; }
+
+        public object FormObject { get; set; }
 
         public VersionGrid()
         {
@@ -55,8 +49,7 @@ namespace UnifiDesktop.UserControls
 
         public void ShowFilesVersions(object source, ElapsedEventArgs e)
         {
-            var ds = new List<FullCommandInfo> { };
-            VariableConverter converter = new DesktopRuntimeVariableConverter(this);
+            VariableConverter converter = new DesktopRuntimeVariableConverter(FormObject);
 
             foreach (ListViewItem item in lstVersion.Items)
             {
@@ -66,7 +59,10 @@ namespace UnifiDesktop.UserControls
                 string filePath = converter.ReplaceVariables(info.Arguments);
                 var version = System.IO.File.Exists(filePath) ? FileVersionInfo.GetVersionInfo(filePath).FileVersion : "";
 
-                item.SubItems[0].Text = version;
+                if (item.SubItems[1].Text != version)
+                {
+                    item.SubItems[1].Text = version;
+                }
             }
 
         }

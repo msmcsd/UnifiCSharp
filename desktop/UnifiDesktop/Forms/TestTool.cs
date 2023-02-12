@@ -263,8 +263,9 @@ namespace Unifi.Forms
 
         private void PopulateVersionGrid()
         {
-            lstVersion.Commands = _commandsProvider.DosTasks.FirstOrDefault(t => t.Name.Equals("Version"))?.Commands;
+            lstVersion.Commands = _commandsProvider.FileVersionTask.Commands;
             lstVersion.PopulateItems();
+            lstVersion.FormObject = this;
         }
 
         private void PopulateDosCommandGroups()
@@ -291,7 +292,6 @@ namespace Unifi.Forms
             int columns = 1;
             int controlWidth = 150;
 
-            var _showOnMachine = BaseCommandInfo.ShowCommandOnMachine;
             tab.Controls.Clear();
 
             foreach (var task in tasks)
@@ -322,12 +322,6 @@ namespace Unifi.Forms
                 ctl.Top = top;
 
                 top += ctl.Height;
-
-                if (task.Name == "Version")
-                {
-                    _listVersion = ctl.ListBox;
-                    _listVersion.DisplayMember = "DisplayText";
-                }
             }
         }
         
@@ -616,41 +610,7 @@ namespace Unifi.Forms
         /// <param name="e"></param>
         private void ShowFilesVersions(object source, ElapsedEventArgs e)
         {
-            var ds = new List<FullCommandInfo> { };
-            VariableConverter converter = new DesktopRuntimeVariableConverter(this);
-
-            foreach (var item in _listVersion.Items)
-            {
-                FullCommandInfo info = (FullCommandInfo) item;
-                ds.Add(info);
-                if (!info.Command.Equals("FileVersion", StringComparison.InvariantCultureIgnoreCase)) continue;
-            
-                string filePath = converter.ReplaceVariables(info.Arguments);
-                UpdateFileVersion(info, filePath);
-            }
-
-            //_listVersion.Refresh();
-            _listVersion.DataSource = null;
-            _listVersion.DataSource = ds;
-        }
-
-        private void UpdateFileVersion(FullCommandInfo commandInfo, string filePath)
-        {
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                var version = File.Exists(filePath) ? FileVersionInfo.GetVersionInfo(filePath).FileVersion : "";
-                version = version.Length > 0 ? $"({version})" : "";
-
-                int i = commandInfo.DisplayText.IndexOf("(", StringComparison.Ordinal);
-                if (i > 0)
-                {
-                    commandInfo.DisplayText = commandInfo.DisplayText.Substring(0, i) + version;
-                }
-                else
-                {
-                    commandInfo.DisplayText += version;
-                }
-            }
+            lstVersion.ShowFilesVersions(source, e);
         }
 
 #endregion
@@ -841,7 +801,7 @@ namespace Unifi.Forms
                 installerFile = Path.Combine(installerFile, installerName);
                 if (File.Exists(installerFile))
                 {
-                    File.Copy(installerFile, Path.Combine(Variables.UserDesktopFolder, installerName), false);
+                    File.Copy(installerFile, Path.Combine(Variables.UserDesktopFolder, installerName), true);
                     _logger.LogInfo($"Copied {installerFile}");
                     return;
                 }

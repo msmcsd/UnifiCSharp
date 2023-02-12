@@ -394,7 +394,7 @@
 	},
 	{
 		"Name": "Version",
-		"CommandGroup": "Dos",
+		"CommandGroup": "FileVersion",
 		"Commands": [
 			{
 				"Command": "wmic",

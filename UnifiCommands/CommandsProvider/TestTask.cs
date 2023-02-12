@@ -81,7 +81,8 @@ namespace UnifiCommands.CommandsProvider
         Rollback,
         Batch,
         Function,
-        Variable
+        Variable,
+        FileVersion
     }
 
     public enum DosTab
