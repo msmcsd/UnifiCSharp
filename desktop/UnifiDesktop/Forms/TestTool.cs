@@ -857,7 +857,18 @@ namespace Unifi.Forms
                     MessageBox.Show("Invalid version.");
                     return;
                 }
+
                 version = cmbVersion.Text;
+                string installerName = GetMsiInstallerName(url);
+                string installerFile = Path.Combine(Variables.InstallersFolder, version);
+                installerFile = Path.Combine(installerFile, installerName);
+                if (File.Exists(installerFile))
+                {
+                    File.Copy(installerFile, Path.Combine(Variables.UserDesktopFolder, installerName), false);
+                    _logger.LogInfo($"Copied {installerFile}");
+                    return;
+                }
+
                 buildNumber = await GetBuildNumberByVersion(url, version, _logger);
                 if (buildNumber == null) return;
             }
