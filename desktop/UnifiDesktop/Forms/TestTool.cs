@@ -840,7 +840,52 @@ namespace Unifi.Forms
 
         private async void DownloadInstaller(object sender, EventArgs e)
         {
+            string url = GetTagOfSelectedOption(grpJenkin);
 
+            //if (!GetBuildNumber(url, out string argument, out string version)) return;
+            // Get build number and version
+            string buildNumber = null;
+            string version = null;
+            if (rbLatestBuild.Checked)
+            {
+                buildNumber = Variables.LastSuccessfulBuild;
+            }
+            else if (rbBuildVersion.Checked)
+            {
+                if (!Version.TryParse(cmbVersion.Text, out _))
+                {
+                    MessageBox.Show("Invalid version.");
+                    return;
+                }
+                version = cmbVersion.Text;
+                buildNumber = await GetBuildNumberByVersion(url, version, _logger);
+                if (buildNumber == null) return;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(txtBuildNumber.Text) || !int.TryParse(txtBuildNumber.Text, out _))
+                {
+                    MessageBox.Show("Invalid build number.");
+                    return;
+                }
+
+                buildNumber = txtBuildNumber.Text;
+                version = await GetVersionByBuildNumber(url, int.Parse(buildNumber), _logger);
+                if (version == null) return;
+            }
+
+            FullCommandInfo command = new FullCommandInfo
+            {
+                Command = url,
+                Arguments = buildNumber,
+                DisplayText = version
+            };
+
+            string type = GetTagOfSelectedOption(grpInstaller);
+            InstallerType installerType = (InstallerType)Enum.Parse(typeof(InstallerType), type);
+
+            command = SetUpCommand(command, installerType);
+            _commandsRunner.RunCommands(new List<FullCommandInfo> { command });
         }
 
         private string GetTagOfSelectedOption(GroupBox grp)
@@ -857,7 +902,10 @@ namespace Unifi.Forms
 
         private void OnControlKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Return) DownloadInstaller(null, null);
+            if (e.KeyCode == Keys.Return)
+            {
+                DownloadInstaller(null, null);
+            }
         }
 
         private void cmbReleaseUrls_Click(object sender, EventArgs e)
