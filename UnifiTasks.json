@@ -610,18 +610,21 @@
 				"Command": "ClearReport",
 				"Arguments": "",
 				"DisplayText": "Clear Report",
+				"Visible": false,
 				"Type": "Code"
 			},
 			{
 				"Command": "ShowReport",
 				"Arguments": "true",
 				"DisplayText": "Show Installed Report",
+				"Visible": false,
 				"Type": "Code"
 			},
 			{
 				"Command": "ShowReport",
 				"Arguments": "false",
 				"DisplayText": "Show Uninstalled Report",
+				"Visible": false,
 				"Type": "Code"
 			},
 			{
@@ -629,6 +632,7 @@
 				"Arguments": "$[ProtectLogPath], true, 5",
 				"DisplayText": "Monitor End of CyUpdate",
 				"Type": "Code",
+				"Visible": false,
 				"ShowOnMachine": "Test"
 			},
 			{

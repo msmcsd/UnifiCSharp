@@ -51,6 +51,7 @@ namespace Unifi.UserControls
             this.lstReport.TabIndex = 3;
             this.lstReport.UseCompatibleStateImageBehavior = false;
             this.lstReport.View = System.Windows.Forms.View.Details;
+            this.lstReport.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstReport_ColumnClick);
             this.lstReport.DoubleClick += new System.EventHandler(this.lstReport_DoubleClick);
             // 
             // CategoryHeader

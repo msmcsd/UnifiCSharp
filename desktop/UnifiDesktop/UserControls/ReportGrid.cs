@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnifiCommands;
 using UnifiCommands.CommandExecutors;
@@ -102,7 +103,10 @@ namespace Unifi.UserControls
 
         private async void lstReport_DoubleClick(object sender, EventArgs e)
         {
-            if (lstReport.SelectedItems.Count <= 0) return;
+            if (lstReport.SelectedItems.Count <= 0)
+            {
+                return;
+            }
 
             FullCommandInfo commandInfo = (FullCommandInfo)lstReport.SelectedItems[0].Tag;
             if (commandInfo == null) return;
@@ -112,5 +116,47 @@ namespace Unifi.UserControls
             await command.Execute();
         }
 
+        private async Task CreateReport(bool installed)
+        {
+            FullCommandInfo command = new FullCommandInfo
+            {
+                Command = "ShowReport",
+                DisplayText = $"Show {(installed? "Installed" : "Uninstalled")} Report",
+                Type = CommandType.Code,
+                Arguments = installed? "true" : "false"
+            };
+
+            var cmd = new BatchCommandExecutor(new List<FullCommandInfo> { command }, false, this, Logger, AppType.Desktop);
+            await cmd.Execute();
+        }
+
+        private async Task ClearReportItems()
+        {
+            FullCommandInfo command = new FullCommandInfo
+            {
+                Command = "ClearReport",
+                DisplayText = $"Clear Report",
+                Type = CommandType.Code
+            };
+
+            var cmd = new BatchCommandExecutor(new List<FullCommandInfo> { command }, false, this, Logger, AppType.Desktop);
+            await cmd.Execute();
+        }
+
+        private async void lstReport_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            switch (e.Column)
+            {
+                case 0:
+                    await CreateReport(true);
+                    break;
+                case 1:
+                    await CreateReport(false);
+                    break;
+                case 2:
+                    await ClearReportItems();
+                    break;
+            }
+        }
     }
 }
