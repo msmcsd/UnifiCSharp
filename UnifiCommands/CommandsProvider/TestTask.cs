@@ -70,6 +70,12 @@ namespace UnifiCommands.CommandsProvider
         /// </summary>
         [JsonProperty("commands")]
         public List<BaseCommandInfo> Commands { get; set; }
+
+        /// <summary>
+        /// Determines which tab this test task will be populated on.
+        /// </summary>
+        [JsonProperty("tab")]
+        public DosTab Tab { get; set; } = DosTab.Test;
     }
 
     public enum CommandGroup

@@ -255,7 +255,7 @@ namespace Unifi.Forms
             PopulateInstallCommands();
             PopulateVersionGrid();
 
-            Text = $"{Text} {(BaseCommandInfo.ShowCommandOnMachine == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
+            Text = $"{Text} {(BaseCommandInfo.ShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
             if (IsElevated()) Text += " (Administrator)";
 
             ShowFilesVersions(null, null);
@@ -486,7 +486,7 @@ namespace Unifi.Forms
 
         private void PopulateTaskbarCommands()
         {
-            var _showOnMachine = BaseCommandInfo.ShowCommandOnMachine;
+            var _showOnMachine = BaseCommandInfo.ShowCommandOnMachine();
             var tasks = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?
                 .Commands.Where(c=> (c.ShowOnMachine & _showOnMachine) == _showOnMachine).ToArray();
             
@@ -544,7 +544,7 @@ namespace Unifi.Forms
         
         private void PopulateRollbackPositions()
         {
-            if (BaseCommandInfo.ShowCommandOnMachine != ShowCommandOnMachine.Test) return;
+            if (BaseCommandInfo.ShowCommandOnMachine() != ShowCommandOnMachine.Test) return;
 
             lstRollbackPosition.Items.Clear();
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);

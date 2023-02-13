@@ -89,7 +89,7 @@ namespace UnifiCommands.CommandsProvider
 
             SetVariablesValues(TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Variable)?.Commands);
             // _showOnMachine depends on result from previous line.
-            _showOnMachine = BaseCommandInfo.ShowCommandOnMachine;
+            _showOnMachine = BaseCommandInfo.ShowCommandOnMachine();
 
             TestTasks = FilterTasks(TestTasks);
 
@@ -127,7 +127,8 @@ namespace UnifiCommands.CommandsProvider
                 var webtask = new WebTestTask
                 {
                     Name = task.Name,
-                    CommandGroup = task.CommandGroup
+                    CommandGroup = task.CommandGroup,
+                    Tab = task.Tab
                 };
 
                 if (task.CommandGroup != CommandGroup.Install)
