@@ -47,10 +47,10 @@ namespace SelfHostUnifiApi.RestCommands
 
             if (string.IsNullOrEmpty(_parameters)) return false;
 
-            //_parameters = _parameters.Replace("\\\"", "\"");
-            //_parameters = _parameters.Replace("\\\\", "\\");
-            //if (_parameters.EndsWith("\"")) _parameters = _parameters.Substring(0, _parameters.Length - 1);
-            //if (_parameters.StartsWith("\"")) _parameters = _parameters.Substring(1);
+            _parameters = _parameters.Replace("\\\"", "\"");
+            _parameters = _parameters.Replace("\\\\", "\\");
+            if (_parameters.EndsWith("\"")) _parameters = _parameters.Substring(0, _parameters.Length - 1);
+            if (_parameters.StartsWith("\"")) _parameters = _parameters.Substring(1);
 
             //var expConverter = new ExpandoObjectConverter();
             try
@@ -60,7 +60,7 @@ namespace SelfHostUnifiApi.RestCommands
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"Error converting parameters. {e.Message}");
                 result = "{\"result\": \"" + e.Message + "\"}";
                 return false;
             }

@@ -15,7 +15,7 @@ namespace UnifiCommands
         [JsonProperty("compilemode")]
         public string CompileMode { get; set; }
 
-        [JsonProperty("cylancedesktopfolder")]
+        [JsonProperty("installfolder")]
         public string InstallFolder { get; set; }
 
         [JsonProperty("buildJobSourceInfo")]
