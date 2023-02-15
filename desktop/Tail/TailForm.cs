@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,6 +43,19 @@ namespace Tail
         public TailForm()
         {
             InitializeComponent();
+            _tailType = TailType.TailFromCurrent;
+            string installFolder = GetInstallPath();
+            if (Directory.Exists(installFolder))
+            {
+                installFolder = Path.Combine(installFolder, "log");
+                _textFile = Path.Combine(installFolder, DateTime.Now.ToString("yyyy-MM-dd") + ".log");
+            }
+        }
+
+        private string GetInstallPath()
+        {
+            string path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Cylance\Desktop", "Path", string.Empty).ToString();
+            return path;
         }
 
         public TailForm(string textFile, TailType tailType, string filter) : this()
@@ -52,23 +67,34 @@ namespace Tail
 
         private async void TailForm_Shown(object sender, EventArgs e)
         {
+            txtFile.Text = _textFile;
+            Text = $"Tail {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
+            if (IsElevated()) Text = $"{Text} (Administrator)";
+
             if (!File.Exists(_textFile) || string.IsNullOrWhiteSpace(Filter))
             {
                 btnStop.Enabled = false;
                 return;
             }
 
-            Text = $"Tail {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
 
             btnStop.Enabled = true;
             await StartFollow();
+        }
+
+        private bool IsElevated()
+        {
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
         }
 
         private async Task StartFollow()
         {
             btnStart.Enabled = false;
             btnStop.Enabled = true;
-            lblFile.Text = $@"Tracking File: {_textFile}";
 
             chkFollowTail.Checked = true;
             _errorLines.Clear();
@@ -253,6 +279,11 @@ namespace Tail
                     chkFollowTail.Checked = false;
                 }));
             }
+        }
+
+        private void txtFile_TextChanged(object sender, EventArgs e)
+        {
+            lblFileNotFound.Visible = !File.Exists(txtFile.Text);
         }
     }
 }

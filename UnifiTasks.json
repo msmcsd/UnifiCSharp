@@ -610,21 +610,18 @@
 				"Command": "ClearReport",
 				"Arguments": "",
 				"DisplayText": "Clear Report",
-				"Visible": false,
 				"Type": "Code"
 			},
 			{
 				"Command": "ShowReport",
 				"Arguments": "true",
 				"DisplayText": "Show Installed Report",
-				"Visible": false,
 				"Type": "Code"
 			},
 			{
 				"Command": "ShowReport",
 				"Arguments": "false",
 				"DisplayText": "Show Uninstalled Report",
-				"Visible": false,
 				"Type": "Code"
 			},
 			{
@@ -632,7 +629,6 @@
 				"Arguments": "$[ProtectLogPath], true, 5",
 				"DisplayText": "Monitor End of CyUpdate",
 				"Type": "Code",
-				"Visible": false,
 				"ShowOnMachine": "Test"
 			},
 			{
@@ -827,6 +823,11 @@
 		"CommandGroup": "Dos",
 		"Tab": "AppInventory",
 		"Commands": [
+			{
+				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DROP TABLE SoftwareInventory;\" \".exit\" ",
+				"DisplayText": "Drop inventory table"
+			},
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
 				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"SELECT COUNT(*) FROM SoftwareInventory;\" \".exit\" ",
@@ -1575,8 +1576,8 @@
 			},
 			{
 				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 429 /f",
-				"DisplayText": "Set Http Returns 429 Too Many Requests"
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 200 /f",
+				"DisplayText": "Set Http Returns 200 OK"
 			},
 			{
 				"Command": "Install_Protect_Msi_Admin_Quiet",
