@@ -676,6 +676,12 @@
 				"ShowOnMachine": "Test"
 			},
 			{
+				"Command": "cmd.exe",
+				"Arguments": "/k %cd%\\Tail \"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Test"
+			},
+			{
 				"Command": "Tail",
 				"Arguments": "\"${DevLogPath}\" 1 \" inventory\"",
 				"DisplayText": "Follow inventory",
@@ -844,14 +850,24 @@
 				"DisplayText": "Delta row count"
 			},
 			{
+				"Command": "",
+				"Arguments": "",
+				"DisplayText": "------- Insert -------"
+			},
+			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
-				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"REPLACE INTO SoftwareInventory VALUES(0, '{\"\"\"assessment_time\"\"\":\"\"\"2023-01-31T10:51:29.4063332-08:00\"\"\",\"\"\"application\"\"\":\"\"\"CylancePRODUCT\"\"\",\"\"\"application_version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"report_type\"\"\":\"\"\"Full\"\"\",\"\"\"host\"\"\":{\"\"\"tenant_id\"\"\":\"\"\"ac32a6f1-c726-4b31-b70a-d1035d0b3c20\"\"\",\"\"\"device_id\"\"\":\"\"\"bf23253a-ce70-40cf-aa9e-6d78049d2882\"\"\",\"\"\"os_info\"\"\":{\"\"\"hostname\"\"\":\"\"\"WINDOWSDEV\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"vendor\"\"\":\"\"\"Microsoft\"\"\",\"\"\"product\"\"\":\"\"\"windows\"\"\",\"\"\"build\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"architecture\"\"\":\"\"\"x64\"\"\",\"\"\"ip_address\"\"\":\"\"\"fe80::1862:7704:d149:5526%12\"\"\"},\"\"\"updates\"\"\":[{\"\"\"code\"\"\":\"\"\"KB2267602\"\"\",\"\"\"product\"\"\":\"\"\"Microsoft_Defender_Antivirus\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"date\"\"\":\"\"\"2023-01-31T16:30:20\"\"\",\"\"\"state\"\"\":\"\"\"installed\"\"\"}]}}');\" \".exit\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"REPLACE INTO SoftwareInventory VALUES(0, '{\"\"\"assessment_time\"\"\":\"\"\"2023-01-31T10:51:29.4063332-08:00\"\"\",\"\"\"application\"\"\":\"\"\"CylancePRODUCT\"\"\",\"\"\"application_version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"report_type\"\"\":\"\"\"Full\"\"\",\"\"\"host\"\"\":{\"\"\"tenant_id\"\"\":\"\"\"ac32a6f1-c726-4b31-b70a-d1035d0b3c20\"\"\",\"\"\"device_id\"\"\":\"\"\"bf23253a-ce70-40cf-aa9e-6d78049d2882\"\"\",\"\"\"os_info\"\"\":{\"\"\"hostname\"\"\":\"\"\"WINDOWSDEV\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"vendor\"\"\":\"\"\"Microsoft\"\"\",\"\"\"product\"\"\":\"\"\"windows\"\"\",\"\"\"build\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"architecture\"\"\":\"\"\"x64\"\"\",\"\"\"ip_address\"\"\":\"\"\"fe80::1862:7704:d149:5526%12\"\"\"},\"\"\"updates\"\"\":[{\"\"\"code\"\"\":\"\"\"KB2267602\"\"\",\"\"\"product\"\"\":\"\"\"Microsoft_Defender_Antivirus\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"date\"\"\":\"\"\"2023-01-31T16:30:20\"\"\"}]}}');\" \".exit\"",
 				"DisplayText": "Insert Full row"
 			},
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
-				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"REPLACE INTO SoftwareInventory VALUES(1, '{\"\"\"assessment_time\"\"\":\"\"\"2023-01-31T10:51:29.4063332-08:00\"\"\",\"\"\"application\"\"\":\"\"\"CylancePRODUCT\"\"\",\"\"\"application_version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"report_type\"\"\":\"\"\"Delta\"\"\",\"\"\"host\"\"\":{\"\"\"tenant_id\"\"\":\"\"\"ac32a6f1-c726-4b31-b70a-d1035d0b3c20\"\"\",\"\"\"device_id\"\"\":\"\"\"bf23253a-ce70-40cf-aa9e-6d78049d2882\"\"\",\"\"\"os_info\"\"\":{\"\"\"hostname\"\"\":\"\"\"WINDOWSDEV\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"vendor\"\"\":\"\"\"Microsoft\"\"\",\"\"\"product\"\"\":\"\"\"windows\"\"\",\"\"\"build\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"architecture\"\"\":\"\"\"x64\"\"\",\"\"\"ip_address\"\"\":\"\"\"fe80::1862:7704:d149:5526%12\"\"\"},\"\"\"updates\"\"\":[{\"\"\"code\"\"\":\"\"\"KB2267602\"\"\",\"\"\"product\"\"\":\"\"\"Microsoft_Defender_Antivirus\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"date\"\"\":\"\"\"2023-01-31T16:30:20\"\"\",\"\"\"state\"\"\":\"\"\"installed\"\"\"}]}}');\" \".exit\"",
+				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"REPLACE INTO SoftwareInventory VALUES(1, '{\"\"\"assessment_time\"\"\":\"\"\"2023-01-31T10:51:29.4063332-08:00\"\"\",\"\"\"application\"\"\":\"\"\"CylancePRODUCT\"\"\",\"\"\"application_version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"report_type\"\"\":\"\"\"Delta\"\"\",\"\"\"host\"\"\":{\"\"\"tenant_id\"\"\":\"\"\"ac32a6f1-c726-4b31-b70a-d1035d0b3c20\"\"\",\"\"\"device_id\"\"\":\"\"\"bf23253a-ce70-40cf-aa9e-6d78049d2882\"\"\",\"\"\"os_info\"\"\":{\"\"\"hostname\"\"\":\"\"\"WINDOWSDEV\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"vendor\"\"\":\"\"\"Microsoft\"\"\",\"\"\"product\"\"\":\"\"\"windows\"\"\",\"\"\"build\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"architecture\"\"\":\"\"\"x64\"\"\",\"\"\"ip_address\"\"\":\"\"\"fe80::1862:7704:d149:5526%12\"\"\"},\"\"\"updates\"\"\":[{\"\"\"code\"\"\":\"\"\"KB2267602\"\"\",\"\"\"product\"\"\":\"\"\"Microsoft_Defender_Antivirus\"\"\",\"\"\"version\"\"\":\"\"\"1.1.1.1\"\"\",\"\"\"date\"\"\":\"\"\"2023-01-31T16:30:20\"\"\",\"\"\"state\"\"\":\"\"\"uninstalled\"\"\"}]}}');\" \".exit\"",
 				"DisplayText": "Insert Delta row"
+			},
+			{
+				"Command": "",
+				"Arguments": "",
+				"DisplayText": "------- Show -------"
 			},
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
@@ -864,14 +880,19 @@
 				"DisplayText": "Show Delta row"
 			},
 			{
+				"Command": "",
+				"Arguments": "",
+				"DisplayText": "------- Delete -------"
+			},
+			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
 				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DELETE FROM SoftwareInventory;\" \".exit\" ",
-				"DisplayText": "Delta all rows"
+				"DisplayText": "Delete all rows"
 			},
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",
 				"Arguments": "\"$[CylanceDesktopFolder]\\chp.db\" \"DELETE FROM SoftwareInventory WHERE type=0;\" \".exit\" ",
-				"DisplayText": "Delta full"
+				"DisplayText": "Delete full"
 			},
 			{
 				"Command": "\"C:\\Program Files\\Sqlite\\sqlite3.exe\"",

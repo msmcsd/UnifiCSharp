@@ -54,8 +54,8 @@ namespace Tail
 
         private string GetInstallPath()
         {
-            string path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Cylance\Desktop", "Path", string.Empty).ToString();
-            return path;
+            var path = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Cylance\Desktop", "Path", string.Empty);
+            return path == null ? string.Empty : path.ToString();
         }
 
         public TailForm(string textFile, TailType tailType, string filter) : this()
