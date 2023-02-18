@@ -219,8 +219,6 @@ namespace Unifi.Forms
                 p.WaitForExit();
             }
 
-            Text = $"{Assembly.GetExecutingAssembly().GetName().Name} {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
-
             if (File.Exists(Variables.LocalJsonConfigPath))
             {
                 _commandsProvider = new JsonCommandsProvider(this);
@@ -233,7 +231,6 @@ namespace Unifi.Forms
             }
 
             _logger = new DesktopLogger(txtConsole);
-            // Logging.Initialize(_logger);
 
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
@@ -249,10 +246,16 @@ namespace Unifi.Forms
 
             InitDownloadCommandGroup();
 
-            Text = $"{Text} {(BaseCommandInfo.ShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
-            if (IsElevated()) Text += " (Administrator)";
+            UpdateFormTitle();
 
             ShowFilesVersions(null, null);
+        }
+
+        private void UpdateFormTitle()
+        {
+            Text = $"{Assembly.GetExecutingAssembly().GetName().Name} {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
+            Text = $"{Text} {(BaseCommandInfo.ShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
+            if (IsElevated()) Text += " (Administrator)";
         }
 
         private void InitDownloadCommandGroup()
@@ -648,27 +651,6 @@ namespace Unifi.Forms
                 Command command = CommandFactory.CreateCommand(info, _logger, AppType.Desktop);
                 command.LogParameters();
             }
-        }
-        
-        private void ListBox_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ListBox listBox = (ListBox)sender;
-            if (sender == null || e == null || e.Index < 0) return;
-
-            FullCommandInfo info = (FullCommandInfo)listBox.Items[e.Index];
-
-            Font font = info.DisplayText.StartsWith(CategoryPrefix) ?
-                new Font(listBox.Font.FontFamily, listBox.Font.Size, FontStyle.Bold) :
-                new Font(listBox.Font.FontFamily, listBox.Font.Size);
-
-            Brush brush = info.Type == CommandType.Code ? Brushes.Green : Brushes.Black;
-
-            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-            {
-                brush = Brushes.White;
-            }
-            e.DrawBackground();
-            e.Graphics.DrawString(listBox.Items[e.Index].ToString(), font, brush, e.Bounds);
         }
 
         private async void btnSetFunctionsToRun_Click(object sender, EventArgs e)
