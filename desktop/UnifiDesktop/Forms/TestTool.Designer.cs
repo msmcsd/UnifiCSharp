@@ -56,21 +56,7 @@ namespace Unifi.Forms
             this.rbSilent = new System.Windows.Forms.RadioButton();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
             this.grpDownload = new System.Windows.Forms.GroupBox();
-            this.grpInstaller = new System.Windows.Forms.GroupBox();
-            this.rbBootstrapper = new System.Windows.Forms.RadioButton();
-            this.rbCyUpgrade = new System.Windows.Forms.RadioButton();
-            this.rbMsi = new System.Windows.Forms.RadioButton();
-            this.grpBuild = new System.Windows.Forms.GroupBox();
-            this.txtBuildNumber = new System.Windows.Forms.TextBox();
-            this.cmbVersion = new System.Windows.Forms.ComboBox();
-            this.rbBuildNo = new System.Windows.Forms.RadioButton();
-            this.rbBuildVersion = new System.Windows.Forms.RadioButton();
-            this.rbLatestBuild = new System.Windows.Forms.RadioButton();
-            this.grpJenkin = new System.Windows.Forms.GroupBox();
-            this.cmbReleaseUrls = new System.Windows.Forms.ComboBox();
-            this.rbReleaseBuild = new System.Windows.Forms.RadioButton();
-            this.rbBcBuild = new System.Windows.Forms.RadioButton();
-            this.rbMeBuild = new System.Windows.Forms.RadioButton();
+            this.downloadCommandGroup1 = new UnifiDesktop.UserControls.DownloadCommandGroup();
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
@@ -92,9 +78,6 @@ namespace Unifi.Forms
             this.grpProduct.SuspendLayout();
             this.grpInstallMode.SuspendLayout();
             this.grpDownload.SuspendLayout();
-            this.grpInstaller.SuspendLayout();
-            this.grpBuild.SuspendLayout();
-            this.grpJenkin.SuspendLayout();
             this.grpReport.SuspendLayout();
             this.grpBatchCommand.SuspendLayout();
             this.grpBatch.SuspendLayout();
@@ -125,7 +108,7 @@ namespace Unifi.Forms
             this.grpRollback.Controls.Add(this.lstRollbackPosition);
             this.grpRollback.Controls.Add(this.btnSetFunctionsToRun);
             this.grpRollback.Controls.Add(this.txtFunctionsToRun);
-            this.grpRollback.Location = new System.Drawing.Point(73, 151);
+            this.grpRollback.Location = new System.Drawing.Point(102, 152);
             this.grpRollback.Name = "grpRollback";
             this.grpRollback.Size = new System.Drawing.Size(147, 294);
             this.grpRollback.TabIndex = 10;
@@ -372,187 +355,23 @@ namespace Unifi.Forms
             // 
             // grpDownload
             // 
-            this.grpDownload.Controls.Add(this.grpInstaller);
-            this.grpDownload.Controls.Add(this.grpBuild);
-            this.grpDownload.Controls.Add(this.grpJenkin);
+            this.grpDownload.Controls.Add(this.downloadCommandGroup1);
             this.grpDownload.Location = new System.Drawing.Point(0, 335);
             this.grpDownload.Name = "grpDownload";
-            this.grpDownload.Size = new System.Drawing.Size(176, 325);
+            this.grpDownload.Size = new System.Drawing.Size(176, 292);
             this.grpDownload.TabIndex = 22;
             this.grpDownload.TabStop = false;
             this.grpDownload.Text = "Download";
             // 
-            // grpInstaller
+            // downloadCommandGroup1
             // 
-            this.grpInstaller.Controls.Add(this.rbBootstrapper);
-            this.grpInstaller.Controls.Add(this.rbCyUpgrade);
-            this.grpInstaller.Controls.Add(this.rbMsi);
-            this.grpInstaller.Location = new System.Drawing.Point(6, 224);
-            this.grpInstaller.Name = "grpInstaller";
-            this.grpInstaller.Size = new System.Drawing.Size(161, 81);
-            this.grpInstaller.TabIndex = 2;
-            this.grpInstaller.TabStop = false;
-            this.grpInstaller.Text = "Installer";
-            // 
-            // rbBootstrapper
-            // 
-            this.rbBootstrapper.AutoSize = true;
-            this.rbBootstrapper.Location = new System.Drawing.Point(6, 37);
-            this.rbBootstrapper.Name = "rbBootstrapper";
-            this.rbBootstrapper.Size = new System.Drawing.Size(85, 17);
-            this.rbBootstrapper.TabIndex = 3;
-            this.rbBootstrapper.Tag = "3";
-            this.rbBootstrapper.Text = "Bootstrapper";
-            this.rbBootstrapper.UseVisualStyleBackColor = true;
-            // 
-            // rbCyUpgrade
-            // 
-            this.rbCyUpgrade.AutoSize = true;
-            this.rbCyUpgrade.Location = new System.Drawing.Point(6, 55);
-            this.rbCyUpgrade.Name = "rbCyUpgrade";
-            this.rbCyUpgrade.Size = new System.Drawing.Size(78, 17);
-            this.rbCyUpgrade.TabIndex = 2;
-            this.rbCyUpgrade.Tag = "2";
-            this.rbCyUpgrade.Text = "CyUpgrade";
-            this.rbCyUpgrade.UseVisualStyleBackColor = true;
-            // 
-            // rbMsi
-            // 
-            this.rbMsi.AutoSize = true;
-            this.rbMsi.Checked = true;
-            this.rbMsi.Location = new System.Drawing.Point(6, 19);
-            this.rbMsi.Name = "rbMsi";
-            this.rbMsi.Size = new System.Drawing.Size(44, 17);
-            this.rbMsi.TabIndex = 1;
-            this.rbMsi.TabStop = true;
-            this.rbMsi.Tag = "0";
-            this.rbMsi.Text = "MSI";
-            this.rbMsi.UseVisualStyleBackColor = true;
-            // 
-            // grpBuild
-            // 
-            this.grpBuild.Controls.Add(this.txtBuildNumber);
-            this.grpBuild.Controls.Add(this.cmbVersion);
-            this.grpBuild.Controls.Add(this.rbBuildNo);
-            this.grpBuild.Controls.Add(this.rbBuildVersion);
-            this.grpBuild.Controls.Add(this.rbLatestBuild);
-            this.grpBuild.Location = new System.Drawing.Point(6, 86);
-            this.grpBuild.Name = "grpBuild";
-            this.grpBuild.Size = new System.Drawing.Size(161, 132);
-            this.grpBuild.TabIndex = 1;
-            this.grpBuild.TabStop = false;
-            this.grpBuild.Text = "Build";
-            // 
-            // txtBuildNumber
-            // 
-            this.txtBuildNumber.Location = new System.Drawing.Point(26, 102);
-            this.txtBuildNumber.Name = "txtBuildNumber";
-            this.txtBuildNumber.Size = new System.Drawing.Size(100, 20);
-            this.txtBuildNumber.TabIndex = 5;
-            this.txtBuildNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnControlKeyDown);
-            this.txtBuildNumber.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnControlMouseDown);
-            // 
-            // cmbVersion
-            // 
-            this.cmbVersion.FormattingEnabled = true;
-            this.cmbVersion.Location = new System.Drawing.Point(26, 56);
-            this.cmbVersion.Name = "cmbVersion";
-            this.cmbVersion.Size = new System.Drawing.Size(98, 21);
-            this.cmbVersion.TabIndex = 4;
-            this.cmbVersion.Click += new System.EventHandler(this.cmbVersion_Click);
-            this.cmbVersion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnControlKeyDown);
-            this.cmbVersion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnControlMouseDown);
-            // 
-            // rbBuildNo
-            // 
-            this.rbBuildNo.AutoSize = true;
-            this.rbBuildNo.Location = new System.Drawing.Point(6, 82);
-            this.rbBuildNo.Name = "rbBuildNo";
-            this.rbBuildNo.Size = new System.Drawing.Size(88, 17);
-            this.rbBuildNo.TabIndex = 3;
-            this.rbBuildNo.Text = "Build Number";
-            this.rbBuildNo.UseVisualStyleBackColor = true;
-            // 
-            // rbBuildVersion
-            // 
-            this.rbBuildVersion.AutoSize = true;
-            this.rbBuildVersion.Location = new System.Drawing.Point(6, 37);
-            this.rbBuildVersion.Name = "rbBuildVersion";
-            this.rbBuildVersion.Size = new System.Drawing.Size(60, 17);
-            this.rbBuildVersion.TabIndex = 2;
-            this.rbBuildVersion.Text = "Version";
-            this.rbBuildVersion.UseVisualStyleBackColor = true;
-            // 
-            // rbLatestBuild
-            // 
-            this.rbLatestBuild.AutoSize = true;
-            this.rbLatestBuild.Checked = true;
-            this.rbLatestBuild.Location = new System.Drawing.Point(6, 19);
-            this.rbLatestBuild.Name = "rbLatestBuild";
-            this.rbLatestBuild.Size = new System.Drawing.Size(54, 17);
-            this.rbLatestBuild.TabIndex = 1;
-            this.rbLatestBuild.TabStop = true;
-            this.rbLatestBuild.Text = "Latest";
-            this.rbLatestBuild.UseVisualStyleBackColor = true;
-            // 
-            // grpJenkin
-            // 
-            this.grpJenkin.Controls.Add(this.cmbReleaseUrls);
-            this.grpJenkin.Controls.Add(this.rbReleaseBuild);
-            this.grpJenkin.Controls.Add(this.rbBcBuild);
-            this.grpJenkin.Controls.Add(this.rbMeBuild);
-            this.grpJenkin.Location = new System.Drawing.Point(6, 20);
-            this.grpJenkin.Name = "grpJenkin";
-            this.grpJenkin.Size = new System.Drawing.Size(162, 60);
-            this.grpJenkin.TabIndex = 0;
-            this.grpJenkin.TabStop = false;
-            this.grpJenkin.Text = "Jenkin";
-            this.grpJenkin.Enter += new System.EventHandler(this.txtInstallDir_TextChanged);
-            // 
-            // cmbReleaseUrls
-            // 
-            this.cmbReleaseUrls.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbReleaseUrls.FormattingEnabled = true;
-            this.cmbReleaseUrls.Location = new System.Drawing.Point(71, 36);
-            this.cmbReleaseUrls.Name = "cmbReleaseUrls";
-            this.cmbReleaseUrls.Size = new System.Drawing.Size(85, 21);
-            this.cmbReleaseUrls.TabIndex = 5;
-            this.cmbReleaseUrls.SelectedIndexChanged += new System.EventHandler(this.cmbReleaseUrls_SelectedIndexChanged);
-            this.cmbReleaseUrls.Click += new System.EventHandler(this.cmbReleaseUrls_Click);
-            // 
-            // rbReleaseBuild
-            // 
-            this.rbReleaseBuild.AutoSize = true;
-            this.rbReleaseBuild.Location = new System.Drawing.Point(6, 37);
-            this.rbReleaseBuild.Name = "rbReleaseBuild";
-            this.rbReleaseBuild.Size = new System.Drawing.Size(64, 17);
-            this.rbReleaseBuild.TabIndex = 3;
-            this.rbReleaseBuild.Text = "Release";
-            this.rbReleaseBuild.UseVisualStyleBackColor = true;
-            // 
-            // rbBcBuild
-            // 
-            this.rbBcBuild.AutoSize = true;
-            this.rbBcBuild.Location = new System.Drawing.Point(71, 18);
-            this.rbBcBuild.Name = "rbBcBuild";
-            this.rbBcBuild.Size = new System.Drawing.Size(39, 17);
-            this.rbBcBuild.TabIndex = 2;
-            this.rbBcBuild.Tag = "Protect/job/Agent/job/BC/job/agent-b-branch-dna";
-            this.rbBcBuild.Text = "BC";
-            this.rbBcBuild.UseVisualStyleBackColor = true;
-            // 
-            // rbMeBuild
-            // 
-            this.rbMeBuild.AutoSize = true;
-            this.rbMeBuild.Checked = true;
-            this.rbMeBuild.Location = new System.Drawing.Point(6, 18);
-            this.rbMeBuild.Name = "rbMeBuild";
-            this.rbMeBuild.Size = new System.Drawing.Size(40, 17);
-            this.rbMeBuild.TabIndex = 1;
-            this.rbMeBuild.TabStop = true;
-            this.rbMeBuild.Tag = "TestJobs/job/jshih/job/agent-p-publish-install-test";
-            this.rbMeBuild.Text = "Me";
-            this.rbMeBuild.UseVisualStyleBackColor = true;
+            this.downloadCommandGroup1.CommandsRunner = null;
+            this.downloadCommandGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.downloadCommandGroup1.Location = new System.Drawing.Point(3, 16);
+            this.downloadCommandGroup1.Logger = null;
+            this.downloadCommandGroup1.Name = "downloadCommandGroup1";
+            this.downloadCommandGroup1.Size = new System.Drawing.Size(170, 273);
+            this.downloadCommandGroup1.TabIndex = 24;
             // 
             // pnlTaskBar
             // 
@@ -570,7 +389,7 @@ namespace Unifi.Forms
             this.txtConsole.Location = new System.Drawing.Point(0, 0);
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
-            this.txtConsole.Size = new System.Drawing.Size(780, 319);
+            this.txtConsole.Size = new System.Drawing.Size(780, 313);
             this.txtConsole.TabIndex = 1;
             this.txtConsole.Text = "";
             // 
@@ -578,9 +397,9 @@ namespace Unifi.Forms
             // 
             this.grpReport.Controls.Add(this.reportGrid1);
             this.grpReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpReport.Location = new System.Drawing.Point(457, 16);
+            this.grpReport.Location = new System.Drawing.Point(463, 16);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(320, 240);
+            this.grpReport.Size = new System.Drawing.Size(314, 262);
             this.grpReport.TabIndex = 11;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -592,7 +411,7 @@ namespace Unifi.Forms
             this.reportGrid1.Location = new System.Drawing.Point(3, 16);
             this.reportGrid1.Logger = null;
             this.reportGrid1.Name = "reportGrid1";
-            this.reportGrid1.Size = new System.Drawing.Size(314, 221);
+            this.reportGrid1.Size = new System.Drawing.Size(308, 243);
             this.reportGrid1.TabIndex = 2;
             // 
             // grpBatchCommand
@@ -601,7 +420,7 @@ namespace Unifi.Forms
             this.grpBatchCommand.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpBatchCommand.Location = new System.Drawing.Point(3, 16);
             this.grpBatchCommand.Name = "grpBatchCommand";
-            this.grpBatchCommand.Size = new System.Drawing.Size(254, 240);
+            this.grpBatchCommand.Size = new System.Drawing.Size(260, 262);
             this.grpBatchCommand.TabIndex = 13;
             this.grpBatchCommand.TabStop = false;
             this.grpBatchCommand.Text = "Batch Command";
@@ -612,7 +431,7 @@ namespace Unifi.Forms
             this.lstBatchCommands.Location = new System.Drawing.Point(3, 16);
             this.lstBatchCommands.Logger = null;
             this.lstBatchCommands.Name = "lstBatchCommands";
-            this.lstBatchCommands.Size = new System.Drawing.Size(248, 221);
+            this.lstBatchCommands.Size = new System.Drawing.Size(254, 243);
             this.lstBatchCommands.TabIndex = 2;
             // 
             // grpBatch
@@ -623,7 +442,7 @@ namespace Unifi.Forms
             this.grpBatch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBatch.Location = new System.Drawing.Point(0, 0);
             this.grpBatch.Name = "grpBatch";
-            this.grpBatch.Size = new System.Drawing.Size(780, 259);
+            this.grpBatch.Size = new System.Drawing.Size(780, 281);
             this.grpBatch.TabIndex = 14;
             this.grpBatch.TabStop = false;
             // 
@@ -631,9 +450,9 @@ namespace Unifi.Forms
             // 
             this.grpVersion.Controls.Add(this.lstVersion);
             this.grpVersion.Dock = System.Windows.Forms.DockStyle.Left;
-            this.grpVersion.Location = new System.Drawing.Point(257, 16);
+            this.grpVersion.Location = new System.Drawing.Point(263, 16);
             this.grpVersion.Name = "grpVersion";
-            this.grpVersion.Size = new System.Drawing.Size(200, 240);
+            this.grpVersion.Size = new System.Drawing.Size(200, 262);
             this.grpVersion.TabIndex = 15;
             this.grpVersion.TabStop = false;
             this.grpVersion.Text = "Version";
@@ -645,7 +464,7 @@ namespace Unifi.Forms
             this.lstVersion.FormObject = null;
             this.lstVersion.Location = new System.Drawing.Point(3, 16);
             this.lstVersion.Name = "lstVersion";
-            this.lstVersion.Size = new System.Drawing.Size(194, 221);
+            this.lstVersion.Size = new System.Drawing.Size(194, 243);
             this.lstVersion.TabIndex = 14;
             // 
             // grpConsole
@@ -674,17 +493,17 @@ namespace Unifi.Forms
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grpBatch);
             this.splitContainer1.Size = new System.Drawing.Size(780, 665);
-            this.splitContainer1.SplitterDistance = 402;
+            this.splitContainer1.SplitterDistance = 380;
             this.splitContainer1.TabIndex = 2;
             // 
             // txtDebugger
             // 
             this.txtDebugger.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.txtDebugger.Font = new System.Drawing.Font("Consolas", 9F);
-            this.txtDebugger.Location = new System.Drawing.Point(0, 319);
+            this.txtDebugger.Location = new System.Drawing.Point(0, 313);
             this.txtDebugger.Name = "txtDebugger";
             this.txtDebugger.ReadOnly = true;
-            this.txtDebugger.Size = new System.Drawing.Size(780, 83);
+            this.txtDebugger.Size = new System.Drawing.Size(780, 67);
             this.txtDebugger.TabIndex = 0;
             this.txtDebugger.Text = "";
             // 
@@ -731,12 +550,6 @@ namespace Unifi.Forms
             this.grpInstallMode.ResumeLayout(false);
             this.grpInstallMode.PerformLayout();
             this.grpDownload.ResumeLayout(false);
-            this.grpInstaller.ResumeLayout(false);
-            this.grpInstaller.PerformLayout();
-            this.grpBuild.ResumeLayout(false);
-            this.grpBuild.PerformLayout();
-            this.grpJenkin.ResumeLayout(false);
-            this.grpJenkin.PerformLayout();
             this.grpReport.ResumeLayout(false);
             this.grpBatchCommand.ResumeLayout(false);
             this.grpBatch.ResumeLayout(false);
@@ -784,26 +597,12 @@ namespace Unifi.Forms
         private System.Windows.Forms.RadioButton rbUser;
         private System.Windows.Forms.RadioButton rbAdmin;
         private System.Windows.Forms.GroupBox grpDownload;
-        private System.Windows.Forms.GroupBox grpInstaller;
-        private System.Windows.Forms.RadioButton rbBootstrapper;
-        private System.Windows.Forms.RadioButton rbCyUpgrade;
-        private System.Windows.Forms.RadioButton rbMsi;
-        private System.Windows.Forms.GroupBox grpBuild;
-        private System.Windows.Forms.TextBox txtBuildNumber;
-        private System.Windows.Forms.ComboBox cmbVersion;
-        private System.Windows.Forms.RadioButton rbBuildNo;
-        private System.Windows.Forms.RadioButton rbBuildVersion;
-        private System.Windows.Forms.RadioButton rbLatestBuild;
-        private System.Windows.Forms.GroupBox grpJenkin;
-        private System.Windows.Forms.RadioButton rbReleaseBuild;
-        private System.Windows.Forms.RadioButton rbBcBuild;
-        private System.Windows.Forms.RadioButton rbMeBuild;
         private System.Windows.Forms.GroupBox grpInstall;
-        private System.Windows.Forms.ComboBox cmbReleaseUrls;
         private System.Windows.Forms.TabControl tabCommands;
         private UnifiDesktop.UserControls.VersionGrid lstVersion;
         private System.Windows.Forms.GroupBox grpVersion;
         private UnifiDesktop.UserControls.BatchCommandList lstBatchCommands;
+        private UnifiDesktop.UserControls.DownloadCommandGroup downloadCommandGroup1;
     }
 }
 
