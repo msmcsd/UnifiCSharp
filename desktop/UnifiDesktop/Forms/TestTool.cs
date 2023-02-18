@@ -247,7 +247,7 @@ namespace Unifi.Forms
 
             PopulateDosCommandGroups();
             PopulateTaskbarCommands();
-            PopulateDownloadCommands();
+            //PopulateDownloadCommands();
             PopulateRollbackPositions();
             PopulateBatchCommandList();
             PopulateInstallCommands();
@@ -398,17 +398,17 @@ namespace Unifi.Forms
 
         private string GetBootstrapperFullPath => $@"{Variables.InstallerDownloadFolder}\{Variables.ProtectBootstrapperName}";
 
-        private string GetCylanceUiFullPath
-        {
-            get
-            {
-                if (lstDownload.SelectedItem == null) return "";
-                if (lstDownload.Text.ToLower().Contains("dtd")) return Variables.DtdUiPath;
-                if (!lstDownload.Text.ToLower().Contains("esse")) return Variables.CylanceUiPath;
+        //private string GetCylanceUiFullPath
+        //{
+        //    get
+        //    {
+        //        if (lstDownload.SelectedItem == null) return "";
+        //        if (lstDownload.Text.ToLower().Contains("dtd")) return Variables.DtdUiPath;
+        //        if (!lstDownload.Text.ToLower().Contains("esse")) return Variables.CylanceUiPath;
 
-                return "";
-            }
-        }
+        //        return "";
+        //    }
+        //}
 
         private string GetRollbackLogSaveDirectory
         {
@@ -533,12 +533,12 @@ namespace Unifi.Forms
             lstInstall.DataSource = groups;
         }
 
-        private void PopulateDownloadCommands()
-        {
-            lstDownload.TestTask = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download);
-            lstDownload.CommandsRunner = _commandsRunner;
-            lstDownload.Logger = _logger;
-        }
+        //private void PopulateDownloadCommands()
+        //{
+        //    lstDownload.TestTask = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download);
+        //    lstDownload.CommandsRunner = _commandsRunner;
+        //    lstDownload.Logger = _logger;
+        //}
         
         private void PopulateRollbackPositions()
         {

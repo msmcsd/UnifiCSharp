@@ -71,18 +71,17 @@ namespace Unifi.Forms
             this.rbReleaseBuild = new System.Windows.Forms.RadioButton();
             this.rbBcBuild = new System.Windows.Forms.RadioButton();
             this.rbMeBuild = new System.Windows.Forms.RadioButton();
-            this.lstDownload = new Unifi.UserControls.DownloadCommandGroup();
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
             this.reportGrid1 = new Unifi.UserControls.ReportGrid();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
+            this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpVersion = new System.Windows.Forms.GroupBox();
             this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
             this.grpConsole = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.tabCommands = new System.Windows.Forms.TabControl();
             this.grpInstallBase.SuspendLayout();
@@ -113,7 +112,6 @@ namespace Unifi.Forms
             this.grpInstallBase.Controls.Add(this.lstInstall);
             this.grpInstallBase.Controls.Add(this.grpInstall);
             this.grpInstallBase.Controls.Add(this.grpDownload);
-            this.grpInstallBase.Controls.Add(this.lstDownload);
             this.grpInstallBase.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpInstallBase.Location = new System.Drawing.Point(0, 0);
             this.grpInstallBase.Name = "grpInstallBase";
@@ -556,17 +554,6 @@ namespace Unifi.Forms
             this.rbMeBuild.Text = "Me";
             this.rbMeBuild.UseVisualStyleBackColor = true;
             // 
-            // lstDownload
-            // 
-            this.lstDownload.CommandsRunner = null;
-            this.lstDownload.GroupName = "Group Name";
-            this.lstDownload.Location = new System.Drawing.Point(17, 340);
-            this.lstDownload.Logger = null;
-            this.lstDownload.Name = "lstDownload";
-            this.lstDownload.Size = new System.Drawing.Size(156, 67);
-            this.lstDownload.TabIndex = 17;
-            this.lstDownload.Visible = false;
-            // 
             // pnlTaskBar
             // 
             this.pnlTaskBar.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -618,6 +605,15 @@ namespace Unifi.Forms
             this.grpBatchCommand.TabIndex = 13;
             this.grpBatchCommand.TabStop = false;
             this.grpBatchCommand.Text = "Batch Command";
+            // 
+            // lstBatchCommands
+            // 
+            this.lstBatchCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstBatchCommands.Location = new System.Drawing.Point(3, 16);
+            this.lstBatchCommands.Logger = null;
+            this.lstBatchCommands.Name = "lstBatchCommands";
+            this.lstBatchCommands.Size = new System.Drawing.Size(248, 221);
+            this.lstBatchCommands.TabIndex = 2;
             // 
             // grpBatch
             // 
@@ -680,15 +676,6 @@ namespace Unifi.Forms
             this.splitContainer1.Size = new System.Drawing.Size(780, 665);
             this.splitContainer1.SplitterDistance = 402;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // lstBatchCommands
-            // 
-            this.lstBatchCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstBatchCommands.Location = new System.Drawing.Point(3, 16);
-            this.lstBatchCommands.Logger = null;
-            this.lstBatchCommands.Name = "lstBatchCommands";
-            this.lstBatchCommands.Size = new System.Drawing.Size(248, 221);
-            this.lstBatchCommands.TabIndex = 2;
             // 
             // txtDebugger
             // 
@@ -784,7 +771,6 @@ namespace Unifi.Forms
         private System.Windows.Forms.Label lblInstallPath;
         private System.Windows.Forms.CheckBox chkDebugBuild;
         private System.Windows.Forms.ListBox lstInstall;
-        private DownloadCommandGroup lstDownload;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox txtDebugger;
         private UserControls.ReportGrid reportGrid1;

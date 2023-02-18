@@ -132,11 +132,11 @@
     <Compile Include="UserControls\DosCommandGroup.Designer.cs">
       <DependentUpon>DosCommandGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DownloadCommandGroup.cs">
+    <Compile Include="UserControls\DownloadCommandGroup_NotUsed.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\DownloadCommandGroup.Designer.cs">
-      <DependentUpon>DownloadCommandGroup.cs</DependentUpon>
+    <Compile Include="UserControls\DownloadCommandGroup_NotUsed.Designer.cs">
+      <DependentUpon>DownloadCommandGroup_NotUsed.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\InstallCommandGroup.cs">
       <SubType>UserControl</SubType>
@@ -182,8 +182,8 @@
     <EmbeddedResource Include="UserControls\DosCommandGroup.resx">
       <DependentUpon>DosCommandGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\DownloadCommandGroup.resx">
-      <DependentUpon>DownloadCommandGroup.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\DownloadCommandGroup_NotUsed.resx">
+      <DependentUpon>DownloadCommandGroup_NotUsed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\InstallCommandGroup.resx">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>

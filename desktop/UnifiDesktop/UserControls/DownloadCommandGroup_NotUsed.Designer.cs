@@ -1,7 +1,7 @@
 ﻿
 namespace Unifi.UserControls
 {
-    partial class DownloadCommandGroup
+    partial class DownloadCommandGroup_NotUsed
     {
         /// <summary> 
         /// Required designer variable.

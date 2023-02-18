@@ -7,9 +7,9 @@ using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace Unifi.UserControls
 {
-    internal partial class DownloadCommandGroup : CommandGroupListBox
+    internal partial class DownloadCommandGroup_NotUsed : CommandGroupListBox
     {
-        public DownloadCommandGroup()
+        public DownloadCommandGroup_NotUsed()
         {
             InitializeComponent();
         }
