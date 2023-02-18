@@ -76,14 +76,13 @@ namespace Unifi.Forms
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
             this.reportGrid1 = new Unifi.UserControls.ReportGrid();
-            this.lstBatchCommand = new System.Windows.Forms.ListBox();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
-            this.cmbBatchCommand = new System.Windows.Forms.ComboBox();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpVersion = new System.Windows.Forms.GroupBox();
             this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
             this.grpConsole = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.tabCommands = new System.Windows.Forms.TabControl();
             this.grpInstallBase.SuspendLayout();
@@ -135,7 +134,6 @@ namespace Unifi.Forms
             this.grpRollback.TabStop = false;
             this.grpRollback.Text = "Rollback";
             this.grpRollback.Visible = false;
-
             // 
             // lstRollbackPosition
             // 
@@ -610,23 +608,9 @@ namespace Unifi.Forms
             this.reportGrid1.Size = new System.Drawing.Size(314, 221);
             this.reportGrid1.TabIndex = 2;
             // 
-            // lstBatchCommand
-            // 
-            this.lstBatchCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstBatchCommand.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.lstBatchCommand.FormattingEnabled = true;
-            this.lstBatchCommand.Location = new System.Drawing.Point(3, 37);
-            this.lstBatchCommand.Name = "lstBatchCommand";
-            this.lstBatchCommand.Size = new System.Drawing.Size(248, 200);
-            this.lstBatchCommand.TabIndex = 12;
-            this.lstBatchCommand.Tag = "Batch";
-            this.lstBatchCommand.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBox_DrawItem);
-            this.lstBatchCommand.DoubleClick += new System.EventHandler(this.lstBatchCommand_DoubleClick);
-            // 
             // grpBatchCommand
             // 
-            this.grpBatchCommand.Controls.Add(this.lstBatchCommand);
-            this.grpBatchCommand.Controls.Add(this.cmbBatchCommand);
+            this.grpBatchCommand.Controls.Add(this.lstBatchCommands);
             this.grpBatchCommand.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpBatchCommand.Location = new System.Drawing.Point(3, 16);
             this.grpBatchCommand.Name = "grpBatchCommand";
@@ -634,17 +618,6 @@ namespace Unifi.Forms
             this.grpBatchCommand.TabIndex = 13;
             this.grpBatchCommand.TabStop = false;
             this.grpBatchCommand.Text = "Batch Command";
-            // 
-            // cmbBatchCommand
-            // 
-            this.cmbBatchCommand.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmbBatchCommand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBatchCommand.FormattingEnabled = true;
-            this.cmbBatchCommand.Location = new System.Drawing.Point(3, 16);
-            this.cmbBatchCommand.Name = "cmbBatchCommand";
-            this.cmbBatchCommand.Size = new System.Drawing.Size(248, 21);
-            this.cmbBatchCommand.TabIndex = 14;
-            this.cmbBatchCommand.SelectedIndexChanged += new System.EventHandler(this.cmbBatchCommand_SelectedIndexChanged);
             // 
             // grpBatch
             // 
@@ -673,6 +646,7 @@ namespace Unifi.Forms
             // 
             this.lstVersion.Commands = null;
             this.lstVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstVersion.FormObject = null;
             this.lstVersion.Location = new System.Drawing.Point(3, 16);
             this.lstVersion.Name = "lstVersion";
             this.lstVersion.Size = new System.Drawing.Size(194, 221);
@@ -706,6 +680,15 @@ namespace Unifi.Forms
             this.splitContainer1.Size = new System.Drawing.Size(780, 665);
             this.splitContainer1.SplitterDistance = 402;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // lstBatchCommands
+            // 
+            this.lstBatchCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstBatchCommands.Location = new System.Drawing.Point(3, 16);
+            this.lstBatchCommands.Logger = null;
+            this.lstBatchCommands.Name = "lstBatchCommands";
+            this.lstBatchCommands.Size = new System.Drawing.Size(248, 221);
+            this.lstBatchCommands.TabIndex = 2;
             // 
             // txtDebugger
             // 
@@ -792,7 +775,6 @@ namespace Unifi.Forms
         private System.Windows.Forms.GroupBox grpRollback;
         private System.Windows.Forms.ListBox lstRollbackPosition;
         private System.Windows.Forms.GroupBox grpReport;
-        private System.Windows.Forms.ListBox lstBatchCommand;
         private System.Windows.Forms.GroupBox grpBatchCommand;
         private System.Windows.Forms.GroupBox grpBatch;
         private System.Windows.Forms.GroupBox grpConsole;
@@ -805,7 +787,6 @@ namespace Unifi.Forms
         private DownloadCommandGroup lstDownload;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox txtDebugger;
-        private System.Windows.Forms.ComboBox cmbBatchCommand;
         private UserControls.ReportGrid reportGrid1;
         private System.Windows.Forms.GroupBox grpProduct;
         private System.Windows.Forms.RadioButton rbOptics;
@@ -836,6 +817,7 @@ namespace Unifi.Forms
         private System.Windows.Forms.TabControl tabCommands;
         private UnifiDesktop.UserControls.VersionGrid lstVersion;
         private System.Windows.Forms.GroupBox grpVersion;
+        private UnifiDesktop.UserControls.BatchCommandList lstBatchCommands;
     }
 }
 

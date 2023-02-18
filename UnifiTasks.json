@@ -676,9 +676,9 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/k %cd%\\Tail \"$[ProtectLogPath]\" 1 \" inventory\"",
-				"DisplayText": "Follow inventory",
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"report_type\"",
+				"DisplayText": "Follow report_type",
 				"ShowOnMachine": "Test"
 			},
 			{
@@ -935,6 +935,25 @@
 				"Command": "\"${PsExecPath}\"",
 				"Arguments": "-s -i -d -accepteula cmd.exe /C reg delete HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /f",
 				"DisplayText": "Delete key"
+			}
+		]
+	},
+	{
+		"Name": "Tail Inventory",
+		"CommandGroup": "Dos",
+		"Tab": "AppInventory",
+		"Commands": [
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"report_type\"",
+				"DisplayText": "Follow report_type",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},
@@ -1606,8 +1625,8 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"Command": "cmd.exe",
+				"Arguments": "/k Tail \"$[ProtectLogPath]\" 1 \" inventory\"",
 				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Test"
 			}

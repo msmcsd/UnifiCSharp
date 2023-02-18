@@ -40,8 +40,6 @@ namespace Unifi.Forms
         private ProgramSettings _programSettings;
         private CommandsRunner _commandsRunner;
 
-        private ListBox _listVersion;
-
         private DebugListener _debugListerListener;
         private ILogger _logger;
 
@@ -251,7 +249,7 @@ namespace Unifi.Forms
             PopulateTaskbarCommands();
             PopulateDownloadCommands();
             PopulateRollbackPositions();
-            PopulateBatchCommandDataSource();
+            PopulateBatchCommandList();
             PopulateInstallCommands();
             PopulateVersionGrid();
 
@@ -580,27 +578,15 @@ namespace Unifi.Forms
             lstRollbackPosition.Items.Add("");
         }
 
-        private void PopulateBatchCommandDataSource()
+        private void PopulateBatchCommandList()
         {
-            cmbBatchCommand.DataSource = _commandsProvider.BatchTasks;
-            cmbBatchCommand.DisplayMember = "Name";
+            lstBatchCommands.TestTasks = _commandsProvider.BatchTasks;
+            lstBatchCommands.Logger = _logger;
         }
 
-        private void PopulateBatchCommands()
-        {
-            if (cmbBatchCommand.SelectedItem == null)
-            {
-                Debug.Fail("cmbBatchCommand.SelectedItem is null");
-                return;
-            }
-            
-            TestTask t = (TestTask) cmbBatchCommand.SelectedItem;
-            lstBatchCommand.DataSource = t.Commands;
-        }
+        #endregion
 
-#endregion
-
-#region Callbacks
+        #region Callbacks
 
         /// <summary>
         /// Updates command list box to show file versions for code command "FileVersion".
@@ -683,19 +669,6 @@ namespace Unifi.Forms
             e.Graphics.DrawString(listBox.Items[e.Index].ToString(), font, brush, e.Bounds);
         }
 
-        private void lstBatchCommand_DoubleClick(object sender, EventArgs e)
-        {
-            if (lstBatchCommand.Items.Count == 0)
-            {
-                Debug.WriteLine(GetType(), "lstBatchCommand.Items.Count = 0");
-                return;
-            }
-
-            // Updates the data source again since the commands' display text might have changed.
-            PopulateBatchCommandDataSource();
-            RunCommands((List<FullCommandInfo>)lstBatchCommand.DataSource, new BatchListboxUpdater(lstBatchCommand), true);
-        }
-
         private async void btnSetFunctionsToRun_Click(object sender, EventArgs e)
         {
             await new SetTestFunctionsCommand(txtFunctionsToRun.Text, _logger).Execute();
@@ -738,11 +711,6 @@ namespace Unifi.Forms
             if (!(lstInstall.SelectedItem is TestTask info)) return;
 
             DisplayCommands(info.Commands);
-        }
-
-        private void cmbBatchCommand_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateBatchCommands();
         }
 
         #endregion

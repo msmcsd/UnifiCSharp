@@ -39,6 +39,7 @@
             this.colFile,
             this.colVersion});
             this.lstVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstVersion.FullRowSelect = true;
             this.lstVersion.HideSelection = false;
             this.lstVersion.Location = new System.Drawing.Point(0, 0);
             this.lstVersion.Name = "lstVersion";
