@@ -89,7 +89,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"Arguments": "/C \"$[CylanceUiPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
 			}
 		]
@@ -133,7 +133,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"Arguments": "/C \"$[CylanceUiPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
 			}
 		]
@@ -156,7 +156,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"Arguments": "/C \"$[CylanceUiPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
 			}
 		]
@@ -179,7 +179,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"Arguments": "/C \"$[CylanceUiPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
 			}
 		]
