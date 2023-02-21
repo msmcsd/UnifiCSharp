@@ -34,11 +34,11 @@ namespace UnifiCommands.CommandsProvider
 
         public List<FullCommandInfo> DownloadCommands { get; set; }
 
-        public List<FullCommandInfo> AddAmpplRollbackPositions { get; set; }
+        //public List<FullCommandInfo> AddAmpplRollbackPositions { get; set; }
 
-        public List<FullCommandInfo> RemoveAmpplRollbackPositions { get; set; }
+        //public List<FullCommandInfo> RemoveAmpplRollbackPositions { get; set; }
 
-        public List<FullCommandInfo> UpdateAmpplRollbackPositions { get; set; }
+        //public List<FullCommandInfo> UpdateAmpplRollbackPositions { get; set; }
 
         /// <summary>
         /// A list of commands, like a function, can be reused in the XML.
@@ -99,9 +99,9 @@ namespace UnifiCommands.CommandsProvider
             FileVersionTask = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.FileVersion);
             TaskBarCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?.Commands;
             DownloadCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download)?.Commands;
-            AddAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.AddAmpplPositions)?.Commands;
-            RemoveAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.RemoveAmpplPositions)?.Commands;
-            UpdateAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.UpdateAmpplPositions)?.Commands;
+            //AddAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.AddAmpplPositions)?.Commands;
+            //RemoveAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.RemoveAmpplPositions)?.Commands;
+            //UpdateAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.UpdateAmpplPositions)?.Commands;
             BatchTasks = TestTasks.Where(t => t.CommandGroup == CommandGroup.Batch).ToList();
 
             FunctionCommands = TestTasks.Where(t => t.CommandGroup == CommandGroup.Function).ToList();

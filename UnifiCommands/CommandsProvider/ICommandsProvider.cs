@@ -11,11 +11,11 @@ namespace UnifiCommands.CommandsProvider
 
         List<FullCommandInfo> DownloadCommands { get; set; }
 
-        List<FullCommandInfo> AddAmpplRollbackPositions { get; set; }
+        //List<FullCommandInfo> AddAmpplRollbackPositions { get; set; }
 
-        List<FullCommandInfo> RemoveAmpplRollbackPositions { get; set; }
+        //List<FullCommandInfo> RemoveAmpplRollbackPositions { get; set; }
 
-        List<FullCommandInfo> UpdateAmpplRollbackPositions { get; set; }
+        //List<FullCommandInfo> UpdateAmpplRollbackPositions { get; set; }
 
         List<TestTask> FunctionCommands { get; set; }
 

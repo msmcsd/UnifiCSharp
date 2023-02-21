@@ -307,7 +307,7 @@ namespace Unifi.Forms
                         foreach(var item in commandGroup.ListBox.Items)
                         {
                             FullCommandInfo command = (FullCommandInfo)item;
-                            if (command.Command == "SetRollback")
+                            if (command.Command.Equals("SetRollback", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 return commandGroup.ListBox;
                             }
@@ -576,29 +576,29 @@ namespace Unifi.Forms
         //    lstDownload.Logger = _logger;
         //}
         
-        private void PopulateRollbackPositions()
-        {
-            if (BaseCommandInfo.ShowCommandOnMachine() != ShowCommandOnMachine.Test) return;
+        //private void PopulateRollbackPositions()
+        //{
+        //    if (BaseCommandInfo.ShowCommandOnMachine() != ShowCommandOnMachine.Test) return;
 
-            _lstRollbackPosition.Items.Clear();
-            PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);
-            PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
-            PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.UpdateAmpplPositions,_commandsProvider.UpdateAmpplRollbackPositions);
+        //    _lstRollbackPosition.Items.Clear();
+        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);
+        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
+        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.UpdateAmpplPositions,_commandsProvider.UpdateAmpplRollbackPositions);
 
-            Rollback.RollbackPositionsList = new Dictionary<string, List<FullCommandInfo>>
-            {
-                {Rollback.RollbackCategoryName.AddAmppl,  _commandsProvider.AddAmpplRollbackPositions},
-                {Rollback.RollbackCategoryName.RemoveAmppl,  _commandsProvider.RemoveAmpplRollbackPositions},
-                {Rollback.RollbackCategoryName.UpdateAmppl,  _commandsProvider.UpdateAmpplRollbackPositions}
-            };
+        //    Rollback.RollbackPositionsList = new Dictionary<string, List<FullCommandInfo>>
+        //    {
+        //        {Rollback.RollbackCategoryName.AddAmppl,  _commandsProvider.AddAmpplRollbackPositions},
+        //        {Rollback.RollbackCategoryName.RemoveAmppl,  _commandsProvider.RemoveAmpplRollbackPositions},
+        //        {Rollback.RollbackCategoryName.UpdateAmppl,  _commandsProvider.UpdateAmpplRollbackPositions}
+        //    };
 
-            //grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
-            //TabPage page = new TabPage("Rollback");
-            //grpRollback.Dock = DockStyle.Left;
-            //page.Controls.Add(grpRollback);
-            //tabCommands.TabPages.Add(page);
-            //grpRollback.Visible = true;
-        }
+        //    //grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
+        //    //TabPage page = new TabPage("Rollback");
+        //    //grpRollback.Dock = DockStyle.Left;
+        //    //page.Controls.Add(grpRollback);
+        //    //tabCommands.TabPages.Add(page);
+        //    //grpRollback.Visible = true;
+        //}
 
         private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)
         {
