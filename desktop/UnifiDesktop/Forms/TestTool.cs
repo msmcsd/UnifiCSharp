@@ -43,6 +43,8 @@ namespace Unifi.Forms
         private DebugListener _debugListerListener;
         private ILogger _logger;
 
+        private ListBox _lstRollbackPosition = null;
+
         public TestTool()
         {
             InitializeComponent();
@@ -284,29 +286,30 @@ namespace Unifi.Forms
                     TabPage page = new TabPage(tabName);
                     tabCommands.TabPages.Add(page);
                     AddComandGroupsToTab(page, tasks);
+
+                    if (tabName == DosTab.Rollback.ToString())
+                    {
+                        _lstRollbackPosition = FindRollbackListBox(page);
+                    }
                 }
 
-                if (tabName == DosTab.Rollback.ToString())
-                {
-
-                }
             }
         }
 
-        private ListBox FindRollbackListBox(TabPage tab)
+        private ListBox FindRollbackListBox(TabPage page)
         {
-            foreach(var ctrl in tab.Controls)
+            foreach(var ctrl in page.Controls)
             {
-                if (ctrl is ListBox listBox)
+                if (ctrl is DosCommandGroup commandGroup)
                 {
-                    if (listBox.Items.Count > 0 )
+                    if (commandGroup.ListBox.Items.Count > 0 )
                     {
-                        foreach(var item in listBox.Items)
+                        foreach(var item in commandGroup.ListBox.Items)
                         {
                             FullCommandInfo command = (FullCommandInfo)item;
                             if (command.Command == "SetRollback")
                             {
-                                return listBox;
+                                return commandGroup.ListBox;
                             }
                         }
                     }
@@ -447,7 +450,7 @@ namespace Unifi.Forms
                     ? "Win7"
                     : Environment.Is64BitOperatingSystem ? "x64" : "x86";
 
-                FullCommandInfo command = lstRollbackPosition.SelectedItem as FullCommandInfo;
+                FullCommandInfo command = _lstRollbackPosition.SelectedItem as FullCommandInfo;
                 string rollbackPositionFolder = command == null ? "" : $"{command.Arguments}-{command.DisplayText}";
                 string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}\{rollbackCategory}\{rollbackPositionFolder}");
 
@@ -462,8 +465,13 @@ namespace Unifi.Forms
             get
             {
                 string logFolder = GetRollbackLogSaveDirectory;
+                _logger.LogInfo($"Log folder is {logFolder}");
+
                 var file = new DirectoryInfo(logFolder).GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                if (file == null) return "";
+                if (file == null) {
+                    _logger.LogInfo("No files found in the folder.");
+                    return "";
+                }
 
                 return Path.Combine(logFolder, file.Name);
             }
@@ -472,25 +480,25 @@ namespace Unifi.Forms
         private string GetAmpplRollbackTestCategory(out string rollbackPosition)
         {
             rollbackPosition = "";
-            if (lstRollbackPosition.SelectedItem == null ||
-                lstRollbackPosition.SelectedIndex <= 0 ||
-                lstRollbackPosition.Text.Trim() == "")
+            if (_lstRollbackPosition.SelectedItem == null ||
+                _lstRollbackPosition.SelectedIndex <= 0 ||
+                _lstRollbackPosition.Text.Trim() == "")
             {
                 return "";
             }
 
-            if (lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
+            if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
             {
                 rollbackPosition = Rollback.RollbackCategoryName.None;
-                if (lstRollbackPosition.Text.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
-                if (lstRollbackPosition.Text.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
-                if (lstRollbackPosition.Text.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
+                if (_lstRollbackPosition.Text.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
+                if (_lstRollbackPosition.Text.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
+                if (_lstRollbackPosition.Text.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
             }
 
-            rollbackPosition = lstRollbackPosition.Text;
-            for (int i = lstRollbackPosition.SelectedIndex-1; i >= 0; i--)
+            rollbackPosition = _lstRollbackPosition.Text;
+            for (int i = _lstRollbackPosition.SelectedIndex-1; i >= 0; i--)
             {
-                string currentItemText = lstRollbackPosition.Items[i].ToString().Trim();
+                string currentItemText = _lstRollbackPosition.Items[i].ToString().Trim();
                 if (currentItemText.StartsWith(CategoryPrefix))
                 {
                     if (currentItemText.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
@@ -504,7 +512,7 @@ namespace Unifi.Forms
 
         private string CompileMode => chkDebugBuild.Checked ? "Debug" : "";
 
-        private string GetRollbackPosition => lstRollbackPosition.SelectedItem == null ? Rollback.RollbackCategoryName.None : lstRollbackPosition.Text;
+        private string GetRollbackPosition => _lstRollbackPosition.SelectedItem == null ? Rollback.RollbackCategoryName.None : _lstRollbackPosition.Text;
 
 #endregion
 
@@ -572,7 +580,7 @@ namespace Unifi.Forms
         {
             if (BaseCommandInfo.ShowCommandOnMachine() != ShowCommandOnMachine.Test) return;
 
-            lstRollbackPosition.Items.Clear();
+            _lstRollbackPosition.Items.Clear();
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
             PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.UpdateAmpplPositions,_commandsProvider.UpdateAmpplRollbackPositions);
@@ -585,11 +593,11 @@ namespace Unifi.Forms
             };
 
             //grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
-            TabPage page = new TabPage("Rollback");
-            grpRollback.Dock = DockStyle.Left;
-            page.Controls.Add(grpRollback);
-            tabCommands.TabPages.Add(page);
-            grpRollback.Visible = true;
+            //TabPage page = new TabPage("Rollback");
+            //grpRollback.Dock = DockStyle.Left;
+            //page.Controls.Add(grpRollback);
+            //tabCommands.TabPages.Add(page);
+            //grpRollback.Visible = true;
         }
 
         private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)
@@ -598,12 +606,12 @@ namespace Unifi.Forms
             if (commandInfos == null || string.IsNullOrEmpty(category) || commandInfos.Count <= 0) return;
 
             int i = category.IndexOf("-", StringComparison.Ordinal);
-            lstRollbackPosition.Items.Add($"{CategoryPrefix} {category.Substring(i + 1)}");
+            _lstRollbackPosition.Items.Add($"{CategoryPrefix} {category.Substring(i + 1)}");
             foreach (var p in commandInfos)
             {
-                lstRollbackPosition.Items.Add(p);
+                _lstRollbackPosition.Items.Add(p);
             }
-            lstRollbackPosition.Items.Add("");
+            _lstRollbackPosition.Items.Add("");
         }
 
         private void PopulateBatchCommandList()
@@ -633,14 +641,14 @@ namespace Unifi.Forms
 
         private async void lstRollbackPosition_Click(object sender, EventArgs e)
         {
-            if (lstRollbackPosition.Items.Count == 0) return;
+            if (_lstRollbackPosition.Items.Count == 0) return;
 
-            if (lstRollbackPosition.SelectedItem == null)
+            if (_lstRollbackPosition.SelectedItem == null)
             {
-                lstRollbackPosition.SelectedIndex = 0;
+                _lstRollbackPosition.SelectedIndex = 0;
             }
 
-            if (lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
+            if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
             {
                 return;
             }
@@ -674,11 +682,6 @@ namespace Unifi.Forms
                 Command command = CommandFactory.CreateCommand(info, _logger, AppType.Desktop);
                 command.LogParameters();
             }
-        }
-
-        private async void btnSetFunctionsToRun_Click(object sender, EventArgs e)
-        {
-            await new SetTestFunctionsCommand(txtFunctionsToRun.Text, _logger).Execute();
         }
 
         private void TestTools_KeyDown(object sender, KeyEventArgs e)

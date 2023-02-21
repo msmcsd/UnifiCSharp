@@ -1690,6 +1690,14 @@
 				"Arguments": "\"$[GetLatestRollbackFile]\"",
 				"DisplayText": "Open Rollback Log File",
 				"ShowOnMachine": "Test"
+			},
+			{
+				"DisplayText": ""
+			},
+			{
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\Cylance\\Desktop",
+				"DisplayText": "Protect Registry Key"
 			}
 		]
 	},
