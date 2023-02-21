@@ -97,7 +97,7 @@ namespace UnifiCommands.CommandsProvider
 
             DosTasks = TestTasks.Where(t => t.CommandGroup == CommandGroup.Dos).ToList();
             FileVersionTask = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.FileVersion);
-            TaskBarCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?.Commands;
+            TaskBarCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?.Commands.Where(c => (c.ShowOnMachine & _showOnMachine) == _showOnMachine).ToList();
             DownloadCommands = TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download)?.Commands;
             //AddAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.AddAmpplPositions)?.Commands;
             //RemoveAmpplRollbackPositions = TestTasks.FirstOrDefault(t => t.Name == TaskGroup.RemoveAmpplPositions)?.Commands;

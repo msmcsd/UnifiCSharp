@@ -156,6 +156,12 @@
     <Compile Include="UserControls\ReportGrid.Designer.cs">
       <DependentUpon>ReportGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TaskButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TaskButton.Designer.cs">
+      <DependentUpon>TaskButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\VersionGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ReportGrid.resx">
       <DependentUpon>ReportGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TaskButton.resx">
+      <DependentUpon>TaskButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\VersionGrid.resx">
       <DependentUpon>VersionGrid.cs</DependentUpon>

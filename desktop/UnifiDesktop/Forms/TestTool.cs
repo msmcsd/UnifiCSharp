@@ -24,6 +24,7 @@ using System.Security.Principal;
 using UnifiCommands.VariableProcessors;
 using UnifiCommands.CommandInfo;
 using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
+using UnifiDesktop.UserControls;
 
 namespace Unifi.Forms
 {
@@ -520,46 +521,21 @@ namespace Unifi.Forms
 
         private void PopulateTaskbarCommands()
         {
-            var _showOnMachine = BaseCommandInfo.ShowCommandOnMachine();
-            var tasks = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Taskbar)?
-                .Commands.Where(c=> (c.ShowOnMachine & _showOnMachine) == _showOnMachine).ToArray();
+            var tasks = _commandsProvider.TaskBarCommands.ToArray();
             
             pnlTaskBar.Controls.Clear();
             for (int i = tasks.Length - 1; i >= 0; i--)
             {
                 FullCommandInfo command = tasks[i];
 
-                Button btn = new Button
+                TaskButton btn = new TaskButton(command, _logger)
                 {
                     Dock = DockStyle.Left,
-                    Text = command.DisplayText,
-                    ImageAlign = ContentAlignment.TopCenter,
-                    TextAlign = ContentAlignment.BottomCenter,
                     Width = 60,
-                    Tag = command
                 };
-
-                btn.Click += RunTaskInTaskBar;
-                btn.Image = Utils.ExtractIcon(command.IconSourcePath, command.IconIndex)?.ToBitmap();
 
                 pnlTaskBar.Controls.Add(btn);
             }
-        }
-
-        private void RunTaskInTaskBar(object sender, EventArgs e)
-        {
-            if (sender == null) return;
-
-            FullCommandInfo commandInfo = (FullCommandInfo) ((Button) sender).Tag;
-            if (commandInfo == null)
-            {
-                Trace.Fail("Task is null");
-                return;
-            }
-
-            commandInfo.CreateNewWindow = true;
-
-            RunCommands(new List<FullCommandInfo> { commandInfo });
         }
 
         private void PopulateInstallCommands()
