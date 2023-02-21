@@ -27,6 +27,12 @@ namespace UnifiCommands.Commands
 
         protected override Task<string> ExecuteCommand()
         {
+            if (_command.DisplayText.StartsWith("-") || string.IsNullOrEmpty(_command.DisplayText))
+            {
+                Logger.LogInfo("Command not set");
+                return Task.FromResult("");
+            };
+
             Timer callbackTimer = null;
             bool hasCallback = _appType == AppType.Desktop && !string.IsNullOrEmpty(_command.Callback);
             ElapsedEventHandler del = null;

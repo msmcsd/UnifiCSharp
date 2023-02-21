@@ -547,62 +547,6 @@
 		]
 	},
 	{
-		"Name": "Rollback Test",
-		"CommandGroup": "Dos",
-		"ShowTaskOnMachine": "Test",
-		"Visible" : false,
-		"Commands": [
-			{
-				"Command": "FileCopy",
-				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
-				"DisplayText": "Copy Rollback Updater",
-				"Type": "code",
-				"ShowOnMachine": "Test",
-				"Callback": "ShowFilesVersions"
-			},
-			{
-				"Command": "ShowRollbackPosition",
-				"Arguments": "",
-				"DisplayText": "Show Rollback Position",
-				"Type": "Code",
-				"ShowOnMachine": "Test"
-			},
-			{
-				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LastUpdateRuntime /t REG_SZ /d 0 /f",
-				"DisplayText": "Clear Last Update Time",
-				"ShowOnMachine": "Test"
-			},
-			{
-				"Command": "FileDelete",
-				"Arguments": "$[ProtectLogPath]",
-				"DisplayText": "Delete Protect Log File",
-				"Type": "Code"
-			},
-			{
-				"Command": "FileCopy",
-				"Arguments": "$[ProtectLogPath], $[GetRollbackLogSaveDirectory]",
-				"DisplayText": "Copy Log File",
-				"Type": "Code",
-				"Visible": false,
-				"ShowOnMachine": "Test"
-			},
-			{
-				"Command": "BackupRollbackLogFile",
-				"Arguments": "$[ProtectLogPath]",
-				"DisplayText": "Backup Log File",
-				"Type": "Code",
-				"ShowOnMachine": "Test"
-			},
-			{
-				"Command": "${NotepadPath}",
-				"Arguments": "\"$[GetLatestRollbackFile]\"",
-				"DisplayText": "Open Rollback Log File",
-				"ShowOnMachine": "Test"
-			}
-		]
-	},
-	{
 		"Name": "Report",
 		"CommandGroup": "Dos",
 		"Commands": [
@@ -1434,11 +1378,14 @@
 		]
 	},
 	{
-		"Name": "Rollback-Add AM-PPL",
+		"Name": "Rollback",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
 		"Tab": "Rollback",
 		"Commands": [
+			{
+				"DisplayText": "-- Add AM-PPL"
+			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "00-None",
@@ -1516,165 +1463,161 @@
 				"DisplayText": "12-AfterMsiUpdated",
 				"Arguments": "Add AM-PPL, AfterMsiUpdated",
 				"Type": "Code"
-			}
-		]
-	},
-	{
-		"Name": "Rollback-Remove AM-PPL",
-		"CommandGroup": "Dos",
-		"ShowTaskOnMachine": "Test",
-		"Tab": "Rollback",
-		"Commands": [
+			},
+			{
+				"DisplayText": ""
+			},
+			{
+				"DisplayText": "-- Remove AM-PPL"
+			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "00-None",
-				"Arguments": "Add AM-PPL, ''",
+				"Arguments": "Remove AM-PPL, ''",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "01-AfterAmpplRemoved",
-				"Arguments": "Add AM-PPL, AfterAmpplRemoved",
+				"Arguments": "Remove AM-PPL, AfterAmpplRemoved",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "02-AfterServiceStopped",
-				"Arguments": "Add AM-PPL, AfterServiceStopped",
+				"Arguments": "Remove AM-PPL, AfterServiceStopped",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "03-AfterCatalogRemoved",
-				"Arguments": "Add AM-PPL, AfterCatalogRemoved",
+				"Arguments": "Remove AM-PPL, AfterCatalogRemoved",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "04-AfterAppFilesCopied",
-				"Arguments": "Add AM-PPL, AfterAppFilesCopied",
+				"Arguments": "Remove AM-PPL, AfterAppFilesCopied",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "05-AfterGacUpdated",
-				"Arguments": "Add AM-PPL, AfterGacUpdated",
+				"Arguments": "Remove AM-PPL, AfterGacUpdated",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "06-AfterDriverStopped",
-				"Arguments": "Add AM-PPL, AfterDriverStopped",
+				"Arguments": "Remove AM-PPL, AfterDriverStopped",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "07-AfterDriverFilesCopied",
-				"Arguments": "Add AM-PPL, AfterDriverFilesCopied",
+				"Arguments": "Remove AM-PPL, AfterDriverFilesCopied",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "08-AfterElamDriverRemoved",
-				"Arguments": "Add AM-PPL, AfterElamDriverRemoved",
+				"Arguments": "Remove AM-PPL, AfterElamDriverRemoved",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "09-AfterDriverStarted",
-				"Arguments": "Add AM-PPL, AfterDriverStarted",
+				"Arguments": "Remove AM-PPL, AfterDriverStarted",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "10-AfterServiceStarted",
-				"Arguments": "Add AM-PPL, AfterServiceStarted",
+				"Arguments": "Remove AM-PPL, AfterServiceStarted",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "11-AfterMsiUpdated",
-				"Arguments": "Add AM-PPL, AfterMsiUpdated",
+				"Arguments": "Remove AM-PPL, AfterMsiUpdated",
 				"Type": "Code"
-			}
-		]
-	},
-	{
-		"Name": "Rollback-Update AM-PPL",
-		"CommandGroup": "Dos",
-		"ShowTaskOnMachine": "Test",
-		"Tab": "Rollback",
-		"Commands": [
+			},
+			{
+				"DisplayText": ""
+			},
+			{
+				"DisplayText": "-- Update AM-PPL"
+			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "00-None",
-				"Arguments": "Add AM-PPL, ''",
+				"Arguments": "Update AM-PPL, ''",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "01-AfterServiceStopped",
-				"Arguments": "Add AM-PPL, AfterServiceStopped",
+				"Arguments": "Update AM-PPL, AfterServiceStopped",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "02-AfterCatalogRemoved",
-				"Arguments": "Add AM-PPL, AfterCatalogRemoved",
+				"Arguments": "Update AM-PPL, AfterCatalogRemoved",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "03-AfterAppFilesCopied",
-				"Arguments": "Add AM-PPL, AfterAppFilesCopied",
+				"Arguments": "Update AM-PPL, AfterAppFilesCopied",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "04-AfterGacUpdated",
-				"Arguments": "Add AM-PPL, AfterGacUpdated",
+				"Arguments": "Update AM-PPL, AfterGacUpdated",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "05-AfterDriverStopped",
-				"Arguments": "Add AM-PPL, AfterDriverStopped",
+				"Arguments": "Update AM-PPL, AfterDriverStopped",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "06-AfterDriverFilesCopied",
-				"Arguments": "Add AM-PPL, AfterDriverFilesCopied",
+				"Arguments": "Update AM-PPL, AfterDriverFilesCopied",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "07-AfterCatalogAdded",
-				"Arguments": "Add AM-PPL, AfterCatalogAdded",
+				"Arguments": "Update AM-PPL, AfterCatalogAdded",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "08-AfterElamFilesCopied",
-				"Arguments": "Add AM-PPL, AfterElamFilesCopied",
+				"Arguments": "Update AM-PPL, AfterElamFilesCopied",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "09-AfterDriverStarted",
-				"Arguments": "Add AM-PPL, AfterDriverStarted",
+				"Arguments": "Update AM-PPL, AfterDriverStarted",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "10-AfterServiceStarted",
-				"Arguments": "Add AM-PPL, AfterServiceStarted",
+				"Arguments": "Update AM-PPL, AfterServiceStarted",
 				"Type": "Code"
 			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "11-AfterMsiUpdated",
-				"Arguments": "Add AM-PPL, AfterMsiUpdated",
+				"Arguments": "Update AM-PPL, AfterMsiUpdated",
 				"Type": "Code"
 			}
 		]
@@ -1690,6 +1633,63 @@
 				"DisplayText": "StartProtectServiceAfterFilesCopied",
 				"Arguments": "StartProtectServiceAfterFilesCopied",
 				"Type": "Code"
+			}
+		]
+	},
+	{
+		"Name": "Rollback Test",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
+		"Visible" : false,
+		"Tab": "Rollback",
+		"Commands": [
+			{
+				"Command": "FileCopy",
+				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Rollback Updater",
+				"Type": "code",
+				"ShowOnMachine": "Test",
+				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "ShowRollbackPosition",
+				"Arguments": "",
+				"DisplayText": "Show Rollback Position",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LastUpdateRuntime /t REG_SZ /d 0 /f",
+				"DisplayText": "Clear Last Update Time",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "FileDelete",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Delete Protect Log File",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "$[ProtectLogPath], $[GetRollbackLogSaveDirectory]",
+				"DisplayText": "Copy Log File",
+				"Type": "Code",
+				"Visible": false,
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "BackupRollbackLogFile",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Backup Log File",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "${NotepadPath}",
+				"Arguments": "\"$[GetLatestRollbackFile]\"",
+				"DisplayText": "Open Rollback Log File",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},

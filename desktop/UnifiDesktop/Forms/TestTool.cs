@@ -285,7 +285,34 @@ namespace Unifi.Forms
                     tabCommands.TabPages.Add(page);
                     AddComandGroupsToTab(page, tasks);
                 }
+
+                if (tabName == DosTab.Rollback.ToString())
+                {
+
+                }
             }
+        }
+
+        private ListBox FindRollbackListBox(TabPage tab)
+        {
+            foreach(var ctrl in tab.Controls)
+            {
+                if (ctrl is ListBox listBox)
+                {
+                    if (listBox.Items.Count > 0 )
+                    {
+                        foreach(var item in listBox.Items)
+                        {
+                            FullCommandInfo command = (FullCommandInfo)item;
+                            if (command.Command == "SetRollback")
+                            {
+                                return listBox;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         private void AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)

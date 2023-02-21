@@ -17,7 +17,7 @@ namespace UnifiCommands.CommandExecutors
 
         public override string Run(FullCommandInfo commandInfo, Timer callbackTimer)
         {
-            if (commandInfo.DisplayText.StartsWith("-")) return null;
+            if (commandInfo.DisplayText.StartsWith("-") || string.IsNullOrEmpty(commandInfo.DisplayText)) return null;
 
             if (!CommandSupportedOnPlatform(commandInfo))
             {
