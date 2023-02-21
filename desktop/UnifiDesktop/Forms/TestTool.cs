@@ -403,13 +403,13 @@ namespace Unifi.Forms
 
         private string GetBootstrapperFullPath => $@"{Variables.InstallerDownloadFolder}\{Variables.ProtectBootstrapperName}";
 
-        //private string GetCylanceUiFullPath
-        //{
-        //    get
-        //    {
-        //        return Variables.CylanceUiPath;
-        //    }
-        //}
+        private string GetCylanceUiFullPath
+        {
+            get
+            {
+                return Variables.CylanceUiPath;
+            }
+        }
 
         private string GetRollbackLogSaveDirectory
         {
