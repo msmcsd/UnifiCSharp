@@ -239,7 +239,7 @@ namespace Unifi.Forms
             PopulateDosCommandGroups();
             PopulateTaskbarCommands();
             //PopulateDownloadCommands();
-            PopulateRollbackPositions();
+            //PopulateRollbackPositions();
             PopulateBatchCommandList();
             PopulateInstallCommands();
             PopulateVersionGrid();

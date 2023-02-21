@@ -96,6 +96,7 @@ namespace UnifiCommands.CommandsProvider
         Test,
         Dev,
         AppInventory,
-        Web
+        Web,
+        Rollback
     }
 }

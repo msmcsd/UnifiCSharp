@@ -1435,170 +1435,261 @@
 	},
 	{
 		"Name": "Rollback-Add AM-PPL",
-		"CommandGroup": "Rollback",
+		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
+		"Tab": "Rollback",
 		"Commands": [
 			{
-				"DisplayText": "None",
-				"Arguments": "00"
+				"Command": "SetRollback",
+				"DisplayText": "00-None",
+				"Arguments": "Add AM-PPL, ''",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterServiceStopped",
-				"Arguments": "01"
+				"Command": "SetRollback",
+				"DisplayText": "01-AfterServiceStopped",
+				"Arguments": "Add AM-PPL, AfterServiceStopped",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterAppFilesCopied",
-				"Arguments": "02"
+				"Command": "SetRollback",
+				"DisplayText": "02-AfterAppFilesCopied",
+				"Arguments": "Add AM-PPL, AfterAppFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterGacUpdated",
-				"Arguments": "03"
+				"Command": "SetRollback",
+				"DisplayText": "03-AfterGacUpdated",
+				"Arguments": "Add AM-PPL, AfterGacUpdated",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverStopped",
-				"Arguments": "04"
+				"Command": "SetRollback",
+				"DisplayText": "04-AfterDriverStopped",
+				"Arguments": "Add AM-PPL, AfterDriverStopped",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverFilesCopied",
-				"Arguments": "05"
+				"Command": "SetRollback",
+				"DisplayText": "05-AfterDriverFilesCopied",
+				"Arguments": "Add AM-PPL, AfterDriverFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterCatalogAdded",
-				"Arguments": "06"
+				"Command": "SetRollback",
+				"DisplayText": "06-AfterCatalogAdded",
+				"Arguments": "Add AM-PPL, AfterCatalogAdded",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterElamFilesCopied",
-				"Arguments": "07"
+				"Command": "SetRollback",
+				"DisplayText": "07-AfterElamFilesCopied",
+				"Arguments": "Add AM-PPL, AfterElamFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterElamDriverAdded",
-				"Arguments": "08"
+				"Command": "SetRollback",
+				"DisplayText": "08-AfterElamDriverAdded",
+				"Arguments": "Add AM-PPL, AfterElamDriverAdded",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterAmpplAdded",
-				"Arguments": "09"
+				"Command": "SetRollback",
+				"DisplayText": "09-AfterAmpplAdded",
+				"Arguments": "Add AM-PPL, AfterAmpplAdded",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverStarted",
-				"Arguments": "10"
+				"Command": "SetRollback",
+				"DisplayText": "10-AfterDriverStarted",
+				"Arguments": "Add AM-PPL, AfterDriverStarted",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterServiceStarted",
-				"Arguments": "11"
+				"Command": "SetRollback",
+				"DisplayText": "11-AfterServiceStarted",
+				"Arguments": "Add AM-PPL, AfterServiceStarted",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterMsiUpdated",
-				"Arguments": "12"
+				"Command": "SetRollback",
+				"DisplayText": "12-AfterMsiUpdated",
+				"Arguments": "Add AM-PPL, AfterMsiUpdated",
+				"Type": "Code"
 			}
 		]
 	},
 	{
 		"Name": "Rollback-Remove AM-PPL",
-		"CommandGroup": "Rollback",
+		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
+		"Tab": "Rollback",
 		"Commands": [
 			{
-				"DisplayText": "None",
-				"Arguments": "00"
+				"Command": "SetRollback",
+				"DisplayText": "00-None",
+				"Arguments": "Add AM-PPL, ''",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterAmpplRemoved",
-				"Arguments": "01"
+				"Command": "SetRollback",
+				"DisplayText": "01-AfterAmpplRemoved",
+				"Arguments": "Add AM-PPL, AfterAmpplRemoved",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterServiceStopped",
-				"Arguments": "02"
+				"Command": "SetRollback",
+				"DisplayText": "02-AfterServiceStopped",
+				"Arguments": "Add AM-PPL, AfterServiceStopped",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterCatalogRemoved",
-				"Arguments": "03"
+				"Command": "SetRollback",
+				"DisplayText": "03-AfterCatalogRemoved",
+				"Arguments": "Add AM-PPL, AfterCatalogRemoved",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterAppFilesCopied",
-				"Arguments": "04"
+				"Command": "SetRollback",
+				"DisplayText": "04-AfterAppFilesCopied",
+				"Arguments": "Add AM-PPL, AfterAppFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterGacUpdated",
-				"Arguments": "05"
+				"Command": "SetRollback",
+				"DisplayText": "05-AfterGacUpdated",
+				"Arguments": "Add AM-PPL, AfterGacUpdated",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverStopped",
-				"Arguments": "06"
+				"Command": "SetRollback",
+				"DisplayText": "06-AfterDriverStopped",
+				"Arguments": "Add AM-PPL, AfterDriverStopped",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverFilesCopied",
-				"Arguments": "07"
+				"Command": "SetRollback",
+				"DisplayText": "07-AfterDriverFilesCopied",
+				"Arguments": "Add AM-PPL, AfterDriverFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterElamDriverRemoved",
-				"Arguments": "08"
+				"Command": "SetRollback",
+				"DisplayText": "08-AfterElamDriverRemoved",
+				"Arguments": "Add AM-PPL, AfterElamDriverRemoved",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverStarted",
-				"Arguments": "09"
+				"Command": "SetRollback",
+				"DisplayText": "09-AfterDriverStarted",
+				"Arguments": "Add AM-PPL, AfterDriverStarted",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterServiceStarted",
-				"Arguments": "10"
+				"Command": "SetRollback",
+				"DisplayText": "10-AfterServiceStarted",
+				"Arguments": "Add AM-PPL, AfterServiceStarted",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterMsiUpdated",
-				"Arguments": "11"
+				"Command": "SetRollback",
+				"DisplayText": "11-AfterMsiUpdated",
+				"Arguments": "Add AM-PPL, AfterMsiUpdated",
+				"Type": "Code"
 			}
 		]
 	},
 	{
 		"Name": "Rollback-Update AM-PPL",
-		"CommandGroup": "Rollback",
+		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
+		"Tab": "Rollback",
 		"Commands": [
 			{
-				"DisplayText": "None",
-				"Arguments": "00"
+				"Command": "SetRollback",
+				"DisplayText": "00-None",
+				"Arguments": "Add AM-PPL, ''",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterServiceStopped",
-				"Arguments": "01"
+				"Command": "SetRollback",
+				"DisplayText": "01-AfterServiceStopped",
+				"Arguments": "Add AM-PPL, AfterServiceStopped",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterCatalogRemoved",
-				"Arguments": "02"
+				"Command": "SetRollback",
+				"DisplayText": "02-AfterCatalogRemoved",
+				"Arguments": "Add AM-PPL, AfterCatalogRemoved",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterAppFilesCopied",
-				"Arguments": "03"
+				"Command": "SetRollback",
+				"DisplayText": "03-AfterAppFilesCopied",
+				"Arguments": "Add AM-PPL, AfterAppFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterGacUpdated",
-				"Arguments": "04"
+				"Command": "SetRollback",
+				"DisplayText": "04-AfterGacUpdated",
+				"Arguments": "Add AM-PPL, AfterGacUpdated",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverStopped",
-				"Arguments": "05"
+				"Command": "SetRollback",
+				"DisplayText": "05-AfterDriverStopped",
+				"Arguments": "Add AM-PPL, AfterDriverStopped",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverFilesCopied",
-				"Arguments": "06"
+				"Command": "SetRollback",
+				"DisplayText": "06-AfterDriverFilesCopied",
+				"Arguments": "Add AM-PPL, AfterDriverFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterCatalogAdded",
-				"Arguments": "07"
+				"Command": "SetRollback",
+				"DisplayText": "07-AfterCatalogAdded",
+				"Arguments": "Add AM-PPL, AfterCatalogAdded",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterElamFilesCopied",
-				"Arguments": "08"
+				"Command": "SetRollback",
+				"DisplayText": "08-AfterElamFilesCopied",
+				"Arguments": "Add AM-PPL, AfterElamFilesCopied",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterDriverStarted",
-				"Arguments": "09"
+				"Command": "SetRollback",
+				"DisplayText": "09-AfterDriverStarted",
+				"Arguments": "Add AM-PPL, AfterDriverStarted",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterServiceStarted",
-				"Arguments": "10"
+				"Command": "SetRollback",
+				"DisplayText": "10-AfterServiceStarted",
+				"Arguments": "Add AM-PPL, AfterServiceStarted",
+				"Type": "Code"
 			},
 			{
-				"DisplayText": "AfterMsiUpdated",
-				"Arguments": "11"
+				"Command": "SetRollback",
+				"DisplayText": "11-AfterMsiUpdated",
+				"Arguments": "Add AM-PPL, AfterMsiUpdated",
+				"Type": "Code"
+			}
+		]
+	},	
+	{
+		"Name": "Set Rollback Test Function",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
+		"Tab": "Rollback",
+		"Commands": [
+			{
+				"Command": "SetTestFunctions",
+				"DisplayText": "StartProtectServiceAfterFilesCopied",
+				"Arguments": "StartProtectServiceAfterFilesCopied",
+				"Type": "Code"
 			}
 		]
 	},
