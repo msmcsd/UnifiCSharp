@@ -655,8 +655,7 @@ namespace Unifi.Forms
         {
             foreach (var info in commandInfos)
             {
-                Command command = CommandFactory.CreateCommand(info, _logger, AppType.Desktop);
-                command.LogParameters();
+                FullCommandInfo.DisplayCommand(info, _logger, AppType.Desktop);
             }
         }
 

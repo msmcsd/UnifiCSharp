@@ -8,6 +8,7 @@ using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
+using UnifiCommands.VariableProcessors;
 
 namespace UnifiDesktop.UserControls
 {
@@ -54,8 +55,7 @@ namespace UnifiDesktop.UserControls
             if (e.Button == MouseButtons.Right)
             {
                 FullCommandInfo commandInfo = (FullCommandInfo)((Button)sender).Tag;
-                Command command = CommandFactory.CreateCommand(commandInfo, _logger, AppType.Desktop);
-                command.LogParameters();
+                FullCommandInfo.DisplayCommand(commandInfo, _logger, AppType.Desktop);
             }
         }
     }

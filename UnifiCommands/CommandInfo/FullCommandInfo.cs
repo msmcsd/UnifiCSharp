@@ -146,6 +146,17 @@ namespace UnifiCommands.CommandInfo
             logger.LogCommand(commandInfo.FullCommand, false);
 
             return "";
+        }        
+        
+        public static string DisplayCommand(FullCommandInfo commandInfo, ILogger logger, AppType appType)
+        {
+            if (commandInfo == null) return $"{nameof(Command)} is null";
+            if (logger == null) return $"{nameof(logger)} is null";
+
+            Commands.Command command = CommandFactory.CreateCommand(commandInfo, logger, appType);
+            command.LogParameters();
+
+            return "";
         }
 
         /// <summary>
