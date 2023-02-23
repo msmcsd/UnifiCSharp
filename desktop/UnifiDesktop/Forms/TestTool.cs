@@ -207,6 +207,8 @@ namespace Unifi.Forms
 
         private void LoadControls()
         {
+            Stopwatch stopwatch= Stopwatch.StartNew();
+
             if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
             {
                 Process p = new Process
@@ -214,6 +216,7 @@ namespace Unifi.Forms
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "cmd.exe",
+                        // When in VMs, once this file is opened and it will be locked on the shared folder. /j fixes that.
                         Arguments = $"/C xcopy \"{Variables.JsonConfigPath}\" \"{Variables.LocalJsonConfigPath}\" /j /Y",
                         CreateNoWindow = true,
                         UseShellExecute = false
@@ -250,16 +253,18 @@ namespace Unifi.Forms
 
             InitDownloadCommandGroup();
 
-            UpdateFormTitle();
-
             ShowFilesVersions(null, null);
+
+            stopwatch.Stop();
+            UpdateFormTitle(stopwatch.ElapsedMilliseconds);
         }
 
-        private void UpdateFormTitle()
+        private void UpdateFormTitle(long elapsedMilliseconds)
         {
             Text = $"{Assembly.GetExecutingAssembly().GetName().Name} {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
             Text = $"{Text} {(BaseCommandInfo.ShowCommandOnMachine() == ShowCommandOnMachine.Dev ? "on Dev Machine" : "on Test Machine")}";
             if (IsElevated()) Text += " (Administrator)";
+            Text = $"{Text} {elapsedMilliseconds} ms";
         }
 
         private void InitDownloadCommandGroup()
