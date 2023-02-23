@@ -47,6 +47,8 @@ namespace Unifi.Forms
 
         private ListBox _lstRollbackPosition = null;
 
+        private bool _clearingPanels = false;
+
         public TestTool()
         {
             InitializeComponent();
@@ -123,6 +125,8 @@ namespace Unifi.Forms
             chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
 
             _programSettings.PropertyChanged += ProgramProgramSettingsChanged;
+
+            tabCommands.SelectedIndex = _programSettings.Tab;
         }
 
         private void Venue_CheckedChanged(object sender, EventArgs e)
@@ -135,6 +139,12 @@ namespace Unifi.Forms
 
             if (venue != null)
                 _programSettings.Venue = (Venue)Enum.Parse(typeof(Venue), venue);
+        }
+
+        private void tabCommands_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!_clearingPanels && tabCommands.SelectedIndex >= 0)
+                _programSettings.Tab = tabCommands.SelectedIndex;
         }
 
         public void ProgramProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -268,9 +278,11 @@ namespace Unifi.Forms
         private void PopulateDosCommandGroups()
         {
             tabCommands.Width = 160;
+            _clearingPanels = true;
             tabCommands.TabPages.Clear();
+            _clearingPanels = false;
 
-            foreach(var tabName in Enum.GetNames(typeof(DosTab)))
+            foreach (var tabName in Enum.GetNames(typeof(DosTab)))
             {
                 var tasks = _commandsProvider.DosTasks.Where(t => t.Tab.ToString() == tabName).ToList();
                 if (tasks.Any())
@@ -286,6 +298,11 @@ namespace Unifi.Forms
                 }
 
             }
+
+            if (_programSettings != null && _programSettings.Tab >= 0 && _programSettings.Tab <= tabCommands.TabPages.Count - 1)
+                tabCommands.SelectedIndex = _programSettings.Tab;
+            else
+                tabCommands.SelectedIndex = 0;
         }
 
         private ListBox FindRollbackListBox(TabPage page)

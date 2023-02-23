@@ -52,20 +52,20 @@ namespace Unifi.Forms
             this.rbSilent = new System.Windows.Forms.RadioButton();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
             this.grpDownload = new System.Windows.Forms.GroupBox();
-            this.downloadCommandGroup1 = new UnifiDesktop.UserControls.DownloadCommandGroup();
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
-            this.reportGrid1 = new Unifi.UserControls.ReportGrid();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
-            this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpVersion = new System.Windows.Forms.GroupBox();
-            this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
             this.grpConsole = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.tabCommands = new System.Windows.Forms.TabControl();
+            this.reportGrid1 = new Unifi.UserControls.ReportGrid();
+            this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
+            this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
+            this.downloadCommandGroup1 = new UnifiDesktop.UserControls.DownloadCommandGroup();
             this.grpInstallBase.SuspendLayout();
             this.grpInstall.SuspendLayout();
             this.grpConfig.SuspendLayout();
@@ -313,16 +313,6 @@ namespace Unifi.Forms
             this.grpDownload.TabStop = false;
             this.grpDownload.Text = "Download";
             // 
-            // downloadCommandGroup1
-            // 
-            this.downloadCommandGroup1.CommandsRunner = null;
-            this.downloadCommandGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.downloadCommandGroup1.Location = new System.Drawing.Point(3, 16);
-            this.downloadCommandGroup1.Logger = null;
-            this.downloadCommandGroup1.Name = "downloadCommandGroup1";
-            this.downloadCommandGroup1.Size = new System.Drawing.Size(170, 273);
-            this.downloadCommandGroup1.TabIndex = 24;
-            // 
             // pnlTaskBar
             // 
             this.pnlTaskBar.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -354,16 +344,6 @@ namespace Unifi.Forms
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
             // 
-            // reportGrid1
-            // 
-            this.reportGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportGrid1.DosTasks = null;
-            this.reportGrid1.Location = new System.Drawing.Point(3, 16);
-            this.reportGrid1.Logger = null;
-            this.reportGrid1.Name = "reportGrid1";
-            this.reportGrid1.Size = new System.Drawing.Size(308, 243);
-            this.reportGrid1.TabIndex = 2;
-            // 
             // grpBatchCommand
             // 
             this.grpBatchCommand.Controls.Add(this.lstBatchCommands);
@@ -374,15 +354,6 @@ namespace Unifi.Forms
             this.grpBatchCommand.TabIndex = 13;
             this.grpBatchCommand.TabStop = false;
             this.grpBatchCommand.Text = "Batch Command";
-            // 
-            // lstBatchCommands
-            // 
-            this.lstBatchCommands.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstBatchCommands.Location = new System.Drawing.Point(3, 16);
-            this.lstBatchCommands.Logger = null;
-            this.lstBatchCommands.Name = "lstBatchCommands";
-            this.lstBatchCommands.Size = new System.Drawing.Size(254, 243);
-            this.lstBatchCommands.TabIndex = 2;
             // 
             // grpBatch
             // 
@@ -406,16 +377,6 @@ namespace Unifi.Forms
             this.grpVersion.TabIndex = 15;
             this.grpVersion.TabStop = false;
             this.grpVersion.Text = "Version";
-            // 
-            // lstVersion
-            // 
-            this.lstVersion.Commands = null;
-            this.lstVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstVersion.FormObject = null;
-            this.lstVersion.Location = new System.Drawing.Point(3, 16);
-            this.lstVersion.Name = "lstVersion";
-            this.lstVersion.Size = new System.Drawing.Size(194, 243);
-            this.lstVersion.TabIndex = 14;
             // 
             // grpConsole
             // 
@@ -465,7 +426,47 @@ namespace Unifi.Forms
             this.tabCommands.SelectedIndex = 0;
             this.tabCommands.Size = new System.Drawing.Size(380, 684);
             this.tabCommands.TabIndex = 16;
+            this.tabCommands.SelectedIndexChanged += new System.EventHandler(this.tabCommands_SelectedIndexChanged);
             this.tabCommands.DoubleClick += new System.EventHandler(this.tabCommands_DoubleClick);
+            // 
+            // reportGrid1
+            // 
+            this.reportGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportGrid1.DosTasks = null;
+            this.reportGrid1.Location = new System.Drawing.Point(3, 16);
+            this.reportGrid1.Logger = null;
+            this.reportGrid1.Name = "reportGrid1";
+            this.reportGrid1.Size = new System.Drawing.Size(308, 243);
+            this.reportGrid1.TabIndex = 2;
+            // 
+            // lstVersion
+            // 
+            this.lstVersion.Commands = null;
+            this.lstVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstVersion.FormObject = null;
+            this.lstVersion.Location = new System.Drawing.Point(3, 16);
+            this.lstVersion.Name = "lstVersion";
+            this.lstVersion.Size = new System.Drawing.Size(194, 243);
+            this.lstVersion.TabIndex = 14;
+            // 
+            // lstBatchCommands
+            // 
+            this.lstBatchCommands.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstBatchCommands.Location = new System.Drawing.Point(3, 16);
+            this.lstBatchCommands.Logger = null;
+            this.lstBatchCommands.Name = "lstBatchCommands";
+            this.lstBatchCommands.Size = new System.Drawing.Size(254, 243);
+            this.lstBatchCommands.TabIndex = 2;
+            // 
+            // downloadCommandGroup1
+            // 
+            this.downloadCommandGroup1.CommandsRunner = null;
+            this.downloadCommandGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.downloadCommandGroup1.Location = new System.Drawing.Point(3, 16);
+            this.downloadCommandGroup1.Logger = null;
+            this.downloadCommandGroup1.Name = "downloadCommandGroup1";
+            this.downloadCommandGroup1.Size = new System.Drawing.Size(170, 273);
+            this.downloadCommandGroup1.TabIndex = 24;
             // 
             // TestTool
             // 

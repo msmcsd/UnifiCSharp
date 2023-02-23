@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Unifi.Annotations;
 using UnifiCommands;
+using UnifiCommands.CommandsProvider;
 
 namespace Unifi
 {
@@ -54,6 +55,20 @@ namespace Unifi
                 {
                     _installDirectory = value;
                     OnPropertyChanged(nameof(InstallDirectory));
+                }
+            }
+        } 
+        
+        private int _tab = (int)DosTab.Test;
+        public int Tab
+        {
+            get => _tab;
+            set
+            {
+                if (value != _tab)
+                {
+                    _tab = value;
+                    OnPropertyChanged(nameof(Tab));
                 }
             }
         } 
