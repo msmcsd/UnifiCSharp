@@ -25,6 +25,7 @@ using UnifiCommands.VariableProcessors;
 using UnifiCommands.CommandInfo;
 using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 using UnifiDesktop.UserControls;
+using Microsoft.Win32;
 
 namespace Unifi.Forms
 {
@@ -117,21 +118,11 @@ namespace Unifi.Forms
                     InstallDirectory = Variables.CylanceDesktopFolder
                 };
             }
+            
+            txtInstallDir.DataBindings.Add("Text", _programSettings, "InstallDirectory", true, DataSourceUpdateMode.OnPropertyChanged);
+            chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
 
-            // txtInstallDir.DataBindings.Add("Text", _bindingSource, "InstallDirectory");
-            // chkDebugBuild.DataBindings.Add("Checked", _bindingSource, "IsDebugMode");
             _programSettings.PropertyChanged += ProgramProgramSettingsChanged;
-            // _bindingSource.DataSource = _programSettings;
-        }
-
-        private void txtInstallDir_TextChanged(object sender, EventArgs e)
-        {
-            _programSettings.InstallDirectory = txtInstallDir.Text.Trim();
-        }
-
-        private void chkDebugBuild_CheckedChanged(object sender, EventArgs e)
-        {
-            _programSettings.IsDebugMode = chkDebugBuild.Checked;
         }
 
         private void Venue_CheckedChanged(object sender, EventArgs e)

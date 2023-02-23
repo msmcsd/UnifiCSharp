@@ -748,6 +748,15 @@
 				"Arguments": "/c \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Deploy\\DeployClientToIIS.bat\"",
 				"DisplayText": "Deploy to IIS",
 				"ShowOnMachine": "Test"
+			},
+			{
+				"DisplayText": "",
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c copy \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Program\\UnifiTasks.json\" C:\\repos\\unifi\\src\\",
+				"DisplayText": "Copy UnifiTasks.json",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},
@@ -1078,6 +1087,19 @@
 				"DisplayText": "chp.db (ProgramData)",
 				"IconSourcePath": "\"C:\\Program Files\\DB Browser for SQLite\\DB Browser for SQLite.exe\"",
 				"CreateNewWindow": true
+			}
+		]
+	},
+	{
+		"Name": "Copy Dependencies",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Dev",
+		"Tab": "Dev",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/c copy C:\\Projects\\CylanceProtect\\libs\\memdef\\x64\\CylanceMemdef*.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\sqlite\\x64\\SQLite.Interop.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cef\\x64\\CyCEFHelper64.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cyhelper\\CyHelper64.dll  C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\src\\bin\\models\\Cylance.Model.SS3PE6.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\mathnet\\MathNet.Numerics.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y",
+				"DisplayText": "Copy Libs"
 			}
 		]
 	},

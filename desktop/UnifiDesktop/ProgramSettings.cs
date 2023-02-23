@@ -90,7 +90,7 @@ namespace Unifi
 
         public static void SaveSettings(ProgramSettings programSettings)
         {
-            string json = JsonConvert.SerializeObject(programSettings);
+            string json = JsonConvert.SerializeObject(programSettings, Formatting.Indented);
             File.WriteAllText(Variables.ProgramSettingFilePath, json);
         }
     }
