@@ -1736,20 +1736,9 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 200 /f",
-				"DisplayText": "Set Http Returns 200 OK"
-			},
-			{
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/k Tail \"$[ProtectLogPath]\" 1 \" inventory\"",
-				"DisplayText": "Follow inventory",
-				"ShowOnMachine": "Test"
 			}
 		]
 	},
