@@ -48,8 +48,8 @@ namespace Unifi.UserControls
             this.lstCommand.Name = "lstCommand";
             this.lstCommand.Size = new System.Drawing.Size(164, 154);
             this.lstCommand.TabIndex = 0;
-            this.lstCommand.Click += new System.EventHandler(this.lstCommand_Click);
             this.lstCommand.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstCommand_DrawItem);
+            this.lstCommand.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lstCommand_MeasureItem);
             this.lstCommand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCommand_MouseDown);
             // 
             // label1

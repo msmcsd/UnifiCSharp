@@ -209,7 +209,7 @@ namespace Unifi.Forms
         private void LoadControls()
         {
             Stopwatch stopwatch= Stopwatch.StartNew();
-
+            
             if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
             {
                 Process p = new Process
