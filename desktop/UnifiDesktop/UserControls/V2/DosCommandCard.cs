@@ -47,8 +47,16 @@ namespace Unifi.UserControls
         private void lstCommand_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Right && e.Button != MouseButtons.Left) return;
+            if (lstCommand.Items.Count <= 0 ) return;
 
-            lstCommand.SelectedIndex = lstCommand.IndexFromPoint(e.X, e.Y);
+            // Do not run when clicking on empty area
+            Rectangle rect = lstCommand.GetItemRectangle(lstCommand.Items.Count - 1);
+            if (e.Y > rect.Bottom)
+            {
+                return;
+            }
+
+                lstCommand.SelectedIndex = lstCommand.IndexFromPoint(e.X, e.Y);
             if (lstCommand.SelectedIndex < 0)
             {
                 Debug.WriteLine(GetType(), "lstCommand.SelectedIndex <= 0");
