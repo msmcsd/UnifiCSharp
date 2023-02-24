@@ -29,7 +29,7 @@ namespace UnifiDesktop.DrawingUtils
             control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, cornerRadius *  2, cornerRadius * 2));
 
             GraphicsPath path = RoundedRectangle.Create(0, 0, control.Width - 2, control.Height - 2, cornerRadius);
-            path.Widen(new Pen(Color.Black, 1));
+            path.Widen(new Pen(Color.Gray, 2));
 
             //e.Graphics.DrawPath(Pens.Gray, path);
             // Smooth the corners

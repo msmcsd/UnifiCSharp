@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unifi;
+using UnifiCommands.CommandInfo;
+using UnifiCommands.Logging;
 using UnifiDesktop.DrawingUtils;
 
 namespace UnifiDesktop.UserControls.V2
 {
-    public partial class ListItem : UserControl
+    public partial class CommandItem : UserControl
     {
         public event SelectedItemEventHandler SelectedItemEventHandler;
         public int Index { get; set; }  
@@ -27,6 +24,8 @@ namespace UnifiDesktop.UserControls.V2
 
 
         private bool _selected = false;
+        private readonly ILogger _logger;
+
         public bool Selected 
         {
             get => _selected;
@@ -39,9 +38,15 @@ namespace UnifiDesktop.UserControls.V2
             } 
         }
 
-        public ListItem()
+        public CommandItem()
         {
             InitializeComponent();
+        }
+
+        public CommandItem(ILogger logger)
+        {
+            InitializeComponent();
+            _logger = logger;
         }
 
         private void DosListItem_Paint(object sender, PaintEventArgs e)
@@ -51,9 +56,21 @@ namespace UnifiDesktop.UserControls.V2
 
         private void label1_Click(object sender, EventArgs e)
         {
-            label1.BackColor = _selectedBackColor;
-            Selected = true;
-            SelectedItemEventHandler?.Invoke(sender, new SelectedItemEventArgs() { SelectedIndex = Index });
+            if (!Selected)
+            {
+                label1.BackColor = _selectedBackColor;
+                Selected = true;
+                SelectedItemEventHandler?.Invoke(sender, new SelectedItemEventArgs() { SelectedIndex = Index });
+            }
+
+            FullCommandInfo command = (FullCommandInfo)Tag;
+            if (command == null)
+            {
+                _logger.LogError("Command not found");
+                return;
+            }
+
+            new CommandsRunner(null, false, null, _logger, UnifiCommands.AppType.Desktop).RunCommands(new List<FullCommandInfo> { command });
         }
     }
 

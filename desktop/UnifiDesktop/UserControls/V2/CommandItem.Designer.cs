@@ -1,6 +1,6 @@
 ﻿namespace UnifiDesktop.UserControls.V2
 {
-    partial class ListItem
+    partial class CommandItem
     {
         /// <summary> 
         /// Required designer variable.
