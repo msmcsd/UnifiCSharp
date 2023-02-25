@@ -40,6 +40,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 3);
             this.label2.TabIndex = 3;
+            this.label2.Click += new System.EventHandler(this.HamburgerMenu_Click);
             // 
             // label1
             // 
@@ -48,6 +49,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 3);
             this.label1.TabIndex = 4;
+            this.label1.Click += new System.EventHandler(this.HamburgerMenu_Click);
             // 
             // label3
             // 
@@ -56,6 +58,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 3);
             this.label3.TabIndex = 5;
+            this.label3.Click += new System.EventHandler(this.HamburgerMenu_Click);
             // 
             // HamburgerMenu
             // 
@@ -64,8 +67,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "HamburgerMenu";
             this.Size = new System.Drawing.Size(26, 21);
+            this.Click += new System.EventHandler(this.HamburgerMenu_Click);
             this.ResumeLayout(false);
 
         }

@@ -79,6 +79,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -203,6 +204,12 @@
     <Compile Include="UserControls\V2\HamburgerMenu.Designer.cs">
       <DependentUpon>HamburgerMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\V2\NavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\V2\NavBar.Designer.cs">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\V2\RoundButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -215,11 +222,11 @@
     <Compile Include="UserControls\V2\DosCommandsTabControl.Designer.cs">
       <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\V2\NavDrawer.cs">
+    <Compile Include="UserControls\V2\Drawer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\V2\NavDrawer.Designer.cs">
-      <DependentUpon>NavDrawer.cs</DependentUpon>
+    <Compile Include="UserControls\V2\Drawer.Designer.cs">
+      <DependentUpon>Drawer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\V2\TabHeader.cs">
       <SubType>Component</SubType>
@@ -290,14 +297,17 @@
     <EmbeddedResource Include="UserControls\V2\HamburgerMenu.resx">
       <DependentUpon>HamburgerMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\V2\NavBar.resx">
+      <DependentUpon>NavBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\RoundButton.resx">
       <DependentUpon>RoundButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\DosCommandsTabControl.resx">
       <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\V2\NavDrawer.resx">
-      <DependentUpon>NavDrawer.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\V2\Drawer.resx">
+      <DependentUpon>Drawer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\VersionGrid.resx">
       <DependentUpon>VersionGrid.cs</DependentUpon>

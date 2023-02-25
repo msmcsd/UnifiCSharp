@@ -624,6 +624,11 @@ namespace Unifi.Forms
         {
             MessageBox.Show("123");
         }
+
+        private void navBar1_MenuClick(object sender, EventArgs e)
+        {
+            drawer1.Visible = true;
+        }
     }
 }
 
