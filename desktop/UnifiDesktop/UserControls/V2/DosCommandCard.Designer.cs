@@ -44,9 +44,9 @@ namespace Unifi.UserControls
             this.lstCommand.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstCommand.FormattingEnabled = true;
             this.lstCommand.ItemHeight = 18;
-            this.lstCommand.Location = new System.Drawing.Point(6, 58);
+            this.lstCommand.Location = new System.Drawing.Point(8, 58);
             this.lstCommand.Name = "lstCommand";
-            this.lstCommand.Size = new System.Drawing.Size(164, 154);
+            this.lstCommand.Size = new System.Drawing.Size(160, 125);
             this.lstCommand.TabIndex = 0;
             this.lstCommand.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstCommand_DrawItem);
             this.lstCommand.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lstCommand_MeasureItem);
@@ -69,9 +69,9 @@ namespace Unifi.UserControls
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.SandyBrown;
-            this.label2.Location = new System.Drawing.Point(6, 43);
+            this.label2.Location = new System.Drawing.Point(8, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 2);
+            this.label2.Size = new System.Drawing.Size(160, 2);
             this.label2.TabIndex = 2;
             // 
             // DosCommandCard
@@ -83,7 +83,7 @@ namespace Unifi.UserControls
             this.Controls.Add(this.lstCommand);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DosCommandCard";
-            this.Size = new System.Drawing.Size(176, 219);
+            this.Size = new System.Drawing.Size(176, 192);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.DosCommandCard_Paint);
             this.ResumeLayout(false);
 

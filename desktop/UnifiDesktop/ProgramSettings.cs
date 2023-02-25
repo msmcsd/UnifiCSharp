@@ -13,7 +13,7 @@ namespace Unifi
     /// <summary>
     /// Class that represents settings to save to Settings.json
     /// </summary>
-    internal class ProgramSettings : INotifyPropertyChanged
+    public class ProgramSettings : INotifyPropertyChanged
     {
         private Venue _venue = Venue.R01;
 
@@ -111,7 +111,7 @@ namespace Unifi
     }
 
 
-    internal enum Venue
+    public enum Venue
     {
         R01,
         R02,

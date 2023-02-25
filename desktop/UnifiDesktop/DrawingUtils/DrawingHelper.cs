@@ -6,10 +6,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace UnifiDesktop.DrawingUtils
 {
-    internal class DrawControlBorder
+    internal class DrawingHelper
     {
         private const int CornerRadius = 8;
 
@@ -24,7 +25,23 @@ namespace UnifiDesktop.DrawingUtils
            int nHeightEllipse // height of ellipse
         );
 
-        public static void Draw(System.Windows.Forms.Control control, Graphics g, int cornerRadius = CornerRadius)
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
+
+        private const int WM_SETREDRAW = 11;
+
+        public static void SuspendDrawing(Control parent)
+        {
+            SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
+        }
+
+        public static void ResumeDrawing(Control parent)
+        {
+            SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
+            parent.Refresh();
+        }
+
+        public static void DrawRoundBorder(Control control, Graphics g, int cornerRadius = CornerRadius)
         {
             control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, cornerRadius *  2, cornerRadius * 2));
 
@@ -36,6 +53,11 @@ namespace UnifiDesktop.DrawingUtils
             g.SmoothingMode = SmoothingMode.HighQuality;
 
             g.FillPath(new SolidBrush(Color.Gray), path);
+        }
+
+        public static void RoundControl(Control control, int cornerRadius)
+        {
+            control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, cornerRadius * 2, cornerRadius * 2));
         }
     }
 }

@@ -95,7 +95,7 @@
     <Compile Include="Consoles\DesktopLogger.cs" />
     <Compile Include="Consoles\TextBoxConsole.cs" />
     <Compile Include="Consoles\Debugging.cs" />
-    <Compile Include="DrawingUtils\DrawControlBorder.cs" />
+    <Compile Include="DrawingUtils\DrawingHelper.cs" />
     <Compile Include="DrawingUtils\RoundedRectangle.cs" />
     <Compile Include="Forms\TestToolV2.cs">
       <SubType>Form</SubType>
@@ -197,6 +197,21 @@
     <Compile Include="UserControls\V2\CommandItem.Designer.cs">
       <DependentUpon>CommandItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\V2\RoundButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\V2\RoundButton.Designer.cs">
+      <DependentUpon>RoundButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\V2\DosCommandsTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\V2\DosCommandsTabControl.Designer.cs">
+      <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\V2\TabHeader.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\VersionGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -259,6 +274,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\CommandItem.resx">
       <DependentUpon>CommandItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\V2\RoundButton.resx">
+      <DependentUpon>RoundButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\V2\DosCommandsTabControl.resx">
+      <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\VersionGrid.resx">
       <DependentUpon>VersionGrid.cs</DependentUpon>

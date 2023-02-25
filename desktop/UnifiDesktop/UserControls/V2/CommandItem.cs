@@ -51,7 +51,7 @@ namespace UnifiDesktop.UserControls.V2
 
         private void DosListItem_Paint(object sender, PaintEventArgs e)
         {
-            DrawControlBorder.Draw(this, e.Graphics, 3);
+            DrawingUtils.DrawingHelper.DrawRoundBorder(this, e.Graphics, 3);
         }
 
         private void label1_Click(object sender, EventArgs e)

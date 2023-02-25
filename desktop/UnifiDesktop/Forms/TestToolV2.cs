@@ -48,8 +48,6 @@ namespace Unifi.Forms
 
         private ListBox _lstRollbackPosition = null;
 
-        private bool _clearingPanels = false;
-
         public TestToolV2()
         {
             InitializeComponent();
@@ -58,8 +56,8 @@ namespace Unifi.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             GetInstallFolderFromRegistry();
-            LoadControls();
             LoadSettings();
+            LoadControls();
             AddListeners();
             SetupEventHandlers();
         }
@@ -126,8 +124,6 @@ namespace Unifi.Forms
             chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
 
             _programSettings.PropertyChanged += ProgramProgramSettingsChanged;
-
-            tabCommands.SelectedIndex = _programSettings.Tab;
         }
 
         private void Venue_CheckedChanged(object sender, EventArgs e)
@@ -140,12 +136,6 @@ namespace Unifi.Forms
 
             if (venue != null)
                 _programSettings.Venue = (Venue)Enum.Parse(typeof(Venue), venue);
-        }
-
-        private void tabCommands_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!_clearingPanels && tabCommands.SelectedIndex >= 0)
-                _programSettings.Tab = tabCommands.SelectedIndex;
         }
 
         public void ProgramProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -283,88 +273,10 @@ namespace Unifi.Forms
 
         private void PopulateDosCommandGroups()
         {
-            tabCommands.Width = 160;
-            _clearingPanels = true;
-            tabCommands.TabPages.Clear();
-            _clearingPanels = false;
-
-            foreach (var tabName in Enum.GetNames(typeof(DosTab)))
-            {
-                var tasks = _commandsProvider.DosTasks.Where(t => t.Tab.ToString() == tabName).ToList();
-                if (tasks.Any())
-                {
-                    TabPage page = new TabPage(tabName);
-                    tabCommands.TabPages.Add(page);
-                    AddComandGroupsToTab(page, tasks);
-
-                    if (tabName == DosTab.Rollback.ToString())
-                    {
-                        _lstRollbackPosition = FindRollbackListBox(page);
-                    }
-                }
-
-            }
-
-            if (_programSettings != null && _programSettings.Tab >= 0 && _programSettings.Tab <= tabCommands.TabPages.Count - 1)
-                tabCommands.SelectedIndex = _programSettings.Tab;
-            else
-                tabCommands.SelectedIndex = 0;
-        }
-
-        private ListBox FindRollbackListBox(TabPage page)
-        {
-            foreach(var ctrl in page.Controls)
-            {
-                if (ctrl is DosCommandGroup commandGroup)
-                {
-                    if (commandGroup.ListBox.Items.Count > 0 )
-                    {
-                        foreach(var item in commandGroup.ListBox.Items)
-                        {
-                            FullCommandInfo command = (FullCommandInfo)item;
-                            if (command.Command.Equals("SetRollback", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                return commandGroup.ListBox;
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        private void AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)
-        {
-            int left = 0;
-            int top = 0;
-            int columns = 1;
-            int controlWidth = 160;
-
-            tab.Controls.Clear();
-
-            foreach (var task in tasks)
-            {
-                if (task.Commands.Count == 0) continue;
-
-                var ctl = new DosCommandCard(task, _commandsRunner, _logger) { Width = controlWidth };
-
-                tab.Controls.Add(ctl);
-
-                if (top + ctl.Height > tab.Height)
-                {
-                    left = left + ctl.Width;
-                    top = 0;
-                    columns++;
-
-                    if (ctl.Width * columns > tab.Parent.Width)
-                        tab.Parent.Width += ctl.Width;
-                }
-
-                ctl.Left = left;
-                ctl.Top = top;
-
-                top += ctl.Height;
-            }
+            DosCommandsTabControl tabControl = new DosCommandsTabControl(_programSettings, _commandsRunner, _logger);
+            pnlDosCommands.Controls.Add(tabControl);
+            tabControl.Dock = DockStyle.Fill;
+            _lstRollbackPosition = tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
         }
         
         private void OutputToConsole(object sender, DataReceivedEventArgs e)

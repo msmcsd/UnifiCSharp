@@ -107,7 +107,7 @@ namespace Unifi.UserControls
 
         private void DosCommandCard_Paint(object sender, PaintEventArgs e)
         {
-            DrawControlBorder.Draw(this, e.Graphics, 3);
+            DrawingHelper.DrawRoundBorder(this, e.Graphics, 3);
         }
 
         private void lstCommand_MeasureItem(object sender, MeasureItemEventArgs e)
