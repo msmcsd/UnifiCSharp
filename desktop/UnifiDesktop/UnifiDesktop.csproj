@@ -197,6 +197,12 @@
     <Compile Include="UserControls\V2\CommandItem.Designer.cs">
       <DependentUpon>CommandItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\V2\HamburgerMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\V2\HamburgerMenu.Designer.cs">
+      <DependentUpon>HamburgerMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\V2\RoundButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -208,6 +214,12 @@
     </Compile>
     <Compile Include="UserControls\V2\DosCommandsTabControl.Designer.cs">
       <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\V2\NavDrawer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\V2\NavDrawer.Designer.cs">
+      <DependentUpon>NavDrawer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\V2\TabHeader.cs">
       <SubType>Component</SubType>
@@ -275,11 +287,17 @@
     <EmbeddedResource Include="UserControls\V2\CommandItem.resx">
       <DependentUpon>CommandItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\V2\HamburgerMenu.resx">
+      <DependentUpon>HamburgerMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\RoundButton.resx">
       <DependentUpon>RoundButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\DosCommandsTabControl.resx">
       <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\V2\NavDrawer.resx">
+      <DependentUpon>NavDrawer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\VersionGrid.resx">
       <DependentUpon>VersionGrid.cs</DependentUpon>
