@@ -32,6 +32,7 @@
             this.pnlMainControlsPanel = new System.Windows.Forms.Panel();
             this.navBar1 = new UnifiDesktop.UserControls.V2.NavBar();
             this.drawer1 = new UnifiDesktop.UserControls.V2.Drawer();
+            this.pnlRightGap = new System.Windows.Forms.Panel();
             this.drawer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             this.pnlMainControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMainControlsPanel.Location = new System.Drawing.Point(191, 32);
             this.pnlMainControlsPanel.Name = "pnlMainControlsPanel";
-            this.pnlMainControlsPanel.Size = new System.Drawing.Size(746, 535);
+            this.pnlMainControlsPanel.Size = new System.Drawing.Size(735, 535);
             this.pnlMainControlsPanel.TabIndex = 3;
             // 
             // navBar1
@@ -81,11 +82,20 @@
             this.drawer1.Size = new System.Drawing.Size(180, 567);
             this.drawer1.TabIndex = 0;
             // 
+            // pnlRightGap
+            // 
+            this.pnlRightGap.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlRightGap.Location = new System.Drawing.Point(926, 32);
+            this.pnlRightGap.Name = "pnlRightGap";
+            this.pnlRightGap.Size = new System.Drawing.Size(11, 535);
+            this.pnlRightGap.TabIndex = 3;
+            // 
             // NavBarDrawer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pnlMainControlsPanel);
+            this.Controls.Add(this.pnlRightGap);
             this.Controls.Add(this.pnlLeftGap);
             this.Controls.Add(this.navBar1);
             this.Controls.Add(this.drawer1);
@@ -102,5 +112,6 @@
         private NavBar navBar1;
         private System.Windows.Forms.Panel pnlLeftGap;
         private System.Windows.Forms.Panel pnlMainControlsPanel;
+        private System.Windows.Forms.Panel pnlRightGap;
     }
 }
