@@ -1,32 +1,63 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using UnifiDesktop.DrawingUtils;
 
 namespace UnifiDesktop.UserControls.V2
 {
+ 
     /// <summary>
     /// Allows adding control to panel at design time: step 3 of 3.
     /// </summary>
     [Designer(typeof(NavBarDrawerControlDesigner))]
     public partial class NavBarDrawer : UserControl
     {
+        private readonly int _drawerDefaultWidth;
         public NavBarDrawer()
         {
             InitializeComponent();
             navBar1.MenuClick += OnDrawerOpen;
             drawer1.CloseClick += OnDrawerClose;
+            _drawerDefaultWidth = drawer1.Width;
         }
 
         private void OnDrawerOpen(object sender, EventArgs e)
         {
-            drawer1.Visible = true;
+            OpenDrawer(true);
         }
 
         private void OnDrawerClose(object sender, EventArgs e)
         {
-            drawer1.Visible = false;
+            OpenDrawer(false);
+        }
+
+        private void OpenDrawer(bool show)
+        {
+            if (drawer1.Visible && show) return;
+
+            //int loops = 10;
+            //int sign = show? 1 : -1;
+            //int offset = sign * _drawerDefaultWidth / 10;
+
+            //for(int i = 0; i < loops; i++)
+            //{
+            //    if (!show && drawer1.Width + offset <=0 )
+            //    {
+            //        drawer1.Width = 0;
+            //        return;
+            //    }
+
+            //    drawer1.Width += offset;
+            //    Thread.Sleep(10);
+            //}
+
+            DrawingHelper.SuspendDrawing(this);
+            drawer1.Visible = show;
+            DrawingHelper.ResumeDrawing(this);
         }
 
         [Browsable(true)]
