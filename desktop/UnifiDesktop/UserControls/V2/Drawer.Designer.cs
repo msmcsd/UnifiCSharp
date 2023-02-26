@@ -45,13 +45,14 @@
             // 
             // pnlCloseMenu
             // 
-            this.pnlCloseMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.pnlCloseMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlCloseMenu.Controls.Add(this.lblCloseDrawer);
             this.pnlCloseMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlCloseMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlCloseMenu.Name = "pnlCloseMenu";
             this.pnlCloseMenu.Size = new System.Drawing.Size(180, 32);
             this.pnlCloseMenu.TabIndex = 3;
+            this.pnlCloseMenu.Resize += new System.EventHandler(this.pnlCloseMenu_Resize);
             // 
             // lblCloseDrawer
             // 

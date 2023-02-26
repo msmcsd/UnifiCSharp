@@ -40,19 +40,20 @@
             this.pnlLeftGap.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeftGap.Location = new System.Drawing.Point(180, 32);
             this.pnlLeftGap.Name = "pnlLeftGap";
-            this.pnlLeftGap.Size = new System.Drawing.Size(17, 535);
+            this.pnlLeftGap.Size = new System.Drawing.Size(11, 535);
             this.pnlLeftGap.TabIndex = 2;
             // 
             // pnlMainControlsPanel
             // 
             this.pnlMainControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMainControlsPanel.Location = new System.Drawing.Point(197, 32);
+            this.pnlMainControlsPanel.Location = new System.Drawing.Point(191, 32);
             this.pnlMainControlsPanel.Name = "pnlMainControlsPanel";
-            this.pnlMainControlsPanel.Size = new System.Drawing.Size(740, 535);
+            this.pnlMainControlsPanel.Size = new System.Drawing.Size(746, 535);
             this.pnlMainControlsPanel.TabIndex = 3;
             // 
             // navBar1
             // 
+            this.navBar1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.navBar1.Dock = System.Windows.Forms.DockStyle.Top;
             this.navBar1.Location = new System.Drawing.Point(180, 0);
             this.navBar1.Name = "navBar1";
@@ -62,6 +63,7 @@
             // drawer1
             // 
             this.drawer1.BackColor = System.Drawing.SystemColors.Control;
+            this.drawer1.ClosePanelHeight = 535;
             this.drawer1.Dock = System.Windows.Forms.DockStyle.Left;
             this.drawer1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 

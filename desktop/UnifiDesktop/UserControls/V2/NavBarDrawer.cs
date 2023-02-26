@@ -14,12 +14,39 @@ namespace UnifiDesktop.UserControls.V2
         public NavBarDrawer()
         {
             InitializeComponent();
-            navBar1.MenuClick += OnMenuClick;
+            navBar1.MenuClick += OnDrawerOpen;
+            drawer1.CloseClick += OnDrawerClose;
         }
 
-        private void OnMenuClick(object sender, EventArgs e)
+        private void OnDrawerOpen(object sender, EventArgs e)
         {
             drawer1.Visible = true;
+        }
+
+        private void OnDrawerClose(object sender, EventArgs e)
+        {
+            drawer1.Visible = false;
+        }
+
+        [Browsable(true)]
+        public int NavBarHeight 
+        { 
+            get { return navBar1.Height; }
+            set
+            {
+                navBar1.Height = value;
+                drawer1.ClosePanelHeight = value;
+            }
+        }
+
+        [Browsable(true)]
+        public int DrawerWidth 
+        { 
+            get { return drawer1.Width; }
+            set
+            {
+                drawer1.Width = value;
+            }
         }
 
         /// <summary>

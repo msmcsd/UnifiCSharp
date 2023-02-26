@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using UnifiCommands.Logging;
@@ -6,11 +7,13 @@ using UnifiCommands.Logging;
 namespace UnifiDesktop.UserControls.V2
 {
     /// <summary>
-    /// Allows adding control to panel at design time: step 3 of 3
+    /// Allows adding control to panel at design time: step 3 of 3.
     /// </summary>
     [Designer(typeof(CustomControlDesigner))]
     public partial class Drawer : UserControl
     {
+        public event EventHandler CloseClick;
+
         private readonly ILogger _logger;
         private const int LoopCount = 10;
 
@@ -20,7 +23,8 @@ namespace UnifiDesktop.UserControls.V2
         }
 
         /// <summary>
-        /// Allows adding control to panel at design time: step 1 of 3
+        /// Allows adding control to panel at design time: step 1 of 3.
+        /// Panel for Install and Download commands.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Panel InnerPanel
@@ -52,14 +56,25 @@ namespace UnifiDesktop.UserControls.V2
             }
         }
 
-        private void lblCloseDrawer_Click(object sender, System.EventArgs e)
+        private void lblCloseDrawer_Click(object sender, EventArgs e)
         {
-            Visible = false;
+            CloseClick?.Invoke(sender, e);
+        }
+
+        public int ClosePanelHeight
+        { 
+            get { return pnlDrawer.Height;} 
+            set { pnlCloseMenu.Height = value; }
+        }
+
+        private void pnlCloseMenu_Resize(object sender, EventArgs e)
+        {
+            lblCloseDrawer.Top = (pnlCloseMenu.Height - lblCloseDrawer.Height) / 2;
         }
     }
 
     /// <summary>
-    /// Allows adding control to panel at design time: step 2 of 3
+    /// Allows adding control to panel at design time: step 2 of 3.
     /// </summary>
     class CustomControlDesigner : ParentControlDesigner
     {
