@@ -210,6 +210,12 @@
     <Compile Include="UserControls\V2\NavBar.Designer.cs">
       <DependentUpon>NavBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\V2\NavBarDrawer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\V2\NavBarDrawer.Designer.cs">
+      <DependentUpon>NavBarDrawer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\V2\RoundButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -299,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\V2\NavBarDrawer.resx">
+      <DependentUpon>NavBarDrawer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\RoundButton.resx">
       <DependentUpon>RoundButton.cs</DependentUpon>

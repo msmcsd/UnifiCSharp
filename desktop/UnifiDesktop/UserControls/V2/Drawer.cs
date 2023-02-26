@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.Design;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
-using UnifiCommands.Logging;
 using System.Windows.Forms.Design;
+using UnifiCommands.Logging;
 
 namespace UnifiDesktop.UserControls.V2
 {
+    /// <summary>
+    /// Allows adding control to panel at design time: step 3 of 3
+    /// </summary>
     [Designer(typeof(CustomControlDesigner))]
     public partial class Drawer : UserControl
     {
@@ -17,6 +19,9 @@ namespace UnifiDesktop.UserControls.V2
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Allows adding control to panel at design time: step 1 of 3
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Panel InnerPanel
         {
@@ -54,7 +59,7 @@ namespace UnifiDesktop.UserControls.V2
     }
 
     /// <summary>
-    /// This class allows adding controls to pnlDrawer at design time.
+    /// Allows adding control to panel at design time: step 2 of 3
     /// </summary>
     class CustomControlDesigner : ParentControlDesigner
     {
@@ -63,8 +68,8 @@ namespace UnifiDesktop.UserControls.V2
         {
             base.Initialize(component);
 
-            Drawer myPanel = component as Drawer;
-            this.EnableDesignMode(myPanel.InnerPanel, "InnerPanel");
+            Drawer drawer = component as Drawer;
+            this.EnableDesignMode(drawer.InnerPanel, "InnerPanel");
 
         }
 

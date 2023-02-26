@@ -36,6 +36,7 @@
             // 
             // pnlDrawer
             // 
+            this.pnlDrawer.BackColor = System.Drawing.SystemColors.Control;
             this.pnlDrawer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDrawer.Location = new System.Drawing.Point(0, 32);
             this.pnlDrawer.Name = "pnlDrawer";
@@ -44,7 +45,7 @@
             // 
             // pnlCloseMenu
             // 
-            this.pnlCloseMenu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pnlCloseMenu.BackColor = System.Drawing.SystemColors.Control;
             this.pnlCloseMenu.Controls.Add(this.lblCloseDrawer);
             this.pnlCloseMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlCloseMenu.Location = new System.Drawing.Point(0, 0);
