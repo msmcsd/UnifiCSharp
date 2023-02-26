@@ -63,7 +63,7 @@ namespace UnifiDesktop.UserControls.V2
 
         public int ClosePanelHeight
         { 
-            get { return pnlDrawer.Height;} 
+            get { return pnlCloseMenu.Height;} 
             set { pnlCloseMenu.Height = value; }
         }
 
