@@ -28,9 +28,9 @@ using UnifiDesktop.UserControls;
 using Microsoft.Win32;
 using UnifiDesktop.UserControls.V2;
 
-namespace Unifi.Forms
+namespace Unifi.Forms.V2
 {
-    public partial class TestToolV2 : Form
+    public partial class TestTool : Form
     {
 #region Variables for Loading Tasks with JSON
 
@@ -48,7 +48,7 @@ namespace Unifi.Forms
 
         private ListBox _lstRollbackPosition = null;
 
-        public TestToolV2()
+        public TestTool()
         {
             InitializeComponent();
         }

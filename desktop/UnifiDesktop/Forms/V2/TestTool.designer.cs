@@ -1,9 +1,9 @@
 ﻿
 using Unifi.UserControls;
 
-namespace Unifi.Forms
+namespace Unifi.Forms.V2
 {
-    partial class TestToolV2
+    partial class TestTool
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace Unifi.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestToolV2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestTool));
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.navBarDrawer1 = new UnifiDesktop.UserControls.V2.NavBarDrawer();
             this.grpDownload = new System.Windows.Forms.GroupBox();
