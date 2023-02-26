@@ -277,8 +277,9 @@ namespace Unifi.Forms.V2
             pnlDosCommands.Controls.Add(tabControl);
             tabControl.Dock = DockStyle.Fill;
             _lstRollbackPosition = tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
+            pnlDosCommands.Width = tabControl.ClientWidth;
         }
-        
+
         private void OutputToConsole(object sender, DataReceivedEventArgs e)
         {
             Trace.WriteLine(e.Data);

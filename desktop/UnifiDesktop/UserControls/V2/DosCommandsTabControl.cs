@@ -4,7 +4,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unifi;
 using Unifi.UserControls;
@@ -23,6 +22,13 @@ namespace UnifiDesktop.UserControls.V2
         private TabHeader[] _tabNames;
         private TabHeader _preTabHeader = null;
 
+        // Default card size that holds 7 list item each card and three cards per column in card container.
+        private const int CardWidth = 160;
+        private const int CardHeight = 195;
+        private int _clientWidth = CardWidth + 15; // Leave space to the right of card list container.
+
+        public int ClientWidth => _clientWidth;
+
         public DosCommandsTabControl()
         {
             InitializeComponent();
@@ -37,7 +43,7 @@ namespace UnifiDesktop.UserControls.V2
 
         public ListBox PopulateDosTasks(List<TestTask> testTasks)
         {
-            //tabCommands.Width = 160;
+            //Width = _clientWidth;
             _clearingPanels = true;
             tabCommands.TabPages.Clear();
             _clearingPanels = false;
@@ -97,7 +103,6 @@ namespace UnifiDesktop.UserControls.V2
             int left = 0;
             int top = 0;
             int columns = 1;
-            int controlWidth = 160;
 
             tab.Controls.Clear();
 
@@ -105,7 +110,7 @@ namespace UnifiDesktop.UserControls.V2
             {
                 if (task.Commands.Count == 0) continue;
 
-                var card = new DosCommandCard(task, _commandsRunner, _logger) { Width = controlWidth };
+                var card = new DosCommandCard(task, _commandsRunner, _logger) { Width = CardWidth };
 
                 tab.Controls.Add(card);
 
@@ -115,8 +120,8 @@ namespace UnifiDesktop.UserControls.V2
                     top = 0;
                     columns++;
 
-                    if (card.Width * columns > tab.Parent.Width)
-                        tab.Parent.Width += card.Width;
+                    if (card.Width * columns > _clientWidth)
+                        _clientWidth += card.Width;
                 }
 
                 card.Left = left;

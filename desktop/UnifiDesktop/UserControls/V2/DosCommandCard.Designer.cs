@@ -46,7 +46,7 @@ namespace Unifi.UserControls
             this.lstCommand.ItemHeight = 18;
             this.lstCommand.Location = new System.Drawing.Point(8, 58);
             this.lstCommand.Name = "lstCommand";
-            this.lstCommand.Size = new System.Drawing.Size(160, 125);
+            this.lstCommand.Size = new System.Drawing.Size(160, 128);
             this.lstCommand.TabIndex = 0;
             this.lstCommand.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstCommand_DrawItem);
             this.lstCommand.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lstCommand_MeasureItem);
@@ -83,7 +83,7 @@ namespace Unifi.UserControls
             this.Controls.Add(this.lstCommand);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "DosCommandCard";
-            this.Size = new System.Drawing.Size(176, 192);
+            this.Size = new System.Drawing.Size(176, 195);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.DosCommandCard_Paint);
             this.ResumeLayout(false);
 
