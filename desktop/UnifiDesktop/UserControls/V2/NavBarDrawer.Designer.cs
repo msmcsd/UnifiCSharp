@@ -65,6 +65,7 @@
             this.drawer1.BackColor = System.Drawing.SystemColors.Control;
             this.drawer1.ClosePanelHeight = 32;
             this.drawer1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.drawer1.DrawerBackColor = System.Drawing.SystemColors.Control;
             this.drawer1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
             // drawer1.InnerPanel

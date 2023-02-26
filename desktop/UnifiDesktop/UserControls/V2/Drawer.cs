@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using UnifiCommands.Logging;
@@ -31,6 +33,17 @@ namespace UnifiDesktop.UserControls.V2
         {
             get { return pnlDrawer; }
             set { pnlDrawer = value; }
+        }
+
+        public Color DrawerBackColor
+        {
+            get { return pnlDrawer.BackColor; }
+            set
+            {
+                pnlDrawer.BackColor = value;
+                pnlCloseMenu.BackColor = value;
+            }
+
         }
 
         public Drawer(ILogger logger) : this()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
@@ -46,6 +47,16 @@ namespace UnifiDesktop.UserControls.V2
             set
             {
                 drawer1.Width = value;
+            }
+        }
+
+        [Browsable(true)]
+        public Color DrawerBackColor 
+        { 
+            get { return drawer1.DrawerBackColor; }
+            set
+            {
+                drawer1.DrawerBackColor = value;
             }
         }
 

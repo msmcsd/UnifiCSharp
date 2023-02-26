@@ -98,10 +98,11 @@ namespace Unifi.Forms.V2
             // navBarDrawer1
             // 
             this.navBarDrawer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.navBarDrawer1.DrawerBackColor = System.Drawing.SystemColors.InactiveBorder;
             // 
             // navBarDrawer1.DrawerPanel
             // 
-            this.navBarDrawer1.DrawerPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.navBarDrawer1.DrawerPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpDownload);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpInstall);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.lstInstall);
@@ -118,9 +119,9 @@ namespace Unifi.Forms.V2
             this.navBarDrawer1.MainControlsPanel.Controls.Add(this.pnlDosCommands);
             this.navBarDrawer1.MainControlsPanel.Controls.Add(this.grpConsole);
             this.navBarDrawer1.MainControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navBarDrawer1.MainControlsPanel.Location = new System.Drawing.Point(217, 40);
+            this.navBarDrawer1.MainControlsPanel.Location = new System.Drawing.Point(211, 40);
             this.navBarDrawer1.MainControlsPanel.Name = "MainControlsPanel";
-            this.navBarDrawer1.MainControlsPanel.Size = new System.Drawing.Size(1122, 644);
+            this.navBarDrawer1.MainControlsPanel.Size = new System.Drawing.Size(1128, 644);
             this.navBarDrawer1.MainControlsPanel.TabIndex = 3;
             this.navBarDrawer1.Name = "navBarDrawer1";
             this.navBarDrawer1.NavBarHeight = 40;
@@ -358,14 +359,14 @@ namespace Unifi.Forms.V2
             this.pnlDosCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDosCommands.Location = new System.Drawing.Point(0, 0);
             this.pnlDosCommands.Name = "pnlDosCommands";
-            this.pnlDosCommands.Size = new System.Drawing.Size(397, 644);
+            this.pnlDosCommands.Size = new System.Drawing.Size(403, 644);
             this.pnlDosCommands.TabIndex = 17;
             // 
             // grpConsole
             // 
             this.grpConsole.Controls.Add(this.splitContainer1);
             this.grpConsole.Dock = System.Windows.Forms.DockStyle.Right;
-            this.grpConsole.Location = new System.Drawing.Point(397, 0);
+            this.grpConsole.Location = new System.Drawing.Point(403, 0);
             this.grpConsole.Name = "grpConsole";
             this.grpConsole.Size = new System.Drawing.Size(725, 644);
             this.grpConsole.TabIndex = 15;
@@ -486,7 +487,7 @@ namespace Unifi.Forms.V2
             this.lstBatchCommands.Size = new System.Drawing.Size(254, 226);
             this.lstBatchCommands.TabIndex = 2;
             // 
-            // TestToolV2
+            // TestTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -497,7 +498,7 @@ namespace Unifi.Forms.V2
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1099, 632);
-            this.Name = "TestToolV2";
+            this.Name = "TestTool";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Unifi";
