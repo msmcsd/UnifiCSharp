@@ -198,22 +198,22 @@
     <Compile Include="UserControls\V2\CommandItem.Designer.cs">
       <DependentUpon>CommandItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\V2\HamburgerMenu.cs">
+    <Compile Include="UserControls\V2\Navigation\HamburgerMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\V2\HamburgerMenu.Designer.cs">
+    <Compile Include="UserControls\V2\Navigation\HamburgerMenu.Designer.cs">
       <DependentUpon>HamburgerMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\V2\NavBar.cs">
+    <Compile Include="UserControls\V2\Navigation\NavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\V2\NavBar.Designer.cs">
+    <Compile Include="UserControls\V2\Navigation\NavBar.Designer.cs">
       <DependentUpon>NavBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\V2\NavBarDrawer.cs">
+    <Compile Include="UserControls\V2\Navigation\NavBarDrawer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\V2\NavBarDrawer.Designer.cs">
+    <Compile Include="UserControls\V2\Navigation\NavBarDrawer.Designer.cs">
       <DependentUpon>NavBarDrawer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\V2\RoundButton.cs">
@@ -228,10 +228,10 @@
     <Compile Include="UserControls\V2\DosCommandsTabControl.Designer.cs">
       <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\V2\Drawer.cs">
+    <Compile Include="UserControls\V2\Navigation\Drawer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\V2\Drawer.Designer.cs">
+    <Compile Include="UserControls\V2\Navigation\Drawer.Designer.cs">
       <DependentUpon>Drawer.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\V2\TabHeader.cs">
@@ -300,13 +300,13 @@
     <EmbeddedResource Include="UserControls\V2\CommandItem.resx">
       <DependentUpon>CommandItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\V2\HamburgerMenu.resx">
+    <EmbeddedResource Include="UserControls\V2\Navigation\HamburgerMenu.resx">
       <DependentUpon>HamburgerMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\V2\NavBar.resx">
+    <EmbeddedResource Include="UserControls\V2\Navigation\NavBar.resx">
       <DependentUpon>NavBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\V2\NavBarDrawer.resx">
+    <EmbeddedResource Include="UserControls\V2\Navigation\NavBarDrawer.resx">
       <DependentUpon>NavBarDrawer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\RoundButton.resx">
@@ -315,7 +315,7 @@
     <EmbeddedResource Include="UserControls\V2\DosCommandsTabControl.resx">
       <DependentUpon>DosCommandsTabControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\V2\Drawer.resx">
+    <EmbeddedResource Include="UserControls\V2\Navigation\Drawer.resx">
       <DependentUpon>Drawer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\VersionGrid.resx">
