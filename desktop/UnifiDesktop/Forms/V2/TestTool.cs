@@ -466,51 +466,6 @@ namespace Unifi.Forms.V2
             lstInstall.DataSource = groups;
         }
 
-        //private void PopulateDownloadCommands()
-        //{
-        //    lstDownload.TestTask = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download);
-        //    lstDownload.CommandsRunner = _commandsRunner;
-        //    lstDownload.Logger = _logger;
-        //}
-        
-        //private void PopulateRollbackPositions()
-        //{
-        //    if (BaseCommandInfo.ShowCommandOnMachine() != ShowCommandOnMachine.Test) return;
-
-        //    _lstRollbackPosition.Items.Clear();
-        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);
-        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
-        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.UpdateAmpplPositions,_commandsProvider.UpdateAmpplRollbackPositions);
-
-        //    Rollback.RollbackPositionsList = new Dictionary<string, List<FullCommandInfo>>
-        //    {
-        //        {Rollback.RollbackCategoryName.AddAmppl,  _commandsProvider.AddAmpplRollbackPositions},
-        //        {Rollback.RollbackCategoryName.RemoveAmppl,  _commandsProvider.RemoveAmpplRollbackPositions},
-        //        {Rollback.RollbackCategoryName.UpdateAmppl,  _commandsProvider.UpdateAmpplRollbackPositions}
-        //    };
-
-        //    //grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
-        //    //TabPage page = new TabPage("Rollback");
-        //    //grpRollback.Dock = DockStyle.Left;
-        //    //page.Controls.Add(grpRollback);
-        //    //tabCommands.TabPages.Add(page);
-        //    //grpRollback.Visible = true;
-        //}
-
-        private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)
-        {
-            var commandInfos = rollbackPositions?.ToList();
-            if (commandInfos == null || string.IsNullOrEmpty(category) || commandInfos.Count <= 0) return;
-
-            int i = category.IndexOf("-", StringComparison.Ordinal);
-            _lstRollbackPosition.Items.Add($"{CategoryPrefix} {category.Substring(i + 1)}");
-            foreach (var p in commandInfos)
-            {
-                _lstRollbackPosition.Items.Add(p);
-            }
-            _lstRollbackPosition.Items.Add("");
-        }
-
         private void PopulateBatchCommandList()
         {
             lstBatchCommands.TestTasks = _commandsProvider.BatchTasks;
