@@ -1406,14 +1406,11 @@
 		]
 	},
 	{
-		"Name": "Rollback",
+		"Name": "Add AM-PPL",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Test",
 		"Tab": "Rollback",
 		"Commands": [
-			{
-				"DisplayText": "-- Add AM-PPL"
-			},
 			{
 				"Command": "SetRollback",
 				"DisplayText": "00-None",
@@ -1491,13 +1488,15 @@
 				"DisplayText": "12-AfterMsiUpdated",
 				"Arguments": "Add AM-PPL, AfterMsiUpdated",
 				"Type": "Code"
-			},
-			{
-				"DisplayText": ""
-			},
-			{
-				"DisplayText": "-- Remove AM-PPL"
-			},
+			}
+		]
+	},
+	{
+		"Name": "Remove AM-PPL",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
+		"Tab": "Rollback",
+		"Commands": [
 			{
 				"Command": "SetRollback",
 				"DisplayText": "00-None",
@@ -1569,13 +1568,15 @@
 				"DisplayText": "11-AfterMsiUpdated",
 				"Arguments": "Remove AM-PPL, AfterMsiUpdated",
 				"Type": "Code"
-			},
-			{
-				"DisplayText": ""
-			},
-			{
-				"DisplayText": "-- Update AM-PPL"
-			},
+			}
+		]
+	},
+	{
+		"Name": "Updat AM-PPL",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Test",
+		"Tab": "Rollback",
+		"Commands": [
 			{
 				"Command": "SetRollback",
 				"DisplayText": "00-None",
@@ -1699,14 +1700,6 @@
 				"Type": "Code"
 			},
 			{
-				"Command": "FileCopy",
-				"Arguments": "$[ProtectLogPath], $[GetRollbackLogSaveDirectory]",
-				"DisplayText": "Copy Log File",
-				"Type": "Code",
-				"Visible": false,
-				"ShowOnMachine": "Test"
-			},
-			{
 				"Command": "BackupRollbackLogFile",
 				"Arguments": "$[ProtectLogPath]",
 				"DisplayText": "Backup Log File",
@@ -1714,9 +1707,10 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "${NotepadPath}",
-				"Arguments": "\"$[GetLatestRollbackFile]\"",
+				"Command": "GetLatestRollbackFile",
+				"Arguments": "\"${NotepadPath}\"",
 				"DisplayText": "Open Rollback Log File",
+				"Type": "Code",
 				"ShowOnMachine": "Test"
 			},
 			{

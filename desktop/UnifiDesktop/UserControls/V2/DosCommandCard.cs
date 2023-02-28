@@ -38,9 +38,10 @@ namespace Unifi.UserControls
 
         private void SetupControl()
         {
+            int clientHeight = Height - lstCommand.Height;
             lstCommand.DataSource = _testTask.Commands;
             label1.Text = _testTask.Name;
-            int height = (lstCommand.Items.Count + 1) * lstCommand.ItemHeight + 30;
+            int height = (lstCommand.Items.Count + 1) * lstCommand.ItemHeight + clientHeight;
             if (height > Height) Height = height;
         }
 
@@ -56,7 +57,7 @@ namespace Unifi.UserControls
                 return;
             }
 
-                lstCommand.SelectedIndex = lstCommand.IndexFromPoint(e.X, e.Y);
+            lstCommand.SelectedIndex = lstCommand.IndexFromPoint(e.X, e.Y);
             if (lstCommand.SelectedIndex < 0)
             {
                 Debug.WriteLine(GetType(), "lstCommand.SelectedIndex <= 0");

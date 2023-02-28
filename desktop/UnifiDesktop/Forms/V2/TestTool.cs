@@ -363,78 +363,78 @@ namespace Unifi.Forms.V2
             }
         }
 
-        private string GetRollbackLogSaveDirectory
-        {
-            get
-            {
-                string rollbackCategory = GetAmpplRollbackTestCategory(out string rollbackPosition);
-                string archFolder = Environment.OSVersion.Version.CompareTo(new Version("6.2")) < 0
-                    ? "Win7"
-                    : Environment.Is64BitOperatingSystem ? "x64" : "x86";
+        //private string GetRollbackLogSaveDirectory
+        //{
+        //    get
+        //    {
+        //        string rollbackCategory = GetAmpplRollbackTestCategory(out string rollbackPosition);
+        //        string archFolder = Environment.OSVersion.Version.CompareTo(new Version("6.2")) < 0
+        //            ? "Win7"
+        //            : Environment.Is64BitOperatingSystem ? "x64" : "x86";
 
-                FullCommandInfo command = _lstRollbackPosition.SelectedItem as FullCommandInfo;
-                string rollbackPositionFolder = command == null ? "" : $"{command.Arguments}-{command.DisplayText}";
-                string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}\{rollbackCategory}\{rollbackPositionFolder}");
+        //        FullCommandInfo command = _lstRollbackPosition.SelectedItem as FullCommandInfo;
+        //        string rollbackPositionFolder = command == null ? "" : $"{command.Arguments}-{command.DisplayText}";
+        //        string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}\{rollbackCategory}\{rollbackPositionFolder}");
 
-                if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
+        //        if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
-                return saveFolder;
-            }
-        }
+        //        return saveFolder;
+        //    }
+        //}
 
-        private string GetLatestRollbackFile
-        {
-            get
-            {
-                string logFolder = GetRollbackLogSaveDirectory;
-                _logger.LogInfo($"Log folder is {logFolder}");
+        //private string GetLatestRollbackFile
+        //{
+        //    get
+        //    {
+        //        string logFolder = GetRollbackLogSaveDirectory;
+        //        _logger.LogInfo($"Log folder is {logFolder}");
 
-                var file = new DirectoryInfo(logFolder).GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                if (file == null) {
-                    _logger.LogInfo("No files found in the folder.");
-                    return "";
-                }
+        //        var file = new DirectoryInfo(logFolder).GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+        //        if (file == null) {
+        //            _logger.LogInfo("No files found in the folder.");
+        //            return "";
+        //        }
 
-                return Path.Combine(logFolder, file.Name);
-            }
-        }
+        //        return Path.Combine(logFolder, file.Name);
+        //    }
+        //}
 
-        private string GetAmpplRollbackTestCategory(out string rollbackPosition)
-        {
-            rollbackPosition = "";
-            if (_lstRollbackPosition.SelectedItem == null ||
-                _lstRollbackPosition.SelectedIndex <= 0 ||
-                _lstRollbackPosition.Text.Trim() == "")
-            {
-                return "";
-            }
+        //private string GetAmpplRollbackTestCategory(out string rollbackPosition)
+        //{
+        //    rollbackPosition = "";
+        //    if (_lstRollbackPosition.SelectedItem == null ||
+        //        _lstRollbackPosition.SelectedIndex <= 0 ||
+        //        _lstRollbackPosition.Text.Trim() == "")
+        //    {
+        //        return "";
+        //    }
 
-            if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
-            {
-                rollbackPosition = Rollback.RollbackCategoryName.None;
-                if (_lstRollbackPosition.Text.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
-                if (_lstRollbackPosition.Text.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
-                if (_lstRollbackPosition.Text.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
-            }
+        //    if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
+        //    {
+        //        rollbackPosition = Rollback.RollbackCategoryName.None;
+        //        if (_lstRollbackPosition.Text.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
+        //        if (_lstRollbackPosition.Text.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
+        //        if (_lstRollbackPosition.Text.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
+        //    }
 
-            rollbackPosition = _lstRollbackPosition.Text;
-            for (int i = _lstRollbackPosition.SelectedIndex-1; i >= 0; i--)
-            {
-                string currentItemText = _lstRollbackPosition.Items[i].ToString().Trim();
-                if (currentItemText.StartsWith(CategoryPrefix))
-                {
-                    if (currentItemText.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
-                    if (currentItemText.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
-                    if (currentItemText.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
-                }
-            }
+        //    rollbackPosition = _lstRollbackPosition.Text;
+        //    for (int i = _lstRollbackPosition.SelectedIndex-1; i >= 0; i--)
+        //    {
+        //        string currentItemText = _lstRollbackPosition.Items[i].ToString().Trim();
+        //        if (currentItemText.StartsWith(CategoryPrefix))
+        //        {
+        //            if (currentItemText.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
+        //            if (currentItemText.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
+        //            if (currentItemText.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
+        //        }
+        //    }
 
-            return "";
-        }
+        //    return "";
+        //}
 
         private string CompileMode => chkDebugBuild.Checked ? "Debug" : "";
 
-        private string GetRollbackPosition => _lstRollbackPosition.SelectedItem == null ? Rollback.RollbackCategoryName.None : _lstRollbackPosition.Text;
+        //private string GetRollbackPosition => _lstRollbackPosition.SelectedItem == null ? Rollback.RollbackCategoryName.None : _lstRollbackPosition.Text;
 
 #endregion
 
@@ -491,24 +491,24 @@ namespace Unifi.Forms.V2
 
 #region Control Events
 
-        private async void lstRollbackPosition_Click(object sender, EventArgs e)
-        {
-            if (_lstRollbackPosition.Items.Count == 0) return;
+        //private async void lstRollbackPosition_Click(object sender, EventArgs e)
+        //{
+        //    if (_lstRollbackPosition.Items.Count == 0) return;
 
-            if (_lstRollbackPosition.SelectedItem == null)
-            {
-                _lstRollbackPosition.SelectedIndex = 0;
-            }
+        //    if (_lstRollbackPosition.SelectedItem == null)
+        //    {
+        //        _lstRollbackPosition.SelectedIndex = 0;
+        //    }
 
-            if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
-            {
-                return;
-            }
+        //    if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
+        //    {
+        //        return;
+        //    }
 
-            string category = GetAmpplRollbackTestCategory(out string position);
+        //    string category = GetAmpplRollbackTestCategory(out string position);
 
-            await new SetRollbackCommand(category, position, _logger).Execute();
-        }
+        //    await new SetRollbackCommand(category, position, _logger).Execute();
+        //}
 
         /// <summary>
         /// Main function to run commands.

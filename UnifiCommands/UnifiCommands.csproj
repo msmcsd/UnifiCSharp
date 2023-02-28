@@ -60,6 +60,7 @@
     <Compile Include="Commands\CodeCommands\FileCopyCommand.cs" />
     <Compile Include="Commands\CodeCommands\FileDeleteCommand.cs" />
     <Compile Include="Commands\CodeCommands\FileVersionCommand.cs" />
+    <Compile Include="Commands\CodeCommands\GetLatestRollbackFileCommand.cs" />
     <Compile Include="Commands\CodeCommands\GetMsiPathCommand.cs" />
     <Compile Include="Commands\CodeCommands\MonitorLogCommand.cs" />
     <Compile Include="Commands\CodeCommands\SetRollbackCommand.cs" />

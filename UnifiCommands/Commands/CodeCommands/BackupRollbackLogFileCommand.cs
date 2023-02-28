@@ -40,7 +40,7 @@ namespace UnifiCommands.Commands.CodeCommands
                 return Task.FromResult("");
             }
 
-            string saveToFolder = GetSaveLogDirectory();
+            string saveToFolder = GetSaveLogDirectory(_rollbackCategory, _rollbackPosition);
             string saveToPath = Path.Combine(saveToFolder, Path.GetFileName(_logFilePath));
 
             File.Copy(_logFilePath, saveToPath, true);
@@ -50,18 +50,18 @@ namespace UnifiCommands.Commands.CodeCommands
             return Task.FromResult(saveToPath);
         }
 
-        private string GetSaveLogDirectory()
+        public static string GetSaveLogDirectory(string rollbackCategory, string rollbackPosition)
         {
             string archFolder = Environment.OSVersion.Version.CompareTo(new Version("6.2")) < 0
                 ? "Win7"
                 : Environment.Is64BitOperatingSystem ? "x64" : "x86";
 
-            var infos = Rollback.RollbackPositionsList.FirstOrDefault(a => a.Key.Equals(_rollbackCategory, StringComparison.InvariantCultureIgnoreCase)).Value;
-            var info = infos.FirstOrDefault(i => i.DisplayText.Equals(_rollbackPosition, StringComparison.InvariantCultureIgnoreCase));
+            var infos = Rollback.RollbackPositionsList.FirstOrDefault(a => a.Key.Equals(rollbackCategory, StringComparison.InvariantCultureIgnoreCase)).Value;
+            var info = infos.FirstOrDefault(i => i.DisplayText.Equals(rollbackPosition, StringComparison.InvariantCultureIgnoreCase));
             string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}");
 
-            if (!string.IsNullOrEmpty(_rollbackCategory) && !string.IsNullOrEmpty(_rollbackPosition))
-                saveFolder = $@"{saveFolder}\{_rollbackCategory}\{info.Arguments}-{info.DisplayText}";
+            if (!string.IsNullOrEmpty(rollbackCategory) && !string.IsNullOrEmpty(rollbackPosition))
+                saveFolder = $@"{saveFolder}\{rollbackCategory}\{info.Arguments}-{info.DisplayText}";
 
             if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
