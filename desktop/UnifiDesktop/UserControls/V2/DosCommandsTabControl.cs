@@ -49,14 +49,13 @@ namespace UnifiDesktop.UserControls.V2
             _logger = logger;
         }
 
-        public ListBox PopulateDosTasks(List<TestTask> testTasks)
+        public void PopulateDosTasks(List<TestTask> testTasks)
         {
             //Width = _clientWidth;
             _clearingPanels = true;
             tabCommands.TabPages.Clear();
             _clearingPanels = false;
 
-            ListBox lstRollbackPosition = null;
             int tabIndex = 0;
 
             foreach (var tabName in Enum.GetNames(typeof(DosTab)))
@@ -72,11 +71,6 @@ namespace UnifiDesktop.UserControls.V2
                     tabHeader.Click += OnHeaderClick;
                     _tabInfo.Add(new TabInfo { TabHeaderLabel = tabHeader, TabClientWidth = clientWidth});
                     tabIndex++;
-
-                    if (tabName == DosTab.Rollback.ToString())
-                    {
-                        lstRollbackPosition = FindRollbackListBox(page);
-                    }
                 }
             }
 
@@ -88,8 +82,6 @@ namespace UnifiDesktop.UserControls.V2
                 tabCommands.SelectedIndex = 0;
 
             MoveUnderLine(tabCommands.SelectedIndex);
-
-            return lstRollbackPosition;
         }
 
         private void PopulateTabNames()
@@ -140,28 +132,6 @@ namespace UnifiDesktop.UserControls.V2
             }
 
             return clientWidth;
-        }
-
-        private ListBox FindRollbackListBox(TabPage page)
-        {
-            foreach (var ctrl in page.Controls)
-            {
-                if (ctrl is DosCommandGroup commandGroup)
-                {
-                    if (commandGroup.ListBox.Items.Count > 0)
-                    {
-                        foreach (var item in commandGroup.ListBox.Items)
-                        {
-                            FullCommandInfo command = (FullCommandInfo)item;
-                            if (command.Command.Equals("SetRollback", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                return commandGroup.ListBox;
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
         }
 
         private void tabCommands_SelectedIndexChanged(object sender, EventArgs e)

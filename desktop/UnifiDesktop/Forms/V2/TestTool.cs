@@ -276,7 +276,7 @@ namespace Unifi.Forms.V2
             DosCommandsTabControl tabControl = new DosCommandsTabControl(_programSettings, _commandsRunner, _logger);
             pnlDosCommands.Controls.Add(tabControl);
             tabControl.Dock = DockStyle.Fill;
-            _lstRollbackPosition = tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
+            tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
             pnlDosCommands.Width = tabControl.ClientWidth;
             tabControl.TabChanged += SetTabControlClientWidth;
         }
