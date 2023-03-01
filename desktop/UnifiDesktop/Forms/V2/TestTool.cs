@@ -540,6 +540,12 @@ namespace Unifi.Forms.V2
             if (e != null && e.KeyCode == Keys.F5)
             {
                 LoadControls();
+                return;
+            }
+
+            if (e.KeyCode == Keys.Space && e.Modifiers == Keys.Control)
+            {
+                navBarDrawer1.DrawerVisible = ! navBarDrawer1.DrawerVisible;
             }
         }
 

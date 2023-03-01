@@ -91,6 +91,16 @@ namespace UnifiDesktop.UserControls.V2
             }
         }
 
+        [Browsable(true)]
+        public bool DrawerVisible
+        {
+            get { return drawer1.Visible; }
+            set
+            {
+                OpenDrawer(value);
+            }
+        }
+
         /// <summary>
         /// Allows adding control to panel at design time: step 1 of 3.
         /// Panel for Install and Download commands.
