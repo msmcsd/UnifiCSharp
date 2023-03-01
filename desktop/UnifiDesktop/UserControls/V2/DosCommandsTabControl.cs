@@ -15,23 +15,31 @@ namespace UnifiDesktop.UserControls.V2
 {
     internal partial class DosCommandsTabControl : UserControl
     {
+        public event EventHandler TabChanged;
+
         private readonly ProgramSettings _programSettings;
         private readonly CommandsRunner _commandsRunner;
         private readonly ILogger _logger;
         private bool _clearingPanels;
-        private TabHeaderLabel[] _tabNames;
+        private List<TabInfo> _tabInfo = new List<TabInfo>();
         private TabHeaderLabel _preTabHeader = null;
 
         // Default card size that holds 7 list item each card and three cards per column in card container.
         private const int CardWidth = 160;
         private const int CardHeight = 195;
-        private int _clientWidth = CardWidth + 15; // Leave space to the right of card list container.
+        private const int DefaultClientWidth = CardWidth + 15; // Leave space to the right of card list container.
+        private int _minClientWidth; // Width that ensures all tab header labels are visible if there are only few columns of DosCommandsCard.
 
-        public int ClientWidth => _clientWidth;
+        public int ClientWidth => _tabInfo[_preTabHeader.Index].TabClientWidth < _minClientWidth ? _minClientWidth : _tabInfo[_preTabHeader.Index].TabClientWidth;
 
         public DosCommandsTabControl()
         {
             InitializeComponent();
+        }
+
+        private void OnTabChanged(object sender, EventArgs e)
+        {
+            TabChanged?.Invoke(this, e);
         }
 
         public DosCommandsTabControl(ProgramSettings programSettings, CommandsRunner commandsRunner, ILogger logger): this()
@@ -48,7 +56,6 @@ namespace UnifiDesktop.UserControls.V2
             tabCommands.TabPages.Clear();
             _clearingPanels = false;
 
-            List<TabHeaderLabel> lstHeaders = new List<TabHeaderLabel>();
             ListBox lstRollbackPosition = null;
             int tabIndex = 0;
 
@@ -59,11 +66,11 @@ namespace UnifiDesktop.UserControls.V2
                 {
                     TabPage page = new TabPage(tabName);
                     tabCommands.TabPages.Add(page);
-                    AddComandGroupsToTab(page, tasks);
+                    int clientWidth = AddComandGroupsToTab(page, tasks);
 
                     TabHeaderLabel tabHeader = new TabHeaderLabel(tabName, tabIndex);
                     tabHeader.Click += OnHeaderClick;
-                    lstHeaders.Add(tabHeader);
+                    _tabInfo.Add(new TabInfo { TabHeaderLabel = tabHeader, TabClientWidth = clientWidth});
                     tabIndex++;
 
                     if (tabName == DosTab.Rollback.ToString())
@@ -73,7 +80,6 @@ namespace UnifiDesktop.UserControls.V2
                 }
             }
 
-            _tabNames = lstHeaders.ToArray();
             PopulateTabNames();
 
             if (_programSettings != null && _programSettings.Tab >= 0 && _programSettings.Tab <= tabCommands.TabPages.Count - 1)
@@ -89,20 +95,23 @@ namespace UnifiDesktop.UserControls.V2
         private void PopulateTabNames()
         {
             int left = 0;
-            int top = (pnlHeader.Height - _tabNames[0].Height)/2;
+            int top = (pnlHeader.Height - _tabInfo[0].TabHeaderLabel.Height)/2;
 
-            for (int i = 0; i < _tabNames.Length; i++) {
-                pnlHeader.Controls.Add(_tabNames[i]);
-                _tabNames[i].Location = new Point(left, top);
-                left += _tabNames[i].Width;
+            for (int i = 0; i < _tabInfo.Count; i++) {
+                pnlHeader.Controls.Add(_tabInfo[i].TabHeaderLabel);
+                _tabInfo[i].TabHeaderLabel.Location = new Point(left, top);
+                left += _tabInfo[i].TabHeaderLabel.Width;
             }
+
+            _minClientWidth = left;
         }
 
-        private void AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)
+        private int AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)
         {
             int left = 0;
             int top = 0;
             int columns = 1;
+            int clientWidth = DefaultClientWidth;
 
             tab.Controls.Clear();
 
@@ -120,8 +129,8 @@ namespace UnifiDesktop.UserControls.V2
                     top = 0;
                     columns++;
 
-                    if (card.Width * columns > _clientWidth)
-                        _clientWidth += card.Width;
+                    if (card.Width * columns > clientWidth)
+                        clientWidth += card.Width;
                 }
 
                 card.Left = left;
@@ -129,6 +138,8 @@ namespace UnifiDesktop.UserControls.V2
 
                 top += card.Height;
             }
+
+            return clientWidth;
         }
 
         private ListBox FindRollbackListBox(TabPage page)
@@ -162,12 +173,14 @@ namespace UnifiDesktop.UserControls.V2
                     _programSettings.Tab = tabCommands.SelectedIndex;
                 }
             }
+
+            OnTabChanged(this, e);
         }
 
         private void MoveUnderLine(int endIndex)
         {
             int loops = 10;
-            TabHeaderLabel endHeader = _tabNames[endIndex];
+            TabHeaderLabel endHeader = _tabInfo[endIndex].TabHeaderLabel;
             int startPosition = lblUnderline.Left;
             int endPosition = endHeader.Left;
             int pixelPerLoopInPosition = (endPosition - startPosition) / loops;
@@ -195,6 +208,13 @@ namespace UnifiDesktop.UserControls.V2
 
             MoveUnderLine(index);
             tabCommands.SelectedIndex = index;
+        }
+
+        class TabInfo
+        {
+            public TabHeaderLabel TabHeaderLabel { get; set; }
+            
+            public int TabClientWidth { get; set; }
         }
     }
 }

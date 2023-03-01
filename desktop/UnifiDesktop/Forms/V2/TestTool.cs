@@ -278,6 +278,12 @@ namespace Unifi.Forms.V2
             tabControl.Dock = DockStyle.Fill;
             _lstRollbackPosition = tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
             pnlDosCommands.Width = tabControl.ClientWidth;
+            tabControl.TabChanged += SetTabControlClientWidth;
+        }
+
+        private void SetTabControlClientWidth(object sender, EventArgs e)
+        {
+            pnlDosCommands.Width = (sender as DosCommandsTabControl).ClientWidth;
         }
 
         private void OutputToConsole(object sender, DataReceivedEventArgs e)
