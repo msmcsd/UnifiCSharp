@@ -4,13 +4,13 @@ using System.Windows.Forms;
 
 namespace UnifiDesktop.UserControls.V2
 {
-    internal class TabHeader : Label
+    internal class TabHeaderLabel : Label
     {
         public int Index => (int)Tag;
 
-        public TabHeader(string text, int index)
+        public TabHeaderLabel(string text, int index)
         {
-            //Font = new Font(Font, FontStyle.Bold);
+            Font = new Font(Font.FontFamily, 9f);
             TextAlign = ContentAlignment.MiddleCenter;
             Text = text.ToUpper();
             Tag = index;
@@ -20,7 +20,7 @@ namespace UnifiDesktop.UserControls.V2
 
         public void SetActiveColor() => ForeColor = SystemColors.Highlight;
         
-        public void SetInactiveColor() => ForeColor = SystemColors.GrayText;
+        public void SetInactiveColor() => ForeColor = Color.Black;
 
         protected override void OnTextChanged(EventArgs e)
         {

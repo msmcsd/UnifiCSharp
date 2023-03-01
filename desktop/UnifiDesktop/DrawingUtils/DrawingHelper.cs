@@ -59,5 +59,10 @@ namespace UnifiDesktop.DrawingUtils
         {
             control.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, control.Width, control.Height, cornerRadius * 2, cornerRadius * 2));
         }
+
+        public static SizeF CalculateStringDimension(Graphics g, string text, Font font, int maxWidth = 1000, StringFormat stringFormat = null)
+        {
+            return g.MeasureString(text, font, maxWidth, stringFormat);
+        }
     }
 }

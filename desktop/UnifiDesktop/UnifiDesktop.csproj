@@ -180,6 +180,9 @@
     <Compile Include="UserControls\TaskButton.Designer.cs">
       <DependentUpon>TaskButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\V2\CustomColorRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\V2\DosCommandCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -234,7 +237,7 @@
     <Compile Include="UserControls\V2\Navigation\Drawer.Designer.cs">
       <DependentUpon>Drawer.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\V2\TabHeader.cs">
+    <Compile Include="UserControls\V2\TabHeaderLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UserControls\VersionGrid.cs">

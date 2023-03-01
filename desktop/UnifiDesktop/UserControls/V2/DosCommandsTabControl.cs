@@ -19,8 +19,8 @@ namespace UnifiDesktop.UserControls.V2
         private readonly CommandsRunner _commandsRunner;
         private readonly ILogger _logger;
         private bool _clearingPanels;
-        private TabHeader[] _tabNames;
-        private TabHeader _preTabHeader = null;
+        private TabHeaderLabel[] _tabNames;
+        private TabHeaderLabel _preTabHeader = null;
 
         // Default card size that holds 7 list item each card and three cards per column in card container.
         private const int CardWidth = 160;
@@ -48,7 +48,7 @@ namespace UnifiDesktop.UserControls.V2
             tabCommands.TabPages.Clear();
             _clearingPanels = false;
 
-            List<TabHeader> lstHeaders = new List<TabHeader>();
+            List<TabHeaderLabel> lstHeaders = new List<TabHeaderLabel>();
             ListBox lstRollbackPosition = null;
             int tabIndex = 0;
 
@@ -61,7 +61,7 @@ namespace UnifiDesktop.UserControls.V2
                     tabCommands.TabPages.Add(page);
                     AddComandGroupsToTab(page, tasks);
 
-                    TabHeader tabHeader = new TabHeader(tabName, tabIndex);
+                    TabHeaderLabel tabHeader = new TabHeaderLabel(tabName, tabIndex);
                     tabHeader.Click += OnHeaderClick;
                     lstHeaders.Add(tabHeader);
                     tabIndex++;
@@ -167,7 +167,7 @@ namespace UnifiDesktop.UserControls.V2
         private void MoveUnderLine(int endIndex)
         {
             int loops = 10;
-            TabHeader endHeader = _tabNames[endIndex];
+            TabHeaderLabel endHeader = _tabNames[endIndex];
             int startPosition = lblUnderline.Left;
             int endPosition = endHeader.Left;
             int pixelPerLoopInPosition = (endPosition - startPosition) / loops;
