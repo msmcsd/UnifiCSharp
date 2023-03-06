@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnifiCommands.CommandInfo;
@@ -134,9 +135,10 @@ namespace UnifiCommands.Commands.CodeCommands
         //    return null;
         //}
 
-        public async static Task<List<Build>> GetSuccessfulBuilds(string url, ILogger logger)
+        public async static Task<List<Build>> GetSuccessfulBuilds(string url, ILogger logger, int batch = 0)
         {
-            url = string.Format(Variables.AllBuildsInfoUrl, url) + "{0,10}";
+            if (batch < 0) batch = 0;
+            url = string.Format(Variables.AllBuildsInfoUrl, url) + "{" + batch + "," + batch + 10 + "}";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = "application/json";
             request.Method = "GET";
@@ -171,28 +173,33 @@ namespace UnifiCommands.Commands.CodeCommands
 
         public async static Task<string> GetBuildNumberByVersion(string url, string version, ILogger logger)
         {
-            var builds = await GetSuccessfulBuilds(url, logger);
-            if (builds == null) return null;
-
-            var build = builds.FirstOrDefault(b => b.DisplayName.Contains(version));
-            if (build != null)
+            for (int i = 0; i < 5; i++)
             {
-                return build.BuildNumber.ToString();
-            }
+                var builds = await GetSuccessfulBuilds(url, logger, i);
+                if (builds == null) return null;
 
+                var build = builds.FirstOrDefault(b => b.DisplayName.Contains(version));
+                if (build != null)
+                {
+                    return build.BuildNumber.ToString();
+                }
+            }
             logger.LogError($"Build version {version} not found.");
             return null;
         }
 
         public async static Task<string> GetVersionByBuildNumber(string url, int buildNumber, ILogger logger)
         {
-            var builds = await GetSuccessfulBuilds(url, logger);
-            if (builds == null) return null;
+            for (int i = 0; i < 5; i++)
+            { 
+                var builds = await GetSuccessfulBuilds(url, logger, i);
+                if (builds == null) return null;
 
-            var build = builds.FirstOrDefault(b => b.BuildNumber == buildNumber);
-            if (build != null)
-            {
-                return GetBuildVersionFromDisplayName(build.DisplayName);
+                var build = builds.FirstOrDefault(b => b.BuildNumber == buildNumber);
+                if (build != null)
+                {
+                    return GetBuildVersionFromDisplayName(build.DisplayName);
+                }
             }
 
             logger.LogError($"Build number {buildNumber} not found.");
