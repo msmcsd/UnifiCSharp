@@ -66,5 +66,10 @@ namespace UnifiDesktop.UserControls
             }
 
         }
+
+        private void lstVersion_MouseUp(object sender, MouseEventArgs e)
+        {
+            ShowFilesVersions(null, null);
+        }
     }
 }

@@ -47,6 +47,7 @@
             this.lstVersion.TabIndex = 0;
             this.lstVersion.UseCompatibleStateImageBehavior = false;
             this.lstVersion.View = System.Windows.Forms.View.Details;
+            this.lstVersion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstVersion_MouseUp);
             // 
             // colFile
             // 
