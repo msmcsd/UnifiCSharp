@@ -1,5 +1,58 @@
 [
 	{
+		"Name": "Install Prerequisite",
+		"CommandGroup": "InstallSetup",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF EXIST \"$[InstallFolder]\" (rd /s /q \"$[InstallFolder]\")",
+				"DisplayText": "Remove Cylance Desktop Directory"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C mkdir \"$[InstallFolder]\"",
+				"DisplayText": "Create Cylance Desktop Directory"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF Not \"$[IsDebugInstaller]\"==\"1\" copy \"${ConfigFolder}\\$[GetConfig]\\config.xml\" \"$[InstallFolder]\"",
+				"DisplayText": "Copy config.xml"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF \"$[IsDebugInstaller]\"==\"1\" copy \"${ConfigFolder}\\$[GetConfig]\\NotSigned\\config.xml\" \"$[InstallFolder]\"",
+				"DisplayText": "Copy debug config.xml"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LogLevel /t REG_DWORD /d 3 /f",
+				"DisplayText": "Set Log Level in Registry"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SelfProtectionLevel /t REG_DWORD /d 1 /f",
+				"DisplayText": "Set Self Protection in Registry"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C IF NOT EXIST ${MsiLogFolder} (mkdir ${MsiLogFolder})",
+				"DisplayText": "Create ${MsiLogFolder} directory"
+			}
+		]
+	},	
+	{
+		"Name": "Install Command",
+		"CommandGroup": "InstallCommand",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Protect Installer",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
 		"Name": "Setup_Protect_Bootstrapper_Install_Env",
 		"CommandGroup": "Function",
 		"Commands": [
@@ -255,13 +308,25 @@
 		]
 	},
 	{
-		"Name": "Uninstall Protect",
+		"Name": "Uninstall Protect-Basic UI",
 		"CommandGroup": "Install",
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
 				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qb",
-				"DisplayText": "Uninstall Protect",
+				"DisplayText": "Uninstall Protect-Basic UI",
+				"Callback": "ShowFilesVersions"
+			}
+		]
+	},
+	{
+		"Name": "Uninstall Protect-No UI",
+		"CommandGroup": "Install",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qn",
+				"DisplayText": "Uninstall Protect-No UI",
 				"Callback": "ShowFilesVersions"
 			}
 		]
@@ -482,6 +547,11 @@
 				"Arguments": "/C FOR /d /r \"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Installers\" %d IN (\"3.1.9*\") DO @IF EXIST \"%d\" rd /s /q \"%d\"",
 				"DisplayText": "Delete downloaded installers",
 				"KeywordForSuccess": ""
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
 			}
 		]
 	},
@@ -543,6 +613,11 @@
 				"Command": "cmd.exe",
 				"Arguments": "/C FOR /F \"tokens=2* skip=2\" %a in ('reg query \"HKLM\\SOFTWARE\\Cylance\\Desktop\" /v \"Path\"') do echo %b",
 				"DisplayText": "Show Install Folder"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C reg delete HKLM\\SOFTWARE\\Cylance\\Desktop /v LastStateRestorePoint /f",
+				"DisplayText": "Remove Token Key"
 			}
 		]
 	},
@@ -1758,12 +1833,25 @@
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest 3.1 Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest BC'",
+				"DisplayText": "Download Latest Release 3.1",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
-				"DisplayText": "Follow inventory",
-				"ShowOnMachine": "Test"
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
 			}
 		]
 	},

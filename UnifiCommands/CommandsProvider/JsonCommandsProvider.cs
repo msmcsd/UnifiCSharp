@@ -15,12 +15,12 @@ namespace UnifiCommands.CommandsProvider
     {
         private ShowCommandOnMachine _showOnMachine;
 
-        public struct TaskGroup
-        {
-            public static string AddAmpplPositions = "Rollback-Add AM-PPL";
-            public static string RemoveAmpplPositions = "Rollback-Remove AM-PPL";
-            public static string UpdateAmpplPositions = "Rollback-Update AM-PPL";
-        }
+        //public struct TaskGroup
+        //{
+        //    public static string AddAmpplPositions = "Rollback-Add AM-PPL";
+        //    public static string RemoveAmpplPositions = "Rollback-Remove AM-PPL";
+        //    public static string UpdateAmpplPositions = "Rollback-Update AM-PPL";
+        //}
 
         public List<TestTask> TestTasks { get; set; }
         

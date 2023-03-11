@@ -81,6 +81,8 @@ namespace UnifiCommands.CommandsProvider
     public enum CommandGroup
     {
         Install,
+        InstallSetup,
+        InstallCommand,
         Dos,
         Taskbar,
         Download,
