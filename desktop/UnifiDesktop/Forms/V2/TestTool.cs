@@ -27,6 +27,7 @@ using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 using UnifiDesktop.UserControls;
 using Microsoft.Win32;
 using UnifiDesktop.UserControls.V2;
+using UnifiDesktop.DrawingUtils;
 
 namespace Unifi.Forms.V2
 {
@@ -198,10 +199,14 @@ namespace Unifi.Forms.V2
 
         private void LoadControls()
         {
+            DrawingHelper.SuspendDrawing(this);
+
             Stopwatch stopwatch= Stopwatch.StartNew();
-            
-            if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
+            _logger = new DesktopLogger(txtConsole);
+
+            //if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
             {
+                _logger.LogInfo($"Coping config file from {Variables.JsonConfigPath} to {Variables.LocalJsonConfigPath}");
                 Process p = new Process
                 {
                     StartInfo = new ProcessStartInfo
@@ -228,8 +233,6 @@ namespace Unifi.Forms.V2
                 //Text = $@"{Text} Loaded using defaults";
             }
 
-            _logger = new DesktopLogger(txtConsole);
-
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
             _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
@@ -248,6 +251,9 @@ namespace Unifi.Forms.V2
 
             stopwatch.Stop();
             UpdateFormTitle(stopwatch.ElapsedMilliseconds);
+
+            DrawingHelper.ResumeDrawing(this);
+
         }
 
         private void UpdateFormTitle(long elapsedMilliseconds)
@@ -273,6 +279,7 @@ namespace Unifi.Forms.V2
 
         private void PopulateDosCommandGroups()
         {
+            pnlDosCommands.Controls.Clear();
             DosCommandsTabControl tabControl = new DosCommandsTabControl(_programSettings, _commandsRunner, _logger);
             pnlDosCommands.Controls.Add(tabControl);
             tabControl.Dock = DockStyle.Fill;
