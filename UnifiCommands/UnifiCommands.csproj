@@ -63,6 +63,7 @@
     <Compile Include="Commands\CodeCommands\GetLatestRollbackFileCommand.cs" />
     <Compile Include="Commands\CodeCommands\GetMsiPathCommand.cs" />
     <Compile Include="Commands\CodeCommands\MonitorLogCommand.cs" />
+    <Compile Include="Commands\CodeCommands\ServiceStateCommand.cs" />
     <Compile Include="Commands\CodeCommands\SetRollbackCommand.cs" />
     <Compile Include="Commands\CodeCommands\SetTestFunctionsCommand.cs" />
     <Compile Include="Commands\CodeCommands\ShowReportCommand.cs" />
