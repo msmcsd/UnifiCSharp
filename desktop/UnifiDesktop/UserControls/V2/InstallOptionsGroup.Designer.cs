@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.grpConfig = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.rbQa2 = new System.Windows.Forms.RadioButton();
             this.rbR02 = new System.Windows.Forms.RadioButton();
             this.rbR01 = new System.Windows.Forms.RadioButton();
@@ -36,25 +37,24 @@
             this.lblInstallPath = new System.Windows.Forms.Label();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
             this.grpProduct = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.rbOptics = new System.Windows.Forms.RadioButton();
             this.rbProtect = new System.Windows.Forms.RadioButton();
             this.grpInstaller = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.rbBootstrapper = new System.Windows.Forms.RadioButton();
             this.rbCyUpgrade = new System.Windows.Forms.RadioButton();
             this.rbMsi = new System.Windows.Forms.RadioButton();
             this.grpUser = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.rbAdmin = new System.Windows.Forms.RadioButton();
             this.btnInstall = new System.Windows.Forms.Button();
             this.btnUninstall = new System.Windows.Forms.Button();
             this.grpInstallMode = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.rbWithUi = new System.Windows.Forms.RadioButton();
             this.rbQuiet = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.grpConfig.SuspendLayout();
             this.grpProduct.SuspendLayout();
             this.grpInstaller.SuspendLayout();
@@ -73,9 +73,18 @@
             this.grpConfig.Location = new System.Drawing.Point(5, 86);
             this.grpConfig.Margin = new System.Windows.Forms.Padding(5);
             this.grpConfig.Name = "grpConfig";
-            this.grpConfig.Size = new System.Drawing.Size(238, 35);
+            this.grpConfig.Size = new System.Drawing.Size(230, 35);
             this.grpConfig.TabIndex = 7;
             this.grpConfig.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "config";
             // 
             // rbQa2
             // 
@@ -90,7 +99,7 @@
             // rbR02
             // 
             this.rbR02.AutoSize = true;
-            this.rbR02.Location = new System.Drawing.Point(110, 12);
+            this.rbR02.Location = new System.Drawing.Point(112, 12);
             this.rbR02.Name = "rbR02";
             this.rbR02.Size = new System.Drawing.Size(41, 17);
             this.rbR02.TabIndex = 1;
@@ -137,7 +146,7 @@
             this.txtInstallDir.Location = new System.Drawing.Point(50, 3);
             this.txtInstallDir.Multiline = true;
             this.txtInstallDir.Name = "txtInstallDir";
-            this.txtInstallDir.Size = new System.Drawing.Size(193, 34);
+            this.txtInstallDir.Size = new System.Drawing.Size(185, 34);
             this.txtInstallDir.TabIndex = 16;
             this.txtInstallDir.Text = "C:\\Program Files\\123";
             // 
@@ -151,9 +160,18 @@
             this.grpProduct.Location = new System.Drawing.Point(5, 43);
             this.grpProduct.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.grpProduct.Name = "grpProduct";
-            this.grpProduct.Size = new System.Drawing.Size(238, 35);
+            this.grpProduct.Size = new System.Drawing.Size(230, 35);
             this.grpProduct.TabIndex = 19;
             this.grpProduct.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Product";
             // 
             // rbOptics
             // 
@@ -188,9 +206,18 @@
             this.grpInstaller.Controls.Add(this.chkDebugBuild);
             this.grpInstaller.Location = new System.Drawing.Point(5, 129);
             this.grpInstaller.Name = "grpInstaller";
-            this.grpInstaller.Size = new System.Drawing.Size(238, 58);
+            this.grpInstaller.Size = new System.Drawing.Size(230, 58);
             this.grpInstaller.TabIndex = 20;
             this.grpInstaller.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Installer";
             // 
             // rbBootstrapper
             // 
@@ -236,9 +263,18 @@
             this.grpUser.Controls.Add(this.rbAdmin);
             this.grpUser.Location = new System.Drawing.Point(5, 193);
             this.grpUser.Name = "grpUser";
-            this.grpUser.Size = new System.Drawing.Size(238, 35);
+            this.grpUser.Size = new System.Drawing.Size(230, 35);
             this.grpUser.TabIndex = 21;
             this.grpUser.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Install as";
             // 
             // radioButton1
             // 
@@ -277,7 +313,7 @@
             // btnUninstall
             // 
             this.btnUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUninstall.Location = new System.Drawing.Point(168, 284);
+            this.btnUninstall.Location = new System.Drawing.Point(160, 284);
             this.btnUninstall.Name = "btnUninstall";
             this.btnUninstall.Size = new System.Drawing.Size(75, 23);
             this.btnUninstall.TabIndex = 23;
@@ -294,9 +330,18 @@
             this.grpInstallMode.Controls.Add(this.rbQuiet);
             this.grpInstallMode.Location = new System.Drawing.Point(5, 231);
             this.grpInstallMode.Name = "grpInstallMode";
-            this.grpInstallMode.Size = new System.Drawing.Size(238, 35);
+            this.grpInstallMode.Size = new System.Drawing.Size(230, 35);
             this.grpInstallMode.TabIndex = 24;
             this.grpInstallMode.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(33, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Mode";
             // 
             // rbWithUi
             // 
@@ -322,51 +367,6 @@
             this.rbQuiet.Text = "Quiet";
             this.rbQuiet.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "config";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Product";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Installer";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 14);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Install as";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 14);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Mode";
-            // 
             // InstallOptionsGroup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,9 +381,9 @@
             this.Controls.Add(this.txtInstallDir);
             this.Controls.Add(this.grpConfig);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MinimumSize = new System.Drawing.Size(248, 312);
+            this.MinimumSize = new System.Drawing.Size(240, 312);
             this.Name = "InstallOptionsGroup";
-            this.Size = new System.Drawing.Size(248, 312);
+            this.Size = new System.Drawing.Size(240, 312);
             this.DoubleClick += new System.EventHandler(this.btnInstall_Click);
             this.grpConfig.ResumeLayout(false);
             this.grpConfig.PerformLayout();

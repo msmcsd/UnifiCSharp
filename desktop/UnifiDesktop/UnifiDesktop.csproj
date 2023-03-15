@@ -162,10 +162,10 @@
     <Compile Include="UserControls\InstallCommandGroup.Designer.cs">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\InstallOptionsGroup.cs">
+    <Compile Include="UserControls\V2\InstallOptionsGroup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\InstallOptionsGroup.Designer.cs">
+    <Compile Include="UserControls\V2\InstallOptionsGroup.Designer.cs">
       <DependentUpon>InstallOptionsGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ReportGrid.cs">
@@ -285,7 +285,7 @@
     <EmbeddedResource Include="UserControls\InstallCommandGroup.resx">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\InstallOptionsGroup.resx">
+    <EmbeddedResource Include="UserControls\V2\InstallOptionsGroup.resx">
       <DependentUpon>InstallOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ReportGrid.resx">

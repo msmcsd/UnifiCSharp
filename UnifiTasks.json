@@ -1843,7 +1843,7 @@
 		"Commands": [
 			{
 				"Command": "DownloadInstaller",
-				"Arguments": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest BC'",
+				"Arguments": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.1'",
 				"DisplayText": "Download Latest Release 3.1",
 				"Type": "Code",
 				"ShowOnMachine": "Test"
