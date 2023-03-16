@@ -90,7 +90,8 @@ namespace UnifiCommands.CommandsProvider
         Batch,
         Function,
         Variable,
-        FileVersion
+        FileVersion,
+        ServiceState
     }
 
     public enum DosTab

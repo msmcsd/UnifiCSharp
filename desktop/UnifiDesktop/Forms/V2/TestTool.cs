@@ -244,6 +244,7 @@ namespace Unifi.Forms.V2
             PopulateBatchCommandList();
             PopulateInstallCommands();
             PopulateVersionGrid();
+            PopulateServiceStateView();
 
             InitDownloadCommandGroup();
 
@@ -275,6 +276,12 @@ namespace Unifi.Forms.V2
             lstVersion.Commands = _commandsProvider.FileVersionTask.Commands;
             lstVersion.PopulateItems();
             lstVersion.FormObject = this;
+        }
+
+        private void PopulateServiceStateView()
+        {
+            serviceStatus1.Logger = _logger;
+            serviceStatus1.Commands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands;
         }
 
         private void PopulateDosCommandGroups()

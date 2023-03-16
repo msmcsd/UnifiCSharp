@@ -21,8 +21,8 @@ namespace UnifiDesktop.UserControls
 
         private void SetupListView()
         {
-            lstVersion.Columns[0].Width = 70;
-            lstVersion.Columns[1].Width = 110;
+            lstVersion.Columns[0].Width = 50;
+            lstVersion.Columns[1].Width = 100;
         }
 
         public void PopulateItems()

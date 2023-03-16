@@ -1185,6 +1185,30 @@
 		]
 	},
 	{
+		"Name": "Service State",
+		"CommandGroup": "ServiceState",
+		"Commands": [
+			{
+				"Command": "ServiceState",
+				"Arguments": "CylanceSvc, ServiceState",
+				"DisplayText": "Service",
+				"Type": "Code"
+			},
+			{
+				"Command": "ServiceState",
+				"Arguments": "CylanceSvc, AmpplState",
+				"DisplayText": "AM-PPL",
+				"Type": "Code"
+			},
+			{
+				"Command": "ServiceState",
+				"Arguments": "CylanceDrv, ServiceState",
+				"DisplayText": "Driver",
+				"Type": "Code"
+			}
+		]
+	},
+	{
 		"Name": "Taskbar Commands",
 		"CommandGroup": "Taskbar",
 		"Commands": [

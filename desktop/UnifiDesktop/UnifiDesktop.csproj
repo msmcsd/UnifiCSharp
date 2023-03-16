@@ -162,6 +162,12 @@
     <Compile Include="UserControls\InstallCommandGroup.Designer.cs">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ServiceStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ServiceStatus.Designer.cs">
+      <DependentUpon>ServiceStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\V2\InstallOptionsGroup.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -284,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\InstallCommandGroup.resx">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ServiceStatus.resx">
+      <DependentUpon>ServiceStatus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\InstallOptionsGroup.resx">
       <DependentUpon>InstallOptionsGroup.cs</DependentUpon>
