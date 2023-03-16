@@ -30,7 +30,6 @@ namespace Unifi.UserControls
         private void InitializeComponent()
         {
             this.lstReport = new System.Windows.Forms.ListView();
-            this.CategoryHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TestHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.KeywordHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -38,7 +37,6 @@ namespace Unifi.UserControls
             // lstReport
             // 
             this.lstReport.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.CategoryHeader,
             this.TestHeader,
             this.KeywordHeader});
             this.lstReport.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -54,20 +52,15 @@ namespace Unifi.UserControls
             this.lstReport.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstReport_ColumnClick);
             this.lstReport.DoubleClick += new System.EventHandler(this.lstReport_DoubleClick);
             // 
-            // CategoryHeader
-            // 
-            this.CategoryHeader.Text = "Category";
-            this.CategoryHeader.Width = 106;
-            // 
             // TestHeader
             // 
             this.TestHeader.Text = "Test";
-            this.TestHeader.Width = 133;
+            this.TestHeader.Width = 160;
             // 
             // KeywordHeader
             // 
             this.KeywordHeader.Text = "Keyword";
-            this.KeywordHeader.Width = 146;
+            this.KeywordHeader.Width = 160;
             // 
             // ReportGrid
             // 
@@ -83,7 +76,6 @@ namespace Unifi.UserControls
         #endregion
 
         private System.Windows.Forms.ListView lstReport;
-        private System.Windows.Forms.ColumnHeader CategoryHeader;
         private System.Windows.Forms.ColumnHeader TestHeader;
         private System.Windows.Forms.ColumnHeader KeywordHeader;
     }

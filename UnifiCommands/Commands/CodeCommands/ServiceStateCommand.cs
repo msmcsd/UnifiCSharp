@@ -34,7 +34,7 @@ namespace UnifiCommands.Commands.CodeCommands
                     break;
             }
 
-            Logger.LogInfo(result);
+            //Logger.LogInfo(result);
 
             return Task.FromResult(result);
         }

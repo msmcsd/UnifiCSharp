@@ -29,9 +29,8 @@ namespace Unifi.UserControls
 
         private void SetupListView()
         {
-            lstReport.Columns[0].Width = 80;
+            lstReport.Columns[0].Width = 160;
             lstReport.Columns[1].Width = 160;
-            lstReport.Columns[2].Width = 160;
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace Unifi.UserControls
                     newCategory = "";
                 }
 
-                var item = new ListViewItem(new[] { newCategory, reportItem.Test, reportItem.Command.KeywordForSuccess })
+                var item = new ListViewItem(new[] { reportItem.Test, reportItem.Command.KeywordForSuccess })
                 {
                     UseItemStyleForSubItems = true,
                     BackColor = reportItem.Passed ? Color.LightGreen : Color.LightSalmon,
