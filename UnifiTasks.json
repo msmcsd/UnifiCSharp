@@ -1205,6 +1205,12 @@
 				"Arguments": "CylanceDrv, ServiceState",
 				"DisplayText": "Driver",
 				"Type": "Code"
+			},
+			{
+				"Command": "ServiceState",
+				"Arguments": "CyElamDrv, ServiceState",
+				"DisplayText": "ELAM",
+				"Type": "Code"
 			}
 		]
 	},
