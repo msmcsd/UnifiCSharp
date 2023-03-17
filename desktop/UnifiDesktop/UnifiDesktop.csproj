@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandsRunner.cs" />
-    <Compile Include="Consoles\DesktopLogger.cs" />
+    <Compile Include="Logging\DesktopLogger.cs" />
     <Compile Include="Consoles\TextBoxConsole.cs" />
     <Compile Include="Consoles\Debugging.cs" />
     <Compile Include="DrawingUtils\DrawingHelper.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Forms\V2\TestTool.designer.cs">
       <DependentUpon>TestTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logging\ServiceStatusLogger.cs" />
     <Compile Include="Observers\Animation\BatchCommandExecutor.cs" />
     <Compile Include="Observers\Animation\BatchListboxUpdater.cs" />
     <Compile Include="Observers\Animation\BatchListViewUpdater.cs" />

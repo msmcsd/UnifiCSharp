@@ -26,6 +26,7 @@ using UnifiCommands.CommandInfo;
 using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 using UnifiDesktop.UserControls;
 using Microsoft.Win32;
+using Unifi.Logging;
 
 namespace Unifi.Forms
 {

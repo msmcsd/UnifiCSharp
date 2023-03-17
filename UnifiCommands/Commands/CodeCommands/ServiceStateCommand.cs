@@ -18,7 +18,12 @@ namespace UnifiCommands.Commands.CodeCommands
 
         public override void LogParameters()
         {
-            LogCommand($"Service name: {_serviceName}", $"Service state: {_serviceState}");
+            //LogCommand($"Service name: {_serviceName}", $"Service state: {_serviceState}");
+        }
+
+        public override void LogCommandEnd()
+        {
+            
         }
 
         protected override Task<string> ExecuteCommand()

@@ -28,6 +28,8 @@ using UnifiDesktop.UserControls;
 using Microsoft.Win32;
 using UnifiDesktop.UserControls.V2;
 using UnifiDesktop.DrawingUtils;
+using Unifi.Logging;
+using UnifiDesktop.Logging;
 
 namespace Unifi.Forms.V2
 {
@@ -280,7 +282,7 @@ namespace Unifi.Forms.V2
 
         private void PopulateServiceStateView()
         {
-            serviceStatus1.Logger = _logger;
+            serviceStatus1.Logger = new ServiceStatusLogger(txtConsole);
             serviceStatus1.Commands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands;
         }
 

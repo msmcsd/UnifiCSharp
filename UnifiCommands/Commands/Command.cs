@@ -29,7 +29,7 @@ namespace UnifiCommands.Commands
             return ret;
         }
 
-        protected void LogCommandEnd()
+        public virtual void LogCommandEnd()
         {
             //Logger.LogCommand($"{GetCommandName()}Finished {new string('-', 90)}", true);
             Logger.LogCommand($"{GetCommandName()}Finished", false);

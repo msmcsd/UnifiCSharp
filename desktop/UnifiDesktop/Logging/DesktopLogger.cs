@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using Unifi.Consoles;
 using UnifiCommands.Logging;
 
-namespace Unifi.Consoles
+namespace Unifi.Logging
 {
     /// <summary>
     /// Logger used for desktop app.
