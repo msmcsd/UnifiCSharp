@@ -68,9 +68,9 @@ namespace Unifi.Forms.V2
         private void SetupEventHandlers()
         {
             grpConfig.DoubleClick += InstallProduct;
-            grpProduct.DoubleClick += InstallProduct;
-            grpRunMode.DoubleClick += InstallProduct;
-            grpInstallMode.DoubleClick += InstallProduct;
+            //grpProduct.DoubleClick += InstallProduct;
+            //grpRunMode.DoubleClick += InstallProduct;
+            //grpInstallMode.DoubleClick += InstallProduct;
         }
 
         private void TestTool_FormClosing(object sender, FormClosingEventArgs e)
@@ -208,7 +208,7 @@ namespace Unifi.Forms.V2
 
             //if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
             {
-                _logger.LogInfo($"Coping config file from {Variables.JsonConfigPath} to {Variables.LocalJsonConfigPath}");
+                _logger.LogInfo($"Copying config file from {Variables.JsonConfigPath} to {Variables.LocalJsonConfigPath}");
                 Process p = new Process
                 {
                     StartInfo = new ProcessStartInfo

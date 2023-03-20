@@ -25,10 +25,9 @@ namespace UnifiDesktop.UserControls
 
         private void SetupEventHandlers()
         {
-            grpJenkin.DoubleClick += DownloadInstaller;
-            grpBuild.DoubleClick += DownloadInstaller;
-            grpInstaller.DoubleClick += DownloadInstaller;
-
+            pnlJenkins.DoubleClick += DownloadInstaller;
+            pnlBuild.DoubleClick += DownloadInstaller;
+            pnlInstaller.DoubleClick += DownloadInstaller;
         }
 
         private class ReleaseUrl
@@ -55,7 +54,7 @@ namespace UnifiDesktop.UserControls
 
         private async void DownloadInstaller(object sender, EventArgs e)
         {
-            string url = GetTagOfSelectedOption(grpJenkin);
+            string url = GetTagOfSelectedOption(pnlJenkins);
 
             //if (!GetBuildNumber(url, out string argument, out string version)) return;
             // Get build number and version
@@ -107,14 +106,14 @@ namespace UnifiDesktop.UserControls
                 DisplayText = version
             };
 
-            string type = GetTagOfSelectedOption(grpInstaller);
+            string type = GetTagOfSelectedOption(pnlInstaller);
             InstallerType installerType = (InstallerType)Enum.Parse(typeof(InstallerType), type);
 
             command = SetUpCommand(command, installerType);
             CommandsRunner.RunCommands(new List<FullCommandInfo> { command });
         }
 
-        private string GetTagOfSelectedOption(GroupBox grp)
+        private string GetTagOfSelectedOption(Panel grp)
         {
             foreach (var control in grp.Controls)
             {
