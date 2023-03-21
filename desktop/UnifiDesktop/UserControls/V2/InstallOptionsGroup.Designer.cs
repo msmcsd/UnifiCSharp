@@ -129,7 +129,7 @@
             this.txtInstallDir.Name = "txtInstallDir";
             this.txtInstallDir.Size = new System.Drawing.Size(141, 34);
             this.txtInstallDir.TabIndex = 16;
-            this.txtInstallDir.Text = "C:\\Program Files\\123";
+            this.txtInstallDir.Text = "C:\\Program Files\\Cylance\\Desktop";
             // 
             // rbOptics
             // 
@@ -272,9 +272,9 @@
             this.lblProduct.AutoSize = true;
             this.lblProduct.Location = new System.Drawing.Point(3, 51);
             this.lblProduct.Name = "lblProduct";
-            this.lblProduct.Size = new System.Drawing.Size(39, 13);
+            this.lblProduct.Size = new System.Drawing.Size(44, 13);
             this.lblProduct.TabIndex = 25;
-            this.lblProduct.Text = "Produt";
+            this.lblProduct.Text = "Product";
             // 
             // label6
             // 

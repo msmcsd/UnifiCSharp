@@ -4,39 +4,9 @@
 		"CommandGroup": "InstallSetup",
 		"Commands": [
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/C IF EXIST \"$[InstallFolder]\" (rd /s /q \"$[InstallFolder]\")",
-				"DisplayText": "Remove Cylance Desktop Directory"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C mkdir \"$[InstallFolder]\"",
-				"DisplayText": "Create Cylance Desktop Directory"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C IF Not \"$[IsDebugInstaller]\"==\"1\" copy \"${ConfigFolder}\\$[GetConfig]\\config.xml\" \"$[InstallFolder]\"",
-				"DisplayText": "Copy config.xml"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C IF \"$[IsDebugInstaller]\"==\"1\" copy \"${ConfigFolder}\\$[GetConfig]\\NotSigned\\config.xml\" \"$[InstallFolder]\"",
-				"DisplayText": "Copy debug config.xml"
-			},
-			{
-				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v LogLevel /t REG_DWORD /d 3 /f",
-				"DisplayText": "Set Log Level in Registry"
-			},
-			{
-				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SelfProtectionLevel /t REG_DWORD /d 1 /f",
-				"DisplayText": "Set Self Protection in Registry"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C IF NOT EXIST ${MsiLogFolder} (mkdir ${MsiLogFolder})",
-				"DisplayText": "Create ${MsiLogFolder} directory"
+				"Command": "Setup_Protect_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
 			}
 		]
 	},	
@@ -46,7 +16,7 @@
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"Callback": "ShowFilesVersions"
 			}

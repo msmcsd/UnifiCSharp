@@ -91,13 +91,13 @@ namespace Unifi.Forms.V2
             // 
             // navBarDrawer1
             // 
+            this.navBarDrawer1.Controls.Add(this.grpInstall);
             this.navBarDrawer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navBarDrawer1.DrawerBackColor = System.Drawing.SystemColors.InactiveBorder;
             // 
             // navBarDrawer1.DrawerPanel
             // 
             this.navBarDrawer1.DrawerPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpInstall);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpInstallOptions);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpDownload);
             this.navBarDrawer1.DrawerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -129,10 +129,11 @@ namespace Unifi.Forms.V2
             this.grpInstallOptions.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpInstallOptions.Location = new System.Drawing.Point(11, 0);
             this.grpInstallOptions.Name = "grpInstallOptions";
-            this.grpInstallOptions.Size = new System.Drawing.Size(200, 398);
+            this.grpInstallOptions.Size = new System.Drawing.Size(200, 389);
             this.grpInstallOptions.TabIndex = 23;
             this.grpInstallOptions.TabStop = false;
             this.grpInstallOptions.Text = "Install";
+            this.grpInstallOptions.Visible = false;
             // 
             // installOptionsGroup1
             // 
@@ -142,7 +143,7 @@ namespace Unifi.Forms.V2
             this.installOptionsGroup1.MinimumSize = new System.Drawing.Size(196, 370);
             this.installOptionsGroup1.Name = "installOptionsGroup1";
             this.installOptionsGroup1.PrerequisiteTask = null;
-            this.installOptionsGroup1.Size = new System.Drawing.Size(196, 378);
+            this.installOptionsGroup1.Size = new System.Drawing.Size(196, 370);
             this.installOptionsGroup1.TabIndex = 0;
             // 
             // grpDownload
@@ -203,7 +204,7 @@ namespace Unifi.Forms.V2
             this.grpInstall.Controls.Add(this.lstInstall);
             this.grpInstall.Controls.Add(this.lblInstallPath);
             this.grpInstall.Controls.Add(this.txtInstallDir);
-            this.grpInstall.Location = new System.Drawing.Point(11, 0);
+            this.grpInstall.Location = new System.Drawing.Point(10, 31);
             this.grpInstall.Name = "grpInstall";
             this.grpInstall.Size = new System.Drawing.Size(200, 398);
             this.grpInstall.TabIndex = 23;

@@ -486,6 +486,10 @@ namespace Unifi.Forms.V2
             var groups = _commandsProvider.TestTasks.Where(t => t.CommandGroup == CommandGroup.Install).ToList();
             lstInstall.DisplayMember = "Name";
             lstInstall.DataSource = groups;
+
+            installOptionsGroup1.SetupCommands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetup)?.Commands;
+            installOptionsGroup1.InstallCommand = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands[0];
+            installOptionsGroup1.Logger = _logger;
         }
 
         private void PopulateBatchCommandList()
