@@ -102,11 +102,14 @@ namespace Unifi.Forms.V2
 
                 switch (_programSettings.Venue)
                 {
-                    case Venue.R01:
+                    case VenueServer.R01:
                         rbR01.Checked = true;
                         break;
-                    case Venue.R02:
+                    case VenueServer.R02:
                         rbR02.Checked = true;
+                        break;
+                    case VenueServer.QA2New:
+                        rbQa2New.Checked = true;
                         break;
                     default:
                         rbQa2.Checked = true;
@@ -118,7 +121,7 @@ namespace Unifi.Forms.V2
                 _programSettings = new ProgramSettings
                 {
                     IsDebugMode = chkDebugBuild.Checked,
-                    Venue = Venue.R01,
+                    Venue = VenueServer.R01,
                     InstallDirectory = Variables.CylanceDesktopFolder
                 };
             }
@@ -134,11 +137,7 @@ namespace Unifi.Forms.V2
             RadioButton rb = sender as RadioButton;
             if (rb == null) return;
 
-            var venue = Enum.GetNames(typeof(Venue))
-                .FirstOrDefault(v => v.Equals(rb.Text, StringComparison.InvariantCultureIgnoreCase));
-
-            if (venue != null)
-                _programSettings.Venue = (Venue)Enum.Parse(typeof(Venue), venue);
+            _programSettings.Venue = rb.Text;
         }
 
         public void ProgramProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -327,6 +326,8 @@ namespace Unifi.Forms.V2
 
                 if (rbQa2.Checked) return Variables.QA2Token;
 
+                if (rbQa2New.Checked) return Variables.QA2TokenNew;
+
                 return Variables.R01Token;
             }
         }
@@ -337,11 +338,13 @@ namespace Unifi.Forms.V2
             {
 
                 if (rbR02.Checked)
-                    return rbR02.Text;
+                    return rbR02.Tag.ToString();
                 else if (rbQa2.Checked)
-                    return rbQa2.Text;
+                    return rbQa2.Tag.ToString();
+                else if (rbQa2New.Checked)
+                    return rbQa2New.Tag.ToString() ;
                 else
-                    return rbR01.Text;
+                    return rbR01.Tag.ToString();
             }
         }
 

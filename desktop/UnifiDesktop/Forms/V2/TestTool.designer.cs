@@ -34,21 +34,21 @@ namespace Unifi.Forms.V2
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestTool));
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.navBarDrawer1 = new UnifiDesktop.UserControls.V2.NavBarDrawer();
-            this.grpInstallOptions = new System.Windows.Forms.GroupBox();
-            this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
             this.grpDownload = new System.Windows.Forms.GroupBox();
             this.downloadCommandGroup1 = new UnifiDesktop.UserControls.DownloadCommandGroup();
-            this.grpConsole = new System.Windows.Forms.GroupBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grpInstall = new System.Windows.Forms.GroupBox();
             this.grpConfig = new System.Windows.Forms.GroupBox();
             this.rbQa2 = new System.Windows.Forms.RadioButton();
             this.rbR02 = new System.Windows.Forms.RadioButton();
             this.rbR01 = new System.Windows.Forms.RadioButton();
-            this.chkDebugBuild = new System.Windows.Forms.CheckBox();
             this.lstInstall = new System.Windows.Forms.ListBox();
+            this.chkDebugBuild = new System.Windows.Forms.CheckBox();
             this.lblInstallPath = new System.Windows.Forms.Label();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
+            this.grpConsole = new System.Windows.Forms.GroupBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.grpInstallOptions = new System.Windows.Forms.GroupBox();
+            this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.grpBatch = new System.Windows.Forms.GroupBox();
@@ -61,18 +61,19 @@ namespace Unifi.Forms.V2
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
             this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.pnlDosCommands = new System.Windows.Forms.Panel();
+            this.rbQa2New = new System.Windows.Forms.RadioButton();
             this.navBarDrawer1.DrawerPanel.SuspendLayout();
             this.navBarDrawer1.MainControlsPanel.SuspendLayout();
             this.navBarDrawer1.SuspendLayout();
-            this.grpInstallOptions.SuspendLayout();
             this.grpDownload.SuspendLayout();
+            this.grpInstall.SuspendLayout();
+            this.grpConfig.SuspendLayout();
             this.grpConsole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.grpInstall.SuspendLayout();
-            this.grpConfig.SuspendLayout();
+            this.grpInstallOptions.SuspendLayout();
             this.grpBatch.SuspendLayout();
             this.grpReport.SuspendLayout();
             this.grpVersion.SuspendLayout();
@@ -91,15 +92,14 @@ namespace Unifi.Forms.V2
             // 
             // navBarDrawer1
             // 
-            this.navBarDrawer1.Controls.Add(this.grpInstall);
             this.navBarDrawer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navBarDrawer1.DrawerBackColor = System.Drawing.SystemColors.InactiveBorder;
             // 
             // navBarDrawer1.DrawerPanel
             // 
             this.navBarDrawer1.DrawerPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpInstallOptions);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpDownload);
+            this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpInstall);
             this.navBarDrawer1.DrawerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navBarDrawer1.DrawerPanel.Location = new System.Drawing.Point(0, 40);
             this.navBarDrawer1.DrawerPanel.Name = "DrawerPanel";
@@ -123,29 +123,6 @@ namespace Unifi.Forms.V2
             this.navBarDrawer1.Size = new System.Drawing.Size(1482, 717);
             this.navBarDrawer1.TabIndex = 22;
             // 
-            // grpInstallOptions
-            // 
-            this.grpInstallOptions.Controls.Add(this.installOptionsGroup1);
-            this.grpInstallOptions.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpInstallOptions.Location = new System.Drawing.Point(11, 0);
-            this.grpInstallOptions.Name = "grpInstallOptions";
-            this.grpInstallOptions.Size = new System.Drawing.Size(200, 389);
-            this.grpInstallOptions.TabIndex = 23;
-            this.grpInstallOptions.TabStop = false;
-            this.grpInstallOptions.Text = "Install";
-            this.grpInstallOptions.Visible = false;
-            // 
-            // installOptionsGroup1
-            // 
-            this.installOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.installOptionsGroup1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.installOptionsGroup1.Location = new System.Drawing.Point(3, 17);
-            this.installOptionsGroup1.MinimumSize = new System.Drawing.Size(196, 370);
-            this.installOptionsGroup1.Name = "installOptionsGroup1";
-            this.installOptionsGroup1.PrerequisiteTask = null;
-            this.installOptionsGroup1.Size = new System.Drawing.Size(196, 370);
-            this.installOptionsGroup1.TabIndex = 0;
-            // 
             // grpDownload
             // 
             this.grpDownload.Controls.Add(this.downloadCommandGroup1);
@@ -168,6 +145,112 @@ namespace Unifi.Forms.V2
             this.downloadCommandGroup1.Size = new System.Drawing.Size(194, 245);
             this.downloadCommandGroup1.TabIndex = 0;
             // 
+            // grpInstall
+            // 
+            this.grpInstall.Controls.Add(this.grpConfig);
+            this.grpInstall.Controls.Add(this.lstInstall);
+            this.grpInstall.Controls.Add(this.chkDebugBuild);
+            this.grpInstall.Controls.Add(this.lblInstallPath);
+            this.grpInstall.Controls.Add(this.txtInstallDir);
+            this.grpInstall.Location = new System.Drawing.Point(8, 17);
+            this.grpInstall.Name = "grpInstall";
+            this.grpInstall.Size = new System.Drawing.Size(200, 372);
+            this.grpInstall.TabIndex = 23;
+            this.grpInstall.TabStop = false;
+            this.grpInstall.Text = "Install";
+            // 
+            // grpConfig
+            // 
+            this.grpConfig.Controls.Add(this.rbQa2New);
+            this.grpConfig.Controls.Add(this.rbQa2);
+            this.grpConfig.Controls.Add(this.rbR02);
+            this.grpConfig.Controls.Add(this.rbR01);
+            this.grpConfig.Location = new System.Drawing.Point(6, 15);
+            this.grpConfig.Margin = new System.Windows.Forms.Padding(5);
+            this.grpConfig.Name = "grpConfig";
+            this.grpConfig.Size = new System.Drawing.Size(188, 49);
+            this.grpConfig.TabIndex = 6;
+            this.grpConfig.TabStop = false;
+            this.grpConfig.Text = "config";
+            // 
+            // rbQa2
+            // 
+            this.rbQa2.AutoSize = true;
+            this.rbQa2.Location = new System.Drawing.Point(87, 20);
+            this.rbQa2.Name = "rbQa2";
+            this.rbQa2.Size = new System.Drawing.Size(43, 17);
+            this.rbQa2.TabIndex = 2;
+            this.rbQa2.Tag = "qa2";
+            this.rbQa2.Text = "qa2";
+            this.rbQa2.UseVisualStyleBackColor = true;
+            this.rbQa2.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
+            // 
+            // rbR02
+            // 
+            this.rbR02.AutoSize = true;
+            this.rbR02.Location = new System.Drawing.Point(45, 20);
+            this.rbR02.Name = "rbR02";
+            this.rbR02.Size = new System.Drawing.Size(41, 17);
+            this.rbR02.TabIndex = 1;
+            this.rbR02.Tag = "r02";
+            this.rbR02.Text = "r02";
+            this.rbR02.UseVisualStyleBackColor = true;
+            this.rbR02.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
+            // 
+            // rbR01
+            // 
+            this.rbR01.AutoSize = true;
+            this.rbR01.Checked = true;
+            this.rbR01.Location = new System.Drawing.Point(7, 20);
+            this.rbR01.Name = "rbR01";
+            this.rbR01.Size = new System.Drawing.Size(41, 17);
+            this.rbR01.TabIndex = 0;
+            this.rbR01.TabStop = true;
+            this.rbR01.Tag = "r01";
+            this.rbR01.Text = "r01";
+            this.rbR01.UseVisualStyleBackColor = true;
+            this.rbR01.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
+            // 
+            // lstInstall
+            // 
+            this.lstInstall.FormattingEnabled = true;
+            this.lstInstall.Location = new System.Drawing.Point(12, 153);
+            this.lstInstall.Name = "lstInstall";
+            this.lstInstall.Size = new System.Drawing.Size(176, 199);
+            this.lstInstall.TabIndex = 16;
+            this.lstInstall.Tag = "Install";
+            this.lstInstall.DoubleClick += new System.EventHandler(this.lstInstall_DoubleClick);
+            this.lstInstall.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstInstall_MouseDown);
+            // 
+            // chkDebugBuild
+            // 
+            this.chkDebugBuild.AutoSize = true;
+            this.chkDebugBuild.Location = new System.Drawing.Point(13, 65);
+            this.chkDebugBuild.Name = "chkDebugBuild";
+            this.chkDebugBuild.Size = new System.Drawing.Size(82, 17);
+            this.chkDebugBuild.TabIndex = 15;
+            this.chkDebugBuild.Tag = "Debug";
+            this.chkDebugBuild.Text = "Debug build";
+            this.chkDebugBuild.UseVisualStyleBackColor = true;
+            // 
+            // lblInstallPath
+            // 
+            this.lblInstallPath.AutoSize = true;
+            this.lblInstallPath.Location = new System.Drawing.Point(11, 96);
+            this.lblInstallPath.Name = "lblInstallPath";
+            this.lblInstallPath.Size = new System.Drawing.Size(56, 13);
+            this.lblInstallPath.TabIndex = 14;
+            this.lblInstallPath.Text = "Install Dir:";
+            // 
+            // txtInstallDir
+            // 
+            this.txtInstallDir.Location = new System.Drawing.Point(13, 112);
+            this.txtInstallDir.Multiline = true;
+            this.txtInstallDir.Name = "txtInstallDir";
+            this.txtInstallDir.Size = new System.Drawing.Size(174, 34);
+            this.txtInstallDir.TabIndex = 13;
+            this.txtInstallDir.Text = "C:\\Program Files\\123";
+            // 
             // grpConsole
             // 
             this.grpConsole.Controls.Add(this.splitContainer1);
@@ -187,6 +270,7 @@ namespace Unifi.Forms.V2
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpInstallOptions);
             this.splitContainer1.Panel1.Controls.Add(this.txtConsole);
             this.splitContainer1.Panel1.Controls.Add(this.txtDebugger);
             // 
@@ -197,110 +281,31 @@ namespace Unifi.Forms.V2
             this.splitContainer1.SplitterDistance = 372;
             this.splitContainer1.TabIndex = 2;
             // 
-            // grpInstall
+            // grpInstallOptions
             // 
-            this.grpInstall.Controls.Add(this.grpConfig);
-            this.grpInstall.Controls.Add(this.chkDebugBuild);
-            this.grpInstall.Controls.Add(this.lstInstall);
-            this.grpInstall.Controls.Add(this.lblInstallPath);
-            this.grpInstall.Controls.Add(this.txtInstallDir);
-            this.grpInstall.Location = new System.Drawing.Point(10, 31);
-            this.grpInstall.Name = "grpInstall";
-            this.grpInstall.Size = new System.Drawing.Size(200, 398);
-            this.grpInstall.TabIndex = 23;
-            this.grpInstall.TabStop = false;
-            this.grpInstall.Text = "Install";
+            this.grpInstallOptions.Controls.Add(this.installOptionsGroup1);
+            this.grpInstallOptions.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpInstallOptions.Location = new System.Drawing.Point(540, 15);
+            this.grpInstallOptions.Name = "grpInstallOptions";
+            this.grpInstallOptions.Size = new System.Drawing.Size(200, 389);
+            this.grpInstallOptions.TabIndex = 23;
+            this.grpInstallOptions.TabStop = false;
+            this.grpInstallOptions.Text = "Install";
+            this.grpInstallOptions.Visible = false;
             // 
-            // grpConfig
+            // installOptionsGroup1
             // 
-            this.grpConfig.Controls.Add(this.rbQa2);
-            this.grpConfig.Controls.Add(this.rbR02);
-            this.grpConfig.Controls.Add(this.rbR01);
-            this.grpConfig.Location = new System.Drawing.Point(6, 15);
-            this.grpConfig.Margin = new System.Windows.Forms.Padding(5);
-            this.grpConfig.Name = "grpConfig";
-            this.grpConfig.Size = new System.Drawing.Size(162, 43);
-            this.grpConfig.TabIndex = 6;
-            this.grpConfig.TabStop = false;
-            this.grpConfig.Text = "config";
-            // 
-            // rbQa2
-            // 
-            this.rbQa2.AutoSize = true;
-            this.rbQa2.Location = new System.Drawing.Point(87, 20);
-            this.rbQa2.Name = "rbQa2";
-            this.rbQa2.Size = new System.Drawing.Size(43, 17);
-            this.rbQa2.TabIndex = 2;
-            this.rbQa2.Tag = "2";
-            this.rbQa2.Text = "qa2";
-            this.rbQa2.UseVisualStyleBackColor = true;
-            this.rbQa2.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
-            // 
-            // rbR02
-            // 
-            this.rbR02.AutoSize = true;
-            this.rbR02.Location = new System.Drawing.Point(45, 20);
-            this.rbR02.Name = "rbR02";
-            this.rbR02.Size = new System.Drawing.Size(41, 17);
-            this.rbR02.TabIndex = 1;
-            this.rbR02.Tag = "1";
-            this.rbR02.Text = "r02";
-            this.rbR02.UseVisualStyleBackColor = true;
-            this.rbR02.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
-            // 
-            // rbR01
-            // 
-            this.rbR01.AutoSize = true;
-            this.rbR01.Checked = true;
-            this.rbR01.Location = new System.Drawing.Point(7, 20);
-            this.rbR01.Name = "rbR01";
-            this.rbR01.Size = new System.Drawing.Size(41, 17);
-            this.rbR01.TabIndex = 0;
-            this.rbR01.TabStop = true;
-            this.rbR01.Tag = "0";
-            this.rbR01.Text = "r01";
-            this.rbR01.UseVisualStyleBackColor = true;
-            this.rbR01.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
-            // 
-            // chkDebugBuild
-            // 
-            this.chkDebugBuild.AutoSize = true;
-            this.chkDebugBuild.Location = new System.Drawing.Point(13, 61);
-            this.chkDebugBuild.Name = "chkDebugBuild";
-            this.chkDebugBuild.Size = new System.Drawing.Size(82, 17);
-            this.chkDebugBuild.TabIndex = 15;
-            this.chkDebugBuild.Tag = "Debug";
-            this.chkDebugBuild.Text = "Debug build";
-            this.chkDebugBuild.UseVisualStyleBackColor = true;
-            // 
-            // lstInstall
-            // 
-            this.lstInstall.FormattingEnabled = true;
-            this.lstInstall.Location = new System.Drawing.Point(6, 141);
-            this.lstInstall.Name = "lstInstall";
-            this.lstInstall.Size = new System.Drawing.Size(176, 173);
-            this.lstInstall.TabIndex = 16;
-            this.lstInstall.Tag = "Install";
-            this.lstInstall.DoubleClick += new System.EventHandler(this.lstInstall_DoubleClick);
-            this.lstInstall.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstInstall_MouseDown);
-            // 
-            // lblInstallPath
-            // 
-            this.lblInstallPath.AutoSize = true;
-            this.lblInstallPath.Location = new System.Drawing.Point(8, 88);
-            this.lblInstallPath.Name = "lblInstallPath";
-            this.lblInstallPath.Size = new System.Drawing.Size(56, 13);
-            this.lblInstallPath.TabIndex = 14;
-            this.lblInstallPath.Text = "Install Dir:";
-            // 
-            // txtInstallDir
-            // 
-            this.txtInstallDir.Location = new System.Drawing.Point(8, 101);
-            this.txtInstallDir.Multiline = true;
-            this.txtInstallDir.Name = "txtInstallDir";
-            this.txtInstallDir.Size = new System.Drawing.Size(156, 34);
-            this.txtInstallDir.TabIndex = 13;
-            this.txtInstallDir.Text = "C:\\Program Files\\123";
+            this.installOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.installOptionsGroup1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.installOptionsGroup1.InstallCommand = null;
+            this.installOptionsGroup1.Location = new System.Drawing.Point(3, 17);
+            this.installOptionsGroup1.Logger = null;
+            this.installOptionsGroup1.MinimumSize = new System.Drawing.Size(196, 370);
+            this.installOptionsGroup1.Name = "installOptionsGroup1";
+            this.installOptionsGroup1.PrerequisiteTask = null;
+            this.installOptionsGroup1.SetupCommands = null;
+            this.installOptionsGroup1.Size = new System.Drawing.Size(196, 370);
+            this.installOptionsGroup1.TabIndex = 0;
             // 
             // txtConsole
             // 
@@ -429,6 +434,17 @@ namespace Unifi.Forms.V2
             this.pnlDosCommands.Size = new System.Drawing.Size(397, 677);
             this.pnlDosCommands.TabIndex = 17;
             // 
+            // rbQa2New
+            // 
+            this.rbQa2New.AutoSize = true;
+            this.rbQa2New.Location = new System.Drawing.Point(127, 20);
+            this.rbQa2New.Name = "rbQa2New";
+            this.rbQa2New.Size = new System.Drawing.Size(49, 17);
+            this.rbQa2New.TabIndex = 4;
+            this.rbQa2New.Tag = "qa2";
+            this.rbQa2New.Text = "qa2n";
+            this.rbQa2New.UseVisualStyleBackColor = true;
+            // 
             // TestTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,17 +466,17 @@ namespace Unifi.Forms.V2
             this.navBarDrawer1.DrawerPanel.ResumeLayout(false);
             this.navBarDrawer1.MainControlsPanel.ResumeLayout(false);
             this.navBarDrawer1.ResumeLayout(false);
-            this.grpInstallOptions.ResumeLayout(false);
             this.grpDownload.ResumeLayout(false);
+            this.grpInstall.ResumeLayout(false);
+            this.grpInstall.PerformLayout();
+            this.grpConfig.ResumeLayout(false);
+            this.grpConfig.PerformLayout();
             this.grpConsole.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.grpInstall.ResumeLayout(false);
-            this.grpInstall.PerformLayout();
-            this.grpConfig.ResumeLayout(false);
-            this.grpConfig.PerformLayout();
+            this.grpInstallOptions.ResumeLayout(false);
             this.grpBatch.ResumeLayout(false);
             this.grpReport.ResumeLayout(false);
             this.grpVersion.ResumeLayout(false);
@@ -500,6 +516,7 @@ namespace Unifi.Forms.V2
         private UnifiDesktop.UserControls.DownloadCommandGroup downloadCommandGroup1;
         private System.Windows.Forms.GroupBox grpInstallOptions;
         private UnifiDesktop.UserControls.InstallOptionsGroup installOptionsGroup1;
+        private System.Windows.Forms.RadioButton rbQa2New;
     }
 }
 

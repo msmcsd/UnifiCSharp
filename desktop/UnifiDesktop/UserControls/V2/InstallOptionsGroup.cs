@@ -61,11 +61,13 @@ namespace UnifiDesktop.UserControls
             get
             {
                 if (rbR02.Checked)
-                    return rbR02.Text;
+                    return rbR02.Tag.ToString();
                 else if (rbQa2.Checked)
-                    return rbQa2.Text;
+                    return rbQa2.Tag.ToString();
+                else if (rbQa2New.Checked)
+                    return rbQa2New.Tag.ToString();
                 else
-                    return rbR01.Text;
+                    return rbR01.Tag.ToString();
             }
         }
 
@@ -76,6 +78,8 @@ namespace UnifiDesktop.UserControls
                 if (rbR02.Checked) return Variables.R02Token;
 
                 if (rbQa2.Checked) return Variables.QA2Token;
+                
+                if (rbQa2New.Checked) return Variables.QA2TokenNew;
 
                 return Variables.R01Token;
             }

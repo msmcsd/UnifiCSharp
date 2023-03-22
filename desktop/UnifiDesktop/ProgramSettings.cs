@@ -15,9 +15,9 @@ namespace Unifi
     /// </summary>
     public class ProgramSettings : INotifyPropertyChanged
     {
-        private Venue _venue = Venue.R01;
+        private string _venue = VenueServer.R01;
 
-        public Venue Venue
+        public string Venue
         {
             get => _venue;
             set
@@ -111,11 +111,12 @@ namespace Unifi
     }
 
 
-    public enum Venue
+    public class VenueServer
     {
-        R01,
-        R02,
-        QA2
+        public const string R01 = "r01";
+        public const string R02 = "r02";
+        public const string QA2 = "qa2";
+        public const string QA2New = "qa2n";
     }
 }
  

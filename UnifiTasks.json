@@ -2030,6 +2030,10 @@
 				"Value": "6m36TsuuTssnXRziimGtDXBz"
 			},
 			{
+				"Variable": "QA2TokenNew",		
+				"Value": "A94ONZajRsN4TulHQOgIkskk"
+			},
+			{
 				"Variable": "MsiLogFolder",		
 				"Value": "C:\\temp"
 			},

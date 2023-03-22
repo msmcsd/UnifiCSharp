@@ -60,6 +60,7 @@
             this.pnlInstallMode = new System.Windows.Forms.Panel();
             this.pnlInstaller = new System.Windows.Forms.Panel();
             this.pnlInstallAs = new System.Windows.Forms.Panel();
+            this.rbQa2New = new System.Windows.Forms.RadioButton();
             this.pnlProduct.SuspendLayout();
             this.pnlConfig.SuspendLayout();
             this.pnlInstallMode.SuspendLayout();
@@ -70,20 +71,22 @@
             // rbQa2
             // 
             this.rbQa2.AutoSize = true;
-            this.rbQa2.Location = new System.Drawing.Point(116, 3);
+            this.rbQa2.Location = new System.Drawing.Point(101, 3);
             this.rbQa2.Name = "rbQa2";
             this.rbQa2.Size = new System.Drawing.Size(43, 17);
             this.rbQa2.TabIndex = 2;
+            this.rbQa2.Tag = "qa2";
             this.rbQa2.Text = "qa2";
             this.rbQa2.UseVisualStyleBackColor = true;
             // 
             // rbR02
             // 
             this.rbR02.AutoSize = true;
-            this.rbR02.Location = new System.Drawing.Point(67, 3);
+            this.rbR02.Location = new System.Drawing.Point(59, 3);
             this.rbR02.Name = "rbR02";
             this.rbR02.Size = new System.Drawing.Size(41, 17);
             this.rbR02.TabIndex = 1;
+            this.rbR02.Tag = "r02";
             this.rbR02.Text = "r02";
             this.rbR02.UseVisualStyleBackColor = true;
             // 
@@ -96,6 +99,7 @@
             this.rbR01.Size = new System.Drawing.Size(41, 17);
             this.rbR01.TabIndex = 0;
             this.rbR01.TabStop = true;
+            this.rbR01.Tag = "r01";
             this.rbR01.Text = "r01";
             this.rbR01.UseVisualStyleBackColor = true;
             // 
@@ -367,6 +371,7 @@
             // 
             this.pnlConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlConfig.Controls.Add(this.rbQa2New);
             this.pnlConfig.Controls.Add(this.rbQa2);
             this.pnlConfig.Controls.Add(this.rbR01);
             this.pnlConfig.Controls.Add(this.rbR02);
@@ -409,6 +414,17 @@
             this.pnlInstallAs.Name = "pnlInstallAs";
             this.pnlInstallAs.Size = new System.Drawing.Size(196, 24);
             this.pnlInstallAs.TabIndex = 38;
+            // 
+            // rbQa2New
+            // 
+            this.rbQa2New.AutoSize = true;
+            this.rbQa2New.Location = new System.Drawing.Point(144, 3);
+            this.rbQa2New.Name = "rbQa2New";
+            this.rbQa2New.Size = new System.Drawing.Size(49, 17);
+            this.rbQa2New.TabIndex = 3;
+            this.rbQa2New.Tag = "qa2";
+            this.rbQa2New.Text = "qa2n";
+            this.rbQa2New.UseVisualStyleBackColor = true;
             // 
             // InstallOptionsGroup
             // 
@@ -486,5 +502,6 @@
         private System.Windows.Forms.Panel pnlInstallMode;
         private System.Windows.Forms.Panel pnlInstaller;
         private System.Windows.Forms.Panel pnlInstallAs;
+        private System.Windows.Forms.RadioButton rbQa2New;
     }
 }

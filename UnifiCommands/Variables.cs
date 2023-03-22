@@ -88,6 +88,8 @@ namespace UnifiCommands
 
         public static string QA2Token { get; set; } // Retrieved at runtime from JSON.
 
+        public static string QA2TokenNew { get; set; } // Retrieved at runtime from JSON.
+
         #endregion
 
         #region Installer constants

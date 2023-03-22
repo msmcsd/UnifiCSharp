@@ -101,11 +101,14 @@ namespace Unifi.Forms
 
                 switch (_programSettings.Venue)
                 {
-                    case Venue.R01:
+                    case VenueServer.R01:
                         rbR01.Checked = true;
                         break;
-                    case Venue.R02:
+                    case VenueServer.R02:
                         rbR02.Checked = true;
+                        break;
+                    case VenueServer.QA2New:
+                        //rbR02New.Checked = true;
                         break;
                     default:
                         rbQa2.Checked = true;
@@ -117,7 +120,7 @@ namespace Unifi.Forms
                 _programSettings = new ProgramSettings
                 {
                     IsDebugMode = chkDebugBuild.Checked,
-                    Venue = Venue.R01,
+                    //Venue = Venue.R01,
                     InstallDirectory = Variables.CylanceDesktopFolder
                 };
             }
@@ -134,12 +137,7 @@ namespace Unifi.Forms
         {
             RadioButton rb = sender as RadioButton;
             if (rb == null) return;
-
-            var venue = Enum.GetNames(typeof(Venue))
-                .FirstOrDefault(v => v.Equals(rb.Text, StringComparison.InvariantCultureIgnoreCase));
-
-            if (venue != null)
-                _programSettings.Venue = (Venue)Enum.Parse(typeof(Venue), venue);
+            _programSettings.Venue = rb.Text;
         }
 
         private void tabCommands_SelectedIndexChanged(object sender, EventArgs e)
