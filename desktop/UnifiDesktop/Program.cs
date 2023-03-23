@@ -14,7 +14,7 @@ namespace Unifi
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.V2.TestTool());
+            Application.Run(new Forms.TestTool());
         }
     }
 }

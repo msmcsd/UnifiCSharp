@@ -26,7 +26,10 @@ using UnifiCommands.CommandInfo;
 using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 using UnifiDesktop.UserControls;
 using Microsoft.Win32;
+using UnifiDesktop.UserControls.V2;
+using UnifiDesktop.DrawingUtils;
 using Unifi.Logging;
+using UnifiDesktop.Logging;
 
 namespace Unifi.Forms
 {
@@ -48,8 +51,6 @@ namespace Unifi.Forms
 
         private ListBox _lstRollbackPosition = null;
 
-        private bool _clearingPanels = false;
-
         public TestTool()
         {
             InitializeComponent();
@@ -58,8 +59,8 @@ namespace Unifi.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             GetInstallFolderFromRegistry();
-            LoadControls();
             LoadSettings();
+            LoadControls();
             AddListeners();
             SetupEventHandlers();
         }
@@ -67,9 +68,9 @@ namespace Unifi.Forms
         private void SetupEventHandlers()
         {
             grpConfig.DoubleClick += InstallProduct;
-            grpProduct.DoubleClick += InstallProduct;
-            grpRunMode.DoubleClick += InstallProduct;
-            grpInstallMode.DoubleClick += InstallProduct;
+            //grpProduct.DoubleClick += InstallProduct;
+            //grpRunMode.DoubleClick += InstallProduct;
+            //grpInstallMode.DoubleClick += InstallProduct;
         }
 
         private void TestTool_FormClosing(object sender, FormClosingEventArgs e)
@@ -108,7 +109,7 @@ namespace Unifi.Forms
                         rbR02.Checked = true;
                         break;
                     case VenueServer.QA2New:
-                        //rbR02New.Checked = true;
+                        rbQa2New.Checked = true;
                         break;
                     default:
                         rbQa2.Checked = true;
@@ -120,7 +121,7 @@ namespace Unifi.Forms
                 _programSettings = new ProgramSettings
                 {
                     IsDebugMode = chkDebugBuild.Checked,
-                    //Venue = Venue.R01,
+                    Venue = VenueServer.R01,
                     InstallDirectory = Variables.CylanceDesktopFolder
                 };
             }
@@ -129,21 +130,14 @@ namespace Unifi.Forms
             chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
 
             _programSettings.PropertyChanged += ProgramProgramSettingsChanged;
-
-            tabCommands.SelectedIndex = _programSettings.Tab;
         }
 
         private void Venue_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rb = sender as RadioButton;
             if (rb == null) return;
-            _programSettings.Venue = rb.Text;
-        }
 
-        private void tabCommands_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!_clearingPanels && tabCommands.SelectedIndex >= 0)
-                _programSettings.Tab = tabCommands.SelectedIndex;
+            _programSettings.Venue = rb.Text;
         }
 
         public void ProgramProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
@@ -206,10 +200,14 @@ namespace Unifi.Forms
 
         private void LoadControls()
         {
-            Stopwatch stopwatch= Stopwatch.StartNew();
+            DrawingHelper.SuspendDrawing(this);
 
-            if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
+            Stopwatch stopwatch= Stopwatch.StartNew();
+            _logger = new DesktopLogger(txtConsole);
+
+            //if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
             {
+                _logger.LogInfo($"Copying config file from {Variables.JsonConfigPath} to {Variables.LocalJsonConfigPath}");
                 Process p = new Process
                 {
                     StartInfo = new ProcessStartInfo
@@ -236,8 +234,6 @@ namespace Unifi.Forms
                 //Text = $@"{Text} Loaded using defaults";
             }
 
-            _logger = new DesktopLogger(txtConsole);
-
             reportGrid1.DosTasks = _commandsProvider.DosTasks;
             reportGrid1.Logger = _logger;
             _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
@@ -249,6 +245,7 @@ namespace Unifi.Forms
             PopulateBatchCommandList();
             PopulateInstallCommands();
             PopulateVersionGrid();
+            PopulateServiceStateView();
 
             InitDownloadCommandGroup();
 
@@ -256,6 +253,9 @@ namespace Unifi.Forms
 
             stopwatch.Stop();
             UpdateFormTitle(stopwatch.ElapsedMilliseconds);
+
+            DrawingHelper.ResumeDrawing(this);
+
         }
 
         private void UpdateFormTitle(long elapsedMilliseconds)
@@ -279,98 +279,28 @@ namespace Unifi.Forms
             lstVersion.FormObject = this;
         }
 
+        private void PopulateServiceStateView()
+        {
+            serviceStatus1.Logger = new ServiceStatusLogger(txtConsole);
+            serviceStatus1.Commands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands;
+        }
+
         private void PopulateDosCommandGroups()
         {
-            tabCommands.Width = 160;
-            _clearingPanels = true;
-            tabCommands.TabPages.Clear();
-            _clearingPanels = false;
-
-            foreach (var tabName in Enum.GetNames(typeof(DosTab)))
-            {
-                var tasks = _commandsProvider.DosTasks.Where(t => t.Tab.ToString() == tabName).ToList();
-                if (tasks.Any())
-                {
-                    TabPage page = new TabPage(tabName);
-                    tabCommands.TabPages.Add(page);
-                    AddComandGroupsToTab(page, tasks);
-
-                    if (tabName == DosTab.Rollback.ToString())
-                    {
-                        _lstRollbackPosition = FindRollbackListBox(page);
-                    }
-                }
-
-            }
-
-            if (_programSettings != null && _programSettings.Tab >= 0 && _programSettings.Tab <= tabCommands.TabPages.Count - 1)
-                tabCommands.SelectedIndex = _programSettings.Tab;
-            else
-                tabCommands.SelectedIndex = 0;
+            pnlDosCommands.Controls.Clear();
+            DosCommandsTabControl tabControl = new DosCommandsTabControl(_programSettings, _commandsRunner, _logger);
+            pnlDosCommands.Controls.Add(tabControl);
+            tabControl.Dock = DockStyle.Fill;
+            tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
+            pnlDosCommands.Width = tabControl.ClientWidth;
+            tabControl.TabChanged += SetTabControlClientWidth;
         }
 
-        private ListBox FindRollbackListBox(TabPage page)
+        private void SetTabControlClientWidth(object sender, EventArgs e)
         {
-            foreach(var ctrl in page.Controls)
-            {
-                if (ctrl is DosCommandGroup commandGroup)
-                {
-                    if (commandGroup.ListBox.Items.Count > 0 )
-                    {
-                        foreach(var item in commandGroup.ListBox.Items)
-                        {
-                            FullCommandInfo command = (FullCommandInfo)item;
-                            if (command.Command.Equals("SetRollback", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                return commandGroup.ListBox;
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
+            pnlDosCommands.Width = (sender as DosCommandsTabControl).ClientWidth;
         }
 
-        private void AddComandGroupsToTab(TabPage tab, IEnumerable<TestTask> tasks)
-        {
-            int left = 0;
-            int top = 0;
-            int columns = 1;
-            int controlWidth = 150;
-
-            tab.Controls.Clear();
-
-            foreach (var task in tasks)
-            {
-                if (task.Commands.Count == 0) continue;
-
-                var ctl = new DosCommandGroup
-                {
-                    CommandsRunner = _commandsRunner,
-                    TestTask = task,
-                    Width = controlWidth,
-                    Logger = _logger
-                };
-
-                tab.Controls.Add(ctl);
-
-                if (top + ctl.Height > tab.Height)
-                {
-                    left = left + ctl.Width;
-                    top = 0;
-                    columns++;
-
-                    if (ctl.Width * columns > tab.Parent.Width)
-                        tab.Parent.Width += ctl.Width;
-                }
-
-                ctl.Left = left;
-                ctl.Top = top;
-
-                top += ctl.Height;
-            }
-        }
-        
         private void OutputToConsole(object sender, DataReceivedEventArgs e)
         {
             Trace.WriteLine(e.Data);
@@ -396,6 +326,8 @@ namespace Unifi.Forms
 
                 if (rbQa2.Checked) return Variables.QA2Token;
 
+                if (rbQa2New.Checked) return Variables.QA2TokenNew;
+
                 return Variables.R01Token;
             }
         }
@@ -406,11 +338,13 @@ namespace Unifi.Forms
             {
 
                 if (rbR02.Checked)
-                    return rbR02.Text;
+                    return rbR02.Tag.ToString();
                 else if (rbQa2.Checked)
-                    return rbQa2.Text;
+                    return rbQa2.Tag.ToString();
+                else if (rbQa2New.Checked)
+                    return rbQa2New.Tag.ToString() ;
                 else
-                    return rbR01.Text;
+                    return rbR01.Tag.ToString();
             }
         }
 
@@ -454,78 +388,78 @@ namespace Unifi.Forms
             }
         }
 
-        private string GetRollbackLogSaveDirectory
-        {
-            get
-            {
-                string rollbackCategory = GetAmpplRollbackTestCategory(out string rollbackPosition);
-                string archFolder = Environment.OSVersion.Version.CompareTo(new Version("6.2")) < 0
-                    ? "Win7"
-                    : Environment.Is64BitOperatingSystem ? "x64" : "x86";
+        //private string GetRollbackLogSaveDirectory
+        //{
+        //    get
+        //    {
+        //        string rollbackCategory = GetAmpplRollbackTestCategory(out string rollbackPosition);
+        //        string archFolder = Environment.OSVersion.Version.CompareTo(new Version("6.2")) < 0
+        //            ? "Win7"
+        //            : Environment.Is64BitOperatingSystem ? "x64" : "x86";
 
-                FullCommandInfo command = _lstRollbackPosition.SelectedItem as FullCommandInfo;
-                string rollbackPositionFolder = command == null ? "" : $"{command.Arguments}-{command.DisplayText}";
-                string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}\{rollbackCategory}\{rollbackPositionFolder}");
+        //        FullCommandInfo command = _lstRollbackPosition.SelectedItem as FullCommandInfo;
+        //        string rollbackPositionFolder = command == null ? "" : $"{command.Arguments}-{command.DisplayText}";
+        //        string saveFolder = Path.Combine(Variables.VmWareSharedFolder, $@"TestTools\Rollback\RollbackTestLogs\{archFolder}\{rollbackCategory}\{rollbackPositionFolder}");
 
-                if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
+        //        if (!Directory.Exists(saveFolder)) Directory.CreateDirectory(saveFolder);
 
-                return saveFolder;
-            }
-        }
+        //        return saveFolder;
+        //    }
+        //}
 
-        private string GetLatestRollbackFile
-        {
-            get
-            {
-                string logFolder = GetRollbackLogSaveDirectory;
-                _logger.LogInfo($"Log folder is {logFolder}");
+        //private string GetLatestRollbackFile
+        //{
+        //    get
+        //    {
+        //        string logFolder = GetRollbackLogSaveDirectory;
+        //        _logger.LogInfo($"Log folder is {logFolder}");
 
-                var file = new DirectoryInfo(logFolder).GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
-                if (file == null) {
-                    _logger.LogInfo("No files found in the folder.");
-                    return "";
-                }
+        //        var file = new DirectoryInfo(logFolder).GetFiles().OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+        //        if (file == null) {
+        //            _logger.LogInfo("No files found in the folder.");
+        //            return "";
+        //        }
 
-                return Path.Combine(logFolder, file.Name);
-            }
-        }
+        //        return Path.Combine(logFolder, file.Name);
+        //    }
+        //}
 
-        private string GetAmpplRollbackTestCategory(out string rollbackPosition)
-        {
-            rollbackPosition = "";
-            if (_lstRollbackPosition.SelectedItem == null ||
-                _lstRollbackPosition.SelectedIndex <= 0 ||
-                _lstRollbackPosition.Text.Trim() == "")
-            {
-                return "";
-            }
+        //private string GetAmpplRollbackTestCategory(out string rollbackPosition)
+        //{
+        //    rollbackPosition = "";
+        //    if (_lstRollbackPosition.SelectedItem == null ||
+        //        _lstRollbackPosition.SelectedIndex <= 0 ||
+        //        _lstRollbackPosition.Text.Trim() == "")
+        //    {
+        //        return "";
+        //    }
 
-            if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
-            {
-                rollbackPosition = Rollback.RollbackCategoryName.None;
-                if (_lstRollbackPosition.Text.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
-                if (_lstRollbackPosition.Text.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
-                if (_lstRollbackPosition.Text.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
-            }
+        //    if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
+        //    {
+        //        rollbackPosition = Rollback.RollbackCategoryName.None;
+        //        if (_lstRollbackPosition.Text.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
+        //        if (_lstRollbackPosition.Text.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
+        //        if (_lstRollbackPosition.Text.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
+        //    }
 
-            rollbackPosition = _lstRollbackPosition.Text;
-            for (int i = _lstRollbackPosition.SelectedIndex-1; i >= 0; i--)
-            {
-                string currentItemText = _lstRollbackPosition.Items[i].ToString().Trim();
-                if (currentItemText.StartsWith(CategoryPrefix))
-                {
-                    if (currentItemText.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
-                    if (currentItemText.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
-                    if (currentItemText.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
-                }
-            }
+        //    rollbackPosition = _lstRollbackPosition.Text;
+        //    for (int i = _lstRollbackPosition.SelectedIndex-1; i >= 0; i--)
+        //    {
+        //        string currentItemText = _lstRollbackPosition.Items[i].ToString().Trim();
+        //        if (currentItemText.StartsWith(CategoryPrefix))
+        //        {
+        //            if (currentItemText.Contains("Add")) return Rollback.RollbackCategoryName.AddAmppl;
+        //            if (currentItemText.Contains("Remove")) return Rollback.RollbackCategoryName.RemoveAmppl;
+        //            if (currentItemText.Contains("Update")) return Rollback.RollbackCategoryName.UpdateAmppl;
+        //        }
+        //    }
 
-            return "";
-        }
+        //    return "";
+        //}
 
         private string CompileMode => chkDebugBuild.Checked ? "Debug" : "";
 
-        private string GetRollbackPosition => _lstRollbackPosition.SelectedItem == null ? Rollback.RollbackCategoryName.None : _lstRollbackPosition.Text;
+        //private string GetRollbackPosition => _lstRollbackPosition.SelectedItem == null ? Rollback.RollbackCategoryName.None : _lstRollbackPosition.Text;
 
 #endregion
 
@@ -555,51 +489,10 @@ namespace Unifi.Forms
             var groups = _commandsProvider.TestTasks.Where(t => t.CommandGroup == CommandGroup.Install).ToList();
             lstInstall.DisplayMember = "Name";
             lstInstall.DataSource = groups;
-        }
 
-        //private void PopulateDownloadCommands()
-        //{
-        //    lstDownload.TestTask = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.Download);
-        //    lstDownload.CommandsRunner = _commandsRunner;
-        //    lstDownload.Logger = _logger;
-        //}
-        
-        //private void PopulateRollbackPositions()
-        //{
-        //    if (BaseCommandInfo.ShowCommandOnMachine() != ShowCommandOnMachine.Test) return;
-
-        //    _lstRollbackPosition.Items.Clear();
-        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.AddAmpplPositions, _commandsProvider.AddAmpplRollbackPositions);
-        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.RemoveAmpplPositions, _commandsProvider.RemoveAmpplRollbackPositions);
-        //    PopulateRollbackPositions(JsonCommandsProvider.TaskGroup.UpdateAmpplPositions,_commandsProvider.UpdateAmpplRollbackPositions);
-
-        //    Rollback.RollbackPositionsList = new Dictionary<string, List<FullCommandInfo>>
-        //    {
-        //        {Rollback.RollbackCategoryName.AddAmppl,  _commandsProvider.AddAmpplRollbackPositions},
-        //        {Rollback.RollbackCategoryName.RemoveAmppl,  _commandsProvider.RemoveAmpplRollbackPositions},
-        //        {Rollback.RollbackCategoryName.UpdateAmppl,  _commandsProvider.UpdateAmpplRollbackPositions}
-        //    };
-
-        //    //grpRollback.Visible = lstRollbackPosition.Items.Count > 0;
-        //    //TabPage page = new TabPage("Rollback");
-        //    //grpRollback.Dock = DockStyle.Left;
-        //    //page.Controls.Add(grpRollback);
-        //    //tabCommands.TabPages.Add(page);
-        //    //grpRollback.Visible = true;
-        //}
-
-        private void PopulateRollbackPositions(string category, IEnumerable<FullCommandInfo> rollbackPositions)
-        {
-            var commandInfos = rollbackPositions?.ToList();
-            if (commandInfos == null || string.IsNullOrEmpty(category) || commandInfos.Count <= 0) return;
-
-            int i = category.IndexOf("-", StringComparison.Ordinal);
-            _lstRollbackPosition.Items.Add($"{CategoryPrefix} {category.Substring(i + 1)}");
-            foreach (var p in commandInfos)
-            {
-                _lstRollbackPosition.Items.Add(p);
-            }
-            _lstRollbackPosition.Items.Add("");
+            installOptionsGroup1.SetupCommands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetup)?.Commands;
+            installOptionsGroup1.InstallCommand = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands[0];
+            installOptionsGroup1.Logger = _logger;
         }
 
         private void PopulateBatchCommandList()
@@ -627,24 +520,24 @@ namespace Unifi.Forms
 
 #region Control Events
 
-        private async void lstRollbackPosition_Click(object sender, EventArgs e)
-        {
-            if (_lstRollbackPosition.Items.Count == 0) return;
+        //private async void lstRollbackPosition_Click(object sender, EventArgs e)
+        //{
+        //    if (_lstRollbackPosition.Items.Count == 0) return;
 
-            if (_lstRollbackPosition.SelectedItem == null)
-            {
-                _lstRollbackPosition.SelectedIndex = 0;
-            }
+        //    if (_lstRollbackPosition.SelectedItem == null)
+        //    {
+        //        _lstRollbackPosition.SelectedIndex = 0;
+        //    }
 
-            if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
-            {
-                return;
-            }
+        //    if (_lstRollbackPosition.Text.Trim().StartsWith(CategoryPrefix))
+        //    {
+        //        return;
+        //    }
 
-            string category = GetAmpplRollbackTestCategory(out string position);
+        //    string category = GetAmpplRollbackTestCategory(out string position);
 
-            await new SetRollbackCommand(category, position, _logger).Execute();
-        }
+        //    await new SetRollbackCommand(category, position, _logger).Execute();
+        //}
 
         /// <summary>
         /// Main function to run commands.
@@ -676,6 +569,12 @@ namespace Unifi.Forms
             if (e != null && e.KeyCode == Keys.F5)
             {
                 LoadControls();
+                return;
+            }
+
+            if (e.KeyCode == Keys.Space && e.Modifiers == Keys.Control)
+            {
+                navBarDrawer1.DrawerVisible = ! navBarDrawer1.DrawerVisible;
             }
         }
 
