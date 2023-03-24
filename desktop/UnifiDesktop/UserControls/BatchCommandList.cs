@@ -15,6 +15,8 @@ using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
+using UnifiDesktop.Socket;
+using WebSocketSharp;
 
 namespace UnifiDesktop.UserControls
 {
@@ -71,6 +73,13 @@ namespace UnifiDesktop.UserControls
 
         private void lstCommands_DoubleClick(object sender, EventArgs e)
         {
+            //using (var ws = new WebSocket(SocketServer.SocketUrl + "/" + UpdateServiceStateBehavior.ChannelName))
+            //{
+            //    ws.WaitTime = new TimeSpan(0, 0, 50);
+            //    ws.Connect();
+            //    ws.Send("5");
+            //}
+
             if (lstCommands.Items.Count == 0)
             {
                 Debug.WriteLine(GetType(), "lstCommands.Items.Count = 0");

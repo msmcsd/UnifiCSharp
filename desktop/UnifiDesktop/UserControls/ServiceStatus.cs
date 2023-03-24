@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using System.Timers;
@@ -8,6 +9,8 @@ using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
+using UnifiDesktop.Socket;
+using WebSocketSharp;
 using Timer = System.Timers.Timer;
 
 namespace UnifiDesktop.UserControls
@@ -16,24 +19,61 @@ namespace UnifiDesktop.UserControls
     {
 
         private Timer _timer = null;
+        private WebSocket _client;
+        private ILogger _logger;
         private List<FullCommandInfo> _commandInfos;
         private Command[] _commands;
-
-        public List<FullCommandInfo> Commands
-        {
-            get { return _commandInfos; }
-            set
-            {
-                _commandInfos = value;
-                PopulateCommands();
-            }
-
-        }
-        public ILogger Logger { get; set; }
 
         public ServiceStatus()
         {
             InitializeComponent();
+        }
+
+        public void Initialize(List<FullCommandInfo> commandInfos, ILogger logger)
+        {
+            _commandInfos = commandInfos;
+            _logger = logger;
+            PopulateCommands();
+            SetupSocket();
+        }
+
+        private void SetupSocket()
+        {
+            if (_client == null)
+            {
+                _client = new WebSocket(SocketServer.SocketUrl + "/" + UpdateServiceStateBehavior.ChannelName);
+                _client.OnMessage += OnReceiveCommand;
+                _client.WaitTime = new TimeSpan(1, 0, 0);
+                _client.Connect();
+                _logger.LogInfo($"ServiceState socket created. IsAlive={_client.IsAlive}");
+            }
+            else if (!_client.IsAlive)
+            {
+                _client.Connect();
+            }
+        }
+
+        private void OnReceiveCommand(object sender, MessageEventArgs e)
+        {
+            if (!int.TryParse(e.Data, out int seconds)) return;
+
+            _logger.LogInfo($"Recieve command to set interval to {seconds} seconds.");
+
+            BeginInvoke(new MethodInvoker(() =>
+            {
+                switch (seconds)
+                {
+                    case 5:
+                        rbSeconds5.Checked = true;
+                        break;
+                    case 60:
+                        rbSeconds60.Checked = true;
+                        break;
+                    default:
+                        rbNone.Checked = true;
+                        break;
+                }
+            }));
         }
 
         private void SetupListView()
@@ -64,7 +104,7 @@ namespace UnifiDesktop.UserControls
 
                 lstService.Items.Add(item);
 
-                Command command = CommandFactory.CreateCommand(c, Logger, AppType.Desktop);
+                Command command = CommandFactory.CreateCommand(c, _logger, AppType.Desktop);
                 commands.Add(command);
             }
 
@@ -82,7 +122,7 @@ namespace UnifiDesktop.UserControls
                 if (_timer != null)
                     _timer.Enabled = false;
 
-                Logger?.LogInfo($"Service state checking stopped");
+                _logger?.LogInfo($"Service state checking stopped");
                 return;
             }
 
@@ -96,7 +136,7 @@ namespace UnifiDesktop.UserControls
             _timer.Elapsed += DisplayServiceState;
             _timer.Start();
 
-            Logger?.LogInfo($"Service state checking interval started with interval {rb.Text}");
+            _logger?.LogInfo($"Service state checking interval started with interval {rb.Text}");
         }
 
         private async void DisplayServiceState(object sender, System.EventArgs e)

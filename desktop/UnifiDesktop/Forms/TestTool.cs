@@ -30,6 +30,7 @@ using UnifiDesktop.UserControls.V2;
 using UnifiDesktop.DrawingUtils;
 using Unifi.Logging;
 using UnifiDesktop.Logging;
+using UnifiDesktop.Socket;
 
 namespace Unifi.Forms
 {
@@ -58,6 +59,9 @@ namespace Unifi.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            _logger = new DesktopLogger(txtConsole);
+            SocketServer.Instance.Start(_logger);
+
             GetInstallFolderFromRegistry();
             LoadSettings();
             LoadControls();
@@ -203,7 +207,6 @@ namespace Unifi.Forms
             DrawingHelper.SuspendDrawing(this);
 
             Stopwatch stopwatch= Stopwatch.StartNew();
-            _logger = new DesktopLogger(txtConsole);
 
             //if (!Debugger.IsAttached && File.Exists(Variables.JsonConfigPath))
             {
@@ -281,8 +284,7 @@ namespace Unifi.Forms
 
         private void PopulateServiceStateView()
         {
-            serviceStatus1.Logger = new ServiceStatusLogger(txtConsole);
-            serviceStatus1.Commands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands;
+            serviceStatus1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new ServiceStatusLogger(txtConsole));
         }
 
         private void PopulateDosCommandGroups()

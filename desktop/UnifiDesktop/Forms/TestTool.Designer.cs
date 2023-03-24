@@ -397,11 +397,9 @@ namespace Unifi.Forms
             // 
             // serviceStatus1
             // 
-            this.serviceStatus1.Commands = null;
             this.serviceStatus1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.serviceStatus1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serviceStatus1.Location = new System.Drawing.Point(3, 17);
-            this.serviceStatus1.Logger = null;
             this.serviceStatus1.Name = "serviceStatus1";
             this.serviceStatus1.Size = new System.Drawing.Size(161, 241);
             this.serviceStatus1.TabIndex = 0;
