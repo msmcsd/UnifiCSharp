@@ -1,9 +1,9 @@
 ﻿using WebSocketSharp;
 using WebSocketSharp.Server;
 
-namespace UnifiDesktop.Socket
+namespace UnifiCommands.Socket.Behaviors
 {
-    internal abstract class BaseBehavior : WebSocketBehavior
+    public class BaseBehavior : WebSocketBehavior
     {
         protected override void OnMessage(MessageEventArgs e)
         {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,26 +10,20 @@ using System.Timers;
 #if !DEBUG
 using Microsoft.Win32;
 #endif
-using ContentAlignment = System.Drawing.ContentAlignment;
 using Unifi.Consoles;
 using Unifi.Observers.Animation;
-using Unifi.UserControls;
 using UnifiCommands;
-using UnifiCommands.Commands;
 using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using System.Security.Principal;
-using UnifiCommands.VariableProcessors;
 using UnifiCommands.CommandInfo;
-using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 using UnifiDesktop.UserControls;
-using Microsoft.Win32;
 using UnifiDesktop.UserControls.V2;
 using UnifiDesktop.DrawingUtils;
 using Unifi.Logging;
 using UnifiDesktop.Logging;
-using UnifiDesktop.Socket;
+using UnifiCommands.Socket;
 
 namespace Unifi.Forms
 {
@@ -60,7 +53,7 @@ namespace Unifi.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             _logger = new DesktopLogger(txtConsole);
-            SocketServer.Instance.Start(_logger);
+            SocketCommandServer.Instance.Start(_logger);
 
             GetInstallFolderFromRegistry();
             LoadSettings();

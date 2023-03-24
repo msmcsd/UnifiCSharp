@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnifiCommands.Logging;
-using WebSocketSharp;
+using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp.Server;
 
-namespace UnifiDesktop.Socket
+namespace UnifiCommands.Socket
 {
-    internal class SocketServer
+    public class SocketCommandServer
     {
         public const string SocketUrl = "ws://localhost:12345";
+
         private readonly WebSocketServer _wssv;
-        private static readonly Lazy<SocketServer> lazy = new Lazy<SocketServer>(() => new SocketServer());
+        private static readonly Lazy<SocketCommandServer> lazy = new Lazy<SocketCommandServer>(() => new SocketCommandServer());
 
-        public static SocketServer Instance { get { return lazy.Value; } }
+        public static SocketCommandServer Instance { get { return lazy.Value; } }
 
-        private SocketServer()
+        private SocketCommandServer()
         {
             _wssv = new WebSocketServer(SocketUrl);
         }

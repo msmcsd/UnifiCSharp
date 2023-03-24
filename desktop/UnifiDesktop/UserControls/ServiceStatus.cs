@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
-using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
-using UnifiDesktop.Socket;
+using UnifiCommands.Socket;
+using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp;
 using Timer = System.Timers.Timer;
 
@@ -41,7 +39,7 @@ namespace UnifiDesktop.UserControls
         {
             if (_client == null)
             {
-                _client = new WebSocket(SocketServer.SocketUrl + "/" + UpdateServiceStateBehavior.ChannelName);
+                _client = new WebSocket(SocketCommandServer.SocketUrl + "/" + UpdateServiceStateBehavior.ChannelName);
                 _client.OnMessage += OnReceiveCommand;
                 _client.WaitTime = new TimeSpan(1, 0, 0);
                 _client.Connect();
