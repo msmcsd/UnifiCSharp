@@ -23,7 +23,7 @@ namespace UnifiCommands.Socket
         {
             _wssv.AddWebSocketService<UpdateServiceStateBehavior>("/" + UpdateServiceStateBehavior.ChannelName);
             _wssv.Start();
-            logger.LogInfo($"Socket server started. IsListening = {_wssv.IsListening}");
+            logger.LogInfo($"Socket server started. IsListening: {_wssv.IsListening}");
         }
 
         public void Stop()

@@ -32,7 +32,7 @@ namespace UnifiDesktop.UserControls
             _commandInfos = commandInfos;
             _logger = logger;
             PopulateCommands();
-            SetupSocket();
+            Task.Run(SetupSocket);
         }
 
         private void SetupSocket()
@@ -43,7 +43,7 @@ namespace UnifiDesktop.UserControls
                 _client.OnMessage += OnReceiveCommand;
                 _client.WaitTime = new TimeSpan(1, 0, 0);
                 _client.Connect();
-                _logger.LogInfo($"ServiceState socket created. IsAlive={_client.IsAlive}");
+                _logger.LogInfo($"ServiceState socket created. IsAlive: {_client.IsAlive}");
             }
             else if (!_client.IsAlive)
             {
@@ -53,9 +53,10 @@ namespace UnifiDesktop.UserControls
 
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
+            _logger.LogInfo($"Recieved data {e.Data}.");
             if (!int.TryParse(e.Data, out int seconds)) return;
 
-            _logger.LogInfo($"Recieve command to set interval to {seconds} seconds.");
+            _logger.LogInfo($"Recieved command to set interval to {seconds} seconds.");
 
             BeginInvoke(new MethodInvoker(() =>
             {
@@ -71,6 +72,8 @@ namespace UnifiDesktop.UserControls
                         rbNone.Checked = true;
                         break;
                 }
+
+                SetupTimer(seconds.ToString());
             }));
         }
 
@@ -115,7 +118,12 @@ namespace UnifiDesktop.UserControls
             if (sender == null) return;
 
             RadioButton rb = (RadioButton)sender;
-            if (rb == rbNone)
+            SetupTimer(rb.Tag.ToString());
+        }
+
+        private void SetupTimer(string seconds)
+        {
+            if (string.IsNullOrEmpty(seconds) || seconds == "0")
             {
                 if (_timer != null)
                     _timer.Enabled = false;
@@ -124,7 +132,7 @@ namespace UnifiDesktop.UserControls
                 return;
             }
 
-            int interval = int.Parse(rb.Tag.ToString());
+            int interval = int.Parse(seconds);
             if (_timer == null)
                 _timer = new Timer();
             else
@@ -134,7 +142,7 @@ namespace UnifiDesktop.UserControls
             _timer.Elapsed += DisplayServiceState;
             _timer.Start();
 
-            _logger?.LogInfo($"Service state checking interval started with interval {rb.Text}");
+            _logger?.LogInfo($"Service state checking interval started with interval {interval} seconds.");
         }
 
         private async void DisplayServiceState(object sender, System.EventArgs e)

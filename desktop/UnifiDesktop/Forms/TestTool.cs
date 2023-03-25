@@ -73,6 +73,7 @@ namespace Unifi.Forms
         private void TestTool_FormClosing(object sender, FormClosingEventArgs e)
         {
             RemoveListeners();
+            SocketCommandServer.Instance.Stop();
         }
         
         private void AddListeners()

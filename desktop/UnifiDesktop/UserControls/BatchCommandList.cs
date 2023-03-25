@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net.Http.Headers;
 using System.Windows.Forms;
 using Unifi.Observers.Animation;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
+using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket;
@@ -66,6 +68,7 @@ namespace UnifiDesktop.UserControls
 
         private void lstCommands_DoubleClick(object sender, EventArgs e)
         {
+            //new InvokeSocketCommandCommand("UpdateServiceState", "60", Logger).Execute();
             if (lstCommands.Items.Count == 0)
             {
                 Debug.WriteLine(GetType(), "lstCommands.Items.Count = 0");

@@ -105,10 +105,22 @@
 				"Type": "Function"
 			},
 			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateServiceState, 5",
+				"DisplayText": "Start checking service state",
+				"Type": "Code"
+			},
+			{
 				"Command": "msiexec.exe",
 				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
 				"Callback": "ShowFilesVersions"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateServiceState, 0",
+				"DisplayText": "Stop checking service state",
+				"Type": "Code"
 			},
 			{
 				"Command": "cmd.exe",

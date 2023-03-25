@@ -6,7 +6,7 @@ using WebSocketSharp;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
-    internal class InvokeSocketCommandCommand : Command
+    public class InvokeSocketCommandCommand : Command
     {
         private readonly string _behavior;
         private readonly string _parameter;

@@ -51,7 +51,6 @@ namespace UnifiCommands.CommandsProvider
         {
             return MemberwiseClone();
         }
-
     }
 
     public class WebTestTask

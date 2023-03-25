@@ -83,6 +83,7 @@
             this.rbNone.Size = new System.Drawing.Size(50, 17);
             this.rbNone.TabIndex = 2;
             this.rbNone.TabStop = true;
+            this.rbNone.Tag = "0";
             this.rbNone.Text = "None";
             this.rbNone.UseVisualStyleBackColor = true;
             this.rbNone.Click += new System.EventHandler(this.TimerInternvalClick);
