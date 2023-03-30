@@ -68,7 +68,7 @@
             // rbCyUpgrade
             // 
             this.rbCyUpgrade.AutoSize = true;
-            this.rbCyUpgrade.Location = new System.Drawing.Point(19, 25);
+            this.rbCyUpgrade.Location = new System.Drawing.Point(18, 25);
             this.rbCyUpgrade.Name = "rbCyUpgrade";
             this.rbCyUpgrade.Size = new System.Drawing.Size(66, 17);
             this.rbCyUpgrade.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             this.rbMsi.AutoSize = true;
             this.rbMsi.Checked = true;
-            this.rbMsi.Location = new System.Drawing.Point(19, 3);
+            this.rbMsi.Location = new System.Drawing.Point(18, 3);
             this.rbMsi.Name = "rbMsi";
             this.rbMsi.Size = new System.Drawing.Size(44, 17);
             this.rbMsi.TabIndex = 1;
@@ -95,7 +95,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuildNumber.Location = new System.Drawing.Point(113, 46);
             this.txtBuildNumber.Name = "txtBuildNumber";
-            this.txtBuildNumber.Size = new System.Drawing.Size(109, 20);
+            this.txtBuildNumber.Size = new System.Drawing.Size(103, 20);
             this.txtBuildNumber.TabIndex = 5;
             this.txtBuildNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnControlKeyDown);
             this.txtBuildNumber.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnControlMouseDown);
@@ -107,7 +107,7 @@
             this.cmbVersion.FormattingEnabled = true;
             this.cmbVersion.Location = new System.Drawing.Point(92, 24);
             this.cmbVersion.Name = "cmbVersion";
-            this.cmbVersion.Size = new System.Drawing.Size(130, 21);
+            this.cmbVersion.Size = new System.Drawing.Size(124, 21);
             this.cmbVersion.TabIndex = 4;
             this.cmbVersion.Click += new System.EventHandler(this.cmbVersion_Click);
             this.cmbVersion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnControlKeyDown);
@@ -116,7 +116,7 @@
             // rbBuildNo
             // 
             this.rbBuildNo.AutoSize = true;
-            this.rbBuildNo.Location = new System.Drawing.Point(19, 47);
+            this.rbBuildNo.Location = new System.Drawing.Point(18, 47);
             this.rbBuildNo.Name = "rbBuildNo";
             this.rbBuildNo.Size = new System.Drawing.Size(88, 17);
             this.rbBuildNo.TabIndex = 3;
@@ -126,7 +126,7 @@
             // rbBuildVersion
             // 
             this.rbBuildVersion.AutoSize = true;
-            this.rbBuildVersion.Location = new System.Drawing.Point(19, 25);
+            this.rbBuildVersion.Location = new System.Drawing.Point(18, 25);
             this.rbBuildVersion.Name = "rbBuildVersion";
             this.rbBuildVersion.Size = new System.Drawing.Size(60, 17);
             this.rbBuildVersion.TabIndex = 2;
@@ -137,7 +137,7 @@
             // 
             this.rbLatestBuild.AutoSize = true;
             this.rbLatestBuild.Checked = true;
-            this.rbLatestBuild.Location = new System.Drawing.Point(19, 3);
+            this.rbLatestBuild.Location = new System.Drawing.Point(18, 3);
             this.rbLatestBuild.Name = "rbLatestBuild";
             this.rbLatestBuild.Size = new System.Drawing.Size(54, 17);
             this.rbLatestBuild.TabIndex = 1;
@@ -153,7 +153,7 @@
             this.cmbReleaseUrls.FormattingEnabled = true;
             this.cmbReleaseUrls.Location = new System.Drawing.Point(92, 24);
             this.cmbReleaseUrls.Name = "cmbReleaseUrls";
-            this.cmbReleaseUrls.Size = new System.Drawing.Size(130, 21);
+            this.cmbReleaseUrls.Size = new System.Drawing.Size(124, 21);
             this.cmbReleaseUrls.TabIndex = 5;
             this.cmbReleaseUrls.SelectedIndexChanged += new System.EventHandler(this.cmbReleaseUrls_SelectedIndexChanged);
             this.cmbReleaseUrls.Click += new System.EventHandler(this.cmbReleaseUrls_Click);
@@ -161,7 +161,7 @@
             // rbReleaseBuild
             // 
             this.rbReleaseBuild.AutoSize = true;
-            this.rbReleaseBuild.Location = new System.Drawing.Point(19, 25);
+            this.rbReleaseBuild.Location = new System.Drawing.Point(18, 25);
             this.rbReleaseBuild.Name = "rbReleaseBuild";
             this.rbReleaseBuild.Size = new System.Drawing.Size(64, 17);
             this.rbReleaseBuild.TabIndex = 3;
@@ -183,7 +183,7 @@
             // 
             this.rbMeBuild.AutoSize = true;
             this.rbMeBuild.Checked = true;
-            this.rbMeBuild.Location = new System.Drawing.Point(19, 3);
+            this.rbMeBuild.Location = new System.Drawing.Point(18, 3);
             this.rbMeBuild.Name = "rbMeBuild";
             this.rbMeBuild.Size = new System.Drawing.Size(40, 17);
             this.rbMeBuild.TabIndex = 1;
@@ -257,9 +257,9 @@
             this.pnlJenkins.Controls.Add(this.rbBcBuild);
             this.pnlJenkins.Controls.Add(this.rbReleaseBuild);
             this.pnlJenkins.Controls.Add(this.cmbReleaseUrls);
-            this.pnlJenkins.Location = new System.Drawing.Point(0, 22);
+            this.pnlJenkins.Location = new System.Drawing.Point(3, 22);
             this.pnlJenkins.Name = "pnlJenkins";
-            this.pnlJenkins.Size = new System.Drawing.Size(227, 46);
+            this.pnlJenkins.Size = new System.Drawing.Size(221, 46);
             this.pnlJenkins.TabIndex = 12;
             // 
             // pnlBuild
@@ -271,9 +271,9 @@
             this.pnlBuild.Controls.Add(this.rbBuildVersion);
             this.pnlBuild.Controls.Add(this.rbBuildNo);
             this.pnlBuild.Controls.Add(this.cmbVersion);
-            this.pnlBuild.Location = new System.Drawing.Point(0, 97);
+            this.pnlBuild.Location = new System.Drawing.Point(3, 97);
             this.pnlBuild.Name = "pnlBuild";
-            this.pnlBuild.Size = new System.Drawing.Size(227, 70);
+            this.pnlBuild.Size = new System.Drawing.Size(221, 70);
             this.pnlBuild.TabIndex = 13;
             // 
             // pnlInstaller
@@ -283,9 +283,9 @@
             this.pnlInstaller.Controls.Add(this.rbMsi);
             this.pnlInstaller.Controls.Add(this.rbCyUpgrade);
             this.pnlInstaller.Controls.Add(this.rbBootstrapper);
-            this.pnlInstaller.Location = new System.Drawing.Point(0, 194);
+            this.pnlInstaller.Location = new System.Drawing.Point(3, 194);
             this.pnlInstaller.Name = "pnlInstaller";
-            this.pnlInstaller.Size = new System.Drawing.Size(227, 46);
+            this.pnlInstaller.Size = new System.Drawing.Size(221, 46);
             this.pnlInstaller.TabIndex = 14;
             // 
             // DownloadCommandGroup
@@ -304,6 +304,7 @@
             this.MinimumSize = new System.Drawing.Size(182, 241);
             this.Name = "DownloadCommandGroup";
             this.Size = new System.Drawing.Size(227, 245);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.DownloadCommandGroup_Paint);
             this.pnlJenkins.ResumeLayout(false);
             this.pnlJenkins.PerformLayout();
             this.pnlBuild.ResumeLayout(false);

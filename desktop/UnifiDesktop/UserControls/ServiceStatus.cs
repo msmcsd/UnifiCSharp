@@ -142,7 +142,7 @@ namespace UnifiDesktop.UserControls
             _timer.Elapsed += DisplayServiceState;
             _timer.Start();
 
-            _logger?.LogInfo($"Service state checking interval started with interval {interval} seconds.");
+            _logger?.LogInfo($"Service state checking started with interval {interval} seconds.");
         }
 
         private async void DisplayServiceState(object sender, System.EventArgs e)

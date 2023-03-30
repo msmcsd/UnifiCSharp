@@ -7,6 +7,7 @@ using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
+using UnifiDesktop.DrawingUtils;
 
 namespace UnifiDesktop.UserControls
 {
@@ -86,5 +87,10 @@ namespace UnifiDesktop.UserControls
         }
 
         #endregion
+
+        private void InstallOptionsGroup_Paint(object sender, PaintEventArgs e)
+        {
+            DrawingHelper.DrawRoundBorder(this, e.Graphics, 3);
+        }
     }
 }

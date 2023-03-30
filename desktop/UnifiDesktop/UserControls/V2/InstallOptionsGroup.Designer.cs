@@ -57,10 +57,10 @@
             this.lblMode = new System.Windows.Forms.Label();
             this.pnlProduct = new System.Windows.Forms.Panel();
             this.pnlConfig = new System.Windows.Forms.Panel();
+            this.rbQa2New = new System.Windows.Forms.RadioButton();
             this.pnlInstallMode = new System.Windows.Forms.Panel();
             this.pnlInstaller = new System.Windows.Forms.Panel();
             this.pnlInstallAs = new System.Windows.Forms.Panel();
-            this.rbQa2New = new System.Windows.Forms.RadioButton();
             this.pnlProduct.SuspendLayout();
             this.pnlConfig.SuspendLayout();
             this.pnlInstallMode.SuspendLayout();
@@ -117,7 +117,7 @@
             // 
             // lblInstallPath
             // 
-            this.lblInstallPath.Location = new System.Drawing.Point(5, 3);
+            this.lblInstallPath.Location = new System.Drawing.Point(5, 9);
             this.lblInstallPath.Name = "lblInstallPath";
             this.lblInstallPath.Size = new System.Drawing.Size(42, 34);
             this.lblInstallPath.TabIndex = 17;
@@ -128,10 +128,10 @@
             // 
             this.txtInstallDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInstallDir.Location = new System.Drawing.Point(50, 3);
+            this.txtInstallDir.Location = new System.Drawing.Point(50, 9);
             this.txtInstallDir.Multiline = true;
             this.txtInstallDir.Name = "txtInstallDir";
-            this.txtInstallDir.Size = new System.Drawing.Size(141, 34);
+            this.txtInstallDir.Size = new System.Drawing.Size(137, 34);
             this.txtInstallDir.TabIndex = 16;
             this.txtInstallDir.Text = "C:\\Program Files\\Cylance\\Desktop";
             // 
@@ -171,7 +171,7 @@
             // rbCyUpgrade
             // 
             this.rbCyUpgrade.AutoSize = true;
-            this.rbCyUpgrade.Location = new System.Drawing.Point(19, 22);
+            this.rbCyUpgrade.Location = new System.Drawing.Point(18, 22);
             this.rbCyUpgrade.Name = "rbCyUpgrade";
             this.rbCyUpgrade.Size = new System.Drawing.Size(66, 17);
             this.rbCyUpgrade.TabIndex = 2;
@@ -183,7 +183,7 @@
             // 
             this.rbMsi.AutoSize = true;
             this.rbMsi.Checked = true;
-            this.rbMsi.Location = new System.Drawing.Point(19, 3);
+            this.rbMsi.Location = new System.Drawing.Point(18, 3);
             this.rbMsi.Name = "rbMsi";
             this.rbMsi.Size = new System.Drawing.Size(43, 17);
             this.rbMsi.TabIndex = 1;
@@ -207,7 +207,7 @@
             // 
             this.rbAdmin.AutoSize = true;
             this.rbAdmin.Checked = true;
-            this.rbAdmin.Location = new System.Drawing.Point(19, 3);
+            this.rbAdmin.Location = new System.Drawing.Point(18, 3);
             this.rbAdmin.Name = "rbAdmin";
             this.rbAdmin.Size = new System.Drawing.Size(54, 17);
             this.rbAdmin.TabIndex = 1;
@@ -218,7 +218,7 @@
             // 
             // btnInstall
             // 
-            this.btnInstall.Location = new System.Drawing.Point(6, 340);
+            this.btnInstall.Location = new System.Drawing.Point(7, 326);
             this.btnInstall.Name = "btnInstall";
             this.btnInstall.Size = new System.Drawing.Size(75, 23);
             this.btnInstall.TabIndex = 22;
@@ -229,7 +229,7 @@
             // btnUninstall
             // 
             this.btnUninstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUninstall.Location = new System.Drawing.Point(116, 340);
+            this.btnUninstall.Location = new System.Drawing.Point(113, 326);
             this.btnUninstall.Name = "btnUninstall";
             this.btnUninstall.Size = new System.Drawing.Size(75, 23);
             this.btnUninstall.TabIndex = 23;
@@ -266,15 +266,15 @@
             this.lblLineJenkins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLineJenkins.BackColor = System.Drawing.Color.Orange;
-            this.lblLineJenkins.Location = new System.Drawing.Point(49, 57);
+            this.lblLineJenkins.Location = new System.Drawing.Point(49, 63);
             this.lblLineJenkins.Name = "lblLineJenkins";
-            this.lblLineJenkins.Size = new System.Drawing.Size(142, 2);
+            this.lblLineJenkins.Size = new System.Drawing.Size(140, 2);
             this.lblLineJenkins.TabIndex = 26;
             // 
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
-            this.lblProduct.Location = new System.Drawing.Point(3, 51);
+            this.lblProduct.Location = new System.Drawing.Point(3, 57);
             this.lblProduct.Name = "lblProduct";
             this.lblProduct.Size = new System.Drawing.Size(44, 13);
             this.lblProduct.TabIndex = 25;
@@ -285,15 +285,15 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.BackColor = System.Drawing.Color.Orange;
-            this.label6.Location = new System.Drawing.Point(49, 110);
+            this.label6.Location = new System.Drawing.Point(49, 112);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(142, 2);
+            this.label6.Size = new System.Drawing.Size(140, 2);
             this.label6.TabIndex = 28;
             // 
             // lblConfig
             // 
             this.lblConfig.AutoSize = true;
-            this.lblConfig.Location = new System.Drawing.Point(3, 104);
+            this.lblConfig.Location = new System.Drawing.Point(3, 106);
             this.lblConfig.Name = "lblConfig";
             this.lblConfig.Size = new System.Drawing.Size(38, 13);
             this.lblConfig.TabIndex = 27;
@@ -304,15 +304,15 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.BackColor = System.Drawing.Color.Orange;
-            this.label7.Location = new System.Drawing.Point(49, 163);
+            this.label7.Location = new System.Drawing.Point(49, 161);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(142, 2);
+            this.label7.Size = new System.Drawing.Size(140, 2);
             this.label7.TabIndex = 30;
             // 
             // lblInstaller
             // 
             this.lblInstaller.AutoSize = true;
-            this.lblInstaller.Location = new System.Drawing.Point(3, 157);
+            this.lblInstaller.Location = new System.Drawing.Point(3, 155);
             this.lblInstaller.Name = "lblInstaller";
             this.lblInstaller.Size = new System.Drawing.Size(46, 13);
             this.lblInstaller.TabIndex = 29;
@@ -323,15 +323,15 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.BackColor = System.Drawing.Color.Orange;
-            this.label1.Location = new System.Drawing.Point(54, 235);
+            this.label1.Location = new System.Drawing.Point(54, 229);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 2);
+            this.label1.Size = new System.Drawing.Size(135, 2);
             this.label1.TabIndex = 32;
             // 
             // lblInstallAs
             // 
             this.lblInstallAs.AutoSize = true;
-            this.lblInstallAs.Location = new System.Drawing.Point(3, 229);
+            this.lblInstallAs.Location = new System.Drawing.Point(3, 223);
             this.lblInstallAs.Name = "lblInstallAs";
             this.lblInstallAs.Size = new System.Drawing.Size(50, 13);
             this.lblInstallAs.TabIndex = 31;
@@ -342,7 +342,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.BackColor = System.Drawing.Color.Orange;
-            this.label2.Location = new System.Drawing.Point(49, 288);
+            this.label2.Location = new System.Drawing.Point(47, 278);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(142, 2);
             this.label2.TabIndex = 34;
@@ -350,7 +350,7 @@
             // lblMode
             // 
             this.lblMode.AutoSize = true;
-            this.lblMode.Location = new System.Drawing.Point(3, 282);
+            this.lblMode.Location = new System.Drawing.Point(3, 272);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(33, 13);
             this.lblMode.TabIndex = 33;
@@ -362,9 +362,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlProduct.Controls.Add(this.rbProtect);
             this.pnlProduct.Controls.Add(this.rbOptics);
-            this.pnlProduct.Location = new System.Drawing.Point(0, 67);
+            this.pnlProduct.Location = new System.Drawing.Point(3, 73);
             this.pnlProduct.Name = "pnlProduct";
-            this.pnlProduct.Size = new System.Drawing.Size(196, 24);
+            this.pnlProduct.Size = new System.Drawing.Size(190, 24);
             this.pnlProduct.TabIndex = 35;
             // 
             // pnlConfig
@@ -375,45 +375,10 @@
             this.pnlConfig.Controls.Add(this.rbQa2);
             this.pnlConfig.Controls.Add(this.rbR01);
             this.pnlConfig.Controls.Add(this.rbR02);
-            this.pnlConfig.Location = new System.Drawing.Point(0, 120);
+            this.pnlConfig.Location = new System.Drawing.Point(3, 122);
             this.pnlConfig.Name = "pnlConfig";
-            this.pnlConfig.Size = new System.Drawing.Size(196, 24);
+            this.pnlConfig.Size = new System.Drawing.Size(190, 24);
             this.pnlConfig.TabIndex = 36;
-            // 
-            // pnlInstallMode
-            // 
-            this.pnlInstallMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlInstallMode.Controls.Add(this.rbQuiet);
-            this.pnlInstallMode.Controls.Add(this.rbWithUi);
-            this.pnlInstallMode.Location = new System.Drawing.Point(0, 298);
-            this.pnlInstallMode.Name = "pnlInstallMode";
-            this.pnlInstallMode.Size = new System.Drawing.Size(196, 24);
-            this.pnlInstallMode.TabIndex = 37;
-            // 
-            // pnlInstaller
-            // 
-            this.pnlInstaller.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlInstaller.Controls.Add(this.rbMsi);
-            this.pnlInstaller.Controls.Add(this.chkDebugBuild);
-            this.pnlInstaller.Controls.Add(this.rbCyUpgrade);
-            this.pnlInstaller.Controls.Add(this.rbBootstrapper);
-            this.pnlInstaller.Location = new System.Drawing.Point(0, 173);
-            this.pnlInstaller.Name = "pnlInstaller";
-            this.pnlInstaller.Size = new System.Drawing.Size(196, 44);
-            this.pnlInstaller.TabIndex = 38;
-            // 
-            // pnlInstallAs
-            // 
-            this.pnlInstallAs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlInstallAs.Controls.Add(this.rbAdmin);
-            this.pnlInstallAs.Controls.Add(this.radioButton1);
-            this.pnlInstallAs.Location = new System.Drawing.Point(0, 245);
-            this.pnlInstallAs.Name = "pnlInstallAs";
-            this.pnlInstallAs.Size = new System.Drawing.Size(196, 24);
-            this.pnlInstallAs.TabIndex = 38;
             // 
             // rbQa2New
             // 
@@ -425,6 +390,41 @@
             this.rbQa2New.Tag = "qa2";
             this.rbQa2New.Text = "qa2n";
             this.rbQa2New.UseVisualStyleBackColor = true;
+            // 
+            // pnlInstallMode
+            // 
+            this.pnlInstallMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlInstallMode.Controls.Add(this.rbQuiet);
+            this.pnlInstallMode.Controls.Add(this.rbWithUi);
+            this.pnlInstallMode.Location = new System.Drawing.Point(3, 288);
+            this.pnlInstallMode.Name = "pnlInstallMode";
+            this.pnlInstallMode.Size = new System.Drawing.Size(190, 24);
+            this.pnlInstallMode.TabIndex = 37;
+            // 
+            // pnlInstaller
+            // 
+            this.pnlInstaller.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlInstaller.Controls.Add(this.rbMsi);
+            this.pnlInstaller.Controls.Add(this.chkDebugBuild);
+            this.pnlInstaller.Controls.Add(this.rbCyUpgrade);
+            this.pnlInstaller.Controls.Add(this.rbBootstrapper);
+            this.pnlInstaller.Location = new System.Drawing.Point(3, 171);
+            this.pnlInstaller.Name = "pnlInstaller";
+            this.pnlInstaller.Size = new System.Drawing.Size(190, 44);
+            this.pnlInstaller.TabIndex = 38;
+            // 
+            // pnlInstallAs
+            // 
+            this.pnlInstallAs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlInstallAs.Controls.Add(this.rbAdmin);
+            this.pnlInstallAs.Controls.Add(this.radioButton1);
+            this.pnlInstallAs.Location = new System.Drawing.Point(3, 239);
+            this.pnlInstallAs.Name = "pnlInstallAs";
+            this.pnlInstallAs.Size = new System.Drawing.Size(190, 24);
+            this.pnlInstallAs.TabIndex = 38;
             // 
             // InstallOptionsGroup
             // 
@@ -450,9 +450,10 @@
             this.Controls.Add(this.lblInstallPath);
             this.Controls.Add(this.txtInstallDir);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MinimumSize = new System.Drawing.Size(196, 370);
+            this.MinimumSize = new System.Drawing.Size(196, 358);
             this.Name = "InstallOptionsGroup";
-            this.Size = new System.Drawing.Size(196, 370);
+            this.Size = new System.Drawing.Size(196, 358);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.InstallOptionsGroup_Paint);
             this.DoubleClick += new System.EventHandler(this.btnInstall_Click);
             this.pnlProduct.ResumeLayout(false);
             this.pnlProduct.PerformLayout();

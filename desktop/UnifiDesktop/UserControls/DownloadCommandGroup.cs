@@ -6,6 +6,7 @@ using Unifi;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Logging;
+using UnifiDesktop.DrawingUtils;
 using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
 
 namespace UnifiDesktop.UserControls
@@ -155,6 +156,11 @@ namespace UnifiDesktop.UserControls
         {
             if (sender is ComboBox) rbBuildVersion.Checked = true;
             if (sender is TextBox) rbBuildNo.Checked = true;
+        }
+
+        private void DownloadCommandGroup_Paint(object sender, PaintEventArgs e)
+        {
+            DrawingHelper.DrawRoundBorder(this, e.Graphics, 3);
         }
     }
 }
