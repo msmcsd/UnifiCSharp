@@ -16,9 +16,24 @@
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" $[GetInstallMode] PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
-				"Callback": "ShowFilesVersions"
+				"InstallerType": "Msi"
+			},
+			{
+				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
+				"Arguments": "$[GetInstallMode] /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Bootstrapper",
+				"Callback": "ShowFilesVersions",
+				"InstallerType": "Bootstrapper"
+			},
+			{
+				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
+				"DisplayText": "Run Upgrade",
+				"MinimizeWindow": true,
+				"Callback": "ShowFilesVersions",
+				"ShowOnMachine": "Test",
+				"InstallerType": "CyUpgrade"
 			}
 		]
 	},

@@ -336,12 +336,5 @@ namespace UnifiCommands.Commands.CodeCommands
 
             return clone;
         }
-
-        public enum InstallerType
-        {
-            Msi,
-            Bootstrapper,
-            CyUpgrade
-        }
     }
 }

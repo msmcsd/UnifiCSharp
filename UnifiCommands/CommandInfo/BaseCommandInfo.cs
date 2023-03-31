@@ -82,4 +82,11 @@ namespace UnifiCommands.CommandInfo
         Admin,
         User
     }
+
+    public enum InstallerType
+    {
+        Msi,
+        Bootstrapper,
+        CyUpgrade
+    }
 }

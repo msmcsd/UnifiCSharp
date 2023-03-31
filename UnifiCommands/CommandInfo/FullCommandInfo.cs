@@ -117,6 +117,8 @@ namespace UnifiCommands.CommandInfo
         /// </summary>
         public object VariableValueSource { get; set; }
 
+        public InstallerType InstallerType { get; set; }
+
         /// <summary>
         /// Creates a BaseCommandInfo object and copy the values of corresponding properties from FullCommandInfo.
         /// </summary>

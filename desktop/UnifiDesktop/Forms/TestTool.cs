@@ -486,8 +486,8 @@ namespace Unifi.Forms
             lstInstall.DisplayMember = "Name";
             lstInstall.DataSource = groups;
 
-            installOptionsGroup1.SetupCommands = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetup)?.Commands;
-            installOptionsGroup1.InstallCommand = _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands[0];
+            installOptionsGroup1.SetCommands( _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetup)?.Commands,
+                _commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands);
             installOptionsGroup1.Logger = _logger;
         }
 

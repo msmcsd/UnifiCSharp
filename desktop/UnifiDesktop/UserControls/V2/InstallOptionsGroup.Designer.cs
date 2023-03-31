@@ -225,6 +225,7 @@
             this.btnInstall.Text = "Install";
             this.btnInstall.UseVisualStyleBackColor = true;
             this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
+            this.btnInstall.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnInstall_MouseDown);
             // 
             // btnUninstall
             // 

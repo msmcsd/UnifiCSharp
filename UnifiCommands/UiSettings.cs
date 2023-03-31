@@ -1,6 +1,6 @@
-﻿using static UnifiCommands.Commands.CodeCommands.DownloadInstallerCommand;
-using UnifiCommands;
+﻿using UnifiCommands;
 using Newtonsoft.Json;
+using UnifiCommands.CommandInfo;
 
 namespace UnifiCommands
 {
