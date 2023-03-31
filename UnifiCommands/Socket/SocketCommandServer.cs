@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Channels;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp.Server;
@@ -18,12 +21,35 @@ namespace UnifiCommands.Socket
         private SocketCommandServer()
         {
             _wssv = new WebSocketServer(SocketUrl);
+            AddChannels();
+        }
+
+        private void AddChannels()
+        {
+            var behaviorTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsClass && typeof(BaseBehavior).IsAssignableFrom(t) && !typeof(BaseBehavior).Equals(t)).ToList();
+            var addWebSocketServiceMethod = typeof(WebSocketServer).GetMethod("AddWebSocketService", new Type[] { typeof(string) });
+
+            foreach (var t in behaviorTypes)
+            {
+                var typedMethod = addWebSocketServiceMethod.MakeGenericMethod(t);
+                string channel = (string)t.GetField("ChannelName", BindingFlags.Public | BindingFlags.Static).GetValue(null);
+                typedMethod.Invoke(_wssv, new object[] { $"/{channel}" });
+            }
+        }
+
+        private void ListChannels()
+        {
+            LogMessage($"Socket channel list:");
+            foreach (var channel in _wssv.WebSocketServices.Paths)
+            {
+                LogMessage(channel);
+            }
         }
 
         public void Start(ILogger logger)
         {
             _logger = logger;
-            _wssv.AddWebSocketService<UpdateServiceStateBehavior>("/" + UpdateServiceStateBehavior.ChannelName);
+            ListChannels();
             _wssv.Start();
             LogMessage($"Socket server started. IsListening: {_wssv.IsListening}");
         }
