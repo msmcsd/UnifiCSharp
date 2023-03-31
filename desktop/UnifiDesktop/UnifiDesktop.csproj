@@ -90,9 +90,6 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UnifiDesktop, Version=1.0.8454.22083, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="WebsocketSharp.Core, Version=2022.4.16.1520, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WebsocketSharp.Standard2.2022.4.16.1520\lib\netstandard2.0\WebsocketSharp.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandsRunner.cs" />
@@ -328,7 +325,6 @@
     <EmbeddedResource Include="UserControls\VersionGrid.resx">
       <DependentUpon>VersionGrid.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

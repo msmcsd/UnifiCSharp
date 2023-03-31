@@ -23,7 +23,7 @@ using UnifiDesktop.UserControls.V2;
 using UnifiDesktop.DrawingUtils;
 using Unifi.Logging;
 using UnifiDesktop.Logging;
-using UnifiCommands.Socket;
+//using UnifiCommands.Socket;
 
 namespace Unifi.Forms
 {
@@ -53,7 +53,7 @@ namespace Unifi.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
             _logger = new DesktopLogger(txtConsole);
-            SocketCommandServer.Instance.Start(_logger);
+            //SocketCommandServer.Instance.Start(_logger);
 
             GetInstallFolderFromRegistry();
             LoadSettings();
@@ -73,7 +73,7 @@ namespace Unifi.Forms
         private void TestTool_FormClosing(object sender, FormClosingEventArgs e)
         {
             RemoveListeners();
-            SocketCommandServer.Instance.Stop();
+            //SocketCommandServer.Instance.Stop();
         }
         
         private void AddListeners()

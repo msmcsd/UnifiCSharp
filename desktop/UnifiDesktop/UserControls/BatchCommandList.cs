@@ -10,8 +10,8 @@ using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
-using UnifiCommands.Socket;
-using UnifiCommands.Socket.Behaviors;
+//using UnifiCommands.Socket;
+//using UnifiCommands.Socket.Behaviors;
 
 namespace UnifiDesktop.UserControls
 {
