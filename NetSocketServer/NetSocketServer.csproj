@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebsocketSharp.Standard2" Version="2022.4.16.1520" />
+    <Reference Include="WebSocketSharp-CustomHeaders">
+      <HintPath>..\..\..\Users\jshih\.nuget\packages\WebSocketSharp-CustomHeaders\1.0.0\lib\net462\WebSocketSharp-CustomHeaders.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

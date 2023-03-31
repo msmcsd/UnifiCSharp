@@ -6,9 +6,9 @@ using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
-//using UnifiCommands.Socket;
-//using UnifiCommands.Socket.Behaviors;
-//using WebSocketSharp;
+using UnifiCommands.Socket;
+using UnifiCommands.Socket.Behaviors;
+using WebSocketSharp;
 using Timer = System.Timers.Timer;
 
 namespace UnifiDesktop.UserControls
@@ -17,7 +17,7 @@ namespace UnifiDesktop.UserControls
     {
 
         private Timer _timer = null;
-        //private WebSocket _client;
+        private WebSocket _client;
         private ILogger _logger;
         private List<FullCommandInfo> _commandInfos;
         private Command[] _commands;
@@ -32,50 +32,54 @@ namespace UnifiDesktop.UserControls
             _commandInfos = commandInfos;
             _logger = logger;
             PopulateCommands();
-            //Task.Run(SetupSocket);
+            Task.Run(SetupSocket);
         }
 
-        //private void SetupSocket()
-        //{
-        //    if (_client == null)
-        //    {
-        //        _client = new WebSocket(SocketCommandServer.SocketUrl + "/" + UpdateServiceStateBehavior.ChannelName);
-        //        _client.OnMessage += OnReceiveCommand;
-        //        _client.WaitTime = new TimeSpan(1, 0, 0);
-        //        _client.Connect();
-        //        _logger.LogInfo($"ServiceState socket created. IsAlive: {_client.IsAlive}");
-        //    }
-        //    else if (!_client.IsAlive)
-        //    {
-        //        _client.Connect();
-        //    }
-        //}
+        private void SetupSocket()
+        {
+            if (_client == null)
+            {
+                _client = new WebSocket($"{SocketCommandServer.SocketUrl}/{UpdateServiceStateBehavior.ChannelName}");
+                _client.OnOpen += (sender, e) => 
+                { 
+                    SocketCommandServer.Instance.LogMessage($"ServiceStatus control conected to socket channel '{UpdateServiceStateBehavior.ChannelName}'."); 
+                };
+                _client.OnError += (sender, e) => { _logger.LogError(e.Message); };
+                _client.OnMessage += OnReceiveCommand;
+                _client.WaitTime = new TimeSpan(1, 0, 0);
+                _client.Connect();
+            }
+            else if (!_client.IsAlive)
+            {
+                _client.Connect();
+            }
+        }
 
-        //private void OnReceiveCommand(object sender, MessageEventArgs e)
-        //{
-        //    _logger.LogInfo($"Recieved data {e.Data}.");
-        //    if (!int.TryParse(e.Data, out int seconds)) return;
+        private void OnReceiveCommand(object sender, MessageEventArgs e)
+        {
+            SocketCommandServer.Instance.LogMessage($"Channel '{UpdateServiceStateBehavior.ChannelName}' recieved data '{e.Data}'.");
+            if (!int.TryParse(e.Data, out int seconds)) return;
 
-        //    _logger.LogInfo($"Recieved command to set interval to {seconds} seconds.");
+            _logger.LogInfo($"{UpdateServiceStateBehavior.ChannelName} recieved command to set interval to {seconds} seconds.");
 
-        //    BeginInvoke(new MethodInvoker(() =>
-        //    {
-        //        switch (seconds)
-        //        {
-        //            case 5:
-        //                rbSeconds5.Checked = true;
-        //                break;
-        //            case 60:
-        //                rbSeconds60.Checked = true;
-        //                break;
-        //            default:
-        //                rbNone.Checked = true;
-        //                break;
-        //        }
+            BeginInvoke(new MethodInvoker(() =>
+            {
+                switch (seconds)
+                {
+                    case 5:
+                        rbSeconds5.Checked = true;
+                        break;
+                    case 60:
+                        rbSeconds60.Checked = true;
+                        break;
+                    default:
+                        rbNone.Checked = true;
+                        break;
+                }
 
-        //        SetupTimer(seconds.ToString());
-        //    }));
-        //}
+                SetupTimer(seconds.ToString());
+            }));
+        }
 
         private void SetupListView()
         {

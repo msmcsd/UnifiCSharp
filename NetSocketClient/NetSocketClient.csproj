@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
+    <Reference Include="WebSocketSharp-CustomHeaders">
+      <HintPath>..\..\..\Users\jshih\.nuget\packages\WebSocketSharp-CustomHeaders\1.0.0\lib\net462\WebSocketSharp-CustomHeaders.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
