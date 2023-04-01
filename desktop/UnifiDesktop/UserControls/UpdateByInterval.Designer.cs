@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstService = new System.Windows.Forms.ListView();
+            this.lstItems = new System.Windows.Forms.ListView();
             this.colField1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colField2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblInverval = new System.Windows.Forms.Label();
@@ -37,24 +37,24 @@
             this.rbNone = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
-            // lstService
+            // lstItems
             // 
-            this.lstService.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstService.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colField1,
             this.colField2});
-            this.lstService.FullRowSelect = true;
-            this.lstService.HideSelection = false;
-            this.lstService.Location = new System.Drawing.Point(0, 50);
-            this.lstService.MultiSelect = false;
-            this.lstService.Name = "lstService";
-            this.lstService.Size = new System.Drawing.Size(198, 231);
-            this.lstService.TabIndex = 6;
-            this.lstService.UseCompatibleStateImageBehavior = false;
-            this.lstService.View = System.Windows.Forms.View.Details;
-            this.lstService.Click += new System.EventHandler(this.TimerInternvalClick);
+            this.lstItems.FullRowSelect = true;
+            this.lstItems.HideSelection = false;
+            this.lstItems.Location = new System.Drawing.Point(0, 50);
+            this.lstItems.MultiSelect = false;
+            this.lstItems.Name = "lstItems";
+            this.lstItems.Size = new System.Drawing.Size(198, 231);
+            this.lstItems.TabIndex = 6;
+            this.lstItems.UseCompatibleStateImageBehavior = false;
+            this.lstItems.View = System.Windows.Forms.View.Details;
+            this.lstItems.Click += new System.EventHandler(this.TimerInternvalClick);
             // 
             // colField1
             // 
@@ -117,7 +117,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lstService);
+            this.Controls.Add(this.lstItems);
             this.Controls.Add(this.lblInverval);
             this.Controls.Add(this.rbSeconds60);
             this.Controls.Add(this.rbSeconds5);
@@ -137,6 +137,6 @@
         private System.Windows.Forms.RadioButton rbNone;
         protected System.Windows.Forms.ColumnHeader colField1;
         protected System.Windows.Forms.ColumnHeader colField2;
-        private System.Windows.Forms.ListView lstService;
+        protected System.Windows.Forms.ListView lstItems;
     }
 }

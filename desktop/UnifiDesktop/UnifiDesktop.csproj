@@ -102,7 +102,7 @@
     <Compile Include="Consoles\Debugging.cs" />
     <Compile Include="DrawingUtils\DrawingHelper.cs" />
     <Compile Include="DrawingUtils\RoundedRectangle.cs" />
-    <Compile Include="Logging\ServiceStatusLogger.cs" />
+    <Compile Include="Logging\UpdateIntervalLogger.cs" />
     <Compile Include="Observers\Animation\BatchCommandExecutor.cs" />
     <Compile Include="Observers\Animation\BatchListboxUpdater.cs" />
     <Compile Include="Observers\Animation\BatchListViewUpdater.cs" />
@@ -172,6 +172,12 @@
     </Compile>
     <Compile Include="UserControls\UpdateByInterval.Designer.cs">
       <DependentUpon>UpdateByInterval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UpdateFileVersion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UpdateFileVersion.Designer.cs">
+      <DependentUpon>UpdateFileVersion.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UpdateServiceState.cs">
       <SubType>UserControl</SubType>

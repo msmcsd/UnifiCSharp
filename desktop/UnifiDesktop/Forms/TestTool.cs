@@ -271,15 +271,15 @@ namespace Unifi.Forms
 
         private void PopulateVersionGrid()
         {
-            lstVersion.Commands = _commandsProvider.FileVersionTask.Commands;
-            lstVersion.PopulateItems();
-            lstVersion.FormObject = this;
+            //lstVersion.Commands = _commandsProvider.FileVersionTask.Commands;
+            //lstVersion.PopulateItems();
+            //lstVersion.FormObject = this;
+            updateFileVersion1.Initialize(_commandsProvider.FileVersionTask.Commands, new UpdateIntervalLogger(txtConsole), this);
         }
 
         private void PopulateServiceStateView()
         {
-            //serviceStatus1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new ServiceStatusLogger(txtConsole));
-            updateServiceState1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new ServiceStatusLogger(txtConsole));
+            updateServiceState1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new UpdateIntervalLogger(txtConsole), null);
         }
 
         private void PopulateDosCommandGroups()

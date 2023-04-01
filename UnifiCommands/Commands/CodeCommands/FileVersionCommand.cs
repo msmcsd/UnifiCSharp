@@ -29,7 +29,7 @@ namespace UnifiCommands.Commands.CodeCommands
             }
 
             LogError($"File not found: {_filePath}");
-            return Task.FromResult("");
+            return Task.FromResult("NOT FOUND");
         }
     }
 }

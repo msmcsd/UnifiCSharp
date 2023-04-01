@@ -50,15 +50,16 @@ namespace Unifi.Forms
             this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
             this.grpConsole = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.updateServiceState1 = new UnifiDesktop.UserControls.UpdateServiceState();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
             this.reportGrid1 = new Unifi.UserControls.ReportGrid();
             this.grpVersion = new System.Windows.Forms.GroupBox();
+            this.updateFileVersion1 = new UnifiDesktop.UserControls.UpdateFileVersion();
             this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
             this.grpService = new System.Windows.Forms.GroupBox();
+            this.updateServiceState1 = new UnifiDesktop.UserControls.UpdateServiceState();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
             this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.pnlDosCommands = new System.Windows.Forms.Panel();
@@ -317,15 +318,6 @@ namespace Unifi.Forms
             this.splitContainer1.SplitterDistance = 372;
             this.splitContainer1.TabIndex = 2;
             // 
-            // updateServiceState1
-            // 
-            this.updateServiceState1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.updateServiceState1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateServiceState1.Location = new System.Drawing.Point(3, 17);
-            this.updateServiceState1.Name = "updateServiceState1";
-            this.updateServiceState1.Size = new System.Drawing.Size(161, 241);
-            this.updateServiceState1.TabIndex = 2;
-            // 
             // txtConsole
             // 
             this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -365,9 +357,9 @@ namespace Unifi.Forms
             // 
             this.grpReport.Controls.Add(this.reportGrid1);
             this.grpReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpReport.Location = new System.Drawing.Point(570, 17);
+            this.grpReport.Location = new System.Drawing.Point(579, 17);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(264, 261);
+            this.grpReport.Size = new System.Drawing.Size(255, 261);
             this.grpReport.TabIndex = 11;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -379,26 +371,35 @@ namespace Unifi.Forms
             this.reportGrid1.Location = new System.Drawing.Point(3, 17);
             this.reportGrid1.Logger = null;
             this.reportGrid1.Name = "reportGrid1";
-            this.reportGrid1.Size = new System.Drawing.Size(258, 241);
+            this.reportGrid1.Size = new System.Drawing.Size(249, 241);
             this.reportGrid1.TabIndex = 2;
             // 
             // grpVersion
             // 
+            this.grpVersion.Controls.Add(this.updateFileVersion1);
             this.grpVersion.Controls.Add(this.lstVersion);
             this.grpVersion.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpVersion.Location = new System.Drawing.Point(409, 17);
             this.grpVersion.Name = "grpVersion";
-            this.grpVersion.Size = new System.Drawing.Size(161, 261);
+            this.grpVersion.Size = new System.Drawing.Size(170, 261);
             this.grpVersion.TabIndex = 15;
             this.grpVersion.TabStop = false;
             this.grpVersion.Text = "Version";
             // 
+            // updateFileVersion1
+            // 
+            this.updateFileVersion1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.updateFileVersion1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateFileVersion1.Location = new System.Drawing.Point(3, 17);
+            this.updateFileVersion1.Name = "updateFileVersion1";
+            this.updateFileVersion1.Size = new System.Drawing.Size(164, 241);
+            this.updateFileVersion1.TabIndex = 15;
+            // 
             // lstVersion
             // 
             this.lstVersion.Commands = null;
-            this.lstVersion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstVersion.FormObject = null;
-            this.lstVersion.Location = new System.Drawing.Point(3, 17);
+            this.lstVersion.Location = new System.Drawing.Point(49, 92);
             this.lstVersion.Name = "lstVersion";
             this.lstVersion.Size = new System.Drawing.Size(155, 241);
             this.lstVersion.TabIndex = 14;
@@ -413,6 +414,15 @@ namespace Unifi.Forms
             this.grpService.TabIndex = 16;
             this.grpService.TabStop = false;
             this.grpService.Text = "Service";
+            // 
+            // updateServiceState1
+            // 
+            this.updateServiceState1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.updateServiceState1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateServiceState1.Location = new System.Drawing.Point(3, 17);
+            this.updateServiceState1.Name = "updateServiceState1";
+            this.updateServiceState1.Size = new System.Drawing.Size(161, 241);
+            this.updateServiceState1.TabIndex = 2;
             // 
             // grpBatchCommand
             // 
@@ -514,6 +524,7 @@ namespace Unifi.Forms
         private UnifiDesktop.UserControls.DownloadCommandGroup downloadCommandGroup1;
         private System.Windows.Forms.Label lblDownload;
         private UnifiDesktop.UserControls.UpdateServiceState updateServiceState1;
+        private UnifiDesktop.UserControls.UpdateFileVersion updateFileVersion1;
     }
 }
 

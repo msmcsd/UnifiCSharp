@@ -19,22 +19,22 @@ namespace Unifi.Logging
             _console = new TextBoxConsole(textBox);
         }
 
-        public void LogInfo(string message)
+        public virtual void LogInfo(string message)
         {
             _console.LogInfo(message);
         }
 
-        public void LogError(string message)
+        public virtual void LogError(string message)
         {
             _console.LogError(message);
         }
 
-        public void LogProgress(string message)
+        public virtual void LogProgress(string message)
         {
             _console.LogProgress(message);
         }
 
-        public void LogCommand(string message, bool newLine)
+        public virtual void LogCommand(string message, bool newLine)
         {
             _console.LogCommand(message, newLine);
         }

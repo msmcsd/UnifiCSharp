@@ -24,8 +24,8 @@ namespace UnifiDesktop.UserControls
         {
             colField1.Width = 50;
             colField2.Width = 105;
-            colField1.Name = "Service";
-            colField2.Name = "State";
+            colField1.Text = "Service";
+            colField2.Text = "State";
         }
 
         //protected override void Initialize(List<FullCommandInfo> commandInfos, ILogger logger)
