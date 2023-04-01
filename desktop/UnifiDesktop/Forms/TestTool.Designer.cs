@@ -34,12 +34,6 @@ namespace Unifi.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestTool));
             this.pnlTaskBar = new System.Windows.Forms.Panel();
             this.navBarDrawer1 = new UnifiDesktop.UserControls.V2.NavBarDrawer();
-            this.downloadCommandGroup1 = new UnifiDesktop.UserControls.DownloadCommandGroup();
-            this.lblDownload = new System.Windows.Forms.Label();
-            this.lblInstallOptions = new System.Windows.Forms.Label();
-            this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
-            this.grpConsole = new System.Windows.Forms.GroupBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.grpInstall = new System.Windows.Forms.GroupBox();
             this.grpConfig = new System.Windows.Forms.GroupBox();
             this.rbQa2New = new System.Windows.Forms.RadioButton();
@@ -50,6 +44,13 @@ namespace Unifi.Forms
             this.chkDebugBuild = new System.Windows.Forms.CheckBox();
             this.lblInstallPath = new System.Windows.Forms.Label();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
+            this.downloadCommandGroup1 = new UnifiDesktop.UserControls.DownloadCommandGroup();
+            this.lblDownload = new System.Windows.Forms.Label();
+            this.lblInstallOptions = new System.Windows.Forms.Label();
+            this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
+            this.grpConsole = new System.Windows.Forms.GroupBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.updateServiceState1 = new UnifiDesktop.UserControls.UpdateServiceState();
             this.txtConsole = new System.Windows.Forms.RichTextBox();
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.grpBatch = new System.Windows.Forms.GroupBox();
@@ -58,20 +59,19 @@ namespace Unifi.Forms
             this.grpVersion = new System.Windows.Forms.GroupBox();
             this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
             this.grpService = new System.Windows.Forms.GroupBox();
-            this.serviceStatus1 = new UnifiDesktop.UserControls.ServiceStatus();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
             this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.pnlDosCommands = new System.Windows.Forms.Panel();
             this.navBarDrawer1.DrawerPanel.SuspendLayout();
             this.navBarDrawer1.MainControlsPanel.SuspendLayout();
             this.navBarDrawer1.SuspendLayout();
+            this.grpInstall.SuspendLayout();
+            this.grpConfig.SuspendLayout();
             this.grpConsole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.grpInstall.SuspendLayout();
-            this.grpConfig.SuspendLayout();
             this.grpBatch.SuspendLayout();
             this.grpReport.SuspendLayout();
             this.grpVersion.SuspendLayout();
@@ -123,82 +123,6 @@ namespace Unifi.Forms
             this.navBarDrawer1.NavBarHeight = 40;
             this.navBarDrawer1.Size = new System.Drawing.Size(1482, 717);
             this.navBarDrawer1.TabIndex = 22;
-            // 
-            // downloadCommandGroup1
-            // 
-            this.downloadCommandGroup1.BackColor = System.Drawing.SystemColors.Control;
-            this.downloadCommandGroup1.CommandsRunner = null;
-            this.downloadCommandGroup1.Location = new System.Drawing.Point(11, 427);
-            this.downloadCommandGroup1.Logger = null;
-            this.downloadCommandGroup1.MinimumSize = new System.Drawing.Size(182, 241);
-            this.downloadCommandGroup1.Name = "downloadCommandGroup1";
-            this.downloadCommandGroup1.Size = new System.Drawing.Size(198, 245);
-            this.downloadCommandGroup1.TabIndex = 25;
-            // 
-            // lblDownload
-            // 
-            this.lblDownload.AutoSize = true;
-            this.lblDownload.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDownload.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblDownload.Location = new System.Drawing.Point(10, 410);
-            this.lblDownload.Name = "lblDownload";
-            this.lblDownload.Size = new System.Drawing.Size(75, 16);
-            this.lblDownload.TabIndex = 24;
-            this.lblDownload.Text = "DOWNLOAD";
-            // 
-            // lblInstallOptions
-            // 
-            this.lblInstallOptions.AutoSize = true;
-            this.lblInstallOptions.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstallOptions.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblInstallOptions.Location = new System.Drawing.Point(10, 4);
-            this.lblInstallOptions.Name = "lblInstallOptions";
-            this.lblInstallOptions.Size = new System.Drawing.Size(55, 16);
-            this.lblInstallOptions.TabIndex = 23;
-            this.lblInstallOptions.Text = "INSTALL";
-            this.lblInstallOptions.Visible = false;
-            // 
-            // installOptionsGroup1
-            // 
-            this.installOptionsGroup1.BackColor = System.Drawing.SystemColors.Control;
-            this.installOptionsGroup1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.installOptionsGroup1.Location = new System.Drawing.Point(11, 23);
-            this.installOptionsGroup1.Logger = null;
-            this.installOptionsGroup1.MinimumSize = new System.Drawing.Size(196, 370);
-            this.installOptionsGroup1.Name = "installOptionsGroup1";
-            this.installOptionsGroup1.PrerequisiteTask = null;
-            this.installOptionsGroup1.Size = new System.Drawing.Size(202, 370);
-            this.installOptionsGroup1.TabIndex = 0;
-            this.installOptionsGroup1.Visible = false;
-            // 
-            // grpConsole
-            // 
-            this.grpConsole.Controls.Add(this.splitContainer1);
-            this.grpConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpConsole.Location = new System.Drawing.Point(397, 0);
-            this.grpConsole.Name = "grpConsole";
-            this.grpConsole.Size = new System.Drawing.Size(843, 677);
-            this.grpConsole.TabIndex = 15;
-            this.grpConsole.TabStop = false;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 17);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtConsole);
-            this.splitContainer1.Panel1.Controls.Add(this.txtDebugger);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.grpBatch);
-            this.splitContainer1.Size = new System.Drawing.Size(837, 657);
-            this.splitContainer1.SplitterDistance = 372;
-            this.splitContainer1.TabIndex = 2;
             // 
             // grpInstall
             // 
@@ -317,6 +241,91 @@ namespace Unifi.Forms
             this.txtInstallDir.TabIndex = 13;
             this.txtInstallDir.Text = "C:\\Program Files\\123";
             // 
+            // downloadCommandGroup1
+            // 
+            this.downloadCommandGroup1.BackColor = System.Drawing.SystemColors.Control;
+            this.downloadCommandGroup1.CommandsRunner = null;
+            this.downloadCommandGroup1.Location = new System.Drawing.Point(11, 427);
+            this.downloadCommandGroup1.Logger = null;
+            this.downloadCommandGroup1.MinimumSize = new System.Drawing.Size(182, 241);
+            this.downloadCommandGroup1.Name = "downloadCommandGroup1";
+            this.downloadCommandGroup1.Size = new System.Drawing.Size(198, 245);
+            this.downloadCommandGroup1.TabIndex = 25;
+            // 
+            // lblDownload
+            // 
+            this.lblDownload.AutoSize = true;
+            this.lblDownload.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDownload.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblDownload.Location = new System.Drawing.Point(10, 410);
+            this.lblDownload.Name = "lblDownload";
+            this.lblDownload.Size = new System.Drawing.Size(75, 16);
+            this.lblDownload.TabIndex = 24;
+            this.lblDownload.Text = "DOWNLOAD";
+            // 
+            // lblInstallOptions
+            // 
+            this.lblInstallOptions.AutoSize = true;
+            this.lblInstallOptions.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstallOptions.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblInstallOptions.Location = new System.Drawing.Point(10, 4);
+            this.lblInstallOptions.Name = "lblInstallOptions";
+            this.lblInstallOptions.Size = new System.Drawing.Size(55, 16);
+            this.lblInstallOptions.TabIndex = 23;
+            this.lblInstallOptions.Text = "INSTALL";
+            this.lblInstallOptions.Visible = false;
+            // 
+            // installOptionsGroup1
+            // 
+            this.installOptionsGroup1.BackColor = System.Drawing.SystemColors.Control;
+            this.installOptionsGroup1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.installOptionsGroup1.Location = new System.Drawing.Point(11, 23);
+            this.installOptionsGroup1.Logger = null;
+            this.installOptionsGroup1.MinimumSize = new System.Drawing.Size(196, 370);
+            this.installOptionsGroup1.Name = "installOptionsGroup1";
+            this.installOptionsGroup1.PrerequisiteTask = null;
+            this.installOptionsGroup1.Size = new System.Drawing.Size(202, 370);
+            this.installOptionsGroup1.TabIndex = 0;
+            this.installOptionsGroup1.Visible = false;
+            // 
+            // grpConsole
+            // 
+            this.grpConsole.Controls.Add(this.splitContainer1);
+            this.grpConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpConsole.Location = new System.Drawing.Point(397, 0);
+            this.grpConsole.Name = "grpConsole";
+            this.grpConsole.Size = new System.Drawing.Size(843, 677);
+            this.grpConsole.TabIndex = 15;
+            this.grpConsole.TabStop = false;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 17);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.txtConsole);
+            this.splitContainer1.Panel1.Controls.Add(this.txtDebugger);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.grpBatch);
+            this.splitContainer1.Size = new System.Drawing.Size(837, 657);
+            this.splitContainer1.SplitterDistance = 372;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // updateServiceState1
+            // 
+            this.updateServiceState1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.updateServiceState1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateServiceState1.Location = new System.Drawing.Point(3, 17);
+            this.updateServiceState1.Name = "updateServiceState1";
+            this.updateServiceState1.Size = new System.Drawing.Size(161, 241);
+            this.updateServiceState1.TabIndex = 2;
+            // 
             // txtConsole
             // 
             this.txtConsole.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -396,7 +405,7 @@ namespace Unifi.Forms
             // 
             // grpService
             // 
-            this.grpService.Controls.Add(this.serviceStatus1);
+            this.grpService.Controls.Add(this.updateServiceState1);
             this.grpService.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpService.Location = new System.Drawing.Point(242, 17);
             this.grpService.Name = "grpService";
@@ -404,15 +413,6 @@ namespace Unifi.Forms
             this.grpService.TabIndex = 16;
             this.grpService.TabStop = false;
             this.grpService.Text = "Service";
-            // 
-            // serviceStatus1
-            // 
-            this.serviceStatus1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.serviceStatus1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serviceStatus1.Location = new System.Drawing.Point(3, 17);
-            this.serviceStatus1.Name = "serviceStatus1";
-            this.serviceStatus1.Size = new System.Drawing.Size(161, 241);
-            this.serviceStatus1.TabIndex = 0;
             // 
             // grpBatchCommand
             // 
@@ -464,15 +464,15 @@ namespace Unifi.Forms
             this.navBarDrawer1.DrawerPanel.PerformLayout();
             this.navBarDrawer1.MainControlsPanel.ResumeLayout(false);
             this.navBarDrawer1.ResumeLayout(false);
+            this.grpInstall.ResumeLayout(false);
+            this.grpInstall.PerformLayout();
+            this.grpConfig.ResumeLayout(false);
+            this.grpConfig.PerformLayout();
             this.grpConsole.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.grpInstall.ResumeLayout(false);
-            this.grpInstall.PerformLayout();
-            this.grpConfig.ResumeLayout(false);
-            this.grpConfig.PerformLayout();
             this.grpBatch.ResumeLayout(false);
             this.grpReport.ResumeLayout(false);
             this.grpVersion.ResumeLayout(false);
@@ -508,12 +508,12 @@ namespace Unifi.Forms
         private System.Windows.Forms.Panel pnlDosCommands;
         private UnifiDesktop.UserControls.V2.NavBarDrawer navBarDrawer1;
         private System.Windows.Forms.GroupBox grpService;
-        private UnifiDesktop.UserControls.ServiceStatus serviceStatus1;
         private UnifiDesktop.UserControls.InstallOptionsGroup installOptionsGroup1;
         private System.Windows.Forms.RadioButton rbQa2New;
         private System.Windows.Forms.Label lblInstallOptions;
         private UnifiDesktop.UserControls.DownloadCommandGroup downloadCommandGroup1;
         private System.Windows.Forms.Label lblDownload;
+        private UnifiDesktop.UserControls.UpdateServiceState updateServiceState1;
     }
 }
 

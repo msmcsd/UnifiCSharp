@@ -278,7 +278,8 @@ namespace Unifi.Forms
 
         private void PopulateServiceStateView()
         {
-            serviceStatus1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new ServiceStatusLogger(txtConsole));
+            //serviceStatus1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new ServiceStatusLogger(txtConsole));
+            updateServiceState1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new ServiceStatusLogger(txtConsole));
         }
 
         private void PopulateDosCommandGroups()
