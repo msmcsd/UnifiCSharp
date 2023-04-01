@@ -120,10 +120,9 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateServiceState, 5",
-				"DisplayText": "Start checking service state",
-				"Type": "Code"
+				"Command": "Pre_Install_Tasks",
+				"DisplayText": "Pre install tasks",
+				"Type": "Function"
 			},
 			{
 				"Command": "msiexec.exe",
@@ -132,15 +131,50 @@
 				"Callback": "ShowFilesVersions"
 			},
 			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post install tasks",
+				"Type": "Function"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
+			}
+		]
+	},	
+	{
+		"Name": "Pre_Install_Tasks",
+		"CommandGroup": "Function",
+		"Commands": [
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateServiceState, 5",
+				"DisplayText": "Start checking service state",
+				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateFileVersion, 5",
+				"DisplayText": "Start checking file version",
+				"Type": "Code"
+			}
+		]
+	},
+	{
+		"Name": "Post_Install_Tasks",
+		"CommandGroup": "Function",
+		"Commands": [
+			{
 				"Command": "InvokeSocketCommand",
 				"Arguments": "UpdateServiceState, 0",
 				"DisplayText": "Stop checking service state",
 				"Type": "Code"
 			},
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
-				"DisplayText": "Start up Cylance UI"
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateFileVersion, 0",
+				"DisplayText": "Stop checking file version",
+				"Type": "Code"
 			}
 		]
 	},
