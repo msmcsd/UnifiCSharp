@@ -34,23 +34,23 @@ namespace UnifiCommands.Commands
             };
 
             Timer callbackTimer = null;
-            bool hasCallback = _appType == AppType.Desktop && !string.IsNullOrEmpty(_command.Callback);
-            ElapsedEventHandler del = null;
-            if (hasCallback)
-            {
-                callbackTimer = new Timer(2000);
-                MethodInfo method = _command.VariableValueSource.GetType().GetMethod(_command.Callback, BindingFlags.Instance | BindingFlags.NonPublic);
-                del = (ElapsedEventHandler)Delegate.CreateDelegate(typeof(ElapsedEventHandler), _command.VariableValueSource, method);
-                callbackTimer.Elapsed += del;
-                callbackTimer.AutoReset = true;
-            }
+            //bool hasCallback = _appType == AppType.Desktop && !string.IsNullOrEmpty(_command.Callback);
+            //ElapsedEventHandler del = null;
+            //if (hasCallback)
+            //{
+            //    callbackTimer = new Timer(2000);
+            //    MethodInfo method = _command.VariableValueSource.GetType().GetMethod(_command.Callback, BindingFlags.Instance | BindingFlags.NonPublic);
+            //    del = (ElapsedEventHandler)Delegate.CreateDelegate(typeof(ElapsedEventHandler), _command.VariableValueSource, method);
+            //    callbackTimer.Elapsed += del;
+            //    callbackTimer.AutoReset = true;
+            //}
 
             string ret = _executor.Run(_command, callbackTimer);
 
-            if (hasCallback)
-            {
-                callbackTimer.Elapsed -= del;
-            }
+            //if (hasCallback)
+            //{
+            //    callbackTimer.Elapsed -= del;
+            //}
 
             return Task.FromResult(ret);
         }

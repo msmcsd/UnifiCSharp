@@ -24,14 +24,12 @@
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "$[GetInstallMode] /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Bootstrapper",
-				"Callback": "ShowFilesVersions",
 				"InstallerType": "Bootstrapper"
 			},
 			{
 				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
 				"DisplayText": "Run Upgrade",
 				"MinimizeWindow": true,
-				"Callback": "ShowFilesVersions",
 				"ShowOnMachine": "Test",
 				"InstallerType": "CyUpgrade"
 			}
@@ -127,8 +125,7 @@
 			{
 				"Command": "msiexec.exe",
 				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Protect Installer",
-				"Callback": "ShowFilesVersions"
+				"DisplayText": "Run Protect Installer"
 			},
 			{
 				"Command": "Post_Install_Tasks",
@@ -212,8 +209,7 @@
 			{
 				"Command": "msiexec.exe",
 				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Protect Installer",
-				"Callback": "ShowFilesVersions"
+				"DisplayText": "Run Protect Installer"
 			},
 			{
 				"Command": "cmd.exe",
@@ -235,8 +231,7 @@
 				"Command": "msiexec.exe",
 				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
-				"RunAs": "User",
-				"Callback": "ShowFilesVersions"
+				"RunAs": "User"
 			},
 			{
 				"Command": "cmd.exe",
@@ -258,8 +253,7 @@
 				"Command": "msiexec.exe",
 				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run Protect Installer",
-				"RunAs": "User",
-				"Callback": "ShowFilesVersions"
+				"RunAs": "User"
 			},
 			{
 				"Command": "cmd.exe",
@@ -280,8 +274,7 @@
 			{
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run installer",
-				"Callback": "ShowFilesVersions"
+				"DisplayText": "Run installer"
 			}
 		]
 	},
@@ -297,8 +290,7 @@
 			{
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] SELFPROTECTION=1",
-				"DisplayText": "Run  installer",
-				"Callback": "ShowFilesVersions"
+				"DisplayText": "Run  installer"
 			}
 		]
 	},
@@ -315,8 +307,7 @@
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
-				"RunAs": "User",
-				"Callback": "ShowFilesVersions"
+				"RunAs": "User"
 			}
 		]
 	},
@@ -333,8 +324,7 @@
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
-				"RunAs": "User",
-				"Callback": "ShowFilesVersions"
+				"RunAs": "User"
 			}
 		]
 	},
@@ -345,8 +335,7 @@
 			{
 				"Command": "msiexec.exe",
 				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qb",
-				"DisplayText": "Uninstall Protect-Basic UI",
-				"Callback": "ShowFilesVersions"
+				"DisplayText": "Uninstall Protect-Basic UI"
 			}
 		]
 	},
@@ -357,8 +346,7 @@
 			{
 				"Command": "msiexec.exe",
 				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qn",
-				"DisplayText": "Uninstall Protect-No UI",
-				"Callback": "ShowFilesVersions"
+				"DisplayText": "Uninstall Protect-No UI"
 			}
 		]
 	},
@@ -370,7 +358,6 @@
 				"Command": "msiexec.exe",
 				"Arguments": "/x ${ProtectProductCode} /L*V ${MsiUninstallLogPath} /qb",
 				"DisplayText": "Uninstall Protect Using Product Code",
-				"Callback": "ShowFilesVersions",
 				"RunAs": "User"
 			}
 		]
@@ -428,7 +415,6 @@
 				"Command": "\"${CylanceUiPath}\" ",
 				"Arguments": "-update",
 				"DisplayText": "Check for Update",
-				"Callback": "ShowFilesVersions",
 				"MinimizeWindow": true,
 				"ShowOnMachine": "Test"
 			},
@@ -1396,7 +1382,6 @@
 				"DisplayText": "CyUpgrade",
 				"IconSourcePath": "${CmdPath}",
 				"MinimizeWindow": true,
-				"Callback": "ShowFilesVersions",
 				"ShowOnMachine": "Test",
 				"TaskImage": "Cmd.bmp"
 			},
@@ -1813,8 +1798,7 @@
 				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
 				"DisplayText": "Copy Rollback Updater",
 				"Type": "code",
-				"ShowOnMachine": "Test",
-				"Callback": "ShowFilesVersions"
+				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "ShowRollbackPosition",
@@ -1946,7 +1930,6 @@
 				"Command": "\"${CylanceUiPath}\" ",
 				"Arguments": "-update",
 				"DisplayText": "Check for Update",
-				"Callback": "ShowFilesVersions",
 				"FireAndForget": true,
 				"MinimizeWindow": true,
 				"BatchEnabled": false
@@ -1984,7 +1967,6 @@
 				"Command": "ShowReport",
 				"Arguments": "true",
 				"DisplayText": "Show Installed Report",
-				"Callback": "ShowFilesVersions",
 				"Type": "Code",
 				"BatchEnabled": true
 			}
@@ -2034,7 +2016,6 @@
 				"Command": "\"${UserDesktopFolder}\\CyUpgrade.exe\" ",
 				"Arguments": "",
 				"DisplayText": "Run CyUpgrade.exe",
-				"Callback": "ShowFilesVersions",
 				"MinimizeWindow": true,
 				"BatchEnabled": true,
 				"FireAndForget": true
@@ -2064,7 +2045,6 @@
 				"Command": "ShowReport",
 				"Arguments": "true",
 				"DisplayText": "Show Installed Report",
-				"Callback": "ShowFilesVersions",
 				"Type": "Code",
 				"BatchEnabled": true
 			}

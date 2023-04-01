@@ -58,11 +58,11 @@ namespace UnifiCommands.CommandExecutors
                 p.ErrorDataReceived += OutputToConsole;
             }
 
-            if (callbackTimer != null)
-            {
-                callbackTimer.Start();
-                Logger.LogInfo($"Callback {commandInfo.Callback} started");
-            }
+            //if (callbackTimer != null)
+            //{
+            //    callbackTimer.Start();
+            //    Logger.LogInfo($"Callback {commandInfo.Callback} started");
+            //}
 
             if (commandInfo.MinimizeWindow)
             {
@@ -103,12 +103,12 @@ namespace UnifiCommands.CommandExecutors
             }
             finally
             {
-                if (callbackTimer != null)
-                {
-                    callbackTimer.Stop();
-                    callbackTimer.Dispose();
-                    Logger.LogInfo($"Callback {commandInfo.Callback} stopped");
-                }
+                //if (callbackTimer != null)
+                //{
+                //    callbackTimer.Stop();
+                //    callbackTimer.Dispose();
+                //    Logger.LogInfo($"Callback {commandInfo.Callback} stopped");
+                //}
 
                 _minimizeWindowTimer?.Stop();
                 _minimizeWindowTimer?.Dispose();

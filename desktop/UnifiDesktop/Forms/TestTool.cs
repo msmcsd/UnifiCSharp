@@ -246,7 +246,7 @@ namespace Unifi.Forms
 
             InitDownloadCommandGroup();
 
-            ShowFilesVersions(null, null);
+            //ShowFilesVersions(null, null);
 
             stopwatch.Stop();
             UpdateFormTitle(stopwatch.ElapsedMilliseconds);
@@ -499,21 +499,6 @@ namespace Unifi.Forms
         }
 
         #endregion
-
-        #region Callbacks
-
-        /// <summary>
-        /// Updates command list box to show file versions for code command "FileVersion".
-        /// Also used during Protect install.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
-        private void ShowFilesVersions(object source, ElapsedEventArgs e)
-        {
-            lstVersion.ShowFilesVersions(source, e);
-        }
-
-#endregion
 
 #region Control Events
 

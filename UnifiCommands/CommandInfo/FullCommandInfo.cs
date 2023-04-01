@@ -54,7 +54,7 @@ namespace UnifiCommands.CommandInfo
         /// Callback to run during the execution of a command. Works with DOS commands only.
         /// For example, a callback that updates DLL version when Updater is running.
         /// </summary>
-        public string Callback { get; set; }
+        //public string Callback { get; set; }
 
         /// <summary>
         /// Shows/Hides command in Batch Task. So a command doesn't have to be removed from Json if not used.
