@@ -29,9 +29,10 @@ namespace UnifiCommands.Commands.CodeCommands
             {
                 return Task.FromResult("");
             }
-
-            using (var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}"))
-            {
+            var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}");
+            // When using is used, the connection might have been disposed before message is sent.
+            //using (var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}"))
+            //{
                 ws.OnError += (sender, e) => { Logger.LogError(e.Message); };
                 ws.OnOpen += (sender, e) => 
                 { 
@@ -40,10 +41,7 @@ namespace UnifiCommands.Commands.CodeCommands
                     SocketCommandServer.Instance.LogMessage($"Sent data '{_parameter}' to channel '{channelName}'");
                 };
                 ws.Connect();
-                //Thread.Sleep(2000);
-                //ws.Send(_parameter);
-                //Logger.LogInfo($"Sent {_parameter} to channel {channelName}");
-            }
+            //}
 
             return Task.FromResult("");
         }
