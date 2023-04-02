@@ -13,16 +13,19 @@ namespace UnifiDesktop.UserControls
 {
     public partial class InstallOptionsGroup : UserControl
     {
+        private List<FullCommandInfo> _installSetupCommands = new List<FullCommandInfo>();
         private List<FullCommandInfo> _preInstallCommands = new List<FullCommandInfo>();
         private List<FullCommandInfo> _installCommands = new List<FullCommandInfo>();
         private List<FullCommandInfo> _postInstallCommands = new List<FullCommandInfo>();
 
-        public void SetCommands(List<FullCommandInfo> preInstallCommands, List<FullCommandInfo> installCommands, List<FullCommandInfo> postInstallCommands)
+        public void SetCommands(List<TestTask> testTasks)
         {
-            _preInstallCommands = preInstallCommands;
-            _installCommands = installCommands;
-            _postInstallCommands = postInstallCommands;
+            _installCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetupCommands)?.Commands;
+            _preInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PreInstallCommands)?.Commands;
+            _installCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands;
+            _postInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PostInstallCommands)?.Commands;
 
+            SetVariableSource(_installSetupCommands);
             SetVariableSource(_preInstallCommands);
             SetVariableSource(_installCommands);
             SetVariableSource(_postInstallCommands);
@@ -85,6 +88,7 @@ namespace UnifiDesktop.UserControls
             {
                 if (!GetInstallerCommand(InstallerType.Msi, out var command)) return null;
 
+                commands.AddRange(_installSetupCommands);
                 commands.AddRange(_preInstallCommands);
                 commands.Add(command);
             }
@@ -92,6 +96,7 @@ namespace UnifiDesktop.UserControls
             {
                 if (!GetInstallerCommand(InstallerType.Bootstrapper, out var command)) return null;
 
+                commands.AddRange(_installSetupCommands);
                 commands.AddRange(_preInstallCommands);
                 commands.Add(command);
             }
@@ -99,6 +104,7 @@ namespace UnifiDesktop.UserControls
             {
                 if (!GetInstallerCommand(InstallerType.CyUpgrade, out var command)) return null;
 
+                commands.AddRange(_preInstallCommands);
                 commands.Add(command);
             }
 
@@ -195,6 +201,14 @@ namespace UnifiDesktop.UserControls
                     if (rbQuiet.Checked) return "/q";
                 }
                 return "";
+            }
+        }
+
+        private string GetCylanceUiFullPath
+        {
+            get
+            {
+                return Variables.CylanceUiPath;
             }
         }
 

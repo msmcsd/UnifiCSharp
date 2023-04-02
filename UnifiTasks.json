@@ -1,16 +1,35 @@
 [
 	{
-		"Name": "Install Prerequisite",
+		"Name": "Pre-Install Commands",
 		"CommandGroup": "PreInstallCommands",
-		"Description": "Commands run before running installer",
+		"Description": "Commands run after install environment is setup and before running installer",
 		"Commands": [
 			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
+				"Command": "Pre_Install_Commands",
+				"DisplayText": "Pre-install Commands",
 				"Type": "Function"
 			}
 		]
 	},	
+	{
+		"Name": "Pre_Install_Commands",
+		"Description": "Function runs after install environment is setup and before running installer",
+		"CommandGroup": "Function",
+		"Commands": [
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateServiceState, 5",
+				"DisplayText": "Start checking service state",
+				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateFileVersion, 5",
+				"DisplayText": "Start checking file version",
+				"Type": "Code"
+			}
+		]
+	},
 	{
 		"Name": "Install Command",
 		"CommandGroup": "InstallCommand",
@@ -34,6 +53,17 @@
 				"MinimizeWindow": true,
 				"ShowOnMachine": "Test",
 				"InstallerType": "CyUpgrade"
+			}
+		]
+	},
+	{
+		"Name": "Install_Setup_Commands",
+		"CommandGroup": "InstallSetupCommands",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Install_Env",
+				"DisplayText": "Install Setup Commands",
+				"Type": "Function"
 			}
 		]
 	},
@@ -124,7 +154,7 @@
 	},	
 	{
 		"Name": "Pre_Install_Tasks",
-		"Description": "Commands that set up install environment and monitor service states and file verions. This function contains all commands need to run before running installer.",
+		"Description": "This function contains all commands need to run before running installer",
 		"CommandGroup": "Function",
 		"Commands": [
 			{
@@ -133,16 +163,9 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateServiceState, 5",
-				"DisplayText": "Start checking service state",
-				"Type": "Code"
-			},
-			{
-				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateFileVersion, 5",
-				"DisplayText": "Start checking file version",
-				"Type": "Code"
+				"Command": "Pre_Install_Commands",
+				"DisplayText": "Pre-install Commands",
+				"Type": "Function"
 			}
 		]
 	},

@@ -85,6 +85,7 @@ namespace UnifiCommands.CommandsProvider
     public enum CommandGroup
     {
         Install,
+        InstallSetupCommands,
         PreInstallCommands,
         InstallCommand,
         PostInstallCommands,
