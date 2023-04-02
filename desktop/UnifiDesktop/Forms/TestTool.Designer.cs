@@ -57,7 +57,6 @@ namespace Unifi.Forms
             this.reportGrid1 = new Unifi.UserControls.ReportGrid();
             this.grpVersion = new System.Windows.Forms.GroupBox();
             this.updateFileVersion1 = new UnifiDesktop.UserControls.UpdateFileVersion();
-            this.lstVersion = new UnifiDesktop.UserControls.VersionGrid();
             this.grpService = new System.Windows.Forms.GroupBox();
             this.updateServiceState1 = new UnifiDesktop.UserControls.UpdateServiceState();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
@@ -97,7 +96,6 @@ namespace Unifi.Forms
             // navBarDrawer1.DrawerPanel
             // 
             this.navBarDrawer1.DrawerPanel.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.navBarDrawer1.DrawerPanel.Controls.Add(this.grpInstall);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.downloadCommandGroup1);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.lblDownload);
             this.navBarDrawer1.DrawerPanel.Controls.Add(this.lblInstallOptions);
@@ -132,12 +130,13 @@ namespace Unifi.Forms
             this.grpInstall.Controls.Add(this.chkDebugBuild);
             this.grpInstall.Controls.Add(this.lblInstallPath);
             this.grpInstall.Controls.Add(this.txtInstallDir);
-            this.grpInstall.Location = new System.Drawing.Point(11, 21);
+            this.grpInstall.Location = new System.Drawing.Point(525, 6);
             this.grpInstall.Name = "grpInstall";
             this.grpInstall.Size = new System.Drawing.Size(200, 372);
             this.grpInstall.TabIndex = 23;
             this.grpInstall.TabStop = false;
             this.grpInstall.Text = "Install";
+            this.grpInstall.Visible = false;
             // 
             // grpConfig
             // 
@@ -246,11 +245,11 @@ namespace Unifi.Forms
             // 
             this.downloadCommandGroup1.BackColor = System.Drawing.SystemColors.Control;
             this.downloadCommandGroup1.CommandsRunner = null;
-            this.downloadCommandGroup1.Location = new System.Drawing.Point(11, 427);
+            this.downloadCommandGroup1.Location = new System.Drawing.Point(11, 424);
             this.downloadCommandGroup1.Logger = null;
             this.downloadCommandGroup1.MinimumSize = new System.Drawing.Size(182, 241);
             this.downloadCommandGroup1.Name = "downloadCommandGroup1";
-            this.downloadCommandGroup1.Size = new System.Drawing.Size(198, 245);
+            this.downloadCommandGroup1.Size = new System.Drawing.Size(202, 245);
             this.downloadCommandGroup1.TabIndex = 25;
             // 
             // lblDownload
@@ -258,7 +257,7 @@ namespace Unifi.Forms
             this.lblDownload.AutoSize = true;
             this.lblDownload.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDownload.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblDownload.Location = new System.Drawing.Point(10, 410);
+            this.lblDownload.Location = new System.Drawing.Point(10, 407);
             this.lblDownload.Name = "lblDownload";
             this.lblDownload.Size = new System.Drawing.Size(75, 16);
             this.lblDownload.TabIndex = 24;
@@ -274,7 +273,6 @@ namespace Unifi.Forms
             this.lblInstallOptions.Size = new System.Drawing.Size(55, 16);
             this.lblInstallOptions.TabIndex = 23;
             this.lblInstallOptions.Text = "INSTALL";
-            this.lblInstallOptions.Visible = false;
             // 
             // installOptionsGroup1
             // 
@@ -287,7 +285,6 @@ namespace Unifi.Forms
             this.installOptionsGroup1.PrerequisiteTask = null;
             this.installOptionsGroup1.Size = new System.Drawing.Size(202, 370);
             this.installOptionsGroup1.TabIndex = 0;
-            this.installOptionsGroup1.Visible = false;
             // 
             // grpConsole
             // 
@@ -308,6 +305,7 @@ namespace Unifi.Forms
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpInstall);
             this.splitContainer1.Panel1.Controls.Add(this.txtConsole);
             this.splitContainer1.Panel1.Controls.Add(this.txtDebugger);
             // 
@@ -377,7 +375,6 @@ namespace Unifi.Forms
             // grpVersion
             // 
             this.grpVersion.Controls.Add(this.updateFileVersion1);
-            this.grpVersion.Controls.Add(this.lstVersion);
             this.grpVersion.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpVersion.Location = new System.Drawing.Point(409, 17);
             this.grpVersion.Name = "grpVersion";
@@ -394,15 +391,6 @@ namespace Unifi.Forms
             this.updateFileVersion1.Name = "updateFileVersion1";
             this.updateFileVersion1.Size = new System.Drawing.Size(164, 241);
             this.updateFileVersion1.TabIndex = 15;
-            // 
-            // lstVersion
-            // 
-            this.lstVersion.Commands = null;
-            this.lstVersion.FormObject = null;
-            this.lstVersion.Location = new System.Drawing.Point(49, 92);
-            this.lstVersion.Name = "lstVersion";
-            this.lstVersion.Size = new System.Drawing.Size(155, 241);
-            this.lstVersion.TabIndex = 14;
             // 
             // grpService
             // 
@@ -511,7 +499,6 @@ namespace Unifi.Forms
         private UserControls.ReportGrid reportGrid1;
         private System.Windows.Forms.GroupBox grpDownload;
         private System.Windows.Forms.GroupBox grpInstall;
-        private UnifiDesktop.UserControls.VersionGrid lstVersion;
         private System.Windows.Forms.GroupBox grpVersion;
         private UnifiDesktop.UserControls.BatchCommandList lstBatchCommands;
         private System.Windows.Forms.RichTextBox txtConsole;

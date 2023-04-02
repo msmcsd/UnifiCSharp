@@ -46,6 +46,11 @@ namespace UnifiCommands.CommandsProvider
         /// Determines which tab this test task will be populated on.
         /// </summary>
         public DosTab Tab { get; set; }
+        
+        /// <summary>
+        /// Describes what the task is for.
+        /// </summary>
+        public string Description { get; set; }
 
         public object Clone()
         {
@@ -80,8 +85,9 @@ namespace UnifiCommands.CommandsProvider
     public enum CommandGroup
     {
         Install,
-        InstallSetup,
+        PreInstallCommands,
         InstallCommand,
+        PostInstallCommands,
         Dos,
         Taskbar,
         Download,

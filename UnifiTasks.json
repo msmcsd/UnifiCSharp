@@ -1,10 +1,11 @@
 [
 	{
 		"Name": "Install Prerequisite",
-		"CommandGroup": "InstallSetup",
+		"CommandGroup": "PreInstallCommands",
+		"Description": "Commands run before running installer",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			}
@@ -13,11 +14,12 @@
 	{
 		"Name": "Install Command",
 		"CommandGroup": "InstallCommand",
+		"Description": "Command to run installer/upgrader",
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
 				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" $[GetInstallMode] PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Protect Installer",
+				"DisplayText": "Run Msi Installer",
 				"InstallerType": "Msi"
 			},
 			{
@@ -36,39 +38,8 @@
 		]
 	},
 	{
-		"Name": "Setup_Protect_Bootstrapper_Install_Env",
-		"CommandGroup": "Function",
-		"Commands": [
-			{
-				"Command": "Setup_Protect_Install_Env",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C IF $[CompileMode]==Debug copy \"${DebugInstallersFolder}\\${ProtectBootstrapperName}\" \"${InstallerDownloadFolder}\"",
-				"DisplayText": "Copy Debug installer or not"
-			}
-		]
-	},
-	{
-		"Name": "Setup_Protect_Msi_Install_Env",
-		"CommandGroup": "Function",
-		"Commands": [
-			{
-				"Command": "Setup_Protect_Install_Env",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C IF $[CompileMode]==Debug copy \"${DebugInstallersFolder}\\${ProtectMsiNameByVmArch}\" \"${InstallerDownloadFolder}\"",
-				"DisplayText": "Copy Debug installer or not"
-			}
-		]
-	},
-	{
 		"Name": "Setup_Protect_Install_Env",
+		"Description": "Commands that set up install environment",
 		"CommandGroup": "Function",
 		"Commands": [
 			{
@@ -113,13 +84,8 @@
 		"CommandGroup": "Function",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Msi_Install_Env",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
 				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Pre install tasks",
+				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
 			{
@@ -131,18 +97,41 @@
 				"Command": "Post_Install_Tasks",
 				"DisplayText": "Post install tasks",
 				"Type": "Function"
+			}
+		]
+	},	
+	{
+		"Name": "Install_Protect_Msi_Admin_UI",
+		"CommandGroup": "Function",
+		"Description": "Function that run install as admin and with UI",
+		"Commands": [
+			{
+				"Command": "Pre_Install_Tasks",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
 			},
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
-				"DisplayText": "Start up Cylance UI"
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Protect Installer"
+			},
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post install tasks",
+				"Type": "Function"
 			}
 		]
 	},	
 	{
 		"Name": "Pre_Install_Tasks",
+		"Description": "Commands that set up install environment and monitor service states and file verions. This function contains all commands need to run before running installer.",
 		"CommandGroup": "Function",
 		"Commands": [
+			{
+				"Command": "Setup_Protect_Install_Env",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			},
 			{
 				"Command": "InvokeSocketCommand",
 				"Arguments": "UpdateServiceState, 5",
@@ -159,6 +148,7 @@
 	},
 	{
 		"Name": "Post_Install_Tasks",
+		"Description": "Function with commands run after install finishes",
 		"CommandGroup": "Function",
 		"Commands": [
 			{
@@ -172,15 +162,33 @@
 				"Arguments": "UpdateFileVersion, 0",
 				"DisplayText": "Stop checking file version",
 				"Type": "Code"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"DisplayText": "Start up Cylance UI"
 			}
 		]
 	},
 	{
-		"Name": "Set up install env",
-		"CommandGroup": "Install",
+		"Name": "Pos Install Tasks",
+		"Description": "Commands run after install finishes",
+		"CommandGroup": "PostInstallCommands",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Msi_Install_Env",
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Set Up Install Env",
+		"CommandGroup": "Install",
+		"Description": "Batch commands that run before running installer",
+		"Commands": [
+			{
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			}
@@ -189,6 +197,7 @@
 	{
 		"Name": "Protect Msi Admin/q",
 		"CommandGroup": "Install",
+		"Description": "Batch commands that install with admin right without UI",
 		"Commands": [
 			{
 				"Command": "Install_Protect_Msi_Admin_Quiet",
@@ -200,30 +209,22 @@
 	{
 		"Name": "Protect Msi Admin/UI",
 		"CommandGroup": "Install",
+		"Description": "Batch commands to install Msi with admin right and with UI",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Msi_Install_Env",
-				"DisplayText": "Setup environment",
+				"Command": "Install_Protect_Msi_Admin_UI",
+				"DisplayText": "Run Msi as Admin and With UI",
 				"Type": "Function"
-			},
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Protect Installer"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
-				"DisplayText": "Start up Cylance UI"
 			}
 		]
 	},	
 	{
 		"Name": "Protect Msi User/q",
 		"CommandGroup": "Install",
+		"Description": "Batch commands that run Msi as user without UI",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Msi_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
@@ -234,18 +235,19 @@
 				"RunAs": "User"
 			},
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
-				"DisplayText": "Start up Cylance UI"
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
 			}
 		]
 	},
 	{
 		"Name": "Protect Msi User/UI",
 		"CommandGroup": "Install",
+		"Description": "Batch commands that run Msi as user with UI",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Msi_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
@@ -256,18 +258,19 @@
 				"RunAs": "User"
 			},
 			{
-				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
-				"DisplayText": "Start up Cylance UI"
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
 			}
 		]
 	},
 	{
 		"Name": "Protect Bootstrapper Admin/q",
 		"CommandGroup": "Install",
+		"Description": "Batch commands that run Bootstrapper as admin without UI",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
@@ -275,31 +278,43 @@
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer"
+			},
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
 			}
 		]
 	},
 	{
 		"Name": "Protect Bootstrapper Admin/UI",
 		"CommandGroup": "Install",
+		"Description": "Batch commands that run Bootstrapper as admin with UI",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
 			{
 				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
 				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] SELFPROTECTION=1",
-				"DisplayText": "Run  installer"
+				"DisplayText": "Run Bootstrapper"
+			},
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
 			}
 		]
 	},
 	{
 		"Name": "Protect Bootstrapper User/q",
+		"Description": "Batch commands that run Bootstrapper as user without UI",
 		"CommandGroup": "Install",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
@@ -308,15 +323,21 @@
 				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
 				"RunAs": "User"
+			},
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
 			}
 		]
 	},
 	{
 		"Name": "Protect Bootstrapper User/UI",
+		"Description": "Batch commands that run Bootstrapper as user with UI",
 		"CommandGroup": "Install",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Bootstrapper_Install_Env",
+				"Command": "Pre_Install_Tasks",
 				"DisplayText": "Setup environment",
 				"Type": "Function"
 			},
@@ -325,6 +346,11 @@
 				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
 				"DisplayText": "Run installer",
 				"RunAs": "User"
+			},
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
 			}
 		]
 	},
@@ -415,6 +441,7 @@
 				"Command": "\"${CylanceUiPath}\" ",
 				"Arguments": "-update",
 				"DisplayText": "Check for Update",
+				"Callback": "ShowFilesVersions",
 				"MinimizeWindow": true,
 				"ShowOnMachine": "Test"
 			},

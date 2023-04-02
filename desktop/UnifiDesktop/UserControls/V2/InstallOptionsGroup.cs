@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Unifi.Observers.Animation;
-using Unifi.UserControls;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
@@ -14,16 +13,19 @@ namespace UnifiDesktop.UserControls
 {
     public partial class InstallOptionsGroup : UserControl
     {
-        private List<FullCommandInfo> _setupCommands = new List<FullCommandInfo>();
+        private List<FullCommandInfo> _preInstallCommands = new List<FullCommandInfo>();
         private List<FullCommandInfo> _installCommands = new List<FullCommandInfo>();
+        private List<FullCommandInfo> _postInstallCommands = new List<FullCommandInfo>();
 
-        public void SetCommands(List<FullCommandInfo> setupCommands, List<FullCommandInfo> installCommands)
+        public void SetCommands(List<FullCommandInfo> preInstallCommands, List<FullCommandInfo> installCommands, List<FullCommandInfo> postInstallCommands)
         {
-            _setupCommands = setupCommands;
+            _preInstallCommands = preInstallCommands;
             _installCommands = installCommands;
+            _postInstallCommands = postInstallCommands;
 
-            SetVariableSource(_setupCommands);
+            SetVariableSource(_preInstallCommands);
             SetVariableSource(_installCommands);
+            SetVariableSource(_postInstallCommands);
         }
 
         private void SetVariableSource(List<FullCommandInfo> commands)
@@ -60,9 +62,9 @@ namespace UnifiDesktop.UserControls
 
         private List<FullCommandInfo> GetAllCommands()
         {
-            if (_setupCommands.Count <= 0)
+            if (_preInstallCommands.Count <= 0)
             {
-                Logger.LogError("Setup commands not found");
+                Logger.LogError("Pre install commands not found");
                 return null;
             }
 
@@ -72,19 +74,25 @@ namespace UnifiDesktop.UserControls
                 return null;
             }
 
+            if (_postInstallCommands.Count <= 0)
+            {
+                Logger.LogError("Post install commands not found");
+                return null;
+            }
+
             List<FullCommandInfo> commands = new List<FullCommandInfo>();
             if (rbMsi.Checked)
             {
                 if (!GetInstallerCommand(InstallerType.Msi, out var command)) return null;
 
-                commands.AddRange(_setupCommands);
+                commands.AddRange(_preInstallCommands);
                 commands.Add(command);
             }
             else if (rbBootstrapper.Checked)
             {
                 if (!GetInstallerCommand(InstallerType.Bootstrapper, out var command)) return null;
 
-                commands.AddRange(_setupCommands);
+                commands.AddRange(_preInstallCommands);
                 commands.Add(command);
             }
             else
@@ -93,6 +101,8 @@ namespace UnifiDesktop.UserControls
 
                 commands.Add(command);
             }
+
+            commands.AddRange(_postInstallCommands);
 
             return commands;
         }
