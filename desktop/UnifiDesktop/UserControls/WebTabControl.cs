@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -32,6 +33,7 @@ namespace UnifiDesktop.UserControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<WebTabPage> TabPages
         {
             get => _tabPages;
@@ -59,12 +61,14 @@ namespace UnifiDesktop.UserControls
                 label.Left = left;
                 label.Top = (pnlHeader.Height - label.Height) / 2;
                 label.IsActive = index == 0;
-
                 label.Click += OnHeaderClick;
-
                 pnlHeader.Controls.Add(label);
+
                 TabPage tabPage = new TabPage();
+                tabPage.Controls.Add(page.Control);
+                page.Control.Dock = DockStyle.Fill;
                 tabControl.TabPages.Add(tabPage);
+
                 tabInfos.Add(new TabInfo { TabHeaderLabel = label, TabClientWidth = Width, TabPage = tabPage });
 
                 index++;

@@ -252,7 +252,6 @@ namespace Unifi.Forms
             UpdateFormTitle(stopwatch.ElapsedMilliseconds);
 
             DrawingHelper.ResumeDrawing(this);
-            webTabControl1.Headers = new List<string> { "List", "Commands" };
         }
 
         private void UpdateFormTitle(long elapsedMilliseconds)
@@ -495,6 +494,8 @@ namespace Unifi.Forms
         {
             lstBatchCommands.TestTasks = _commandsProvider.BatchTasks;
             lstBatchCommands.Logger = _logger;
+
+            //batchCommandListV22.TestTasks = _commandsProvider.BatchTasks;
         }
 
         #endregion

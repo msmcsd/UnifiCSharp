@@ -62,7 +62,6 @@ namespace Unifi.Forms
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
             this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.pnlDosCommands = new System.Windows.Forms.Panel();
-            this.webTabControl1 = new UnifiDesktop.UserControls.WebTabControl();
             this.navBarDrawer1.DrawerPanel.SuspendLayout();
             this.navBarDrawer1.MainControlsPanel.SuspendLayout();
             this.navBarDrawer1.SuspendLayout();
@@ -188,7 +187,6 @@ namespace Unifi.Forms
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.webTabControl1);
             this.splitContainer1.Panel1.Controls.Add(this.grpInstall);
             this.splitContainer1.Panel1.Controls.Add(this.txtConsole);
             this.splitContainer1.Panel1.Controls.Add(this.txtDebugger);
@@ -442,14 +440,6 @@ namespace Unifi.Forms
             this.pnlDosCommands.Size = new System.Drawing.Size(397, 677);
             this.pnlDosCommands.TabIndex = 17;
             // 
-            // webTabControl1
-            // 
-            this.webTabControl1.Headers = ((System.Collections.Generic.List<string>)(resources.GetObject("webTabControl1.Headers")));
-            this.webTabControl1.Location = new System.Drawing.Point(97, 81);
-            this.webTabControl1.Name = "webTabControl1";
-            this.webTabControl1.Size = new System.Drawing.Size(368, 443);
-            this.webTabControl1.TabIndex = 24;
-            // 
             // TestTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,7 +512,6 @@ namespace Unifi.Forms
         private System.Windows.Forms.Label lblDownload;
         private UnifiDesktop.UserControls.StatusUpdate.UpdateServiceState updateServiceState1;
         private UnifiDesktop.UserControls.StatusUpdate.UpdateFileVersion updateFileVersion1;
-        private UnifiDesktop.UserControls.WebTabControl webTabControl1;
     }
 }
 
