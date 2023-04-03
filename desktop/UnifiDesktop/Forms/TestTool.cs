@@ -252,7 +252,7 @@ namespace Unifi.Forms
             UpdateFormTitle(stopwatch.ElapsedMilliseconds);
 
             DrawingHelper.ResumeDrawing(this);
-
+            webTabControl1.Headers = new List<string> { "List", "Commands" };
         }
 
         private void UpdateFormTitle(long elapsedMilliseconds)

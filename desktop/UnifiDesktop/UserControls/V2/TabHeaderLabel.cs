@@ -22,6 +22,20 @@ namespace UnifiDesktop.UserControls.V2
         
         public void SetInactiveColor() => ForeColor = Color.Black;
 
+        private bool _isActive = false;
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                _isActive= value;
+                if (_isActive)
+                    SetActiveColor();
+                else
+                    SetInactiveColor();
+            }
+        }
+
         protected override void OnTextChanged(EventArgs e)
         {
             base.OnTextChanged(e);

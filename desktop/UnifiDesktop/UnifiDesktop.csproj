@@ -131,6 +131,12 @@
     <Compile Include="UserControls\BatchCommandList.Designer.cs">
       <DependentUpon>BatchCommandList.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\BatchCommandListV2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\BatchCommandListV2.Designer.cs">
+      <DependentUpon>BatchCommandListV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CommandGroupListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -254,6 +260,12 @@
     <Compile Include="UserControls\V2\TabHeaderLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\WebTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\WebTabControl.Designer.cs">
+      <DependentUpon>WebTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Forms\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
@@ -274,6 +286,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\BatchCommandList.resx">
       <DependentUpon>BatchCommandList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\BatchCommandListV2.resx">
+      <DependentUpon>BatchCommandListV2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\CommandGroupListBox.resx">
       <DependentUpon>CommandGroupListBox.cs</DependentUpon>
@@ -328,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\Navigation\Drawer.resx">
       <DependentUpon>Drawer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\WebTabControl.resx">
+      <DependentUpon>WebTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
