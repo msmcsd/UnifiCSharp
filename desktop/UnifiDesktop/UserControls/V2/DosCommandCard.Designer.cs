@@ -29,7 +29,7 @@ namespace Unifi.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstCommand = new System.Windows.Forms.ListBox();
+            this.lstCommand = new UnifiDesktop.UserControls.ListBox.ListBoxV2();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -48,8 +48,6 @@ namespace Unifi.UserControls
             this.lstCommand.Name = "lstCommand";
             this.lstCommand.Size = new System.Drawing.Size(160, 128);
             this.lstCommand.TabIndex = 0;
-            this.lstCommand.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstCommand_DrawItem);
-            this.lstCommand.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.lstCommand_MeasureItem);
             this.lstCommand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCommand_MouseDown);
             // 
             // label1
@@ -90,7 +88,7 @@ namespace Unifi.UserControls
         }
 
         #endregion
-        private System.Windows.Forms.ListBox lstCommand;
+        private UnifiDesktop.UserControls.ListBox.ListBoxV2 lstCommand;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }

@@ -155,6 +155,9 @@
     <Compile Include="UserControls\InstallCommandGroup.Designer.cs">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ListBox\ListBoxV2.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\StatusUpdate\UpdateByInterval.cs">
       <SubType>UserControl</SubType>
     </Compile>
