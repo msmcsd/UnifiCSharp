@@ -251,12 +251,6 @@
     <Compile Include="UserControls\V2\TabHeaderLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\VersionGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\VersionGrid.Designer.cs">
-      <DependentUpon>VersionGrid.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Forms\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
@@ -331,9 +325,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\Navigation\Drawer.resx">
       <DependentUpon>Drawer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\VersionGrid.resx">
-      <DependentUpon>VersionGrid.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
