@@ -92,7 +92,7 @@ namespace UnifiDesktop.UserControls.V2
         {
             Graphics g = CreateGraphics();
             int textHeight = (int)g.MeasureString(Text, Font).Height;
-            int textStartX = (int)_outerCircleSize + 3;
+            //int textStartX = (int)_outerCircleSize + 3;
             // When the average is not a whole number, ceiling is applied so the start Y position of the text
             // is pushed down one pixel so it shows towards the bottom of the client area.
             int textStartY = (int)Math.Ceiling((float)(Height - textHeight) / 2);

@@ -155,22 +155,22 @@
     <Compile Include="UserControls\InstallCommandGroup.Designer.cs">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UpdateByInterval.cs">
+    <Compile Include="UserControls\StatusUpdate\UpdateByInterval.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UpdateByInterval.Designer.cs">
+    <Compile Include="UserControls\StatusUpdate\UpdateByInterval.Designer.cs">
       <DependentUpon>UpdateByInterval.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UpdateFileVersion.cs">
+    <Compile Include="UserControls\StatusUpdate\UpdateFileVersion.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UpdateFileVersion.Designer.cs">
+    <Compile Include="UserControls\StatusUpdate\UpdateFileVersion.Designer.cs">
       <DependentUpon>UpdateFileVersion.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UpdateServiceState.cs">
+    <Compile Include="UserControls\StatusUpdate\UpdateServiceState.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UpdateServiceState.Designer.cs">
+    <Compile Include="UserControls\StatusUpdate\UpdateServiceState.Designer.cs">
       <DependentUpon>UpdateServiceState.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\V2\InstallOptionsGroup.cs">
@@ -290,10 +290,10 @@
     <EmbeddedResource Include="UserControls\InstallCommandGroup.resx">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UpdateByInterval.resx">
+    <EmbeddedResource Include="UserControls\StatusUpdate\UpdateByInterval.resx">
       <DependentUpon>UpdateByInterval.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UpdateServiceState.resx">
+    <EmbeddedResource Include="UserControls\StatusUpdate\UpdateServiceState.resx">
       <DependentUpon>UpdateServiceState.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\V2\InstallOptionsGroup.resx">

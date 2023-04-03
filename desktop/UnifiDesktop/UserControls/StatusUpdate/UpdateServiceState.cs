@@ -9,7 +9,7 @@ using UnifiCommands.Logging;
 using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp;
 
-namespace UnifiDesktop.UserControls
+namespace UnifiDesktop.UserControls.StatusUpdate
 {
     public partial class UpdateServiceState : UpdateByInterval
     {

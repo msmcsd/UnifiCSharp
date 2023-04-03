@@ -1,4 +1,4 @@
-﻿namespace UnifiDesktop.UserControls
+﻿namespace UnifiDesktop.UserControls.StatusUpdate
 {
     partial class UpdateServiceState
     {

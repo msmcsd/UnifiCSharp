@@ -10,7 +10,7 @@ using UnifiCommands.Socket;
 using WebSocketSharp;
 using Timer = System.Timers.Timer;
 
-namespace UnifiDesktop.UserControls
+namespace UnifiDesktop.UserControls.StatusUpdate
 {
     public partial class UpdateByInterval : UserControl
     {

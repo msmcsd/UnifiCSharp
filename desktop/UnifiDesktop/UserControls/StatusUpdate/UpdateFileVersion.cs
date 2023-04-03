@@ -1,6 +1,6 @@
 ﻿using UnifiCommands.Socket.Behaviors;
 
-namespace UnifiDesktop.UserControls
+namespace UnifiDesktop.UserControls.StatusUpdate
 {
     public partial class UpdateFileVersion : UpdateByInterval
     {

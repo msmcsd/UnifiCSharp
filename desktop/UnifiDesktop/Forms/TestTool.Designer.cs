@@ -56,9 +56,9 @@ namespace Unifi.Forms
             this.grpReport = new System.Windows.Forms.GroupBox();
             this.reportGrid1 = new Unifi.UserControls.ReportGrid();
             this.grpVersion = new System.Windows.Forms.GroupBox();
-            this.updateFileVersion1 = new UnifiDesktop.UserControls.UpdateFileVersion();
+            this.updateFileVersion1 = new UnifiDesktop.UserControls.StatusUpdate.UpdateFileVersion();
             this.grpService = new System.Windows.Forms.GroupBox();
-            this.updateServiceState1 = new UnifiDesktop.UserControls.UpdateServiceState();
+            this.updateServiceState1 = new UnifiDesktop.UserControls.StatusUpdate.UpdateServiceState();
             this.grpBatchCommand = new System.Windows.Forms.GroupBox();
             this.lstBatchCommands = new UnifiDesktop.UserControls.BatchCommandList();
             this.pnlDosCommands = new System.Windows.Forms.Panel();
@@ -510,8 +510,8 @@ namespace Unifi.Forms
         private System.Windows.Forms.Label lblInstallOptions;
         private UnifiDesktop.UserControls.DownloadCommandGroup downloadCommandGroup1;
         private System.Windows.Forms.Label lblDownload;
-        private UnifiDesktop.UserControls.UpdateServiceState updateServiceState1;
-        private UnifiDesktop.UserControls.UpdateFileVersion updateFileVersion1;
+        private UnifiDesktop.UserControls.StatusUpdate.UpdateServiceState updateServiceState1;
+        private UnifiDesktop.UserControls.StatusUpdate.UpdateFileVersion updateFileVersion1;
     }
 }
 
