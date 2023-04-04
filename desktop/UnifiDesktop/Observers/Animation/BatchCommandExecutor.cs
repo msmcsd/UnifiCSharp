@@ -34,6 +34,51 @@ namespace Unifi.Observers.Animation
         public async void Execute()
         {
             List<CommandTask> tasks = new List<CommandTask>();
+            bool ret = true;
+
+            foreach (var info in _commandInfos)
+            {
+                Command command = CommandFactory.CreateCommand(info, _logger, _appType);
+
+                if (command == null) return;
+
+                if (command is IUiObservable observable)
+                {
+                    observable.RegisterObserver(_uiObserver as IUiObserver);
+                }
+
+                NotifyObserverCommandStart(info);
+                if (info.FireAndForget)
+                {
+                    _ = Task.Run(command.Execute);
+                }
+                else
+                {
+                    var result = await command.Execute();
+                    if (_checkReturnValue)
+                    {
+                        if (result == null)
+                        {
+                            ret = false;
+                            NotifyObserverCommandEnd(info);
+                            break;
+                        }
+
+                        // _console.LogInfo($"ret={result.Status}");
+                    }
+                }
+                NotifyObserverCommandEnd(info);
+            }
+
+            if (_checkReturnValue)
+            {
+                _logger.LogInfo("<<Batch command finished" + (ret ? "" : " early"));
+            }
+        }
+
+        public async void Execute1()
+        {
+            List<CommandTask> tasks = new List<CommandTask>();
 
             foreach (var info in _commandInfos)
             {
@@ -71,8 +116,7 @@ namespace Unifi.Observers.Animation
                     currentTask = continuation.Unwrap();
 
                     Task result = null;
-                    await continuation.ContinueWith(t => { result = continuation.Result; }
-                    );
+                    await continuation.ContinueWith(t => { result = continuation.Result; });
 
                     if (_checkReturnValue)
                     {
