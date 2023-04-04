@@ -9,7 +9,6 @@ using UnifiCommands.CommandExecutors;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Commands.CodeCommands;
-using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.Observers.Report;
 using UnifiCommands.Report;
@@ -18,7 +17,7 @@ namespace Unifi.UserControls
 {
     internal partial class ReportGrid : UserControl, IUiObserver
     {
-        public List<TestTask> DosTasks { get; set; }
+        public List<FullCommandInfo> Commands { get;  set; }
 
         public ILogger Logger { get; set; }
 
@@ -48,14 +47,14 @@ namespace Unifi.UserControls
         {
             InvokeUiMethod(() => lstReport.Items.Clear());
 
-            if (DosTasks == null)
+            if (Commands == null)
             {
-                Debug.Fail($"{nameof(DosTasks)} is null");
+                Debug.Fail($"{nameof(Commands)} is null");
                 return;
             }
 
             InvokeUiMethod(SetupListView);
-            List<ReportItem> reportItems = ShowReportCommand.RunReport(DosTasks, isInstall, Logger, AppType.Desktop);
+            List<ReportItem> reportItems = ShowReportCommand.RunReport(Commands, isInstall, Logger, AppType.Desktop);
             InvokeUiMethod(() => PopulateReport(reportItems));
         }
 

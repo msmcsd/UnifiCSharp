@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using UnifiCommands.CommandExecutors;
 using UnifiCommands.CommandInfo;
-using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.Observers.Report;
 using UnifiCommands.Report;
@@ -51,50 +50,42 @@ namespace UnifiCommands.Commands.CodeCommands
             _observer?.ShowReport(_isInstallReport);
         }
 
-        public static List<ReportItem> RunReport(List<TestTask> dosTasks, bool isInstall, ILogger logger, AppType appType)
+        public static List<ReportItem> RunReport(List<FullCommandInfo> commands, bool isInstall, ILogger logger, AppType appType)
         {
             List<ReportItem> reportItems = new List<ReportItem>();
             ReportCommandExecutor reportExecutor = new ReportCommandExecutor(logger);
 
             int id = 0;
-            foreach (var task in dosTasks)
+            foreach (var commandInfo in commands)
             {
-                string category = task.Name;
-                string preCategory = "";
+                if (!commandInfo.Visible || string.IsNullOrEmpty(commandInfo.KeywordForSuccess)) continue;
 
-                foreach (var commandInfo in task.Commands)
+                string output;
+                if (commandInfo.Type == CommandType.Dos)
                 {
-                    if (!commandInfo.Visible || string.IsNullOrEmpty(commandInfo.KeywordForSuccess)) continue;
-
-                    string output;
-                    if (commandInfo.Type == CommandType.Dos)
-                    {
-                        output = reportExecutor.Run(commandInfo, null);
-                    }
-                    else
-                    {
-                        Command command = CommandFactory.CreateCommand(commandInfo, logger, appType);
-                        output = command.Execute().GetAwaiter().GetResult();
-                    }
-
-                    bool containsKeyword = output.ToLower().Contains(commandInfo.KeywordForSuccess.ToLower());
-
-                    if (!isInstall) containsKeyword = !containsKeyword;
-
-                    reportItems.Add(new ReportItem
-                    {
-                        Id = id,
-                        Category = appType== AppType.Desktop? category == preCategory ? "" : category : category,
-                        Test = commandInfo.DisplayText,
-                        Keyword = commandInfo.KeywordForSuccess,
-                        Passed = containsKeyword,
-                        Command = commandInfo
-                    });
-
-                    id++;
-
-                    preCategory = category;
+                    output = reportExecutor.Run(commandInfo, null);
                 }
+                else
+                {
+                    Command command = CommandFactory.CreateCommand(commandInfo, logger, appType);
+                    output = command.Execute().GetAwaiter().GetResult();
+                }
+
+                bool containsKeyword = output.ToLower().Contains(commandInfo.KeywordForSuccess.ToLower());
+
+                if (!isInstall) containsKeyword = !containsKeyword;
+
+                reportItems.Add(new ReportItem
+                {
+                    Id = id,
+                    Category = commandInfo.Command,
+                    Test = commandInfo.DisplayText,
+                    Keyword = commandInfo.KeywordForSuccess,
+                    Passed = containsKeyword,
+                    Command = commandInfo
+                });
+
+                id++;
             }
 
             return reportItems;

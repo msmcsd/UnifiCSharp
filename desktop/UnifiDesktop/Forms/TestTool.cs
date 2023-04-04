@@ -43,8 +43,6 @@ namespace Unifi.Forms
         private DebugListener _debugListerListener;
         private ILogger _logger;
 
-        private ListBox _lstRollbackPosition = null;
-
         public TestTool()
         {
             InitializeComponent();
@@ -231,7 +229,7 @@ namespace Unifi.Forms
                 //Text = $@"{Text} Loaded using defaults";
             }
 
-            reportGrid1.DosTasks = _commandsProvider.DosTasks;
+            reportGrid1.Commands = _commandsProvider.DosTasks.SelectMany(t=>t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList();
             reportGrid1.Logger = _logger;
             _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
 

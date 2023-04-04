@@ -365,7 +365,7 @@ namespace Unifi.Forms
             // reportGrid1
             // 
             this.reportGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportGrid1.DosTasks = null;
+            this.reportGrid1.Commands = null;
             this.reportGrid1.Location = new System.Drawing.Point(3, 17);
             this.reportGrid1.Logger = null;
             this.reportGrid1.Name = "reportGrid1";
