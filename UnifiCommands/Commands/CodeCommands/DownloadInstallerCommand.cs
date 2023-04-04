@@ -278,7 +278,13 @@ namespace UnifiCommands.Commands.CodeCommands
             {
                 displayName = displayName.Substring(i + 1, displayName.Length - i - 2);
                 i = displayName.IndexOf("/");
-                if (i > 0) displayName = displayName.Substring(0, i);
+                if (i > 0) 
+                    displayName = displayName.Substring(0, i);
+                else
+                {
+                    i = displayName.IndexOf("]");
+                    if (i >= 0) displayName = displayName.Substring(0, i);
+                }
                 
                 return displayName;
             }
