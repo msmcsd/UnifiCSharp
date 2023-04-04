@@ -31,7 +31,7 @@ namespace Unifi.Observers.Animation
             _appType = appType;
         }
 
-        public async void Execute()
+        public async void Execute1()
         {
             List<CommandTask> tasks = new List<CommandTask>();
             bool ret = true;
@@ -76,7 +76,7 @@ namespace Unifi.Observers.Animation
             }
         }
 
-        public async void Execute1()
+        public async void Execute()
         {
             List<CommandTask> tasks = new List<CommandTask>();
 
