@@ -20,7 +20,7 @@ namespace UnifiDesktop.UserControls
 
         public void SetCommands(List<TestTask> testTasks)
         {
-            _installCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetupCommands)?.Commands;
+            _installSetupCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetupCommands)?.Commands;
             _preInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PreInstallCommands)?.Commands;
             _installCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands;
             _postInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PostInstallCommands)?.Commands;
