@@ -49,7 +49,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
             _variableSource = variableSource;
             CommandInfos = commandInfos;
             PopulateCommands();
-            OnTimerElapse(null, null);
+            Task.Run(() => OnTimerElapse(null, null));
             Task.Run(SetupSocket);
         }
 
