@@ -84,7 +84,7 @@ namespace Unifi.Forms
             this.pnlTaskBar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlTaskBar.Location = new System.Drawing.Point(0, 717);
             this.pnlTaskBar.Name = "pnlTaskBar";
-            this.pnlTaskBar.Size = new System.Drawing.Size(1482, 69);
+            this.pnlTaskBar.Size = new System.Drawing.Size(1514, 69);
             this.pnlTaskBar.TabIndex = 3;
             this.pnlTaskBar.Tag = "Taskbar";
             // 
@@ -116,11 +116,11 @@ namespace Unifi.Forms
             this.navBarDrawer1.MainControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navBarDrawer1.MainControlsPanel.Location = new System.Drawing.Point(231, 40);
             this.navBarDrawer1.MainControlsPanel.Name = "MainControlsPanel";
-            this.navBarDrawer1.MainControlsPanel.Size = new System.Drawing.Size(1240, 677);
+            this.navBarDrawer1.MainControlsPanel.Size = new System.Drawing.Size(1272, 677);
             this.navBarDrawer1.MainControlsPanel.TabIndex = 3;
             this.navBarDrawer1.Name = "navBarDrawer1";
             this.navBarDrawer1.NavBarHeight = 40;
-            this.navBarDrawer1.Size = new System.Drawing.Size(1482, 717);
+            this.navBarDrawer1.Size = new System.Drawing.Size(1514, 717);
             this.navBarDrawer1.TabIndex = 22;
             // 
             // downloadCommandGroup1
@@ -174,7 +174,7 @@ namespace Unifi.Forms
             this.grpConsole.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpConsole.Location = new System.Drawing.Point(397, 0);
             this.grpConsole.Name = "grpConsole";
-            this.grpConsole.Size = new System.Drawing.Size(843, 677);
+            this.grpConsole.Size = new System.Drawing.Size(875, 677);
             this.grpConsole.TabIndex = 15;
             this.grpConsole.TabStop = false;
             // 
@@ -194,7 +194,7 @@ namespace Unifi.Forms
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grpBatch);
-            this.splitContainer1.Size = new System.Drawing.Size(837, 657);
+            this.splitContainer1.Size = new System.Drawing.Size(869, 657);
             this.splitContainer1.SplitterDistance = 372;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -323,7 +323,7 @@ namespace Unifi.Forms
             this.txtConsole.Location = new System.Drawing.Point(0, 0);
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
-            this.txtConsole.Size = new System.Drawing.Size(837, 305);
+            this.txtConsole.Size = new System.Drawing.Size(869, 305);
             this.txtConsole.TabIndex = 1;
             this.txtConsole.Text = "";
             // 
@@ -334,7 +334,7 @@ namespace Unifi.Forms
             this.txtDebugger.Location = new System.Drawing.Point(0, 305);
             this.txtDebugger.Name = "txtDebugger";
             this.txtDebugger.ReadOnly = true;
-            this.txtDebugger.Size = new System.Drawing.Size(837, 67);
+            this.txtDebugger.Size = new System.Drawing.Size(869, 67);
             this.txtDebugger.TabIndex = 0;
             this.txtDebugger.Text = "";
             // 
@@ -347,7 +347,7 @@ namespace Unifi.Forms
             this.grpBatch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpBatch.Location = new System.Drawing.Point(0, 0);
             this.grpBatch.Name = "grpBatch";
-            this.grpBatch.Size = new System.Drawing.Size(837, 281);
+            this.grpBatch.Size = new System.Drawing.Size(869, 281);
             this.grpBatch.TabIndex = 14;
             this.grpBatch.TabStop = false;
             // 
@@ -357,7 +357,7 @@ namespace Unifi.Forms
             this.grpReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpReport.Location = new System.Drawing.Point(579, 17);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(255, 261);
+            this.grpReport.Size = new System.Drawing.Size(287, 261);
             this.grpReport.TabIndex = 11;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
@@ -369,7 +369,7 @@ namespace Unifi.Forms
             this.reportGrid1.Location = new System.Drawing.Point(3, 17);
             this.reportGrid1.Logger = null;
             this.reportGrid1.Name = "reportGrid1";
-            this.reportGrid1.Size = new System.Drawing.Size(249, 241);
+            this.reportGrid1.Size = new System.Drawing.Size(281, 241);
             this.reportGrid1.TabIndex = 2;
             // 
             // grpVersion
@@ -444,7 +444,7 @@ namespace Unifi.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1482, 786);
+            this.ClientSize = new System.Drawing.Size(1514, 786);
             this.Controls.Add(this.navBarDrawer1);
             this.Controls.Add(this.pnlTaskBar);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

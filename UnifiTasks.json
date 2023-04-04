@@ -187,6 +187,12 @@
 				"Type": "Code"
 			},
 			{
+				"Command": "ShowReport",
+				"Arguments": "true",
+				"DisplayText": "Show Installed Report",
+				"Type": "Code"
+			},
+			{
 				"Command": "cmd.exe",
 				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
