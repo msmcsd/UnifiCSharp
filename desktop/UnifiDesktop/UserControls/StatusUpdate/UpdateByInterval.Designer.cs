@@ -35,26 +35,26 @@
             this.rbSeconds60 = new System.Windows.Forms.RadioButton();
             this.rbSeconds5 = new System.Windows.Forms.RadioButton();
             this.rbNone = new System.Windows.Forms.RadioButton();
+            this.pnlInterval = new System.Windows.Forms.Panel();
+            this.pnlInterval.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstItems
             // 
-            this.lstItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colField1,
             this.colField2});
+            this.lstItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstItems.FullRowSelect = true;
             this.lstItems.HideSelection = false;
-            this.lstItems.Location = new System.Drawing.Point(0, 50);
+            this.lstItems.Location = new System.Drawing.Point(0, 48);
             this.lstItems.MultiSelect = false;
             this.lstItems.Name = "lstItems";
-            this.lstItems.Size = new System.Drawing.Size(198, 231);
+            this.lstItems.Size = new System.Drawing.Size(198, 233);
             this.lstItems.TabIndex = 6;
             this.lstItems.UseCompatibleStateImageBehavior = false;
             this.lstItems.View = System.Windows.Forms.View.Details;
-            this.lstItems.Click += new System.EventHandler(this.TimerInternvalClick);
+            this.lstItems.DoubleClick += new System.EventHandler(this.lstItems_DoubleClick);
             // 
             // colField1
             // 
@@ -69,7 +69,7 @@
             // lblInverval
             // 
             this.lblInverval.AutoSize = true;
-            this.lblInverval.Location = new System.Drawing.Point(8, 6);
+            this.lblInverval.Location = new System.Drawing.Point(6, 7);
             this.lblInverval.Name = "lblInverval";
             this.lblInverval.Size = new System.Drawing.Size(55, 13);
             this.lblInverval.TabIndex = 5;
@@ -78,7 +78,7 @@
             // rbSeconds60
             // 
             this.rbSeconds60.AutoSize = true;
-            this.rbSeconds60.Location = new System.Drawing.Point(122, 24);
+            this.rbSeconds60.Location = new System.Drawing.Point(120, 25);
             this.rbSeconds60.Name = "rbSeconds60";
             this.rbSeconds60.Size = new System.Drawing.Size(42, 17);
             this.rbSeconds60.TabIndex = 9;
@@ -90,7 +90,7 @@
             // rbSeconds5
             // 
             this.rbSeconds5.AutoSize = true;
-            this.rbSeconds5.Location = new System.Drawing.Point(65, 24);
+            this.rbSeconds5.Location = new System.Drawing.Point(63, 25);
             this.rbSeconds5.Name = "rbSeconds5";
             this.rbSeconds5.Size = new System.Drawing.Size(36, 17);
             this.rbSeconds5.TabIndex = 8;
@@ -103,7 +103,7 @@
             // 
             this.rbNone.AutoSize = true;
             this.rbNone.Checked = true;
-            this.rbNone.Location = new System.Drawing.Point(65, 4);
+            this.rbNone.Location = new System.Drawing.Point(63, 5);
             this.rbNone.Name = "rbNone";
             this.rbNone.Size = new System.Drawing.Size(50, 17);
             this.rbNone.TabIndex = 7;
@@ -113,20 +113,30 @@
             this.rbNone.UseVisualStyleBackColor = true;
             this.rbNone.Click += new System.EventHandler(this.TimerInternvalClick);
             // 
+            // pnlInterval
+            // 
+            this.pnlInterval.Controls.Add(this.lblInverval);
+            this.pnlInterval.Controls.Add(this.rbNone);
+            this.pnlInterval.Controls.Add(this.rbSeconds5);
+            this.pnlInterval.Controls.Add(this.rbSeconds60);
+            this.pnlInterval.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlInterval.Location = new System.Drawing.Point(0, 0);
+            this.pnlInterval.Name = "pnlInterval";
+            this.pnlInterval.Size = new System.Drawing.Size(198, 48);
+            this.pnlInterval.TabIndex = 10;
+            // 
             // UpdateByInterval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lstItems);
-            this.Controls.Add(this.lblInverval);
-            this.Controls.Add(this.rbSeconds60);
-            this.Controls.Add(this.rbSeconds5);
-            this.Controls.Add(this.rbNone);
+            this.Controls.Add(this.pnlInterval);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "UpdateByInterval";
             this.Size = new System.Drawing.Size(198, 281);
+            this.pnlInterval.ResumeLayout(false);
+            this.pnlInterval.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -138,5 +148,6 @@
         protected System.Windows.Forms.ColumnHeader colField1;
         protected System.Windows.Forms.ColumnHeader colField2;
         protected System.Windows.Forms.ListView lstItems;
+        private System.Windows.Forms.Panel pnlInterval;
     }
 }

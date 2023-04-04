@@ -16,8 +16,8 @@ namespace UnifiDesktop.UserControls.StatusUpdate
     {
         private Timer _timer = null;
         private WebSocket _client;
-        private List<FullCommandInfo> _commandInfos;
-        private Command[] _commands;
+        protected List<FullCommandInfo> CommandInfos;
+        private Command[] Commands;
         private object _variableSource;
 
         public UpdateByInterval()
@@ -32,11 +32,22 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
         protected ILogger Logger;
 
+        private bool _intervalVisible = true;
+        public bool IntervalVisible 
+        { 
+            get => _intervalVisible; 
+            set
+            {
+                _intervalVisible = value;
+                pnlInterval.Visible = _intervalVisible;
+            } 
+        }
+
         public void Initialize(List<FullCommandInfo> commandInfos, ILogger logger, object variableSource)
         {
             Logger = logger;
             _variableSource = variableSource;
-            _commandInfos = commandInfos;
+            CommandInfos = commandInfos;
             PopulateCommands();
             OnTimerElapse(null, null);
             Task.Run(SetupSocket);
@@ -49,7 +60,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
                 _client = new WebSocket($"{SocketCommandServer.SocketUrl}/{ChannelName}");
                 _client.OnOpen += (sender, e) =>
                 {
-                    SocketCommandServer.Instance.LogMessage($"UpdateServiceState control conected to socket channel '{ChannelName}'.");
+                    SocketCommandServer.Instance.LogMessage($"{GetType().Name} control conected to socket channel '{ChannelName}'.");
                 };
                 _client.OnError += (sender, e) => { Logger.LogError(e.Message); };
                 _client.OnMessage += OnReceiveCommand;
@@ -67,7 +78,12 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
             SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved data '{e.Data}'.");
-            if (!int.TryParse(e.Data, out int seconds)) return;
+            ProcessCommand(e.Data);
+        }
+
+        protected virtual void ProcessCommand(string socketData)
+        {
+            if (!int.TryParse(socketData, out int seconds)) return;
 
             Logger.LogInfo($"Component {GetType().Name} recieved command to set interval to {seconds} seconds.");
 
@@ -123,7 +139,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
         private void PopulateCommands()
         {
-            if (_commandInfos == null)
+            if (CommandInfos == null)
             {
                 return;
             }
@@ -133,9 +149,9 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
             List<Command> commands = new List<Command>();
 
-            foreach (var c in _commandInfos)
+            foreach (var c in CommandInfos)
             {
-                var item = new ListViewItem(new[] { c.DisplayText, "" })
+                var item = new ListViewItem(ColumnsToShow(c))
                 {
                     UseItemStyleForSubItems = true,
                     Tag = c
@@ -148,32 +164,40 @@ namespace UnifiDesktop.UserControls.StatusUpdate
                 commands.Add(command);
             }
 
-            _commands = commands.ToArray();
-            
+            Commands = commands.ToArray();
         }
 
+        protected virtual string[] ColumnsToShow(FullCommandInfo c)
+        {
+            return new[] { c.DisplayText, "" };
+        }
 
         protected virtual async void OnTimerElapse(object sender, EventArgs e)
         {
             List<Task> tasks = new List<Task>();
-            for (int i = 0; i < _commands.Length; i++)
+            for (int i = 0; i < Commands.Length; i++)
             {
-                tasks.Add(RunCommand(_commands[i], i));
+                tasks.Add(RunCommand(Commands[i], i));
             }
 
             await Task.WhenAll(tasks);
         }
-
+         
         private async Task RunCommand(Command command, int rowIndex)
         {
             string result = await command.Execute();
-            lstItems.BeginInvoke(new MethodInvoker(() => UpdateServiceState(rowIndex, result)));
+            lstItems.BeginInvoke(new MethodInvoker(() => UpdateGridRow(rowIndex, result)));
         }
 
-        private void UpdateServiceState(int rowIndex, string state)
+        private void UpdateGridRow(int rowIndex, string state)
         {
             if (rowIndex < lstItems.Items.Count)
                 lstItems.Items[rowIndex].SubItems[1].Text = state;
+        }
+
+        private void lstItems_DoubleClick(object sender, EventArgs e)
+        {
+            OnTimerElapse(sender, e);
         }
     }
 }

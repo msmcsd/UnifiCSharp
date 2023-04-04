@@ -90,6 +90,7 @@
     <Compile Include="Rollback.cs" />
     <Compile Include="Socket\Behaviors\BaseBehavior.cs" />
     <Compile Include="Socket\Behaviors\UpdateFileVersionBehavior.cs" />
+    <Compile Include="Socket\Behaviors\UpdateReportBehavior.cs" />
     <Compile Include="Socket\Behaviors\UpdateServiceStateBehavior.cs" />
     <Compile Include="Socket\SocketCommandServer.cs" />
     <Compile Include="UiSettings.cs" />

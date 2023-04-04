@@ -176,6 +176,9 @@
     <Compile Include="UserControls\StatusUpdate\UpdateFileVersion.Designer.cs">
       <DependentUpon>UpdateFileVersion.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\StatusUpdate\UpdateReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\StatusUpdate\UpdateServiceState.cs">
       <SubType>UserControl</SubType>
     </Compile>

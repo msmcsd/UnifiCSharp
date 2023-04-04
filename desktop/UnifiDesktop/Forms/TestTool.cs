@@ -229,9 +229,11 @@ namespace Unifi.Forms
                 //Text = $@"{Text} Loaded using defaults";
             }
 
-            reportGrid1.Commands = _commandsProvider.DosTasks.SelectMany(t=>t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList();
-            reportGrid1.Logger = _logger;
-            _commandsRunner = new CommandsRunner(reportGrid1, false, null, _logger, AppType.Desktop);
+            //reportGrid1.Commands = _commandsProvider.DosTasks.SelectMany(t=>t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList();
+            //reportGrid1.Logger = _logger;
+            _commandsRunner = new CommandsRunner(null, false, null, _logger, AppType.Desktop);
+
+            updateReport1.Initialize(_commandsProvider.DosTasks.SelectMany(t => t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList(), new UpdateIntervalLogger(txtConsole), this);
 
             PopulateDosCommandGroups();
             PopulateTaskbarCommands();
@@ -527,7 +529,7 @@ namespace Unifi.Forms
         /// <param name="checkReturnValue"></param>
         private void RunCommands(List<FullCommandInfo> commandInfos, IObserver observer = null, bool checkReturnValue = false)
         {
-            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, reportGrid1, _logger, AppType.Desktop);
+            var b = new BatchCommandExecutor(commandInfos, checkReturnValue, null, _logger, AppType.Desktop);
             b.RegisterObserver(observer);
             b.Execute();
         }
