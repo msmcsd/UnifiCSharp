@@ -31,10 +31,12 @@ namespace Unifi.Observers.Animation
             _appType = appType;
         }
 
-        public async void Execute1()
+        public async void Execute()
         {
             List<CommandTask> tasks = new List<CommandTask>();
             bool ret = true;
+
+            Task currentTask = Task.FromResult("");
 
             foreach (var info in _commandInfos)
             {
@@ -47,27 +49,52 @@ namespace Unifi.Observers.Animation
                     observable.RegisterObserver(_uiObserver as IUiObserver);
                 }
 
+                var task = new CommandTask
+                {
+                    CommandInfo = info,
+                    Task = () => command.Execute()
+                };
+
+
+                //}
+
+                //foreach (var task in tasks)
+                //{
                 NotifyObserverCommandStart(info);
                 if (info.FireAndForget)
                 {
-                    _ = Task.Run(command.Execute);
+                    _ = Task.Run(() => command.Execute());
                 }
                 else
                 {
-                    var result = await command.Execute();
+                    Task result = null;
+                    if (info.Type == CommandType.Dos)
+                    {
+                        Task<Task> continuation = currentTask.ContinueWith(t => task.Task(),
+                            TaskContinuationOptions.OnlyOnRanToCompletion);
+
+                        currentTask = continuation.Unwrap();
+
+                        await continuation.ContinueWith(t => { result = continuation.Result; });
+                    }
+                    else
+                    {
+                        result = Task.FromResult(await command.Execute());
+                    }
+
                     if (_checkReturnValue)
                     {
                         if (result == null)
                         {
                             ret = false;
-                            NotifyObserverCommandEnd(info);
+                            NotifyObserverCommandEnd(task.CommandInfo);
                             break;
                         }
 
                         // _console.LogInfo($"ret={result.Status}");
                     }
                 }
-                NotifyObserverCommandEnd(info);
+                NotifyObserverCommandEnd(task.CommandInfo);
             }
 
             if (_checkReturnValue)
@@ -76,7 +103,7 @@ namespace Unifi.Observers.Animation
             }
         }
 
-        public async void Execute()
+        public async void Execute1()
         {
             List<CommandTask> tasks = new List<CommandTask>();
 
