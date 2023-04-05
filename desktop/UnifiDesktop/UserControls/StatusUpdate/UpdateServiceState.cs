@@ -23,7 +23,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         protected override void SetupListView()
         {
             colField1.Width = 50;
-            colField2.Width = 105;
+            colField2.Width = 125;
             colField1.Text = "Service";
             colField2.Text = "State";
         }

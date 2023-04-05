@@ -40,7 +40,6 @@ namespace Unifi.Forms
             this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
             this.grpConsole = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.updateReport1 = new UnifiDesktop.UserControls.StatusUpdate.UpdateReport();
             this.grpInstall = new System.Windows.Forms.GroupBox();
             this.grpConfig = new System.Windows.Forms.GroupBox();
             this.rbQa2New = new System.Windows.Forms.RadioButton();
@@ -55,6 +54,7 @@ namespace Unifi.Forms
             this.txtDebugger = new System.Windows.Forms.RichTextBox();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
+            this.updateReport1 = new UnifiDesktop.UserControls.StatusUpdate.UpdateReport();
             this.grpVersion = new System.Windows.Forms.GroupBox();
             this.updateFileVersion1 = new UnifiDesktop.UserControls.StatusUpdate.UpdateFileVersion();
             this.grpService = new System.Windows.Forms.GroupBox();
@@ -197,16 +197,6 @@ namespace Unifi.Forms
             this.splitContainer1.Size = new System.Drawing.Size(869, 657);
             this.splitContainer1.SplitterDistance = 372;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // updateReport1
-            // 
-            this.updateReport1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.updateReport1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateReport1.IntervalVisible = false;
-            this.updateReport1.Location = new System.Drawing.Point(3, 17);
-            this.updateReport1.Name = "updateReport1";
-            this.updateReport1.Size = new System.Drawing.Size(281, 241);
-            this.updateReport1.TabIndex = 24;
             // 
             // grpInstall
             // 
@@ -365,18 +355,28 @@ namespace Unifi.Forms
             // 
             this.grpReport.Controls.Add(this.updateReport1);
             this.grpReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpReport.Location = new System.Drawing.Point(579, 17);
+            this.grpReport.Location = new System.Drawing.Point(602, 17);
             this.grpReport.Name = "grpReport";
-            this.grpReport.Size = new System.Drawing.Size(287, 261);
+            this.grpReport.Size = new System.Drawing.Size(264, 261);
             this.grpReport.TabIndex = 11;
             this.grpReport.TabStop = false;
             this.grpReport.Text = "Report";
+            // 
+            // updateReport1
+            // 
+            this.updateReport1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.updateReport1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateReport1.IntervalVisible = false;
+            this.updateReport1.Location = new System.Drawing.Point(3, 17);
+            this.updateReport1.Name = "updateReport1";
+            this.updateReport1.Size = new System.Drawing.Size(258, 241);
+            this.updateReport1.TabIndex = 24;
             // 
             // grpVersion
             // 
             this.grpVersion.Controls.Add(this.updateFileVersion1);
             this.grpVersion.Dock = System.Windows.Forms.DockStyle.Left;
-            this.grpVersion.Location = new System.Drawing.Point(409, 17);
+            this.grpVersion.Location = new System.Drawing.Point(432, 17);
             this.grpVersion.Name = "grpVersion";
             this.grpVersion.Size = new System.Drawing.Size(170, 261);
             this.grpVersion.TabIndex = 15;
@@ -399,7 +399,7 @@ namespace Unifi.Forms
             this.grpService.Dock = System.Windows.Forms.DockStyle.Left;
             this.grpService.Location = new System.Drawing.Point(242, 17);
             this.grpService.Name = "grpService";
-            this.grpService.Size = new System.Drawing.Size(167, 261);
+            this.grpService.Size = new System.Drawing.Size(190, 261);
             this.grpService.TabIndex = 16;
             this.grpService.TabStop = false;
             this.grpService.Text = "Service";
@@ -411,7 +411,7 @@ namespace Unifi.Forms
             this.updateServiceState1.IntervalVisible = true;
             this.updateServiceState1.Location = new System.Drawing.Point(3, 17);
             this.updateServiceState1.Name = "updateServiceState1";
-            this.updateServiceState1.Size = new System.Drawing.Size(161, 241);
+            this.updateServiceState1.Size = new System.Drawing.Size(184, 241);
             this.updateServiceState1.TabIndex = 2;
             // 
             // grpBatchCommand
