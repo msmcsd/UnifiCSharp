@@ -932,6 +932,30 @@
 		]
 	},
 	{
+		"Name": "Temp",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "MonitorError",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Monitor log for errors",
+				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "MonitorError, 0",
+				"DisplayText": "Stop monitoring errors",
+				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateServiceState, 5",
+				"DisplayText": "Check service state",
+				"Type": "Code"
+			}
+		]
+	},
+	{
 		"Name": "sqlite3 Commands",
 		"CommandGroup": "Dos",
 		"Tab": "AppInventory",

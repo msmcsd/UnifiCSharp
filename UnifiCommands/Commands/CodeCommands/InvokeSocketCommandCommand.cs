@@ -29,19 +29,20 @@ namespace UnifiCommands.Commands.CodeCommands
             {
                 return Task.FromResult("");
             }
-            var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}");
-            // When using is used, the connection might have been disposed before message is sent.
-            //using (var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}"))
-            //{
-                ws.OnError += (sender, e) => { Logger.LogError(e.Message); };
-                ws.OnOpen += (sender, e) => 
-                { 
-                    SocketCommandServer.Instance.LogMessage($"InvokeSocketCommand connected to channel '{channelName}'");
-                    ws.Send(_parameter);
-                    SocketCommandServer.Instance.LogMessage($"Sent data '{_parameter}' to channel '{channelName}'");
-                };
-                ws.Connect();
-            //}
+            //var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}");
+            //// When using is used, the connection might have been disposed before message is sent.
+            ////using (var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}"))
+            ////{
+            //    ws.OnError += (sender, e) => { Logger.LogError(e.Message); };
+            //    ws.OnOpen += (sender, e) => 
+            //    { 
+            //        SocketCommandServer.Instance.LogMessage($"InvokeSocketCommand connected to channel '{channelName}'");
+            //        ws.Send(_parameter);
+            //        SocketCommandServer.Instance.LogMessage($"Sent data '{_parameter}' to channel '{channelName}'");
+            //    };
+            //    ws.Connect();
+            ////}
+            SocketUtils.SendCommandToChannel(channelName, _parameter, (sender, e) => Logger.LogError(e.Message));
 
             return Task.FromResult("");
         }

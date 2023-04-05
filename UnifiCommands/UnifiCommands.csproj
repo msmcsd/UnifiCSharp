@@ -82,6 +82,7 @@
     <Compile Include="CommandsProvider\ICommandsProvider.cs" />
     <Compile Include="CommandsProvider\TestTask.cs" />
     <Compile Include="CommandInfo\BaseCommandInfo.cs" />
+    <Compile Include="Commands\MonitorErrorCommand.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logging.cs" />
     <Compile Include="Observers\Report\IUiObservable.cs" />
@@ -89,6 +90,8 @@
     <Compile Include="Report\ReportItem.cs" />
     <Compile Include="Rollback.cs" />
     <Compile Include="Socket\Behaviors\BaseBehavior.cs" />
+    <Compile Include="Socket\Behaviors\MonitorErrorBehavior.cs" />
+    <Compile Include="Socket\SocketUtils.cs" />
     <Compile Include="Socket\Behaviors\UpdateFileVersionBehavior.cs" />
     <Compile Include="Socket\Behaviors\UpdateReportBehavior.cs" />
     <Compile Include="Socket\Behaviors\UpdateServiceStateBehavior.cs" />

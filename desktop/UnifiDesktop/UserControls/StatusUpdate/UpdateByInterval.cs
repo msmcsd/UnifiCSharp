@@ -7,6 +7,7 @@ using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket;
+using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp;
 using Timer = System.Timers.Timer;
 
@@ -57,15 +58,18 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         {
             if (_client == null)
             {
-                _client = new WebSocket($"{SocketCommandServer.SocketUrl}/{ChannelName}");
-                _client.OnOpen += (sender, e) =>
-                {
-                    SocketCommandServer.Instance.LogMessage($"{GetType().Name} control conected to socket channel '{ChannelName}'.");
-                };
-                _client.OnError += (sender, e) => { Logger.LogError(e.Message); };
-                _client.OnMessage += OnReceiveCommand;
-                _client.WaitTime = new TimeSpan(1, 0, 0);
-                _client.Connect();
+                //_client = new WebSocket($"{SocketCommandServer.SocketUrl}/{ChannelName}");
+                //_client.OnOpen += (sender, e) =>
+                //{
+                //    SocketCommandServer.Instance.LogMessage($"{GetType().Name} control conected to socket channel '{ChannelName}'.");
+                //};
+                //_client.OnError += (sender, e) => { Logger.LogError(e.Message); };
+                //_client.OnMessage += OnReceiveCommand;
+                //_client.WaitTime = new TimeSpan(1, 0, 0);
+                //_client.Connect();
+
+                _client = SocketUtils.CreateSocketClient(ChannelName, GetType().Name, OnReceiveCommand,
+                                                         (sender, e) => { Logger.LogError(e.Message); });
             }
             else if (!_client.IsAlive)
             {
