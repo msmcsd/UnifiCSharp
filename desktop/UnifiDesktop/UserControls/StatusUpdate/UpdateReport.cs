@@ -49,10 +49,12 @@ namespace UnifiDesktop.UserControls.StatusUpdate
                 case "0":
                     _reportType = ReportType.Install;
                     Logger.LogInfo($"Component {GetType().Name} recieved show install report command.");
+                    OnTimerElapse(null, null);
                     break;
                 case "1":
                     _reportType = ReportType.Uninstall;
                     Logger.LogInfo($"Component {GetType().Name} recieved show uninstall report command.");
+                    OnTimerElapse(null, null);
                     break;
                 case "2":
                     _reportType = ReportType.Clear;

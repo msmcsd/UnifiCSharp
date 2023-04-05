@@ -27,6 +27,12 @@
 				"Arguments": "UpdateFileVersion, 5",
 				"DisplayText": "Start checking file version",
 				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, 2",
+				"DisplayText": "Clear report",
+				"Type": "Code"
 			}
 		]
 	},
@@ -187,15 +193,15 @@
 				"Type": "Code"
 			},
 			{
-				"Command": "ShowReport",
-				"Arguments": "true",
-				"DisplayText": "Show Installed Report",
-				"Type": "Code"
-			},
-			{
 				"Command": "cmd.exe",
 				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
 				"DisplayText": "Start up Cylance UI"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, 0",
+				"DisplayText": "Show install report",
+				"Type": "Code"
 			}
 		]
 	},
