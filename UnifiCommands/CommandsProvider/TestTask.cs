@@ -89,6 +89,7 @@ namespace UnifiCommands.CommandsProvider
         PreInstallCommands,
         InstallCommand,
         PostInstallCommands,
+        UninstallCommand,
         Dos,
         Taskbar,
         Download,

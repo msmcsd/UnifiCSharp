@@ -202,6 +202,13 @@
 				"Arguments": "UpdateReport, 0",
 				"DisplayText": "Show install report",
 				"Type": "Code"
+			},
+			{
+				"Command": "MonitorError",
+				"Arguments": "$[ProtectLogPath]",
+				"DisplayText": "Monitor log for errors",
+				"Type": "Code",
+				"FireAndForget": true
 			}
 		]
 	},
@@ -386,6 +393,17 @@
 				"Command": "Post_Install_Tasks",
 				"DisplayText": "Post Install Tasks",
 				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Uninstall Command",
+		"CommandGroup": "UninstallCommand",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/x ${ProtectProductCode} /L*V ${MsiUninstallLogPath} $[GetInstallMode]",
+				"DisplayText": "Uninstall Product"
 			}
 		]
 	},
@@ -939,13 +957,15 @@
 				"Command": "MonitorError",
 				"Arguments": "$[ProtectLogPath]",
 				"DisplayText": "Monitor log for errors",
-				"Type": "Code"
+				"Type": "Code",
+				"FireAndForget": true
 			},
 			{
 				"Command": "InvokeSocketCommand",
 				"Arguments": "MonitorError, 0",
 				"DisplayText": "Stop monitoring errors",
-				"Type": "Code"
+				"Type": "Code",
+				"FireAndForget": true
 			},
 			{
 				"Command": "InvokeSocketCommand",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Unifi.Observers.Animation;
@@ -17,6 +18,7 @@ namespace UnifiDesktop.UserControls
         private List<FullCommandInfo> _preInstallCommands = new List<FullCommandInfo>();
         private List<FullCommandInfo> _installCommands = new List<FullCommandInfo>();
         private List<FullCommandInfo> _postInstallCommands = new List<FullCommandInfo>();
+        private FullCommandInfo _uninstallCommand;
 
         public void SetCommands(List<TestTask> testTasks)
         {
@@ -24,11 +26,13 @@ namespace UnifiDesktop.UserControls
             _preInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PreInstallCommands)?.Commands;
             _installCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands;
             _postInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PostInstallCommands)?.Commands;
+            _uninstallCommand = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.UninstallCommand)?.Commands[0];
 
             SetVariableSource(_installSetupCommands);
             SetVariableSource(_preInstallCommands);
             SetVariableSource(_installCommands);
             SetVariableSource(_postInstallCommands);
+            _uninstallCommand.VariableValueSource = this;
         }
 
         private void SetVariableSource(List<FullCommandInfo> commands)
@@ -53,17 +57,33 @@ namespace UnifiDesktop.UserControls
             InstallProduct();
         }
 
+        private void btnUninstall_Click(object sender, EventArgs e)
+        {
+            UninstallProduct();
+        }
+
+        private void UninstallProduct()
+        {
+            if (_uninstallCommand == null) return;
+
+            RunCommands(new List<FullCommandInfo> { _uninstallCommand });
+        }
 
         private void InstallProduct()
         {
-            var commands = GetAllCommands();
-            if (commands == null) return;
+            var commands = GetAllInstallCommands();
+            RunCommands(commands);
+        }
+
+        private void RunCommands(List<FullCommandInfo> commands)
+        {
+            if (commands?.Count() == 0) return;
 
             var b = new BatchCommandExecutor(commands, false, null, Logger, AppType.Desktop);
             b.Execute();
         }
 
-        private List<FullCommandInfo> GetAllCommands()
+        private List<FullCommandInfo> GetAllInstallCommands()
         {
             if (_preInstallCommands.Count <= 0)
             {
@@ -126,10 +146,6 @@ namespace UnifiDesktop.UserControls
             return true;
         }
 
-        private void btnUninstall_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void InstallOptionsGroup_Paint(object sender, PaintEventArgs e)
         {
@@ -140,14 +156,16 @@ namespace UnifiDesktop.UserControls
         {
             if (e.Button == MouseButtons.Right)
             {
-                DisplayCommand();
+                if (sender == btnInstall)
+                    DisplayCommand(GetAllInstallCommands());
+                else if (sender == btnUninstall)
+                    DisplayCommand(new List<FullCommandInfo> { _uninstallCommand });
             }
         }
 
-        private void DisplayCommand()
+        private void DisplayCommand(List<FullCommandInfo> commands)
         {
-            var commands = GetAllCommands();
-            if (commands == null) return;
+            if (commands?.Count() == 0) return;
 
             foreach (var command in commands)
                 FullCommandInfo.DisplayCommand(command, Logger, AppType.Desktop);
@@ -211,6 +229,10 @@ namespace UnifiDesktop.UserControls
                 return Variables.CylanceUiPath;
             }
         }
+
+        private string GetProtectLogFileName => $"{DateTime.Today:yyyy-MM-dd}.log";
+
+        private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{GetProtectLogFileName}");
 
         #endregion
 

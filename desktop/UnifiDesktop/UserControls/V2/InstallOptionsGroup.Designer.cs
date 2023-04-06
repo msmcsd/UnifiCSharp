@@ -237,6 +237,7 @@
             this.btnUninstall.Text = "Uninstall";
             this.btnUninstall.UseVisualStyleBackColor = true;
             this.btnUninstall.Click += new System.EventHandler(this.btnUninstall_Click);
+            this.btnUninstall.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnInstall_MouseDown);
             // 
             // rbWithUi
             // 

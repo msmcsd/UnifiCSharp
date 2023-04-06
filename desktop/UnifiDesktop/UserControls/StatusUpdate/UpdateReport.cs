@@ -29,9 +29,13 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
         public UpdateReport()
         {
-            string dir = Registry.LocalMachine.OpenSubKey(Variables.RegistryKey, true)?.GetValue("Path") as string;
-            bool isInstall = File.Exists(Path.Combine(dir, "CylanceSvc.exe"));
-            _reportType = isInstall ? ReportType.Install : ReportType.Uninstall;
+            try
+            {
+                string dir = Registry.LocalMachine.OpenSubKey(Variables.RegistryKey, true)?.GetValue("Path") as string;
+                bool isInstall = File.Exists(Path.Combine(dir, "CylanceSvc.exe"));
+                _reportType = isInstall ? ReportType.Install : ReportType.Uninstall;
+            }
+            catch { }
         }
 
         protected override void SetupListView()
