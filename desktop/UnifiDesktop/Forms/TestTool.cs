@@ -297,7 +297,6 @@ namespace Unifi.Forms
             tabControl.Dock = DockStyle.Fill;
             tabControl.TabChanged += SetTabControlClientWidth;
             tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
-            //pnlDosCommands.Width = tabControl.ClientWidth;
         }
 
         private void SetTabControlClientWidth(object sender, EventArgs e)

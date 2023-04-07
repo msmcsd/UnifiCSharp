@@ -5,9 +5,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using System.Xml.Schema;
 using UnifiDesktop.UserControls.V2;
-using static System.Windows.Forms.TabControl;
 
 namespace UnifiDesktop.UserControls
 {
@@ -17,11 +15,8 @@ namespace UnifiDesktop.UserControls
     [Designer(typeof(WebTabControlDesigner))]
     public partial class WebTabControl : UserControl
     {
-        private List<string> _headers = new List<string>() { };
         private TabInfo[] _tabInfos = new TabInfo[] { };
         private TabHeaderLabel _preTabHeader = null;
-
-        private TabPageCollection _tabPages;
 
         protected int MinControlWidth; // Width that ensures all tab header labels are visible even thought controls in container has less width.
 
@@ -42,46 +37,6 @@ namespace UnifiDesktop.UserControls
             get => tabControl;
             set => tabControl= value;
         }
-
-        //private void CreateTabPages()
-        //{
-        //    if (_tabPages.Count == 0) return;
-
-        //    tabControl.TabPages.Clear();
-        //    int index = 0;
-        //    int left = 10;
-        //    int pixelBetweenLabel = 10;
-
-        //    List<TabInfo> tabInfos = new List<TabInfo>();
-
-        //    foreach (WebTabPage page in _tabPages)
-        //    {
-        //        TabHeaderLabel label = new TabHeaderLabel(page.HeaderCaption, index);
-        //        label.Left = left;
-        //        label.Top = (pnlHeader.Height - label.Height) / 2;
-        //        label.IsActive = index == 0;
-        //        label.Click += OnHeaderClick;
-        //        pnlHeader.Controls.Add(label);
-
-        //        TabPage tabPage = new TabPage();
-        //        tabPage.Controls.Add(page.Control);
-        //        page.Control.Dock = DockStyle.Fill;
-        //        tabControl.TabPages.Add(tabPage);
-
-        //        tabInfos.Add(new TabInfo { TabHeaderLabel = label, TabClientWidth = Width, TabPage = tabPage });
-
-        //        index++;
-        //        left = left + label.Width + pixelBetweenLabel;
-        //    }
-
-        //    _tabInfos = tabInfos.ToArray();
-
-        //    if (_tabInfos.Length > 0)
-        //    {
-        //        tabControl.SelectedIndex = 0;
-        //        MoveUnderLine(0);
-        //    }
-        //}
 
         private void ClearTabHeaderLabels()
         {
@@ -184,7 +139,10 @@ namespace UnifiDesktop.UserControls
         public TabPage TabPage { get; set; }
     }
 
-    class WebTabControlDesigner : ParentControlDesigner
+    /// <summary>
+    /// Used to expose TabControl in design mode.
+    /// </summary>
+    internal class WebTabControlDesigner : ParentControlDesigner
     {
         public override void Initialize(IComponent component)
         {
