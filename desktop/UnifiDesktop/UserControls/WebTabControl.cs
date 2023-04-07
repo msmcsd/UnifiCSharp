@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using System.Xml.Schema;
 using UnifiDesktop.UserControls.V2;
 using static System.Windows.Forms.TabControl;
 
@@ -21,6 +22,8 @@ namespace UnifiDesktop.UserControls
         private TabHeaderLabel _preTabHeader = null;
 
         private TabPageCollection _tabPages;
+
+        protected int MinControlWidth; // Width that ensures all tab header labels are visible even thought controls in container has less width.
 
         public WebTabControl()
         {
@@ -98,7 +101,7 @@ namespace UnifiDesktop.UserControls
             tabControl.SizeMode = TabSizeMode.Fixed;
         }
 
-        private void CreatTabHeaderLabels()
+        protected void CreatTabHeaderLabels()
         {
             ClearTabHeaderLabels();
             if (tabControl.TabPages.Count == 0) return;
@@ -125,6 +128,8 @@ namespace UnifiDesktop.UserControls
                 left = left + label.Width + pixelBetweenLabel;
             }
 
+            MinControlWidth = left;
+
             _tabInfos = tabInfos.ToArray();
 
             if (_tabInfos.Length > 0)
@@ -134,7 +139,7 @@ namespace UnifiDesktop.UserControls
             }
         }
 
-        private void MoveUnderLine(int endIndex)
+        protected void MoveUnderLine(int endIndex)
         {
             if (endIndex >= _tabInfos.Length) return;
 
@@ -168,17 +173,9 @@ namespace UnifiDesktop.UserControls
             MoveUnderLine(index);
             tabControl.SelectedIndex = index;
         }
-
-        private void tabControl_ControlAdded(object sender, ControlEventArgs e)
-        {
-            if (sender != null && e.Control is TabPage t)
-            {
-                //MessageBox.Show(sender.GetType().ToString());
-            }
-        }
     }
 
-    class TabInfo
+    internal class TabInfo
     {
         public TabHeaderLabel TabHeaderLabel { get; set; }
 
@@ -187,24 +184,13 @@ namespace UnifiDesktop.UserControls
         public TabPage TabPage { get; set; }
     }
 
-    //public class WebTabPage
-    //{
-    //    public string HeaderCaption { get; set; }
-
-    //    public Control Control { get; set; }
-
-    //}
-
     class WebTabControlDesigner : ParentControlDesigner
     {
-
         public override void Initialize(IComponent component)
         {
             base.Initialize(component);
 
             WebTabControl tab = component as WebTabControl;
-            //EnableDesignMode(tab.tabControl.TabPages[0], "tabPage1");
-            //EnableDesignMode(tab.tabControl.TabPages[1], "tabPage2");
             EnableDesignMode(tab.tabControl, "TabControl");
         }
 

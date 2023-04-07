@@ -283,18 +283,26 @@ namespace Unifi.Forms
 
         private void PopulateDosCommandGroups()
         {
+            //pnlDosCommands.Controls.Clear();
+            //DosCommandsTabControl tabControl = new DosCommandsTabControl(_programSettings, _commandsRunner, _logger);
+            //pnlDosCommands.Controls.Add(tabControl);
+            //tabControl.Dock = DockStyle.Fill;
+            //tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
+            //pnlDosCommands.Width = tabControl.ClientWidth;
+            //tabControl.TabChanged += SetTabControlClientWidth;
+
             pnlDosCommands.Controls.Clear();
-            DosCommandsTabControl tabControl = new DosCommandsTabControl(_programSettings, _commandsRunner, _logger);
+            DosCommandsTabControlV2 tabControl = new DosCommandsTabControlV2(_programSettings, _commandsRunner, _logger);
             pnlDosCommands.Controls.Add(tabControl);
             tabControl.Dock = DockStyle.Fill;
-            tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
-            pnlDosCommands.Width = tabControl.ClientWidth;
             tabControl.TabChanged += SetTabControlClientWidth;
+            tabControl.PopulateDosTasks(_commandsProvider.DosTasks);
+            //pnlDosCommands.Width = tabControl.ClientWidth;
         }
 
         private void SetTabControlClientWidth(object sender, EventArgs e)
         {
-            pnlDosCommands.Width = (sender as DosCommandsTabControl).ClientWidth;
+            pnlDosCommands.Width = (sender as DosCommandsTabControlV2).ClientWidth;
         }
 
         private void OutputToConsole(object sender, DataReceivedEventArgs e)

@@ -149,6 +149,12 @@
     <Compile Include="UserControls\DosCommandGroup.Designer.cs">
       <DependentUpon>DosCommandGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DosCommandsTabControlV2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DosCommandsTabControlV2.Designer.cs">
+      <DependentUpon>DosCommandsTabControlV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DownloadCommandGroup.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -304,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\DosCommandGroup.resx">
       <DependentUpon>DosCommandGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\DosCommandsTabControlV2.resx">
+      <DependentUpon>DosCommandsTabControlV2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\DownloadCommandGroup.resx">
       <DependentUpon>DownloadCommandGroup.cs</DependentUpon>
