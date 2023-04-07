@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.tabControl = new System.Windows.Forms.TabControl();
             this.lblUnderline = new System.Windows.Forms.Label();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,20 +41,8 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(368, 32);
+            this.pnlHeader.Size = new System.Drawing.Size(268, 32);
             this.pnlHeader.TabIndex = 4;
-            // 
-            // tabControl
-            // 
-            this.tabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.ItemSize = new System.Drawing.Size(0, 1);
-            this.tabControl.Location = new System.Drawing.Point(0, 32);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(368, 411);
-            this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl.TabIndex = 0;
             // 
             // lblUnderline
             // 
@@ -64,6 +52,17 @@
             this.lblUnderline.Size = new System.Drawing.Size(100, 2);
             this.lblUnderline.TabIndex = 6;
             // 
+            // tabControl
+            // 
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.ItemSize = new System.Drawing.Size(30, 30);
+            this.tabControl.Location = new System.Drawing.Point(0, 32);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(268, 238);
+            this.tabControl.TabIndex = 0;
+            this.tabControl.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.tabControl_ControlAdded);
+            // 
             // WebTabControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -71,7 +70,8 @@
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.pnlHeader);
             this.Name = "WebTabControl";
-            this.Size = new System.Drawing.Size(368, 443);
+            this.Size = new System.Drawing.Size(268, 270);
+            this.Load += new System.EventHandler(this.WebTabControl_Load);
             this.pnlHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -80,7 +80,7 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.Label lblUnderline;
+        public System.Windows.Forms.TabControl tabControl;
     }
 }

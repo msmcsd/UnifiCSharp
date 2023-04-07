@@ -1,92 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using UnifiDesktop.UserControls.V2;
+using static System.Windows.Forms.TabControl;
 
 namespace UnifiDesktop.UserControls
 {
+    /// <summary>
+    /// A tab control that uses web style tab header labels.
+    /// </summary>
+    [Designer(typeof(WebTabControlDesigner))]
     public partial class WebTabControl : UserControl
     {
         private List<string> _headers = new List<string>() { };
         private TabInfo[] _tabInfos = new TabInfo[] { };
         private TabHeaderLabel _preTabHeader = null;
 
-        private List<WebTabPage> _tabPages = new List<WebTabPage>() { };
+        private TabPageCollection _tabPages;
 
         public WebTabControl()
         {
             InitializeComponent();
         }
 
-        //[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        //[Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Culture=neutral", typeof(System.Drawing.Design.UITypeEditor))]
-        public List<string> Headers 
-        { 
-            get => _headers;
-            set 
-            { 
-                _headers= value;
-                CreatTabHeader();
+        private void WebTabControl_Load(object sender, EventArgs e)
+        {
+            CreatTabHeaderLabels();
+            HideTabControlHeader();
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public TabControl TabControl
+        {
+            get => tabControl;
+            set => tabControl= value;
+        }
+
+        //private void CreateTabPages()
+        //{
+        //    if (_tabPages.Count == 0) return;
+
+        //    tabControl.TabPages.Clear();
+        //    int index = 0;
+        //    int left = 10;
+        //    int pixelBetweenLabel = 10;
+
+        //    List<TabInfo> tabInfos = new List<TabInfo>();
+
+        //    foreach (WebTabPage page in _tabPages)
+        //    {
+        //        TabHeaderLabel label = new TabHeaderLabel(page.HeaderCaption, index);
+        //        label.Left = left;
+        //        label.Top = (pnlHeader.Height - label.Height) / 2;
+        //        label.IsActive = index == 0;
+        //        label.Click += OnHeaderClick;
+        //        pnlHeader.Controls.Add(label);
+
+        //        TabPage tabPage = new TabPage();
+        //        tabPage.Controls.Add(page.Control);
+        //        page.Control.Dock = DockStyle.Fill;
+        //        tabControl.TabPages.Add(tabPage);
+
+        //        tabInfos.Add(new TabInfo { TabHeaderLabel = label, TabClientWidth = Width, TabPage = tabPage });
+
+        //        index++;
+        //        left = left + label.Width + pixelBetweenLabel;
+        //    }
+
+        //    _tabInfos = tabInfos.ToArray();
+
+        //    if (_tabInfos.Length > 0)
+        //    {
+        //        tabControl.SelectedIndex = 0;
+        //        MoveUnderLine(0);
+        //    }
+        //}
+
+        private void ClearTabHeaderLabels()
+        {
+            foreach(Control ctl in pnlHeader.Controls)
+            {
+                if (ctl is TabHeaderLabel lbl) pnlHeader.Controls.Remove(lbl);
             }
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public List<WebTabPage> TabPages
+        /// <summary>
+        /// Hides the header of TabControl. 
+        /// </summary>
+        private void HideTabControlHeader()
         {
-            get => _tabPages;
-            set
-            {
-                _tabPages = value;
-                CreateTabPages();
-            }
+            tabControl.Appearance = TabAppearance.FlatButtons;
+            tabControl.ItemSize = new Size(0, 1);
+            tabControl.SizeMode = TabSizeMode.Fixed;
         }
 
-        private void CreateTabPages()
+        private void CreatTabHeaderLabels()
         {
-            if (_tabPages.Count == 0) return;
-
-            tabControl.TabPages.Clear();
-            int index = 0;
-            int left = 10;
-            int pixelBetweenLabel = 10;
-
-            List<TabInfo> tabInfos = new List<TabInfo>();
-
-            foreach (WebTabPage page in _tabPages)
-            {
-                TabHeaderLabel label = new TabHeaderLabel(page.HeaderCaption, index);
-                label.Left = left;
-                label.Top = (pnlHeader.Height - label.Height) / 2;
-                label.IsActive = index == 0;
-                label.Click += OnHeaderClick;
-                pnlHeader.Controls.Add(label);
-
-                TabPage tabPage = new TabPage();
-                tabPage.Controls.Add(page.Control);
-                page.Control.Dock = DockStyle.Fill;
-                tabControl.TabPages.Add(tabPage);
-
-                tabInfos.Add(new TabInfo { TabHeaderLabel = label, TabClientWidth = Width, TabPage = tabPage });
-
-                index++;
-                left = left + label.Width + pixelBetweenLabel;
-            }
-
-            _tabInfos = tabInfos.ToArray();
-
-            if (_tabInfos.Length > 0)
-            {
-                tabControl.SelectedIndex = 0;
-                MoveUnderLine(0);
-            }
-        }
-
-        private void CreatTabHeader()
-        {
-            if (_headers.Count == 0) return;
+            ClearTabHeaderLabels();
+            if (tabControl.TabPages.Count == 0) return;
 
             int index = 0;
             int left = 10;
@@ -94,9 +109,9 @@ namespace UnifiDesktop.UserControls
 
             List<TabInfo> tabInfos= new List<TabInfo>();
 
-            foreach (var header in _headers)
+            foreach (TabPage tabPage in tabControl.TabPages)
             {
-                TabHeaderLabel label = new TabHeaderLabel(header, index);
+                TabHeaderLabel label = new TabHeaderLabel(tabPage.Text, index);
                 label.Left = left;
                 label.Top = (pnlHeader.Height - label.Height)/2;
                 label.IsActive = index == 0;
@@ -153,6 +168,14 @@ namespace UnifiDesktop.UserControls
             MoveUnderLine(index);
             tabControl.SelectedIndex = index;
         }
+
+        private void tabControl_ControlAdded(object sender, ControlEventArgs e)
+        {
+            if (sender != null && e.Control is TabPage t)
+            {
+                //MessageBox.Show(sender.GetType().ToString());
+            }
+        }
     }
 
     class TabInfo
@@ -164,11 +187,26 @@ namespace UnifiDesktop.UserControls
         public TabPage TabPage { get; set; }
     }
 
-    public class WebTabPage
-    {
-        public string HeaderCaption { get; set; }
+    //public class WebTabPage
+    //{
+    //    public string HeaderCaption { get; set; }
 
-        public Control Control { get; set; }
+    //    public Control Control { get; set; }
+
+    //}
+
+    class WebTabControlDesigner : ParentControlDesigner
+    {
+
+        public override void Initialize(IComponent component)
+        {
+            base.Initialize(component);
+
+            WebTabControl tab = component as WebTabControl;
+            //EnableDesignMode(tab.tabControl.TabPages[0], "tabPage1");
+            //EnableDesignMode(tab.tabControl.TabPages[1], "tabPage2");
+            EnableDesignMode(tab.tabControl, "TabControl");
+        }
 
     }
 }

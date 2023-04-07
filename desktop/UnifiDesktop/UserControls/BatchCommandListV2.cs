@@ -11,8 +11,6 @@ namespace UnifiDesktop.UserControls
     public partial class BatchCommandListV2 : WebTabControl
     {
         private List<TestTask> _testTasks= new List<TestTask>();
-        private ListView _lstCommands = new ListView();
-        private ListBoxV2 _lstTestTasks = new ListBoxV2();
 
         public List<TestTask> TestTasks 
         { 
@@ -23,55 +21,55 @@ namespace UnifiDesktop.UserControls
             } 
         }
 
-        //public BatchCommandListV2()
-        //{
-        //    InitializeComponent();
-        //}
+        public BatchCommandListV2()
+        {
+            InitializeComponent();
+        }
 
         private void PopulateTestTasks()
         {
             if (_testTasks.Count == 0) return;
 
             // Create first tabpage for list of batch tasks.
-            _lstTestTasks.DataSource = _testTasks;
-            _lstTestTasks.DisplayMember = "Name";
-            _lstTestTasks.SelectedIndexChanged += OnSelectedTaskChange;
+            lstList.DataSource = _testTasks;
+            lstList.DisplayMember = "Name";
+            lstList.SelectedIndexChanged += OnSelectedTaskChange;
 
-            WebTabPage page1 = new WebTabPage
-            {
-                HeaderCaption = "List",
-                Control = _lstTestTasks
-            };
+            //WebTabPage page1 = new WebTabPage
+            //{
+            //    HeaderCaption = "List",
+            //    Control = _lstTestTasks
+            //};
 
-            // Create second tabpage for list of commands for a selectd test task.
+            //// Create second tabpage for list of commands for a selectd test task.
             SetupListViewColumns();
 
-            WebTabPage page2 = new WebTabPage
-            {
-                HeaderCaption = "Commands",
-                Control = _lstCommands
-            };
+            //WebTabPage page2 = new WebTabPage
+            //{
+            //    HeaderCaption = "Commands",
+            //    Control = _lstCommands
+            //};
 
-            TabPages = new List<WebTabPage> { page1, page2 };
+            ////TabPages = new List<WebTabPage> { page1, page2 };
 
-            PopulateCommands(_testTasks[0].Commands);
+            //PopulateCommands(_testTasks[0].Commands);
         }
 
         private void SetupListViewColumns()
         {
-            _lstCommands.Columns.Clear();
-            _lstCommands.Columns.Add("");
-            _lstCommands.Columns.Add("");
-            _lstCommands.HeaderStyle = ColumnHeaderStyle.None;
-            _lstCommands.View = View.Details;
+            lstCommands.Columns.Clear();
+            lstCommands.Columns.Add("");
+            lstCommands.Columns.Add("");
+            lstCommands.HeaderStyle = ColumnHeaderStyle.None;
+            lstCommands.View = View.Details;
             ResizeColumn();
         }
 
         private void ResizeColumn()
         {
-            if (_lstCommands.Columns.Count <= 1) return;
-            _lstCommands.Columns[0].Width = 16;
-            _lstCommands.Columns[1].Width = Width - _lstCommands.Columns[0].Width - 33;
+            if (lstCommands.Columns.Count <= 1) return;
+            lstCommands.Columns[0].Width = 16;
+            lstCommands.Columns[1].Width = Width - lstCommands.Columns[0].Width - 33;
 
         }
 
@@ -79,7 +77,7 @@ namespace UnifiDesktop.UserControls
         {
             if (sender == null) return;
 
-            TestTask t = (TestTask)_lstTestTasks?.SelectedItem;
+            TestTask t = (TestTask)lstList?.SelectedItem;
             if (t == null) return;
 
             PopulateCommands(t.Commands);
@@ -87,10 +85,10 @@ namespace UnifiDesktop.UserControls
 
         private void PopulateCommands(List<FullCommandInfo> commands)
         {
-            _lstCommands.Items.Clear();
+            lstCommands.Items.Clear();
             foreach (var command in commands)
             {
-                _lstCommands.Items.Add(
+                lstCommands.Items.Add(
                     new ListViewItem(new[] { " ", command.DisplayText })
                     {
                         UseItemStyleForSubItems = true,

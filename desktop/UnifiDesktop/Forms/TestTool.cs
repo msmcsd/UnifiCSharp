@@ -495,7 +495,7 @@ namespace Unifi.Forms
             lstBatchCommands.TestTasks = _commandsProvider.BatchTasks;
             lstBatchCommands.Logger = _logger;
 
-            //batchCommandListV22.TestTasks = _commandsProvider.BatchTasks;
+            //batchCommandListV21.TestTasks = _commandsProvider.BatchTasks;
         }
 
         #endregion
