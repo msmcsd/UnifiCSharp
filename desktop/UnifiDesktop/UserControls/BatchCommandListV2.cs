@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
-using UnifiDesktop.UserControls.ListBox;
 
 namespace UnifiDesktop.UserControls
 {
@@ -35,24 +34,7 @@ namespace UnifiDesktop.UserControls
             lstList.DisplayMember = "Name";
             lstList.SelectedIndexChanged += OnSelectedTaskChange;
 
-            //WebTabPage page1 = new WebTabPage
-            //{
-            //    HeaderCaption = "List",
-            //    Control = _lstTestTasks
-            //};
-
-            //// Create second tabpage for list of commands for a selectd test task.
             SetupListViewColumns();
-
-            //WebTabPage page2 = new WebTabPage
-            //{
-            //    HeaderCaption = "Commands",
-            //    Control = _lstCommands
-            //};
-
-            ////TabPages = new List<WebTabPage> { page1, page2 };
-
-            //PopulateCommands(_testTasks[0].Commands);
         }
 
         private void SetupListViewColumns()

@@ -50,7 +50,7 @@ namespace Unifi.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            _logger = new DesktopLogger(txtConsole);
+            _logger = new DesktopLogger(loggerTabControl1.LogConsole);
             SocketCommandServer.Instance.Start(_logger);
 
             GetInstallFolderFromRegistry();
@@ -76,7 +76,7 @@ namespace Unifi.Forms
         
         private void AddListeners()
         {
-            _debugListerListener = new DebugListener(txtDebugger);
+            _debugListerListener = new DebugListener(loggerTabControl1.DebugConsole);
             Debug.Listeners.Add(_debugListerListener);
         }       
         
@@ -233,7 +233,7 @@ namespace Unifi.Forms
             //reportGrid1.Logger = _logger;
             _commandsRunner = new CommandsRunner(null, false, null, _logger, AppType.Desktop);
 
-            updateReport1.Initialize(_commandsProvider.DosTasks.SelectMany(t => t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList(), new UpdateIntervalLogger(txtConsole), this);
+            updateReport1.Initialize(_commandsProvider.DosTasks.SelectMany(t => t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList(), new UpdateIntervalLogger(loggerTabControl1.LogConsole), this);
 
             PopulateDosCommandGroups();
             PopulateTaskbarCommands();
@@ -273,12 +273,12 @@ namespace Unifi.Forms
             //lstVersion.Commands = _commandsProvider.FileVersionTask.Commands;
             //lstVersion.PopulateItems();
             //lstVersion.FormObject = this;
-            updateFileVersion1.Initialize(_commandsProvider.FileVersionTask.Commands, new UpdateIntervalLogger(txtConsole), this);
+            updateFileVersion1.Initialize(_commandsProvider.FileVersionTask.Commands, new UpdateIntervalLogger(loggerTabControl1.LogConsole), this);
         }
 
         private void PopulateServiceStateView()
         {
-            updateServiceState1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new UpdateIntervalLogger(txtConsole), null);
+            updateServiceState1.Initialize(_commandsProvider.TestTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.ServiceState)?.Commands, new UpdateIntervalLogger(loggerTabControl1.LogConsole), null);
         }
 
         private void PopulateDosCommandGroups()

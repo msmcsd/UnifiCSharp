@@ -164,6 +164,12 @@
     <Compile Include="UserControls\ListBox\ListBoxV2.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\LoggerTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\LoggerTabControl.Designer.cs">
+      <DependentUpon>LoggerTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\StatusUpdate\UpdateByInterval.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -304,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\InstallCommandGroup.resx">
       <DependentUpon>InstallCommandGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\LoggerTabControl.resx">
+      <DependentUpon>LoggerTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\StatusUpdate\UpdateByInterval.resx">
       <DependentUpon>UpdateByInterval.cs</DependentUpon>
