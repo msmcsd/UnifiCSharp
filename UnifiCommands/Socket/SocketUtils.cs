@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using UnifiCommands.Logging;
 using WebSocketSharp;
 
@@ -44,6 +46,18 @@ namespace UnifiCommands.Socket
         {
             logger?.LogProgress($"[Socket] {message}");
 
+        }
+        public static SocketMessage DeserializeMessage(string message)
+        {
+            SocketMessage m = null;
+
+            try
+            {
+                m = JsonConvert.DeserializeObject<SocketMessage>(message, new StringEnumConverter());
+            }
+            catch { }
+
+            return m;
         }
     }
 }

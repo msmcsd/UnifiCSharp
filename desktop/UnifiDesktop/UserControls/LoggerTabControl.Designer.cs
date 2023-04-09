@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tabLog = new System.Windows.Forms.TabPage();
-            this.tabErrors = new System.Windows.Forms.TabPage();
-            this.ErrorConsole = new System.Windows.Forms.RichTextBox();
             this.LogConsole = new System.Windows.Forms.RichTextBox();
+            this.tabErrors = new System.Windows.Forms.TabPage();
             this.tabDebug = new System.Windows.Forms.TabPage();
             this.DebugConsole = new System.Windows.Forms.RichTextBox();
+            this.ErrorConsole = new UnifiDesktop.UserControls.ErrorConsole();
             this.tabControl.SuspendLayout();
             this.tabLog.SuspendLayout();
             this.tabErrors.SuspendLayout();
@@ -60,27 +60,6 @@
             this.tabLog.Text = "Log";
             this.tabLog.UseVisualStyleBackColor = true;
             // 
-            // tabErrors
-            // 
-            this.tabErrors.Controls.Add(this.ErrorConsole);
-            this.tabErrors.Location = new System.Drawing.Point(4, 5);
-            this.tabErrors.Name = "tabErrors";
-            this.tabErrors.Size = new System.Drawing.Size(421, 332);
-            this.tabErrors.TabIndex = 1;
-            this.tabErrors.Text = "Errors";
-            this.tabErrors.UseVisualStyleBackColor = true;
-            // 
-            // ErrorConsole
-            // 
-            this.ErrorConsole.BackColor = System.Drawing.SystemColors.Control;
-            this.ErrorConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ErrorConsole.Location = new System.Drawing.Point(0, 0);
-            this.ErrorConsole.Name = "ErrorConsole";
-            this.ErrorConsole.Size = new System.Drawing.Size(421, 332);
-            this.ErrorConsole.TabIndex = 0;
-            this.ErrorConsole.Text = "";
-            this.ErrorConsole.WordWrap = false;
-            // 
             // LogConsole
             // 
             this.LogConsole.BackColor = System.Drawing.SystemColors.Control;
@@ -93,12 +72,22 @@
             this.LogConsole.TabIndex = 2;
             this.LogConsole.Text = "";
             // 
+            // tabErrors
+            // 
+            this.tabErrors.Controls.Add(this.ErrorConsole);
+            this.tabErrors.Location = new System.Drawing.Point(4, 5);
+            this.tabErrors.Name = "tabErrors";
+            this.tabErrors.Size = new System.Drawing.Size(421, 332);
+            this.tabErrors.TabIndex = 1;
+            this.tabErrors.Text = "Errors";
+            this.tabErrors.UseVisualStyleBackColor = true;
+            // 
             // tabDebug
             // 
             this.tabDebug.Controls.Add(this.DebugConsole);
             this.tabDebug.Location = new System.Drawing.Point(4, 5);
             this.tabDebug.Name = "tabDebug";
-            this.tabDebug.Size = new System.Drawing.Size(421, 332);
+            this.tabDebug.Size = new System.Drawing.Size(260, 229);
             this.tabDebug.TabIndex = 2;
             this.tabDebug.Text = "Debug";
             this.tabDebug.UseVisualStyleBackColor = true;
@@ -111,9 +100,20 @@
             this.DebugConsole.Location = new System.Drawing.Point(0, 0);
             this.DebugConsole.Name = "DebugConsole";
             this.DebugConsole.ReadOnly = true;
-            this.DebugConsole.Size = new System.Drawing.Size(421, 332);
+            this.DebugConsole.Size = new System.Drawing.Size(260, 229);
             this.DebugConsole.TabIndex = 3;
             this.DebugConsole.Text = "";
+            // 
+            // ErrorConsole
+            // 
+            this.ErrorConsole.BackColor = System.Drawing.SystemColors.Control;
+            this.ErrorConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ErrorConsole.Location = new System.Drawing.Point(0, 0);
+            this.ErrorConsole.Name = "ErrorConsole";
+            this.ErrorConsole.Size = new System.Drawing.Size(421, 332);
+            this.ErrorConsole.TabIndex = 0;
+            this.ErrorConsole.Text = "";
+            this.ErrorConsole.WordWrap = false;
             // 
             // LoggerTabControl
             // 
@@ -134,9 +134,9 @@
 
         private System.Windows.Forms.TabPage tabLog;
         private System.Windows.Forms.TabPage tabErrors;
-        public System.Windows.Forms.RichTextBox ErrorConsole;
         public System.Windows.Forms.RichTextBox LogConsole;
         private System.Windows.Forms.TabPage tabDebug;
         public System.Windows.Forms.RichTextBox DebugConsole;
+        public ErrorConsole ErrorConsole;
     }
 }

@@ -39,7 +39,6 @@ namespace Unifi.Forms
             this.lblInstallOptions = new System.Windows.Forms.Label();
             this.installOptionsGroup1 = new UnifiDesktop.UserControls.InstallOptionsGroup();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.loggerTabControl1 = new UnifiDesktop.UserControls.LoggerTabControl();
             this.grpInstall = new System.Windows.Forms.GroupBox();
             this.grpConfig = new System.Windows.Forms.GroupBox();
             this.rbQa2New = new System.Windows.Forms.RadioButton();
@@ -50,6 +49,7 @@ namespace Unifi.Forms
             this.chkDebugBuild = new System.Windows.Forms.CheckBox();
             this.lblInstallPath = new System.Windows.Forms.Label();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
+            this.loggerTabControl1 = new UnifiDesktop.UserControls.LoggerTabControl();
             this.grpBatch = new System.Windows.Forms.GroupBox();
             this.grpReport = new System.Windows.Forms.GroupBox();
             this.updateReport1 = new UnifiDesktop.UserControls.StatusUpdate.UpdateReport();
@@ -67,10 +67,10 @@ namespace Unifi.Forms
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.loggerTabControl1.TabControl.SuspendLayout();
-            this.loggerTabControl1.SuspendLayout();
             this.grpInstall.SuspendLayout();
             this.grpConfig.SuspendLayout();
+            this.loggerTabControl1.TabControl.SuspendLayout();
+            this.loggerTabControl1.SuspendLayout();
             this.grpBatch.SuspendLayout();
             this.grpReport.SuspendLayout();
             this.grpVersion.SuspendLayout();
@@ -185,27 +185,6 @@ namespace Unifi.Forms
             this.splitContainer1.Size = new System.Drawing.Size(875, 677);
             this.splitContainer1.SplitterDistance = 379;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // loggerTabControl1
-            // 
-            this.loggerTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loggerTabControl1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loggerTabControl1.Location = new System.Drawing.Point(0, 0);
-            this.loggerTabControl1.Name = "loggerTabControl1";
-            this.loggerTabControl1.Size = new System.Drawing.Size(875, 379);
-            // 
-            // loggerTabControl1.TabControl
-            // 
-            this.loggerTabControl1.TabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.loggerTabControl1.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loggerTabControl1.TabControl.ItemSize = new System.Drawing.Size(0, 1);
-            this.loggerTabControl1.TabControl.Location = new System.Drawing.Point(0, 32);
-            this.loggerTabControl1.TabControl.Name = "TabControl";
-            this.loggerTabControl1.TabControl.SelectedIndex = 0;
-            this.loggerTabControl1.TabControl.Size = new System.Drawing.Size(875, 347);
-            this.loggerTabControl1.TabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.loggerTabControl1.TabControl.TabIndex = 0;
-            this.loggerTabControl1.TabIndex = 24;
             // 
             // grpInstall
             // 
@@ -324,6 +303,27 @@ namespace Unifi.Forms
             this.txtInstallDir.Size = new System.Drawing.Size(174, 34);
             this.txtInstallDir.TabIndex = 13;
             this.txtInstallDir.Text = "C:\\Program Files\\123";
+            // 
+            // loggerTabControl1
+            // 
+            this.loggerTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loggerTabControl1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loggerTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.loggerTabControl1.Name = "loggerTabControl1";
+            this.loggerTabControl1.Size = new System.Drawing.Size(875, 379);
+            // 
+            // loggerTabControl1.TabControl
+            // 
+            this.loggerTabControl1.TabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.loggerTabControl1.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loggerTabControl1.TabControl.ItemSize = new System.Drawing.Size(0, 1);
+            this.loggerTabControl1.TabControl.Location = new System.Drawing.Point(0, 32);
+            this.loggerTabControl1.TabControl.Name = "TabControl";
+            this.loggerTabControl1.TabControl.SelectedIndex = 0;
+            this.loggerTabControl1.TabControl.Size = new System.Drawing.Size(875, 347);
+            this.loggerTabControl1.TabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.loggerTabControl1.TabControl.TabIndex = 0;
+            this.loggerTabControl1.TabIndex = 24;
             // 
             // grpBatch
             // 
@@ -455,12 +455,12 @@ namespace Unifi.Forms
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.loggerTabControl1.TabControl.ResumeLayout(false);
-            this.loggerTabControl1.ResumeLayout(false);
             this.grpInstall.ResumeLayout(false);
             this.grpInstall.PerformLayout();
             this.grpConfig.ResumeLayout(false);
             this.grpConfig.PerformLayout();
+            this.loggerTabControl1.TabControl.ResumeLayout(false);
+            this.loggerTabControl1.ResumeLayout(false);
             this.grpBatch.ResumeLayout(false);
             this.grpReport.ResumeLayout(false);
             this.grpVersion.ResumeLayout(false);

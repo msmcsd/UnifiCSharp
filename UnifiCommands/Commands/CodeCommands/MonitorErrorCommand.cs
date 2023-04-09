@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace UnifiCommands.Commands.CodeCommands
         private string _keywords;
         private bool _stopMonitoring = false;
         private long _occurances = 0;
+        private WebSocket _socketClient;
 
         public MonitorErrorCommand(string filePath, ILogger logger) : base(logger)
         {
@@ -58,7 +60,7 @@ namespace UnifiCommands.Commands.CodeCommands
             LogInfo($"Monitoring '{_filePath}' for errors/exceptions.");
 
             _keywords = string.Join(", ", KeywordList);
-            SocketUtils.CreateSocketClient(MonitorErrorBehavior.ChannelName, GetType().Name, OnReceiveCommand, (sender, e) => LogError(e.Message));
+            _socketClient = SocketUtils.CreateSocketClient(MonitorErrorBehavior.ChannelName, GetType().Name, OnReceiveCommand, (sender, e) => LogError(e.Message));
 
             const int TEXT_PROCESS_SIZE = 1 * 1024 * 1024;
             var initialFileSize = new FileInfo(_filePath).Length;
@@ -125,6 +127,13 @@ namespace UnifiCommands.Commands.CodeCommands
                                     if (matched.Count() > 0)
                                     {
                                         _occurances++;
+
+                                        SocketMessage m = new SocketMessage
+                                        {
+                                            Type = SocketMessageType.DisplayError,
+                                            Data = $"[{_occurances}] {line}"
+                                        };
+                                        _socketClient.Send(JsonConvert.SerializeObject(m)); 
                                         Logger.LogInfo($"[{GetType().Name}] {_occurances} occurances for {_keywords}");
                                     }
                                 }
@@ -146,8 +155,13 @@ namespace UnifiCommands.Commands.CodeCommands
 
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
-            SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved data '{e.Data}'.");
-            _stopMonitoring = e.Data == "0";
+            SocketMessage message = SocketUtils.DeserializeMessage(e.Data);
+            if (message == null)
+            {
+                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received data '{e.Data}'.");
+                _stopMonitoring = e.Data == "0";
+            }
         }
     }
+
 }

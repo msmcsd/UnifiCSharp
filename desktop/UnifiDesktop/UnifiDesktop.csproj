@@ -161,6 +161,12 @@
     <Compile Include="UserControls\DownloadCommandGroup.Designer.cs">
       <DependentUpon>DownloadCommandGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ErrorConsole.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\ErrorConsole.Designer.cs">
+      <DependentUpon>ErrorConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\InstallCommandGroup.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -52,6 +52,7 @@ namespace Unifi.Forms
         {
             _logger = new DesktopLogger(loggerTabControl1.LogConsole);
             SocketCommandServer.Instance.Start(_logger);
+            loggerTabControl1.ErrorConsole.Initialise();
 
             GetInstallFolderFromRegistry();
             LoadSettings();
