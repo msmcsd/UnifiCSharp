@@ -204,8 +204,8 @@
 				"Type": "Code"
 			},
 			{
-				"Command": "MonitorError",
-				"Arguments": "$[ProtectLogPath]",
+				"Command": "MonitorKeywords",
+				"Arguments": "$[ProtectLogPath], error|exception",
 				"DisplayText": "Monitor log for errors",
 				"Type": "Code",
 				"FireAndForget": true
