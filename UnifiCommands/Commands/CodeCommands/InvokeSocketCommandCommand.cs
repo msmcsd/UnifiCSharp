@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket;
-using WebSocketSharp;
 
 namespace UnifiCommands.Commands.CodeCommands
 {
@@ -23,7 +21,7 @@ namespace UnifiCommands.Commands.CodeCommands
 
         public override void LogParameters()
         {
-            LogCommand($"channel: \"{_channel}\"", $"parameter: \"{_socketMessage}\"");
+            LogCommand($"channel: \"{_channel}\"", $"data: \"{_socketMessage}\"");
         }
 
         protected override Task<string> ExecuteCommand()
@@ -31,7 +29,7 @@ namespace UnifiCommands.Commands.CodeCommands
             string channelName = GetChannelName();
             if (string.IsNullOrEmpty(channelName))
             {
-                return Task.FromResult("");
+                return null;
             }
 
             SocketMessage m = new SocketMessage
