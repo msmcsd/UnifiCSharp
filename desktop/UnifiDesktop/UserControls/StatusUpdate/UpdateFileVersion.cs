@@ -1,15 +1,16 @@
-﻿using UnifiCommands.Socket.Behaviors;
+﻿using UnifiCommands.Socket;
+using UnifiCommands.Socket.Behaviors;
 
 namespace UnifiDesktop.UserControls.StatusUpdate
 {
     public partial class UpdateFileVersion : UpdateByInterval
     {
+        protected override string ChannelName => UpdateFileVersionBehavior.ChannelName;
+
         public UpdateFileVersion()
         {
             InitializeComponent();
         }
-
-        protected override string ChannelName => UpdateFileVersionBehavior.ChannelName;
 
         protected override void SetupListView()
         {

@@ -15,14 +15,14 @@ namespace UnifiDesktop.UserControls
 
         public void Initialise()
         {
-            SocketUtils.CreateSocketClient(MonitorErrorBehavior.ChannelName, GetType().Name, OnReceiveMessage, null);
+            SocketUtils.CreateSocketClient(MonitorKeywordsBehavior.ChannelName, GetType().Name, OnReceiveMessage, null);
             Click += (sender, e) => Clear();
         }
 
         private void OnReceiveMessage(object sender, MessageEventArgs e)
         {
             SocketMessage message = SocketUtils.DeserializeMessage(e.Data);
-            if (message != null && message.Type == SocketMessageType.DisplayError)
+            if (message != null && message.Type == SocketMessageType.DisplayKeywords)
             {
                 AppendText(message.Data + Environment.NewLine);
                 ScrollToCaret();

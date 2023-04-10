@@ -10,7 +10,14 @@ namespace UnifiCommands.Socket
 
     public enum SocketMessageType
     {
-        StopMonitoringError = 0,
-        DisplayError
+        // For update interval
+        SetInterval = 0,
+
+        // For monitoring keywords
+        SetMonitorState,
+        DisplayKeywords,
+
+        // For setting report
+        SetReportType
     }
 }

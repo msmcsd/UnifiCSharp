@@ -7,7 +7,6 @@ using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket;
-using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp;
 using Timer = System.Timers.Timer;
 
@@ -21,17 +20,19 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         private Command[] Commands;
         private object _variableSource;
 
+        protected virtual void SetupListView() { }
+
+        protected virtual string ChannelName => "";
+
+        protected virtual SocketMessageType MessageType => SocketMessageType.SetInterval;
+
+        protected ILogger Logger;
+
         public UpdateByInterval()
         {
             InitializeComponent();
             SetupListView();
         }
-
-        protected virtual void SetupListView() { }
-
-        protected virtual string ChannelName => "";
-
-        protected ILogger Logger;
 
         private bool _intervalVisible = true;
         public bool IntervalVisible 
@@ -58,16 +59,6 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         {
             if (_client == null)
             {
-                //_client = new WebSocket($"{SocketCommandServer.SocketUrl}/{ChannelName}");
-                //_client.OnOpen += (sender, e) =>
-                //{
-                //    SocketCommandServer.Instance.LogMessage($"{GetType().Name} control conected to socket channel '{ChannelName}'.");
-                //};
-                //_client.OnError += (sender, e) => { Logger.LogError(e.Message); };
-                //_client.OnMessage += OnReceiveCommand;
-                //_client.WaitTime = new TimeSpan(1, 0, 0);
-                //_client.Connect();
-
                 _client = SocketUtils.CreateSocketClient(ChannelName, GetType().Name, OnReceiveCommand,
                                                          (sender, e) => { Logger.LogError(e.Message); });
             }
@@ -82,7 +73,12 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
             SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved data '{e.Data}'.");
-            ProcessCommand(e.Data);
+            SocketMessage m = SocketUtils.DeserializeMessage(e.Data);
+            if (m != null && m.Type == MessageType)
+            {
+                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved message type {MessageType} with data '{m.Data}'.");
+                ProcessCommand(m.Data);
+            }
         }
 
         protected virtual void ProcessCommand(string socketData)

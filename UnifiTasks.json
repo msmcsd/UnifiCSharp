@@ -18,19 +18,19 @@
 		"Commands": [
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateServiceState, 5",
+				"Arguments": "UpdateServiceState, SetInterval, 5",
 				"DisplayText": "Start checking service state",
 				"Type": "Code"
 			},
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateFileVersion, 5",
+				"Arguments": "UpdateFileVersion, SetInterval, 5",
 				"DisplayText": "Start checking file version",
 				"Type": "Code"
 			},
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateReport, 2",
+				"Arguments": "UpdateReport, SetReportType, 2",
 				"DisplayText": "Clear report",
 				"Type": "Code"
 			}
@@ -182,13 +182,13 @@
 		"Commands": [
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateServiceState, 0",
+				"Arguments": "UpdateServiceState, SetInterval, 0",
 				"DisplayText": "Stop checking service state",
 				"Type": "Code"
 			},
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateFileVersion, 0",
+				"Arguments": "UpdateFileVersion, SetInterval, 0",
 				"DisplayText": "Stop checking file version",
 				"Type": "Code"
 			},
@@ -199,7 +199,7 @@
 			},
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateReport, 0",
+				"Arguments": "UpdateReport, SetReportType, 0",
 				"DisplayText": "Show install report",
 				"Type": "Code"
 			},
@@ -954,23 +954,29 @@
 		"CommandGroup": "Dos",
 		"Commands": [
 			{
-				"Command": "MonitorError",
-				"Arguments": "$[ProtectLogPath]",
+				"Command": "MonitorKeywords",
+				"Arguments": "$[ProtectLogPath], error|exception",
 				"DisplayText": "Monitor log for errors",
 				"Type": "Code",
 				"FireAndForget": true
 			},
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "MonitorError, 0",
+				"Arguments": "MonitorKeywords, SetMonitorState, 0",
 				"DisplayText": "Stop monitoring errors",
 				"Type": "Code",
 				"FireAndForget": true
 			},
 			{
 				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateServiceState, 5",
+				"Arguments": "UpdateServiceState, SetInterval, 5",
 				"DisplayText": "Check service state",
+				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateServiceState, SetInterval, 0",
+				"DisplayText": "Stop checking service state",
 				"Type": "Code"
 			}
 		]

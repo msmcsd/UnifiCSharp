@@ -17,23 +17,24 @@ namespace UnifiCommands.Commands.CodeCommands
     /// <summary>
     /// Monitors a file for certain keywords.
     /// </summary>
-    public class MonitorErrorCommand : Command
+    public class MonitorKeywordsCommand : Command
     {
         private readonly string _filePath;
-        private List<string> KeywordList = new List<string> { "Error", "Exception" };
+        private readonly List<string> _keywordList;
         private string _keywords;
         private bool _stopMonitoring = false;
         private long _occurances = 0;
         private WebSocket _socketClient;
 
-        public MonitorErrorCommand(string filePath, ILogger logger) : base(logger)
+        public MonitorKeywordsCommand(string filePath, string keywords, ILogger logger) : base(logger)
         {
             _filePath = filePath;
+            _keywordList = keywords.Split('|').ToList();
         }
 
         public override void LogParameters()
         {
-            LogCommand($"File: \"{_filePath}\"");
+            LogCommand($"File: \"{_filePath}\"", $"Keywords: {string.Join(", ", _keywordList)}");
         }
 
         protected override Task<string> ExecuteCommand()
@@ -59,8 +60,8 @@ namespace UnifiCommands.Commands.CodeCommands
 
             LogInfo($"Monitoring '{_filePath}' for errors/exceptions.");
 
-            _keywords = string.Join(", ", KeywordList);
-            _socketClient = SocketUtils.CreateSocketClient(MonitorErrorBehavior.ChannelName, GetType().Name, OnReceiveCommand, (sender, e) => LogError(e.Message));
+            _keywords = string.Join(", ", _keywordList);
+            _socketClient = SocketUtils.CreateSocketClient(MonitorKeywordsBehavior.ChannelName, GetType().Name, OnReceiveCommand, (sender, e) => LogError(e.Message));
 
             const int TEXT_PROCESS_SIZE = 1 * 1024 * 1024;
             var initialFileSize = new FileInfo(_filePath).Length;
@@ -123,14 +124,14 @@ namespace UnifiCommands.Commands.CodeCommands
                                 var lines = textBlockToProcess.Split(new[] { "\r\n" }, StringSplitOptions.None);
                                 foreach (var line in lines)
                                 {
-                                    var matched = KeywordList.Where(keyword => Regex.IsMatch(line, keyword, RegexOptions.IgnoreCase));
+                                    var matched = _keywordList.Where(keyword => Regex.IsMatch(line, keyword, RegexOptions.IgnoreCase));
                                     if (matched.Count() > 0)
                                     {
                                         _occurances++;
 
                                         SocketMessage m = new SocketMessage
                                         {
-                                            Type = SocketMessageType.DisplayError,
+                                            Type = SocketMessageType.DisplayKeywords,
                                             Data = $"[{_occurances}] {line}"
                                         };
                                         _socketClient.Send(JsonConvert.SerializeObject(m)); 
@@ -155,11 +156,12 @@ namespace UnifiCommands.Commands.CodeCommands
 
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
+            SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received data '{e.Data}'.");
             SocketMessage message = SocketUtils.DeserializeMessage(e.Data);
-            if (message == null)
+            if (message != null && message.Type == SocketMessageType.SetMonitorState)
             {
-                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received data '{e.Data}'.");
-                _stopMonitoring = e.Data == "0";
+                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received command type {SocketMessageType.SetMonitorState} with data '{message.Data}'.");
+                _stopMonitoring = message.Data == "0";
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket;
@@ -8,18 +10,20 @@ namespace UnifiCommands.Commands.CodeCommands
 {
     public class InvokeSocketCommandCommand : Command
     {
-        private readonly string _behavior;
-        private readonly string _parameter;
+        private readonly string _channel;
+        private readonly SocketMessageType _socketMessageType;
+        private readonly string _socketMessage;
 
-        public InvokeSocketCommandCommand(string behavior, string parameter, ILogger logger) : base(logger)
+        public InvokeSocketCommandCommand(string channel, string socketMessageType, string socketMessage, ILogger logger) : base(logger)
         {
-            _behavior = behavior;
-            _parameter = parameter;
+            _channel = channel;
+            Enum.TryParse(socketMessageType, true, out _socketMessageType);
+            _socketMessage = socketMessage;
         }
 
         public override void LogParameters()
         {
-            LogCommand($"behavior: \"{_behavior}\"", $"parameter: \"{_parameter}\"");
+            LogCommand($"channel: \"{_channel}\"", $"parameter: \"{_socketMessage}\"");
         }
 
         protected override Task<string> ExecuteCommand()
@@ -29,20 +33,13 @@ namespace UnifiCommands.Commands.CodeCommands
             {
                 return Task.FromResult("");
             }
-            //var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}");
-            //// When using is used, the connection might have been disposed before message is sent.
-            ////using (var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}"))
-            ////{
-            //    ws.OnError += (sender, e) => { Logger.LogError(e.Message); };
-            //    ws.OnOpen += (sender, e) => 
-            //    { 
-            //        SocketCommandServer.Instance.LogMessage($"InvokeSocketCommand connected to channel '{channelName}'");
-            //        ws.Send(_parameter);
-            //        SocketCommandServer.Instance.LogMessage($"Sent data '{_parameter}' to channel '{channelName}'");
-            //    };
-            //    ws.Connect();
-            ////}
-            SocketUtils.SendCommandToChannel(channelName, _parameter, (sender, e) => Logger.LogError(e.Message));
+
+            SocketMessage m = new SocketMessage
+            {
+                Type = _socketMessageType,
+                Data = _socketMessage
+            };
+            SocketUtils.SendCommandToChannel(channelName, JsonConvert.SerializeObject(m), (sender, e) => Logger.LogError(e.Message));
 
             return Task.FromResult("");
         }
@@ -52,12 +49,12 @@ namespace UnifiCommands.Commands.CodeCommands
             string channel = "";
             try
             {
-                string typeName = $"UnifiCommands.Socket.Behaviors.{_behavior}Behavior, UnifiCommands";
+                string typeName = $"UnifiCommands.Socket.Behaviors.{_channel}Behavior, UnifiCommands";
                 Type t = Type.GetType(typeName);
 
                 if (t == null)
                 {
-                    Logger.LogError($"Unable to find type {_behavior}Behavior");
+                    Logger.LogError($"Unable to find type {_channel}Behavior");
                     return null;
                 }
 

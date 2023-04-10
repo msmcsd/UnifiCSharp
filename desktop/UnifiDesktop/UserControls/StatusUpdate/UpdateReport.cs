@@ -10,6 +10,7 @@ using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.Report;
+using UnifiCommands.Socket;
 using UnifiCommands.Socket.Behaviors;
 
 namespace UnifiDesktop.UserControls.StatusUpdate
@@ -26,6 +27,8 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         private ReportType _reportType;
 
         protected override string ChannelName => UpdateReportBehavior.ChannelName;
+
+        protected override SocketMessageType MessageType => SocketMessageType.SetReportType;
 
         public UpdateReport()
         {
@@ -48,7 +51,10 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
         protected override void ProcessCommand(string socketData)
         {
-            switch (socketData)
+            SocketMessage m = SocketUtils.DeserializeMessage(socketData);
+            if (m == null) return;
+
+            switch (m.Data)
             {
                 case "0":
                     _reportType = ReportType.Install;
