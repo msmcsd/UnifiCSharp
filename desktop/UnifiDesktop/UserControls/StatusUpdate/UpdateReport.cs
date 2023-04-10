@@ -51,10 +51,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
         protected override void ProcessCommand(string socketData)
         {
-            SocketMessage m = SocketUtils.DeserializeMessage(socketData);
-            if (m == null) return;
-
-            switch (m.Data)
+            switch (socketData)
             {
                 case "0":
                     _reportType = ReportType.Install;

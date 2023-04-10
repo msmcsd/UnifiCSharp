@@ -184,24 +184,28 @@
 				"Command": "InvokeSocketCommand",
 				"Arguments": "UpdateServiceState, SetInterval, 0",
 				"DisplayText": "Stop checking service state",
-				"Type": "Code"
+				"Type": "Code",
+				"FireAndForget": true
 			},
 			{
 				"Command": "InvokeSocketCommand",
 				"Arguments": "UpdateFileVersion, SetInterval, 0",
 				"DisplayText": "Stop checking file version",
-				"Type": "Code"
+				"Type": "Code",
+				"FireAndForget": true
 			},
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
-				"DisplayText": "Start up Cylance UI"
+				"DisplayText": "Start up Cylance UI",
+				"FireAndForget": true
 			},
 			{
 				"Command": "InvokeSocketCommand",
 				"Arguments": "UpdateReport, SetReportType, 0",
 				"DisplayText": "Show install report",
-				"Type": "Code"
+				"Type": "Code",
+				"FireAndForget": true
 			},
 			{
 				"Command": "MonitorKeywords",
@@ -978,6 +982,20 @@
 				"Arguments": "UpdateServiceState, SetInterval, 0",
 				"DisplayText": "Stop checking service state",
 				"Type": "Code"
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, SetReportType, 0",
+				"DisplayText": "Show install report",
+				"Type": "Code",
+				"FireAndForget": true
+			},
+			{
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, SetReportType, 1",
+				"DisplayText": "Show uninstall report",
+				"Type": "Code",
+				"FireAndForget": true
 			}
 		]
 	},
