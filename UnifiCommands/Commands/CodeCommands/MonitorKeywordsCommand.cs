@@ -155,7 +155,7 @@ namespace UnifiCommands.Commands.CodeCommands
 
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
-            SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received data '{e.Data}'.");
+            //SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received data '{e.Data}'.");
             SocketMessage message = SocketUtils.DeserializeMessage(e.Data);
             if (message != null && message.Type == SocketMessageType.SetMonitorState)
             {
