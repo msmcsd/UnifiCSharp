@@ -65,7 +65,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
                     break;
                 case "2":
                     _reportType = ReportType.Clear;
-                    lstItems.Items.Clear();
+                    BeginInvoke(new MethodInvoker(() => lstItems.Items.Clear()));
                     Logger.LogInfo($"Component {GetType().Name} recieved clear report command.");
                     break;
                 default:
@@ -83,8 +83,19 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         {
             if (_reportType == ReportType.Clear) return;
 
+            Task.Run(ShowProgressMessage);
+
             var reportItems = await Task.Run(()=> ShowReportCommand.RunReport(CommandInfos, _reportType == ReportType.Install, Logger, UnifiCommands.AppType.Desktop));
             lstItems.BeginInvoke(new MethodInvoker(() => PublishReportItems(reportItems)));
+        }
+
+        private void ShowProgressMessage()
+        {
+            BeginInvoke(new MethodInvoker(() =>
+            {
+                lstItems.Items.Clear();
+                lstItems.Items.Add(new ListViewItem(new[] { "Preparing report...", "" }));
+            }));
         }
 
         private void PublishReportItems(List<ReportItem> reportItems)
