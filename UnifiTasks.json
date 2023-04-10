@@ -727,20 +727,20 @@
 		"CommandGroup": "Dos",
 		"Commands": [
 			{
-				"Command": "ClearReport",
-				"Arguments": "",
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, SetReportType, 2",
 				"DisplayText": "Clear Report",
 				"Type": "Code"
 			},
 			{
-				"Command": "ShowReport",
-				"Arguments": "true",
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, SetReportType, 0",
 				"DisplayText": "Show Installed Report",
 				"Type": "Code"
 			},
 			{
-				"Command": "ShowReport",
-				"Arguments": "false",
+				"Command": "InvokeSocketCommand",
+				"Arguments": "UpdateReport, SetReportType, 1",
 				"DisplayText": "Show Uninstalled Report",
 				"Type": "Code"
 			},
@@ -982,20 +982,6 @@
 				"Arguments": "UpdateServiceState, SetInterval, 0",
 				"DisplayText": "Stop checking service state",
 				"Type": "Code"
-			},
-			{
-				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateReport, SetReportType, 0",
-				"DisplayText": "Show install report",
-				"Type": "Code",
-				"FireAndForget": true
-			},
-			{
-				"Command": "InvokeSocketCommand",
-				"Arguments": "UpdateReport, SetReportType, 1",
-				"DisplayText": "Show uninstall report",
-				"Type": "Code",
-				"FireAndForget": true
 			}
 		]
 	},
