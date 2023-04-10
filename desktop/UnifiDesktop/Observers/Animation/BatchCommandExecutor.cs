@@ -37,6 +37,7 @@ namespace Unifi.Observers.Animation
             bool ret = true;
 
             Task currentTask = Task.FromResult("");
+            _logger.LogInfo(">> Batch commands started");
 
             foreach (var info in _commandInfos)
             {
@@ -55,11 +56,6 @@ namespace Unifi.Observers.Animation
                     Task = () => command.Execute()
                 };
 
-
-                //}
-
-                //foreach (var task in tasks)
-                //{
                 NotifyObserverCommandStart(info);
                 if (info.FireAndForget)
                 {
@@ -91,17 +87,12 @@ namespace Unifi.Observers.Animation
                             NotifyObserverCommandEnd(task.CommandInfo);
                             break;
                         }
-
-                        // _console.LogInfo($"ret={result.Status}");
                     }
                 }
                 NotifyObserverCommandEnd(task.CommandInfo);
             }
 
-            if (_checkReturnValue)
-            {
-                _logger.LogInfo("<<Batch command finished" + (ret ? "" : " early"));
-            }
+            _logger.LogInfo("<<Batch commands finished" + (ret ? "" : " early"));
         }
 
         public async void Execute1()

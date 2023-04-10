@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unifi.Observers.Animation;
 using UnifiCommands;
@@ -73,11 +74,27 @@ namespace UnifiDesktop.UserControls
                 Debug.WriteLine(GetType(), "lstCommands.Items.Count = 0");
                 return;
             }
+            Task.Run(ClearStatusMarks);
+
             TestTask t = (TestTask)cmbList.SelectedItem;
 
             var b = new BatchCommandExecutor(t.Commands, true, null, Logger, AppType.Desktop);
             b.RegisterObserver(new BatchListViewUpdater(lstCommands));
             b.Execute();
+        }
+
+        private void ClearStatusMarks()
+        {
+            lstCommands.BeginInvoke(new MethodInvoker(() =>
+            {
+                if (lstCommands.Items.Count > 0)
+                {
+                    for (int i = 0; i < lstCommands.Items.Count; i++)
+                    {
+                        lstCommands.Items[i].SubItems[0].Text = "";
+                    }
+                }
+            }));
         }
 
         private void BatchCommandList_Resize(object sender, EventArgs e)
