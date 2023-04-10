@@ -65,8 +65,7 @@ namespace UnifiCommands.Commands.CodeCommands
 
             const int TEXT_PROCESS_SIZE = 1 * 1024 * 1024;
             var initialFileSize = new FileInfo(_filePath).Length;
-            var currentFilePosition = initialFileSize - TEXT_PROCESS_SIZE;
-            if (currentFilePosition < 0) currentFilePosition = 0;
+            var currentFilePosition = 0;
 
             string previousBlockRead = "";
 
