@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnifiCommands.Socket;
 using UnifiCommands.Socket.Behaviors;
@@ -15,6 +16,11 @@ namespace UnifiDesktop.UserControls
 
         public void Initialise()
         {
+            Task.Run(SetupSocket);
+        }
+
+        private void SetupSocket()
+        {
             SocketUtils.CreateSocketClient(MonitorKeywordsBehavior.ChannelName, GetType().Name, OnReceiveMessage, null);
             Click += (sender, e) => Clear();
         }
@@ -24,8 +30,11 @@ namespace UnifiDesktop.UserControls
             SocketMessage message = SocketUtils.DeserializeMessage(e.Data);
             if (message != null && message.Type == SocketMessageType.DisplayKeywords)
             {
-                AppendText(message.Data + Environment.NewLine);
-                ScrollToCaret();
+                BeginInvoke(new MethodInvoker(() =>
+                {
+                    AppendText(message.Data + Environment.NewLine);
+                    ScrollToCaret();
+                }));
             }
         }
     }
