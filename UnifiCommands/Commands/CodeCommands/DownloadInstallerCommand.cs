@@ -222,7 +222,7 @@ namespace UnifiCommands.Commands.CodeCommands
                 if (build == null)
                 {
                     Logger.LogError("Unable to find last successful build");
-                    return "";
+                    return null;
                 }
 
                 buildNo = build.BuildNumber;
@@ -254,7 +254,7 @@ namespace UnifiCommands.Commands.CodeCommands
             {
                 File.Copy(cacheInstaller, Path.Combine(Variables.InstallerDownloadFolder, _installerFileName), true);
                 Logger.LogInfo($"Copied from {cacheInstaller}");
-                return "";
+                return cacheInstaller;
             }
 
             //
@@ -267,7 +267,7 @@ namespace UnifiCommands.Commands.CodeCommands
             var cmd = new DownloadFileCommand(url, _destination, _cacheFolder, Logger);
             await cmd.DownloadFile();
 
-            return "";
+            return cacheInstaller;
         }
 
         // Display Name may look something like this: #1133:[3.1.9200.15138/16838]. Only first version (Windows) is needed.

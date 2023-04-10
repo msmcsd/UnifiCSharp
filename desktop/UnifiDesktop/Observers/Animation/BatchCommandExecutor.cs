@@ -79,7 +79,8 @@ namespace Unifi.Observers.Animation
                     }
                     else
                     {
-                        result = Task.FromResult(await command.Execute());
+                        string ret1 = await command.Execute();
+                        result = ret1 == null ? null : Task.FromResult(result);
                     }
 
                     if (_checkReturnValue)

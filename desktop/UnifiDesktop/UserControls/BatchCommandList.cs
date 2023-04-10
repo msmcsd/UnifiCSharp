@@ -60,7 +60,7 @@ namespace UnifiDesktop.UserControls
                     {
                         UseItemStyleForSubItems = true,
                         Tag = command, 
-                        ForeColor = command.Type == UnifiCommands.CommandInfo.CommandType.Code ? Color.Green : Color.Black
+                        ForeColor = command.Type == CommandType.Code ? Color.Green : Color.Black
                     }
                 );
             }
@@ -68,7 +68,6 @@ namespace UnifiDesktop.UserControls
 
         private void lstCommands_DoubleClick(object sender, EventArgs e)
         {
-            //new InvokeSocketCommandCommand("UpdateServiceState", "60", Logger).Execute();
             if (lstCommands.Items.Count == 0)
             {
                 Debug.WriteLine(GetType(), "lstCommands.Items.Count = 0");
@@ -112,7 +111,7 @@ namespace UnifiDesktop.UserControls
 
             FullCommandInfo info = (FullCommandInfo)e.Item.Tag;
 
-            Brush brush = info.Type == UnifiCommands.CommandInfo.CommandType.Code ? Brushes.Green : Brushes.Black;
+            Brush brush = info.Type == CommandType.Code ? Brushes.Green : Brushes.Black;
             e.Graphics.DrawString(e.Item.SubItems[1].Text, lstCommands.Font, brush, e.Bounds);
         }
     }
