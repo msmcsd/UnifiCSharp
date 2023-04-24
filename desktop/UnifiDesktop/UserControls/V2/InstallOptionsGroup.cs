@@ -71,11 +71,11 @@ namespace UnifiDesktop.UserControls
 
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
-            SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved data '{e.Data}'.");
+            Logger.LogSocketMessage(GetType(), $"Recieved data '{e.Data}'.");
             SocketMessage m = SocketUtils.DeserializeMessage(e.Data);
             if (m != null && m.Type == SocketMessageType.RequestInstallParameters)
             {
-                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved message type {SocketMessageType.RequestInstallParameters} with data '{m.Data}'.");
+                Logger.LogSocketMessage(GetType(), $"Recieved message type {SocketMessageType.RequestInstallParameters} with data '{m.Data}'.");
 
                 InstallParameters p = new InstallParameters
                 {
@@ -92,7 +92,9 @@ namespace UnifiDesktop.UserControls
                     Data = JsonConvert.SerializeObject(p)
                 };
 
-                SocketUtils.SendCommandToChannel(BroadcastInstallParametersBehavior.ChannelName, JsonConvert.SerializeObject(broadcastMessage), (sender1, evt) => { Logger.LogError(evt.Message); });
+                SocketUtils.SendCommandToChannel(BroadcastInstallParametersBehavior.ChannelName, 
+                                                 JsonConvert.SerializeObject(broadcastMessage), 
+                                                 (sender1, evt) => { Logger.LogError(evt.Message); });
             }
         }
 

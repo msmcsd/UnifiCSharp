@@ -125,7 +125,7 @@ namespace Unifi.UserControls
             };
 
             var cmd = new BatchCommandExecutor(new List<FullCommandInfo> { command }, false, this, Logger, AppType.Desktop);
-            cmd.Execute();
+            await cmd.Execute();
         }
 
         private async Task ClearReportItems()
@@ -138,7 +138,7 @@ namespace Unifi.UserControls
             };
 
             var cmd = new BatchCommandExecutor(new List<FullCommandInfo> { command }, false, this, Logger, AppType.Desktop);
-            cmd.Execute();
+            await cmd.Execute();
         }
 
         private async void lstReport_ColumnClick(object sender, ColumnClickEventArgs e)

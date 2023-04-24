@@ -57,21 +57,21 @@ namespace Unifi.Observers.Animation
         {
             _clientSocket.CloseAsync();
 
-            SocketUtils.LogMessage(_logger, GetType(), $"Received data {e.Data}");
+            _logger.LogSocketMessage(GetType(), $"Received data {e.Data}");
 
             SocketMessage m = SocketUtils.DeserializeMessage(e.Data);
             if (m == null)
             {
-                SocketUtils.LogError(_logger, GetType(), "Not a valid ScoketMessage");
+                _logger.LogSocketError(GetType(), "Not a valid ScoketMessage");
             }
             else if (m.Type != SocketMessageType.BroadcastInstallParameters)
             {
-                SocketUtils.LogError(_logger, GetType(), $"Type of socket message is not {SocketMessageType.BroadcastInstallParameters}");
+                _logger.LogSocketError(GetType(), $"Type of socket message is not {SocketMessageType.BroadcastInstallParameters}");
                 return;
             }
             else
             {
-                SocketUtils.LogMessage(_logger, GetType(), $"Received {m.Type} message");
+                _logger.LogSocketMessage(GetType(), $"Received {m.Type} message");
                 _installParameters = JsonConvert.DeserializeObject<InstallParameters>(m.Data);
                 foreach (var command in _commandInfos)
                     command.VariableValueSource = _installParameters;
@@ -98,16 +98,15 @@ namespace Unifi.Observers.Animation
             {
                 _installParameters = null;
 
-                SocketMessage m = new SocketMessage { Type = SocketMessageType.RequestInstallParameters };
-                SocketUtils.LogMessage(_logger, GetType(), "Requests install parameters");
+                _logger.LogSocketMessage(GetType(), "Requests install parameters");
                 SocketUtils.SendCommandToChannel(RequestInstallParametersBehavior.ChannelName,
-                                                 JsonConvert.SerializeObject(m),
-                                                 (sender, e) => _logger.LogError($"[BatchCommandExecutor] {e.Message}"));
+                                                 JsonConvert.SerializeObject(new SocketMessage { Type = SocketMessageType.RequestInstallParameters }),
+                                                 (sender, e) => _logger.LogSocketError(GetType(), e.Message));
 
                 _waitForSocket.WaitOne(5000);
                 if (_installParameters == null)
                 {
-                    _logger.LogError("InstallParameters is null");
+                    _logger.LogSocketError(GetType(), "InstallParameters is null");
                     _logger.LogInfo("<< Batch commands finished");
                     return;
                 }

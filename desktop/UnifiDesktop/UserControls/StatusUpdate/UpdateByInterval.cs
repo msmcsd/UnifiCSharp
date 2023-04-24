@@ -72,11 +72,11 @@ namespace UnifiDesktop.UserControls.StatusUpdate
 
         private void OnReceiveCommand(object sender, MessageEventArgs e)
         {
-            SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved data '{e.Data}'.");
+            Logger.LogSocketMessage(GetType(), $"Recieved data '{e.Data}'");
             SocketMessage m = SocketUtils.DeserializeMessage(e.Data);
             if (m != null && m.Type == MessageType)
             {
-                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved message type {MessageType} with data '{m.Data}'.");
+                Logger.LogSocketMessage(GetType(), $"Recieved message type {MessageType} with data '{m.Data}'");
                 ProcessCommand(m.Data);
             }
         }

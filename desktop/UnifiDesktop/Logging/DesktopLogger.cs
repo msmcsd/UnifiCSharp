@@ -39,6 +39,16 @@ namespace Unifi.Logging
             _console.LogCommand(message, newLine);
         }
 
+        public virtual void LogSocketMessage(Type type, string message)
+        {
+            _console.LogSocketMessage(type, message);
+        }
+
+        public virtual void LogSocketError(Type type, string message)
+        {
+            _console.LogSocketError(type, message);
+        }
+
         public void SendReport(string report) { }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Remoting.Channels;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket.Behaviors;
 using WebSocketSharp.Server;
@@ -62,7 +61,7 @@ namespace UnifiCommands.Socket
 
         public void LogMessage(string message)
         {
-            _logger?.LogProgress($"[Socket] {message}");
+            _logger?.LogSocketMessage(GetType(), $"{message}");
         }
     }
 }

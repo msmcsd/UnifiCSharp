@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace UnifiCommands.Logging
 {
     public interface ILogger
@@ -10,6 +11,10 @@ namespace UnifiCommands.Logging
         void LogProgress(string message);
 
         void LogCommand(string message, bool newLine);
+
+        void LogSocketMessage(Type type, string message);
+        
+        void LogSocketError(Type type, string message);
 
         void SendReport(string json);
     }

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
-using UnifiCommands.Logging;
 using WebSocketSharp;
 
 namespace UnifiCommands.Socket
@@ -25,7 +24,7 @@ namespace UnifiCommands.Socket
             return _client;
         }
 
-        public static void SendCommandToChannel(string channelName, string command, EventHandler<WebSocketSharp.ErrorEventArgs> errorEventHandler)
+        public static void SendCommandToChannel(string channelName, string command, EventHandler<ErrorEventArgs> errorEventHandler)
         {
             var ws = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}");
             // When using is used, the connection might have been disposed before message is sent.
@@ -40,18 +39,6 @@ namespace UnifiCommands.Socket
             };
             ws.Connect();
             //}
-        }
-
-        public static void LogMessage(ILogger logger, Type type, string message)
-        {
-            logger?.LogProgress($"[Socket][{type.Name}] {message}");
-
-        }
-
-        public static void LogError(ILogger logger, Type type, string message)
-        {
-            logger?.LogError($"[Socket][{type.Name}] {message}");
-
         }
 
         public static SocketMessage DeserializeMessage(string message)

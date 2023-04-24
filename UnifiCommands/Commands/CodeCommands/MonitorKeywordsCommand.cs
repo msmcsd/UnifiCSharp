@@ -159,7 +159,7 @@ namespace UnifiCommands.Commands.CodeCommands
             SocketMessage message = SocketUtils.DeserializeMessage(e.Data);
             if (message != null && message.Type == SocketMessageType.SetMonitorState)
             {
-                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' received command type {SocketMessageType.SetMonitorState} with data '{message.Data}'.");
+                Logger.LogSocketMessage(GetType(), $"Received command type {SocketMessageType.SetMonitorState} with data '{message.Data}'");
                 _stopMonitoring = message.Data == "0";
             }
         }

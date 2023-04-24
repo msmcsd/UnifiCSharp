@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnifiCommands;
@@ -83,7 +82,7 @@ namespace UnifiDesktop.UserControls.StatusUpdate
         {
             if (_reportType == ReportType.Clear) return;
 
-            Task.Run(ShowProgressMessage);
+            await Task.Run(ShowProgressMessage);
 
             var reportItems = await Task.Run(()=> ShowReportCommand.RunReport(CommandInfos, _reportType == ReportType.Install, Logger, UnifiCommands.AppType.Desktop));
             lstItems.BeginInvoke(new MethodInvoker(() => PublishReportItems(reportItems)));

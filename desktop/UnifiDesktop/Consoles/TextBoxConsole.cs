@@ -34,6 +34,16 @@ namespace Unifi.Consoles
             Log(message, true, Color.RoyalBlue, newLine);
         }
 
+        public void LogSocketMessage(Type type, string message)
+        {
+            Log($"[{type.Name}] {message}", false, Color.Green);
+        }
+
+        public void LogSocketError(Type type, string message)
+        {
+            LogError($"[{type.Name}] {message}");
+        }
+
         public void Log(string message, bool bold, Color? color = null, bool newLine = false)
         {
             _console.BeginInvoke(new MethodInvoker(() =>
