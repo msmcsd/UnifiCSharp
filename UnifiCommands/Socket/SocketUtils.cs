@@ -15,7 +15,7 @@ namespace UnifiCommands.Socket
             _client = new WebSocket($"{SocketCommandServer.SocketUrl}/{channelName}");
             _client.OnOpen += (sender, e) =>
             {
-                SocketCommandServer.Instance.LogMessage($"{typeName} control connected to socket channel '{channelName}'.");
+                SocketCommandServer.Instance.LogMessage($"{typeName} control connected to socket channel '{channelName}'");
             };
             _client.OnError += errorEventHandler;
             _client.OnMessage += onMessageEventHandler;
@@ -42,11 +42,18 @@ namespace UnifiCommands.Socket
             //}
         }
 
-        public static void LogMessage(ILogger logger, string message)
+        public static void LogMessage(ILogger logger, Type type, string message)
         {
-            logger?.LogProgress($"[Socket] {message}");
+            logger?.LogProgress($"[Socket][{type.Name}] {message}");
 
         }
+
+        public static void LogError(ILogger logger, Type type, string message)
+        {
+            logger?.LogError($"[Socket][{type.Name}] {message}");
+
+        }
+
         public static SocketMessage DeserializeMessage(string message)
         {
             SocketMessage m = null;

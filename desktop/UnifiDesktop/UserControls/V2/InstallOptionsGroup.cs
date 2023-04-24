@@ -1,14 +1,20 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unifi.Observers.Animation;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
+using UnifiCommands.Socket;
+using UnifiCommands.Socket.Behaviors;
+using UnifiCommands.Socket.MessageClasses;
 using UnifiDesktop.DrawingUtils;
+using WebSocketSharp;
 
 namespace UnifiDesktop.UserControls
 {
@@ -50,6 +56,44 @@ namespace UnifiDesktop.UserControls
         public InstallOptionsGroup()
         {
             InitializeComponent();
+            Task.Run(SetupSocketClient);
+        }
+
+        private WebSocket _client;
+        private void SetupSocketClient()
+        {
+            if (_client == null)
+            {
+                _client = SocketUtils.CreateSocketClient(RequestInstallParametersBehavior.ChannelName, GetType().Name, OnReceiveCommand,
+                                                         (sender, e) => { Logger.LogError(e.Message); });
+            }
+        }
+
+        private void OnReceiveCommand(object sender, MessageEventArgs e)
+        {
+            SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved data '{e.Data}'.");
+            SocketMessage m = SocketUtils.DeserializeMessage(e.Data);
+            if (m != null && m.Type == SocketMessageType.RequestInstallParameters)
+            {
+                SocketCommandServer.Instance.LogMessage($"Component '{GetType().Name}' recieved message type {SocketMessageType.RequestInstallParameters} with data '{m.Data}'.");
+
+                InstallParameters p = new InstallParameters
+                {
+                    CylanceDesktopFolder = CylanceDesktopFolder,
+                    GetConfig = GetConfig,
+                    GetInstallMode = GetInstallMode,
+                    GetToken = GetToken,
+                    CompileMode = chkDebugBuild.Checked? "Debug": ""
+                };
+
+                SocketMessage broadcastMessage = new SocketMessage
+                {
+                    Type = SocketMessageType.BroadcastInstallParameters,
+                    Data = JsonConvert.SerializeObject(p)
+                };
+
+                SocketUtils.SendCommandToChannel(BroadcastInstallParametersBehavior.ChannelName, JsonConvert.SerializeObject(broadcastMessage), (sender1, evt) => { Logger.LogError(evt.Message); });
+            }
         }
 
         private void btnInstall_Click(object sender, EventArgs e)

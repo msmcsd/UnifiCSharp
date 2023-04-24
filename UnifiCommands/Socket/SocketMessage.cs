@@ -18,6 +18,12 @@ namespace UnifiCommands.Socket
         DisplayKeywords,
 
         // For setting report
-        SetReportType
+        SetReportType,
+
+        // For requesting install parameters
+        RequestInstallParameters,
+
+        // For sending install parameters
+        BroadcastInstallParameters
     }
 }

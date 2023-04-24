@@ -17,7 +17,7 @@ namespace UnifiCommands.VariableProcessors
 
         protected override string ReplaceString(string propertyName)
         {
-            return (string)_formObject.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static).GetValue(_formObject);
+            return (string)_formObject.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).GetValue(_formObject);
         }
     }
 }

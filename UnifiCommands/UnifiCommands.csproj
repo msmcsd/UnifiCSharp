@@ -90,7 +90,10 @@
     <Compile Include="Report\ReportItem.cs" />
     <Compile Include="Rollback.cs" />
     <Compile Include="Socket\Behaviors\BaseBehavior.cs" />
+    <Compile Include="Socket\Behaviors\BroadcastInstallParametersBehavior.cs" />
     <Compile Include="Socket\Behaviors\MonitorKeywordsBehavior.cs" />
+    <Compile Include="Socket\Behaviors\RequestInstallParametersBehavior.cs" />
+    <Compile Include="Socket\MessageClasses\InstallParameters.cs" />
     <Compile Include="Socket\SocketMessage.cs" />
     <Compile Include="Socket\SocketUtils.cs" />
     <Compile Include="Socket\Behaviors\UpdateFileVersionBehavior.cs" />

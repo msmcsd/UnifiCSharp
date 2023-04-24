@@ -137,7 +137,7 @@ namespace SelfHostUnifiApi.RestCommands
         {
             var b = new BatchCommandExecutor(commands, false, uiObserver, logger, AppType.Web);
             //b.RegisterObserver(observer);
-            await b.Execute();
+            b.Execute();
         }
     }
 

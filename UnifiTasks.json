@@ -196,7 +196,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"Arguments": "/C \"$[CylanceDesktopFolder]\\CylanceUI.exe\" -a",
 				"DisplayText": "Start up Cylance UI",
 				"FireAndForget": true
 			},
@@ -495,7 +495,7 @@
 				"DisplayText": "Start Service"
 			},
 			{
-				"Command": "\"${CylanceUiPath}\" ",
+				"Command": "\"$[CylanceDesktopFolder]\\CylanceUI.exe\"",
 				"Arguments": "-update",
 				"DisplayText": "Check for Update",
 				"Callback": "ShowFilesVersions",
@@ -503,7 +503,7 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "\"${CylanceUiPath}\" ",
+				"Command": "\"$[CylanceDesktopFolder]\\CylanceUI.exe\"",
 				"Arguments": "-registeramsi",
 				"DisplayText": "Register AMSI",
 				"MinimizeWindow": true
@@ -651,7 +651,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"$[GetCylanceUiFullPath]\" -a",
+				"Arguments": "/C \"$[CylanceDesktopFolder]\\CylanceUI.exe\" -a",
 				"DisplayText": "Start up Cylance UI"
 			}
 		]
@@ -2043,7 +2043,7 @@
 				"BatchEnabled": true
 			},
 			{
-				"Command": "\"${CylanceUiPath}\" ",
+				"Command": "\"$[CylanceDesktopFolder]\\CylanceUI.exe\"",
 				"Arguments": "-update",
 				"DisplayText": "Check for Update",
 				"FireAndForget": true,

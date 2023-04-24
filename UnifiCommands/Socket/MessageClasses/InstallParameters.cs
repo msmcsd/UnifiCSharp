@@ -1,0 +1,23 @@
+﻿
+using System;
+using System.IO;
+
+namespace UnifiCommands.Socket.MessageClasses
+{
+    public class InstallParameters
+    {
+        public string CylanceDesktopFolder { get; set; }
+
+        public string GetConfig { get; set; }
+
+        public string GetInstallMode { get; set; }
+
+        public string GetToken { get; set; }
+
+        public string CompileMode { get; set; }
+
+        private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{DateTime.Today:yyyy-MM-dd}.log");
+
+    }
+
+}
