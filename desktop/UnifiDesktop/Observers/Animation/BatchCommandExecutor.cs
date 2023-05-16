@@ -84,7 +84,7 @@ namespace Unifi.Observers.Animation
         {
             foreach(var command in _commandInfos)
             {
-                if (command.Command.Contains("$[") || command.Arguments.Contains("$[")) return true;
+                if (command.Command.Contains("$[") || command.Arguments != null && command.Arguments.Contains("$[")) return true;
             }    
 
             return false;   

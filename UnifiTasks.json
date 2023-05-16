@@ -652,7 +652,11 @@
 			{
 				"Command": "cmd.exe",
 				"Arguments": "/C \"$[CylanceDesktopFolder]\\CylanceUI.exe\" -a",
-				"DisplayText": "Start up Cylance UI"
+				"DisplayText": "Start up Cylance UI"			},
+			{
+				"Command": "${NotepadPath}",
+				"Arguments": "\"\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools\\Program\\UnifiTasks.json\"",
+				"DisplayText": "Open UnifiDesktop.json"
 			}
 		]
 	},
@@ -1188,6 +1192,30 @@
 			}
 		]
 	},	
+	{
+		"Name": "Remove obj Folder",
+		"CommandGroup": "Dos",
+		"ShowTaskOnMachine": "Dev",
+		"Tab": "Dev",
+		"Commands": [
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"FOR /d /r C:\\Projects\\Updater %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
+				"DisplayText": "Updater Project",
+				"IconSourcePath": "${CmdPath}",
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C \"FOR /d /r C:\\Projects\\CylanceEndpointFramework %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
+				"DisplayText": "CEF Project",
+				"IconSourcePath": "${CmdPath}",
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
+			}
+		]
+	},
 	{
 		"Name": "Open Dos Window",
 		"CommandGroup": "Dos",
@@ -2006,6 +2034,25 @@
 				"Command": "DownloadInstaller",
 				"Arguments": "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.1'",
 				"DisplayText": "Download Latest Release 3.1",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest 3.2 Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/REL/job/3-2/job/agent-x-3-2-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.2'",
+				"DisplayText": "Download Latest Release 3.2",
 				"Type": "Code",
 				"ShowOnMachine": "Test"
 			},
