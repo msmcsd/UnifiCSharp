@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace UnifiCommands.VariableProcessors
 {
@@ -17,7 +18,18 @@ namespace UnifiCommands.VariableProcessors
 
         protected override string ReplaceString(string propertyName)
         {
-            return (string)_formObject.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).GetValue(_formObject);
+            string ret = string.Empty;
+
+            try
+            {
+                ret = (string)_formObject.GetType().GetProperty(propertyName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).GetValue(_formObject);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Property name={propertyName}. formObject={_formObject.GetType()}.  {e}");
+            }
+
+            return ret;
         }
     }
 }
