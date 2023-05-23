@@ -221,6 +221,12 @@ namespace Tail
                 return;
             }
 
+            if (!File.Exists(txtFile.Text))
+            {
+                MessageBox.Show($"{txtFile.Text} does not exist.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             await StartFollow();
         }
 
