@@ -2000,9 +2000,20 @@
 				"ShowOnMachine": "Test"
 			},
 			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 503 /f",
+				"DisplayText": "ServiceUnavailable"
+			},
+			{
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},

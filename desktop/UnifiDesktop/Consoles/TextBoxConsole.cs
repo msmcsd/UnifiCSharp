@@ -56,7 +56,7 @@ namespace Unifi.Consoles
                 }
 
                 int consoleTextLength = _console.Text.Length;
-                _console.AppendText(message + Environment.NewLine);
+                _console.AppendText($"[{DateTime.Now.ToString("HH:mm:ss.ffff")}]{message}{Environment.NewLine}");
                 _console.ScrollToCaret();
 
                 _console.Select(consoleTextLength, message.Length);
