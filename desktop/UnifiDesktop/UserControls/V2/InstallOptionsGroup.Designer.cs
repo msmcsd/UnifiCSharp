@@ -78,6 +78,7 @@
             this.rbQa2.Tag = "qa2";
             this.rbQa2.Text = "qa2";
             this.rbQa2.UseVisualStyleBackColor = true;
+            this.rbQa2.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // rbR02
             // 
@@ -89,6 +90,7 @@
             this.rbR02.Tag = "r02";
             this.rbR02.Text = "r02";
             this.rbR02.UseVisualStyleBackColor = true;
+            this.rbR02.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // rbR01
             // 
@@ -102,6 +104,7 @@
             this.rbR01.Tag = "r01";
             this.rbR01.Text = "r01";
             this.rbR01.UseVisualStyleBackColor = true;
+            this.rbR01.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // chkDebugBuild
             // 
@@ -392,6 +395,7 @@
             this.rbQa2New.Tag = "qa2";
             this.rbQa2New.Text = "qa2n";
             this.rbQa2New.UseVisualStyleBackColor = true;
+            this.rbQa2New.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // pnlInstallMode
             // 

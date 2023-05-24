@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unifi;
 using Unifi.Observers.Animation;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
@@ -52,6 +54,17 @@ namespace UnifiDesktop.UserControls
         public ILogger Logger { get; set; }
 
         public TestTask PrerequisiteTask { get; set; }
+
+        private ProgramSettings _programSettings;
+        public ProgramSettings ProgramSettings 
+        { 
+            get => _programSettings;
+            set
+            {
+                _programSettings = value;
+                PopulateSettings();
+            }
+        }
 
         public InstallOptionsGroup()
         {
@@ -215,6 +228,50 @@ namespace UnifiDesktop.UserControls
 
             foreach (var command in commands)
                 FullCommandInfo.DisplayCommand(command, Logger, AppType.Desktop);
+        }
+
+        private void Venue_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb == null) return;
+
+            _programSettings.Venue = rb.Text;
+        }
+
+        private void PopulateSettings()
+        {
+            if (_programSettings == null) return;
+
+            chkDebugBuild.Checked = _programSettings.IsDebugMode;
+            txtInstallDir.Text = _programSettings.InstallDirectory;
+            Variables.CylanceDesktopFolder = txtInstallDir.Text;
+
+            switch (_programSettings.Venue)
+            {
+                case VenueServer.R01:
+                    rbR01.Checked = true;
+                    break;
+                case VenueServer.R02:
+                    rbR02.Checked = true;
+                    break;
+                case VenueServer.QA2New:
+                    rbQa2New.Checked = true;
+                    break;
+                default:
+                    rbQa2.Checked = true;
+                    break;
+            }
+
+            txtInstallDir.DataBindings.Add("Text", _programSettings, "InstallDirectory", true, DataSourceUpdateMode.OnPropertyChanged);
+            chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
+
+            _programSettings.PropertyChanged += ProgramSettingsChanged;
+        }
+
+        private void ProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ProgramSettings s = sender as ProgramSettings;
+            SettingsHelper.SaveSettings(s);
         }
 
         #region Reflection Methods

@@ -93,25 +93,25 @@ namespace Unifi.Forms
             if (File.Exists(Variables.ProgramSettingFilePath))
             {
                 _programSettings = SettingsHelper.LoadSettings();
-                chkDebugBuild.Checked = _programSettings.IsDebugMode;
-                txtInstallDir.Text = _programSettings.InstallDirectory;
-                Variables.CylanceDesktopFolder = txtInstallDir.Text;
+                //chkDebugBuild.Checked = _programSettings.IsDebugMode;
+                //txtInstallDir.Text = _programSettings.InstallDirectory;
+                //Variables.CylanceDesktopFolder = txtInstallDir.Text;
 
-                switch (_programSettings.Venue)
-                {
-                    case VenueServer.R01:
-                        rbR01.Checked = true;
-                        break;
-                    case VenueServer.R02:
-                        rbR02.Checked = true;
-                        break;
-                    case VenueServer.QA2New:
-                        rbQa2New.Checked = true;
-                        break;
-                    default:
-                        rbQa2.Checked = true;
-                        break;
-                }
+                //switch (_programSettings.Venue)
+                //{
+                //    case VenueServer.R01:
+                //        rbR01.Checked = true;
+                //        break;
+                //    case VenueServer.R02:
+                //        rbR02.Checked = true;
+                //        break;
+                //    case VenueServer.QA2New:
+                //        rbQa2New.Checked = true;
+                //        break;
+                //    default:
+                //        rbQa2.Checked = true;
+                //        break;
+                //}
             }
             else
             {
@@ -123,25 +123,25 @@ namespace Unifi.Forms
                 };
             }
             
-            txtInstallDir.DataBindings.Add("Text", _programSettings, "InstallDirectory", true, DataSourceUpdateMode.OnPropertyChanged);
-            chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
+            //txtInstallDir.DataBindings.Add("Text", _programSettings, "InstallDirectory", true, DataSourceUpdateMode.OnPropertyChanged);
+            //chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
 
-            _programSettings.PropertyChanged += ProgramProgramSettingsChanged;
+            //_programSettings.PropertyChanged += ProgramProgramSettingsChanged;
         }
 
-        private void Venue_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            if (rb == null) return;
+        //private void Venue_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    RadioButton rb = sender as RadioButton;
+        //    if (rb == null) return;
 
-            _programSettings.Venue = rb.Text;
-        }
+        //    _programSettings.Venue = rb.Text;
+        //}
 
-        public void ProgramProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
-        {
-            ProgramSettings s = sender as ProgramSettings;
-            SettingsHelper.SaveSettings(s);
-        }
+        //public void ProgramProgramSettingsChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    ProgramSettings s = sender as ProgramSettings;
+        //    SettingsHelper.SaveSettings(s);
+        //}
 
 #endregion
 
@@ -490,12 +490,13 @@ namespace Unifi.Forms
 
         private void PopulateInstallCommands()
         {
-            var groups = _commandsProvider.TestTasks.Where(t => t.CommandGroup == CommandGroup.Install).ToList();
-            lstInstall.DisplayMember = "Name";
-            lstInstall.DataSource = groups;
+            //var groups = _commandsProvider.TestTasks.Where(t => t.CommandGroup == CommandGroup.Install).ToList();
+            //lstInstall.DisplayMember = "Name";
+            //lstInstall.DataSource = groups;
 
             installOptionsGroup1.SetCommands( _commandsProvider.TestTasks);
             installOptionsGroup1.Logger = _logger;
+            installOptionsGroup1.ProgramSettings = _programSettings;
         }
 
         private void PopulateBatchCommandList()

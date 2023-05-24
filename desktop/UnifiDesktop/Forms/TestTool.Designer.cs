@@ -236,7 +236,6 @@ namespace Unifi.Forms
             this.rbQa2.Tag = "qa2";
             this.rbQa2.Text = "qa2";
             this.rbQa2.UseVisualStyleBackColor = true;
-            this.rbQa2.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // rbR02
             // 
@@ -248,7 +247,6 @@ namespace Unifi.Forms
             this.rbR02.Tag = "r02";
             this.rbR02.Text = "r02";
             this.rbR02.UseVisualStyleBackColor = true;
-            this.rbR02.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // rbR01
             // 
@@ -262,7 +260,6 @@ namespace Unifi.Forms
             this.rbR01.Tag = "r01";
             this.rbR01.Text = "r01";
             this.rbR01.UseVisualStyleBackColor = true;
-            this.rbR01.CheckedChanged += new System.EventHandler(this.Venue_CheckedChanged);
             // 
             // lstInstall
             // 
