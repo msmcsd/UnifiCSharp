@@ -78,6 +78,7 @@ namespace UnifiDesktop.UserControls
 
             TestTask t = (TestTask)cmbList.SelectedItem;
 
+            Logger.LogInfo($"Batch comands start: {t.Name}");
             var b = new BatchCommandExecutor(t.Commands, true, null, Logger, AppType.Desktop);
             b.RegisterObserver(new BatchListViewUpdater(lstCommands));
             b.Execute();

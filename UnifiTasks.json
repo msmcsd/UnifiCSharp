@@ -1200,6 +1200,14 @@
 		"Commands": [
 			{
 				"Command": "cmd.exe",
+				"Arguments": "/C \"FOR /d /r C:\\Projects\\CylanceProtect %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
+				"DisplayText": "Protect Project",
+				"IconSourcePath": "${CmdPath}",
+				"RedirectOutputToConsole": false,
+				"TaskImage": "Cmd.bmp"
+			},
+			{
+				"Command": "cmd.exe",
 				"Arguments": "/C \"FOR /d /r C:\\Projects\\Updater %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
 				"DisplayText": "Updater Project",
 				"IconSourcePath": "${CmdPath}",
@@ -2011,8 +2019,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
-				"DisplayText": "Follow inventory",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"aaaaa\"",
+				"DisplayText": "Follow Optics Version",
 				"ShowOnMachine": "Test"
 			}
 		]
