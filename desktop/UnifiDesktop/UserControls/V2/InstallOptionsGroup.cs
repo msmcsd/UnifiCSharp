@@ -262,9 +262,12 @@ namespace UnifiDesktop.UserControls
                     break;
             }
 
+            txtInstallDir.DataBindings.Clear();
+            chkDebugBuild.DataBindings.Clear();
             txtInstallDir.DataBindings.Add("Text", _programSettings, "InstallDirectory", true, DataSourceUpdateMode.OnPropertyChanged);
             chkDebugBuild.DataBindings.Add("Checked", _programSettings, "IsDebugMode", true, DataSourceUpdateMode.OnPropertyChanged);
 
+            _programSettings.PropertyChanged -= ProgramSettingsChanged;
             _programSettings.PropertyChanged += ProgramSettingsChanged;
         }
 

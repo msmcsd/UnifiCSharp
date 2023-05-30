@@ -604,6 +604,13 @@
 				"DisplayText": "CA",
 				"DllPath": "{CustomActionDll}",
 				"Type": "Code"
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "C:\\Program Files\\Cylance\\Optics\\Versions.dll",
+				"DisplayText": "Optics",
+				"DllPath": "{UpdaterDll}",
+				"Type": "Code"
 			}
 		]
 	},
@@ -1379,6 +1386,12 @@
 				"Command": "ServiceState",
 				"Arguments": "CyElamDrv, ServiceState",
 				"DisplayText": "ELAM",
+				"Type": "Code"
+			},
+			{
+				"Command": "ServiceState",
+				"Arguments": "CyOptics, ServiceState",
+				"DisplayText": "Optics",
 				"Type": "Code"
 			}
 		]
