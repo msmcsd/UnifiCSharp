@@ -128,6 +128,8 @@ namespace UnifiCommands
         public static string ProtectBootstrapperName => "CylanceProtectSetup.exe";
 
         public static string ProtectProductCode { get; set; } = ""; // Retrieved at runtime from JSON.
+        
+        public static string OpticsProductCode { get; set; } = ""; // Retrieved at runtime from JSON.
 
         #endregion
 

@@ -52,6 +52,17 @@ namespace UnifiCommands.CommandsProvider
         /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Install command type. Used when CommandGroup="Install".
+        /// </summary>
+        public InstallCommandType InstallCommandType { get; set; }
+
+        /// <summary>
+        /// Product to install. Used when CommandGroup="Install"
+        /// </summary>
+        public InstallProductType Product { get; set; }
+
+
         public object Clone()
         {
             return MemberwiseClone();
@@ -109,4 +120,20 @@ namespace UnifiCommands.CommandsProvider
         Web,
         Rollback
     }
+
+    public enum InstallCommandType
+    {
+        Setup,
+        PreInstall,
+        Install,
+        PostInstall,
+        Uninstall
+    }
+
+    public enum InstallProductType
+    {
+        Protect,
+        Optics
+    }
+
 }

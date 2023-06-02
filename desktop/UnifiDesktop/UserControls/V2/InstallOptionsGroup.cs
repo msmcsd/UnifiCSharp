@@ -22,33 +22,34 @@ namespace UnifiDesktop.UserControls
 {
     public partial class InstallOptionsGroup : UserControl
     {
-        private List<FullCommandInfo> _installSetupCommands = new List<FullCommandInfo>();
-        private List<FullCommandInfo> _preInstallCommands = new List<FullCommandInfo>();
-        private List<FullCommandInfo> _installCommands = new List<FullCommandInfo>();
-        private List<FullCommandInfo> _postInstallCommands = new List<FullCommandInfo>();
-        private FullCommandInfo _uninstallCommand;
+        private List<TestTask> _installSetupTasks;
+        private List<TestTask> _preInstallTasks;
+        private List<TestTask> _installTasks;
+        private List<TestTask> _postInstallCommands;
+        private List<TestTask> _uninstallCommand;
 
         public void SetCommands(List<TestTask> testTasks)
         {
-            _installSetupCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallSetupCommands)?.Commands;
-            _preInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PreInstallCommands)?.Commands;
-            _installCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.InstallCommand)?.Commands;
-            _postInstallCommands = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.PostInstallCommands)?.Commands;
-            _uninstallCommand = testTasks.FirstOrDefault(t => t.CommandGroup == CommandGroup.UninstallCommand)?.Commands[0];
+            _installSetupTasks = testTasks.Where(t => t.CommandGroup == CommandGroup.Install && t.InstallCommandType == InstallCommandType.Setup).ToList();
+            _preInstallTasks = testTasks.Where(t => t.CommandGroup == CommandGroup.Install && t.InstallCommandType == InstallCommandType.PreInstall).ToList();
+            _installTasks = testTasks.Where(t => t.CommandGroup == CommandGroup.Install && t.InstallCommandType == InstallCommandType.Install).ToList();
+            _postInstallCommands = testTasks.Where(t => t.CommandGroup == CommandGroup.Install && t.InstallCommandType == InstallCommandType.PostInstall).ToList();
+            _uninstallCommand = testTasks.Where(t => t.CommandGroup == CommandGroup.Install && t.InstallCommandType == InstallCommandType.Uninstall).ToList();
 
-            SetVariableSource(_installSetupCommands);
-            SetVariableSource(_preInstallCommands);
-            SetVariableSource(_installCommands);
+            SetVariableSource(_installSetupTasks);
+            SetVariableSource(_preInstallTasks);
+            SetVariableSource(_installTasks);
             SetVariableSource(_postInstallCommands);
-            _uninstallCommand.VariableValueSource = this;
+            SetVariableSource(_uninstallCommand);
         }
 
-        private void SetVariableSource(List<FullCommandInfo> commands)
+        private void SetVariableSource(List<TestTask> testTasks)
         {
-            foreach (var command in commands)
-            {
-                command.VariableValueSource = this;
-            }
+            foreach(var task in testTasks)
+                foreach (var command in task.Commands)
+                {
+                    command.VariableValueSource = this;
+                }
         }
 
         public ILogger Logger { get; set; }
@@ -113,24 +114,31 @@ namespace UnifiDesktop.UserControls
 
         private void btnInstall_Click(object sender, EventArgs e)
         {
-            InstallProduct();
+            InstallProduct(rbProtect.Checked ? InstallProductType.Protect : InstallProductType.Optics);
         }
 
         private void btnUninstall_Click(object sender, EventArgs e)
         {
-            UninstallProduct();
+            UninstallProduct(rbProtect.Checked? InstallProductType.Protect : InstallProductType.Optics);
         }
 
-        private void UninstallProduct()
+        private void UninstallProduct(InstallProductType product)
         {
             if (_uninstallCommand == null) return;
 
-            RunCommands(new List<FullCommandInfo> { _uninstallCommand });
+            var command = _uninstallCommand.FirstOrDefault(t => t.Product == product)?.Commands[0];
+            if (command == null)
+            {
+                MessageBox.Show("Uninstall command not found.");
+                return;
+            }
+
+            RunCommands(new List<FullCommandInfo> { command });
         }
 
-        private void InstallProduct()
+        private void InstallProduct(InstallProductType product)
         {
-            var commands = GetAllInstallCommands();
+            var commands = GetAllInstallCommands(product);
             RunCommands(commands);
         }
 
@@ -142,60 +150,54 @@ namespace UnifiDesktop.UserControls
             b.Execute();
         }
 
-        private List<FullCommandInfo> GetAllInstallCommands()
+        private List<FullCommandInfo> GetAllInstallCommands(InstallProductType product)
         {
-            if (_preInstallCommands.Count <= 0)
-            {
-                Logger.LogError("Pre install commands not found");
-                return null;
-            }
+            var installSetupCommands = _installSetupTasks.FirstOrDefault(t => t.Product == product)?.Commands;
+            var preInstallCommands = _preInstallTasks.FirstOrDefault(t => t.Product == product)?.Commands;
 
-            if (_installCommands.Count <= 0)
+            var installCommands = _installTasks.FirstOrDefault(t => t.Product == product)?.Commands;
+            if (_installTasks.Count <= 0)
             {
                 Logger.LogError("Install commands not found");
-                return null;
-            }
-
-            if (_postInstallCommands.Count <= 0)
-            {
-                Logger.LogError("Post install commands not found");
                 return null;
             }
 
             List<FullCommandInfo> commands = new List<FullCommandInfo>();
             if (rbMsi.Checked)
             {
-                if (!GetInstallerCommand(InstallerType.Msi, out var command)) return null;
+                if (!GetInstallerCommand(product, InstallerType.Msi, out var command)) return null;
 
-                commands.AddRange(_installSetupCommands);
-                commands.AddRange(_preInstallCommands);
+                if (installSetupCommands?.Count > 0) commands.AddRange(installSetupCommands);
+                if (preInstallCommands?.Count > 0) commands.AddRange(preInstallCommands);
                 commands.Add(command);
             }
             else if (rbBootstrapper.Checked)
             {
-                if (!GetInstallerCommand(InstallerType.Bootstrapper, out var command)) return null;
+                if (!GetInstallerCommand(product, InstallerType.Bootstrapper, out var command)) return null;
 
-                commands.AddRange(_installSetupCommands);
-                commands.AddRange(_preInstallCommands);
+                if (installSetupCommands?.Count > 0) commands.AddRange(installSetupCommands);
+                if (preInstallCommands?.Count > 0) commands.AddRange(preInstallCommands);
                 commands.Add(command);
             }
             else
             {
-                if (!GetInstallerCommand(InstallerType.CyUpgrade, out var command)) return null;
+                if (!GetInstallerCommand(product, InstallerType.CyUpgrade, out var command)) return null;
 
-                commands.AddRange(_preInstallCommands);
+                commands.AddRange(preInstallCommands);
                 commands.Add(command);
             }
 
-            commands.AddRange(_postInstallCommands);
+            var postInstallCommands = _postInstallCommands.FirstOrDefault(t => t.Product == product)?.Commands;
+            if (postInstallCommands?.Count > 0)
+                commands.AddRange(postInstallCommands);
 
             return commands;
         }
 
 
-        private bool GetInstallerCommand(InstallerType installerType, out FullCommandInfo command)
+        private bool GetInstallerCommand(InstallProductType product, InstallerType installerType, out FullCommandInfo command)
         {
-            command = _installCommands.FirstOrDefault(c => c.InstallerType == installerType);
+            command = _installTasks.FirstOrDefault(t => t.Product == product)?.Commands?.FirstOrDefault(c => c.InstallerType == installerType);
             if (command == null)
             {
                 Logger.LogError($"{installerType} install command not found");
@@ -215,16 +217,17 @@ namespace UnifiDesktop.UserControls
         {
             if (e.Button == MouseButtons.Right)
             {
+                var product = rbProtect.Checked ? InstallProductType.Protect : InstallProductType.Optics;
                 if (sender == btnInstall)
-                    DisplayCommand(GetAllInstallCommands());
+                    DisplayCommand(GetAllInstallCommands(product));
                 else if (sender == btnUninstall)
-                    DisplayCommand(new List<FullCommandInfo> { _uninstallCommand });
+                    DisplayCommand(_uninstallCommand.FirstOrDefault(t => t.Product == product)?.Commands);
             }
         }
 
         private void DisplayCommand(List<FullCommandInfo> commands)
         {
-            if (commands?.Count() == 0) return;
+            if (commands == null) return;
 
             foreach (var command in commands)
                 FullCommandInfo.DisplayCommand(command, Logger, AppType.Desktop);

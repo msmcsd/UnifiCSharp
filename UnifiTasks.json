@@ -1,18 +1,47 @@
 [
 	{
-		"Name": "Pre-Install Commands",
-		"CommandGroup": "PreInstallCommands",
+		"Name": "Install Environment Setup Commands - Protect",
+		"CommandGroup": "Install",
+		"InstallCommandType": "Setup",
+		"Product": "Protect",
+		"Commands": [
+			{
+				"Command": "Setup_Protect_Install_Env",
+				"DisplayText": "Install Setup Commands for Protect",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Pre-Install Commands - Protect",
+		"CommandGroup": "Install",
+		"InstallCommandType": "PreInstall",
+		"Product": "Protect",
 		"Description": "Commands run after install environment is setup and before running installer",
 		"Commands": [
 			{
-				"Command": "Pre_Install_Commands",
-				"DisplayText": "Pre-install Commands",
+				"Command": "Pre_Install_Commands_Protect",
+				"DisplayText": "Pre-Install Commands for Protect",
 				"Type": "Function"
 			}
 		]
 	},	
 	{
-		"Name": "Pre_Install_Commands",
+		"Name": "Post Install Commands - Protect",
+		"CommandGroup": "Install",
+		"InstallCommandType": "PostInstall",
+		"Product": "Protect",
+		"Description": "Commands run after install is finished",
+		"Commands": [
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Commands for Protect",
+				"Type": "Function"
+			}
+		]
+	},	
+	{
+		"Name": "Pre_Install_Commands_Protect",
 		"Description": "Function runs after install environment is setup and before running installer",
 		"CommandGroup": "Function",
 		"Commands": [
@@ -63,19 +92,85 @@
 		]
 	},
 	{
-		"Name": "Install_Setup_Commands",
-		"CommandGroup": "InstallSetupCommands",
+		"Name": "Install Environment Setup Commands - Optics",
+		"CommandGroup": "Install",
+		"InstallCommandType": "Setup",
+		"Product": "Optics",
 		"Commands": [
 			{
-				"Command": "Setup_Protect_Install_Env",
-				"DisplayText": "Install Setup Commands",
+				"Command": "cmd.exe",
+				"Arguments": "/C mkdir C:\\ProgramData\\Cylance\\Optics\\Configuration",
+				"DisplayText": "Create directory"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C copy \"${VmWareSharedFolder}\\Shortcuts\\OpticsConfiguration.xml\" C:\\ProgramData\\Cylance\\Optics\\Configuration",
+				"DisplayText": "Copy configuration file"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C copy \"${VmWareSharedFolder}\\TestTools\\Installers\\Optics\\CylanceOptics_x${Arch86}.msi\" \"${InstallerDownloadFolder}\"",
+				"DisplayText": "Copy installer"
+			}
+		]
+	},
+	{
+		"Name": "Pre-Install Commands - Optics",
+		"CommandGroup": "Install",
+		"InstallCommandType": "PreInstall",
+		"Product": "Optics",
+		"Description": "Commands run after install environment is setup and before running installer",
+		"Commands": [
+			{
+				"Command": "Pre_Install_Commands_Protect",
+				"DisplayText": "Pre-Install Commands for Optics",
 				"Type": "Function"
+			}
+		]
+	},	
+	{
+		"Name": "Install Commands - Optics",
+		"CommandGroup": "Install",
+		"InstallCommandType": "Install",
+		"Product": "Optics",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i \"${InstallerDownloadFolder}\\CylanceOptics_x${Arch86}.msi\" /qb",
+				"DisplayText": "Run MSI installer"
+			}
+		]
+	},
+	{
+		"Name": "Post Install Commands - Optics",
+		"CommandGroup": "Install",
+		"InstallCommandType": "PostInstall",
+		"Product": "Optics",
+		"Description": "Commands run after install is finished",
+		"Commands": [
+			{
+				"Command": "Post_Install_Tasks",
+				"DisplayText": "Post Install Commands for Optics",
+				"Type": "Function"
+			}
+		]
+	},	
+	{
+		"Name": "Uninstall Command - Optics",
+		"CommandGroup": "Install",
+		"InstallCommandType": "Uninstall",
+		"Product": "Optics",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/x ${OpticsProductCode} /L*V ${MsiUninstallLogPath} $[GetInstallMode]",
+				"DisplayText": "Uninstall Optics"
 			}
 		]
 	},
 	{
 		"Name": "Setup_Protect_Install_Env",
-		"Description": "Commands that set up install environment",
+		"Description": "Commands that set up Protect install environment",
 		"CommandGroup": "Function",
 		"Commands": [
 			{
@@ -169,7 +264,7 @@
 				"Type": "Function"
 			},
 			{
-				"Command": "Pre_Install_Commands",
+				"Command": "Pre_Install_Commands_Protect",
 				"DisplayText": "Pre-install Commands",
 				"Type": "Function"
 			}
@@ -224,6 +319,30 @@
 			{
 				"Command": "Post_Install_Tasks",
 				"DisplayText": "Post Install Tasks",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Install Protect",
+		"CommandGroup": "Function",
+		"Description": "All commands needed to install Protect",
+		"Commands": [
+			{
+				"Command": "Pre_Install_Tasks",
+				"DisplayText": "Setup environment",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Install Optics",
+		"CommandGroup": "Function",
+		"Description": "All commands needed to install Optics",
+		"Commands": [
+			{
+				"Command": "Pre_Install_Tasks",
+				"DisplayText": "Setup environment",
 				"Type": "Function"
 			}
 		]
@@ -401,8 +520,9 @@
 		]
 	},
 	{
-		"Name": "Uninstall Command",
-		"CommandGroup": "UninstallCommand",
+		"Name": "Uninstall Command - Protect",
+		"CommandGroup": "Install",
+		"InstallCommandType": "Uninstall",
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
@@ -507,6 +627,16 @@
 				"Arguments": "-registeramsi",
 				"DisplayText": "Register AMSI",
 				"MinimizeWindow": true
+			},
+			{
+				"Command": "sc.exe",
+				"Arguments": "start CyOptics",
+				"DisplayText": "Start Optics Service"
+			},
+			{
+				"Command": "sc.exe",
+				"Arguments": "stop CyOptics",
+				"DisplayText": "Stop Optics Service"
 			}
 		]
 	},
@@ -610,6 +740,13 @@
 				"Arguments": "C:\\Program Files\\Cylance\\Optics\\Versions.dll",
 				"DisplayText": "Optics",
 				"DllPath": "{UpdaterDll}",
+				"Type": "Code"
+			},
+			{
+				"Command": "FileVersion",
+				"Arguments": "$[CylanceDesktopFolder]\\Cylance.CEF.Server.dll",
+				"DisplayText": "CEF",
+				"DllPath": "{VersionDll}",
 				"Type": "Code"
 			}
 		]
@@ -802,14 +939,14 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
-				"DisplayText": "Follow inventory",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"aaaaa\"",
+				"DisplayText": "Follow aaaaa",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"report_type\"",
-				"DisplayText": "Follow report_type",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"optics_version\"",
+				"DisplayText": "Follow optics_version",
 				"ShowOnMachine": "Test"
 			},
 			{
@@ -1200,14 +1337,14 @@
 		]
 	},	
 	{
-		"Name": "Remove obj Folder",
+		"Name": "Remove obj/bin Folder",
 		"CommandGroup": "Dos",
 		"ShowTaskOnMachine": "Dev",
 		"Tab": "Dev",
 		"Commands": [
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"FOR /d /r C:\\Projects\\CylanceProtect %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
+				"Arguments": "/C \"FOR /d /r C:\\Projects\\CylanceProtect %d IN (obj, bin) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
 				"DisplayText": "Protect Project",
 				"IconSourcePath": "${CmdPath}",
 				"RedirectOutputToConsole": false,
@@ -1215,7 +1352,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"FOR /d /r C:\\Projects\\Updater %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
+				"Arguments": "/C \"FOR /d /r C:\\Projects\\Updater %d IN (obj, bin) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
 				"DisplayText": "Updater Project",
 				"IconSourcePath": "${CmdPath}",
 				"RedirectOutputToConsole": false,
@@ -1223,7 +1360,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C \"FOR /d /r C:\\Projects\\CylanceEndpointFramework %d IN (obj) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
+				"Arguments": "/C \"FOR /d /r C:\\Projects\\CylanceEndpointFramework %d IN (obj, bin) DO @IF EXIST \"%d\" rd /s /q \"%d\"\"",
 				"DisplayText": "CEF Project",
 				"IconSourcePath": "${CmdPath}",
 				"RedirectOutputToConsole": false,
@@ -2029,12 +2166,6 @@
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
-			},
-			{
-				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"aaaaa\"",
-				"DisplayText": "Follow Optics Version",
-				"ShowOnMachine": "Test"
 			}
 		]
 	},
@@ -2252,6 +2383,10 @@
 			{
 				"Variable": "ProtectProductCode",
 				"Value": "{2E64FC5C-9286-4A31-916B-0D8AE4B22954}"
+			},
+			{
+				"Variable": "OpticsProductCode",
+				"Value": "{6FECE3E5-CA63-4A30-A29D-3600F2057F41}"
 			},
 			{
 				"Variable": "R01Token",
