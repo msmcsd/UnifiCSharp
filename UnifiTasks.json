@@ -27,6 +27,34 @@
 		]
 	},	
 	{
+		"Name": "Install Commands - Protect",
+		"CommandGroup": "Install",
+		"InstallCommandType": "Install",
+		"Product": "Protect",
+		"Description": "Command to run installer/upgrader",
+		"Commands": [
+			{
+				"Command": "msiexec.exe",
+				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" $[GetInstallMode] PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Msi Installer",
+				"InstallerType": "Msi"
+			},
+			{
+				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
+				"Arguments": "$[GetInstallMode] /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
+				"DisplayText": "Run Bootstrapper",
+				"InstallerType": "Bootstrapper"
+			},
+			{
+				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
+				"DisplayText": "Run Upgrade",
+				"MinimizeWindow": true,
+				"ShowOnMachine": "Test",
+				"InstallerType": "CyUpgrade"
+			}
+		]
+	},	
+	{
 		"Name": "Post Install Commands - Protect",
 		"CommandGroup": "Install",
 		"InstallCommandType": "PostInstall",
@@ -62,32 +90,6 @@
 				"Arguments": "UpdateReport, SetReportType, 2",
 				"DisplayText": "Clear report",
 				"Type": "Code"
-			}
-		]
-	},
-	{
-		"Name": "Install Command",
-		"CommandGroup": "InstallCommand",
-		"Description": "Command to run installer/upgrader",
-		"Commands": [
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" $[GetInstallMode] PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Msi Installer",
-				"InstallerType": "Msi"
-			},
-			{
-				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
-				"Arguments": "$[GetInstallMode] /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Bootstrapper",
-				"InstallerType": "Bootstrapper"
-			},
-			{
-				"Command": "${UserDesktopFolder}\\CyUpgrade.exe",
-				"DisplayText": "Run Upgrade",
-				"MinimizeWindow": true,
-				"ShowOnMachine": "Test",
-				"InstallerType": "CyUpgrade"
 			}
 		]
 	},
@@ -312,18 +314,6 @@
 		]
 	},
 	{
-		"Name": "Pos Install Tasks",
-		"Description": "Commands run after install finishes",
-		"CommandGroup": "PostInstallCommands",
-		"Commands": [
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
 		"Name": "Install Protect",
 		"CommandGroup": "Function",
 		"Description": "All commands needed to install Protect",
@@ -360,166 +350,6 @@
 		]
 	},
 	{
-		"Name": "Protect Msi Admin/q",
-		"CommandGroup": "Install",
-		"Description": "Batch commands that install with admin right without UI",
-		"Commands": [
-			{
-				"Command": "Install_Protect_Msi_Admin_Quiet",
-				"DisplayText": "Install Proect Msi Admin Quiet",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Msi Admin/UI",
-		"CommandGroup": "Install",
-		"Description": "Batch commands to install Msi with admin right and with UI",
-		"Commands": [
-			{
-				"Command": "Install_Protect_Msi_Admin_UI",
-				"DisplayText": "Run Msi as Admin and With UI",
-				"Type": "Function"
-			}
-		]
-	},	
-	{
-		"Name": "Protect Msi User/q",
-		"CommandGroup": "Install",
-		"Description": "Batch commands that run Msi as user without UI",
-		"Commands": [
-			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" /qb PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Protect Installer",
-				"RunAs": "User"
-			},
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Msi User/UI",
-		"CommandGroup": "Install",
-		"Description": "Batch commands that run Msi as user with UI",
-		"Commands": [
-			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiInstallLogPath} /i \"${ProtectMsiToRun}\" PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run Protect Installer",
-				"RunAs": "User"
-			},
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Bootstrapper Admin/q",
-		"CommandGroup": "Install",
-		"Description": "Batch commands that run Bootstrapper as admin without UI",
-		"Commands": [
-			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
-				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run installer"
-			},
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Bootstrapper Admin/UI",
-		"CommandGroup": "Install",
-		"Description": "Batch commands that run Bootstrapper as admin with UI",
-		"Commands": [
-			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
-				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] SELFPROTECTION=1",
-				"DisplayText": "Run Bootstrapper"
-			},
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Bootstrapper User/q",
-		"Description": "Batch commands that run Bootstrapper as user without UI",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
-				"Arguments": "/q /log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run installer",
-				"RunAs": "User"
-			},
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
-		"Name": "Protect Bootstrapper User/UI",
-		"Description": "Batch commands that run Bootstrapper as user with UI",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "Pre_Install_Tasks",
-				"DisplayText": "Setup environment",
-				"Type": "Function"
-			},
-			{
-				"Command": "\"${InstallerDownloadFolder}\\${ProtectBootstrapperName}\"",
-				"Arguments": "/log ${MsiInstallLogPath} PIDKEY=$[GetToken] APPFOLDER=\"$[CylanceDesktopFolder]\" SELFPROTECTION=1 LAUNCHAPP=1",
-				"DisplayText": "Run installer",
-				"RunAs": "User"
-			},
-			{
-				"Command": "Post_Install_Tasks",
-				"DisplayText": "Post Install Tasks",
-				"Type": "Function"
-			}
-		]
-	},
-	{
 		"Name": "Uninstall Command - Protect",
 		"CommandGroup": "Install",
 		"InstallCommandType": "Uninstall",
@@ -528,66 +358,6 @@
 				"Command": "msiexec.exe",
 				"Arguments": "/x ${ProtectProductCode} /L*V ${MsiUninstallLogPath} $[GetInstallMode]",
 				"DisplayText": "Uninstall Product"
-			}
-		]
-	},
-	{
-		"Name": "Uninstall Protect-Basic UI",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qb",
-				"DisplayText": "Uninstall Protect-Basic UI"
-			}
-		]
-	},
-	{
-		"Name": "Uninstall Protect-No UI",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/x ${UserDesktopFolder}\\${ProtectMsiNameByVmArch} /L*V ${MsiUninstallLogPath} /qn",
-				"DisplayText": "Uninstall Protect-No UI"
-			}
-		]
-	},
-	{
-		"Name": "Uninstall Protect/User",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/x ${ProtectProductCode} /L*V ${MsiUninstallLogPath} /qb",
-				"DisplayText": "Uninstall Protect Using Product Code",
-				"RunAs": "User"
-			}
-		]
-	},
-	{
-		"Name": "Install Optics",
-		"CommandGroup": "Install",
-		"Commands": [
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C mkdir C:\\ProgramData\\Cylance\\Optics\\Configuration",
-				"DisplayText": "Create directory"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C copy \"${VmWareSharedFolder}\\Shortcuts\\OpticsConfiguration.xml\" C:\\ProgramData\\Cylance\\Optics\\Configuration",
-				"DisplayText": "Copy configuration file"
-			},
-			{
-				"Command": "cmd.exe",
-				"Arguments": "/C copy \"${VmWareSharedFolder}\\TestTools\\Installers\\Optics\\CylanceOptics_x${Arch86}.msi\" \"${InstallerDownloadFolder}\"",
-				"DisplayText": "Copy configuration file"
-			},
-			{
-				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i ${InstallerDownloadFolder}\\CylanceOptics_x${Arch86}.msi /qb",
-				"DisplayText": "Run MSI installer"
 			}
 		]
 	},
