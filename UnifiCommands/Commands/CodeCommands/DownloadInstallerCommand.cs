@@ -270,25 +270,25 @@ namespace UnifiCommands.Commands.CodeCommands
             return cacheInstaller;
         }
 
-        // Display Name may look something like this: #1133:[3.1.9200.15138/16838]. Only first version (Windows) is needed.
+        // Display Name may look something like this: #1133:[3.1.9200.15138/16838] task/branch123. Only first version (Windows) is needed.
         private static string GetBuildVersionFromDisplayName(string displayName)
         {
+            string version = "N/A";
             int i = displayName.IndexOf("[", StringComparison.InvariantCultureIgnoreCase);
             if (i >= 0)
             {
-                displayName = displayName.Substring(i + 1, displayName.Length - i - 2);
-                i = displayName.IndexOf("/");
-                if (i > 0) 
-                    displayName = displayName.Substring(0, i);
-                else
+                int j = displayName.IndexOf("]");
+                if (j > 0)
                 {
-                    i = displayName.IndexOf("]");
-                    if (i >= 0) displayName = displayName.Substring(0, i);
+                    version = displayName.Substring(i + 1, j - i - 1);
+                    if (version.IndexOf("/") > 0)
+                    {
+                        version = version.Split(new char[] {'/'})[0];
+                    }
                 }
-                
-                return displayName;
             }
-            return "N/A";
+            
+            return version;
         }
 
         public static string GetInstallerNameByType(InstallerType installerType, string jobUrl)
