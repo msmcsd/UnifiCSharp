@@ -138,7 +138,7 @@
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i \"${InstallerDownloadFolder}\\CylanceOptics_x${Arch86}.msi\" /qb",
+				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i \"${InstallerDownloadFolder}\\OpticsInstaller64.msi\" /qb",
 				"DisplayText": "Run MSI installer"
 			}
 		]
@@ -282,14 +282,16 @@
 				"Arguments": "UpdateServiceState, SetInterval, 0",
 				"DisplayText": "Stop checking service state",
 				"Type": "Code",
-				"FireAndForget": true
+				"FireAndForget": true,
+				"Visible": false
 			},
 			{
 				"Command": "InvokeSocketCommand",
 				"Arguments": "UpdateFileVersion, SetInterval, 0",
 				"DisplayText": "Stop checking file version",
 				"Type": "Code",
-				"FireAndForget": true
+				"FireAndForget": true,
+				"Visible": false
 			},
 			{
 				"Command": "cmd.exe",
@@ -309,7 +311,8 @@
 				"Arguments": "$[ProtectLogPath], error|exception",
 				"DisplayText": "Monitor log for errors",
 				"Type": "Code",
-				"FireAndForget": true
+				"FireAndForget": true,
+				"Visible": false
 			}
 		]
 	},
@@ -709,8 +712,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"aaaaa\"",
-				"DisplayText": "Follow aaaaa",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"AAAAA\"",
+				"DisplayText": "Follow AAAAA",
 				"ShowOnMachine": "Test"
 			},
 			{
@@ -1262,7 +1265,7 @@
 		"Commands": [
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/c copy C:\\Projects\\CylanceProtect\\libs\\memdef\\x64\\CylanceMemdef*.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\sqlite\\x64\\SQLite.Interop.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cef\\x64\\CyCEFHelper64.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cyhelper\\CyHelper64.dll  C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\src\\bin\\models\\Cylance.Model.SS3PE6.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\mathnet\\MathNet.Numerics.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y",
+				"Arguments": "/c copy C:\\Projects\\CylanceProtect\\libs\\memdef\\x64\\CylanceMemdef*.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\sqlite\\x64\\SQLite.Interop.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cef\\x64\\CyCEFHelper64.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cyhelper\\CyHelper64.dll  C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\src\\bin\\models\\Cylance.Model.SS3PE6.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\mathnet\\MathNet.Numerics.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y & copy C:\\Projects\\CylanceProtect\\libs\\cef\\Cylance.CEF.OpticsAdapterServiceModule.dll C:\\Projects\\CylanceProtect\\src\\bin\\Debug /y",
 				"DisplayText": "Copy Libs"
 			}
 		]
@@ -1358,6 +1361,13 @@
 				"Command": "${PsExecPath}",
 				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" \"$[ProtectLogPath]\"",
 				"DisplayText": "Protect Log",
+				"IconSourcePath": "${NotepadPath}",
+				"TaskImage": "Notepad++.bmp"
+			},
+			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d -accepteula \"${NotepadPath}\" $[OpticsLogPath]",
+				"DisplayText": "Optics Log",
 				"IconSourcePath": "${NotepadPath}",
 				"TaskImage": "Notepad++.bmp"
 			},
@@ -1487,7 +1497,7 @@
 		"CommandGroup": "Download",
 		"Commands": [
 			{
-				"Command": "TestJobs/job/jshih/job/agent-p-publish-install-test",
+				"Command": "TestJobs/job/jshih/job/BC-test",
 				"Arguments": "lastSuccessfulBuild",
 				"DisplayText": "Latest Me"
 			},
@@ -1542,7 +1552,7 @@
 				"DisplayText": "3.1.1001.42"
 			},
 			{
-				"Command": "TestJobs/job/jshih/job/agent-p-publish-install-test",
+				"Command": "TestJobs/job/jshih/job/BC-test",
 				"Arguments": "1044",
 				"DisplayText": "3.1.9200.15049"
 			},
@@ -1922,7 +1932,7 @@
 		"Commands": [
 			{
 				"Command": "DownloadInstaller",
-				"Arguments": "TestJobs/job/jshih/job/agent-p-publish-install-test, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Me'",
+				"Arguments": "TestJobs/job/jshih/job/BC-test, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Me'",
 				"DisplayText": "Download Latest Me",
 				"Type": "Code",
 				"ShowOnMachine": "Test"
@@ -1936,6 +1946,12 @@
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
+			},
+			{
+				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
+				"DisplayText": "Follow [jason]",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},

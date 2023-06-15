@@ -18,6 +18,8 @@ namespace UnifiCommands.Socket.MessageClasses
 
         private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{DateTime.Today:yyyy-MM-dd}.log");
 
+        private string OpticsLogPath => Path.Combine("C:\\ProgramData\\Cylance\\Optics\\Log", $@"Optics-{DateTime.Today:yyyy-MM-dd}.csv");
+
     }
 
 }
