@@ -111,7 +111,7 @@
 			},
 			{
 				"Command": "cmd.exe",
-				"Arguments": "/C copy \"${VmWareSharedFolder}\\TestTools\\Installers\\Optics\\CylanceOptics_x${Arch86}.msi\" \"${InstallerDownloadFolder}\"",
+				"Arguments": "/C copy \"${VmWareSharedFolder}\\TestTools\\Installers\\Optics\\$[OpticsInstallerName].msi\" \"${InstallerDownloadFolder}\"",
 				"DisplayText": "Copy installer"
 			}
 		]
@@ -138,7 +138,7 @@
 		"Commands": [
 			{
 				"Command": "msiexec.exe",
-				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i \"${InstallerDownloadFolder}\\OpticsInstaller64.msi\" /qb",
+				"Arguments": "/Lvx* ${MsiLogFolder}\\MsiInstall-Optics.log /i \"${InstallerDownloadFolder}\\$[OpticsInstallerName].msi\" /qb",
 				"DisplayText": "Run MSI installer"
 			}
 		]
@@ -1951,7 +1951,8 @@
 				"Command": "Tail",
 				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
 				"DisplayText": "Follow [jason]",
-				"ShowOnMachine": "Test"
+				"ShowOnMachine": "Test",
+				"FireAndForget": true
 			}
 		]
 	},

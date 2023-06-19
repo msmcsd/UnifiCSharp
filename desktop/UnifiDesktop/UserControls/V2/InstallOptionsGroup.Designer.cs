@@ -61,6 +61,7 @@
             this.pnlInstallMode = new System.Windows.Forms.Panel();
             this.pnlInstaller = new System.Windows.Forms.Panel();
             this.pnlInstallAs = new System.Windows.Forms.Panel();
+            this.chkOptics2 = new System.Windows.Forms.CheckBox();
             this.pnlProduct.SuspendLayout();
             this.pnlConfig.SuspendLayout();
             this.pnlInstallMode.SuspendLayout();
@@ -365,6 +366,7 @@
             // 
             this.pnlProduct.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlProduct.Controls.Add(this.chkOptics2);
             this.pnlProduct.Controls.Add(this.rbProtect);
             this.pnlProduct.Controls.Add(this.rbOptics);
             this.pnlProduct.Location = new System.Drawing.Point(3, 73);
@@ -431,6 +433,18 @@
             this.pnlInstallAs.Name = "pnlInstallAs";
             this.pnlInstallAs.Size = new System.Drawing.Size(190, 24);
             this.pnlInstallAs.TabIndex = 38;
+            // 
+            // chkOptics2
+            // 
+            this.chkOptics2.AutoSize = true;
+            this.chkOptics2.Checked = true;
+            this.chkOptics2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOptics2.Location = new System.Drawing.Point(149, 4);
+            this.chkOptics2.Name = "chkOptics2";
+            this.chkOptics2.Size = new System.Drawing.Size(32, 17);
+            this.chkOptics2.TabIndex = 2;
+            this.chkOptics2.Text = "2";
+            this.chkOptics2.UseVisualStyleBackColor = true;
             // 
             // InstallOptionsGroup
             // 
@@ -510,5 +524,6 @@
         private System.Windows.Forms.Panel pnlInstaller;
         private System.Windows.Forms.Panel pnlInstallAs;
         private System.Windows.Forms.RadioButton rbQa2New;
+        private System.Windows.Forms.CheckBox chkOptics2;
     }
 }

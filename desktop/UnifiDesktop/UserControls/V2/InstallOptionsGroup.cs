@@ -97,7 +97,8 @@ namespace UnifiDesktop.UserControls
                     GetConfig = GetConfig,
                     GetInstallMode = GetInstallMode,
                     GetToken = GetToken,
-                    CompileMode = chkDebugBuild.Checked? "Debug": ""
+                    CompileMode = chkDebugBuild.Checked? "Debug": "",
+                    OpticsInstallerName = OpticsInstallerName
                 };
 
                 SocketMessage broadcastMessage = new SocketMessage
@@ -339,9 +340,17 @@ namespace UnifiDesktop.UserControls
             }
         }
 
-        private string GetProtectLogFileName => $"{DateTime.Today:yyyy-MM-dd}.log";
+        private string OpticsInstallerName
+        {
+            get
+            {
+                return chkOptics2.Checked ? $"OpticsInstaller{Variables.ArchNone}" : $"CylanceOptics_x{Variables.Arch32}";
+            }
+        }
 
-        private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{GetProtectLogFileName}");
+        //private string GetProtectLogFileName => $"{DateTime.Today:yyyy-MM-dd}.log";
+
+        //private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{GetProtectLogFileName}");
 
         #endregion
 

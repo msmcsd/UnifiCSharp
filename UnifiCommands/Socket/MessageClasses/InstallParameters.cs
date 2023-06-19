@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.IO;
+using System.Security.Policy;
 
 namespace UnifiCommands.Socket.MessageClasses
 {
@@ -15,6 +16,8 @@ namespace UnifiCommands.Socket.MessageClasses
         public string GetToken { get; set; }
 
         public string CompileMode { get; set; }
+
+        public string OpticsInstallerName { get; set; }
 
         private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{DateTime.Today:yyyy-MM-dd}.log");
 
