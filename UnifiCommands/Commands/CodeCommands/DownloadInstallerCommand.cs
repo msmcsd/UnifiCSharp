@@ -156,7 +156,8 @@ namespace UnifiCommands.Commands.CodeCommands
                         var allBuilds = JsonConvert.DeserializeObject<AllBuildsInfo>(json, jsonSerializerSettings);
 
                         var successfulBuilds = allBuilds.Builds
-                            .Where(b => b.Result.Equals("SUCCESS", StringComparison.InvariantCultureIgnoreCase) && !b.building)
+                            .Where(b => (b.Result.Equals("SUCCESS", StringComparison.InvariantCultureIgnoreCase) || b.Result.Equals("UNSTABLE", StringComparison.InvariantCultureIgnoreCase))
+                                        && !b.building)
                             .OrderByDescending(b => b.BuildNumber).ToList();
 
                         return successfulBuilds;

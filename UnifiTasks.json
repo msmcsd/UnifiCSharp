@@ -712,8 +712,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"AAAAA\"",
-				"DisplayText": "Follow AAAAA",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
+				"DisplayText": "Follow [jason]",
 				"ShowOnMachine": "Test"
 			},
 			{
