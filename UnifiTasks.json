@@ -903,6 +903,13 @@
 				"Arguments": "UpdateServiceState, SetInterval, 0",
 				"DisplayText": "Stop checking service state",
 				"Type": "Code"
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "${UserDesktopFolder}\\NLog.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy NLog.dll",
+				"Type": "code",
+				"ShowOnMachine": "Test"
 			}
 		]
 	},
@@ -1071,6 +1078,11 @@
 				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:major=3;minor=0;build=0000;revision=0 C:\\Projects\\CylanceProtect\\src\\CyProtect.sln",
 				"DisplayText": "Compile Debug Protect"
+			},
+			{
+				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Platform=x64 /property:major=3;minor=0;build=0000;revision=0 C:\\Projects\\CylanceProtect\\src\\CyNativeAgent\\Win\\CyNativeAgent.vcxproj",
+				"DisplayText": "Compile 64-bit Service"
 			},
 			{
 				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",

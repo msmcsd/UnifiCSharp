@@ -188,7 +188,7 @@
             this.rbMeBuild.Size = new System.Drawing.Size(40, 17);
             this.rbMeBuild.TabIndex = 1;
             this.rbMeBuild.TabStop = true;
-            this.rbMeBuild.Tag = "TestJobs/job/jshih/job/agent-p-publish-install-test";
+            this.rbMeBuild.Tag = "TestJobs/job/jshih/job/BC-test";
             this.rbMeBuild.Text = "Me";
             this.rbMeBuild.UseVisualStyleBackColor = true;
             // 
