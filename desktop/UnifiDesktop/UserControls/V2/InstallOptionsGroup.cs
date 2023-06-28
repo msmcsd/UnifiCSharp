@@ -344,7 +344,7 @@ namespace UnifiDesktop.UserControls
         {
             get
             {
-                return chkOptics2.Checked ? $"OpticsInstaller{Variables.ArchNone}" : $"CylanceOptics_x{Variables.Arch32}";
+                return rbOptics2.Checked ? $"OpticsInstaller{Variables.ArchNone}" : rbOptics3.Checked? $"CylanceOptics_x{Variables.Arch32}" : "";
             }
         }
 

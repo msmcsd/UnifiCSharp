@@ -718,6 +718,12 @@
 			},
 			{
 				"Command": "Tail",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"OpticsCommandChannelOpticsVersion\"",
+				"DisplayText": "Follow OpticsCommandChannelOpticsVersion",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Tail",
 				"Arguments": "\"$[ProtectLogPath]\" 1 \"optics_version\"",
 				"DisplayText": "Follow optics_version",
 				"ShowOnMachine": "Test"
@@ -908,6 +914,13 @@
 				"Command": "FileCopy",
 				"Arguments": "${UserDesktopFolder}\\NLog.dll, $[CylanceDesktopFolder]",
 				"DisplayText": "Copy NLog.dll",
+				"Type": "code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "${UserDesktopFolder}\\Cylance.CEF.Server.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy CEF Server",
 				"Type": "code",
 				"ShowOnMachine": "Test"
 			}
@@ -1961,8 +1974,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
-				"DisplayText": "Follow [jason]",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"optics_version\"",
+				"DisplayText": "Follow optics_version",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
 			}

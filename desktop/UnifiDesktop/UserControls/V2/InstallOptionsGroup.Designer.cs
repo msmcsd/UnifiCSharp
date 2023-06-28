@@ -34,7 +34,7 @@
             this.chkDebugBuild = new System.Windows.Forms.CheckBox();
             this.lblInstallPath = new System.Windows.Forms.Label();
             this.txtInstallDir = new System.Windows.Forms.TextBox();
-            this.rbOptics = new System.Windows.Forms.RadioButton();
+            this.rbOptics2 = new System.Windows.Forms.RadioButton();
             this.rbProtect = new System.Windows.Forms.RadioButton();
             this.rbBootstrapper = new System.Windows.Forms.RadioButton();
             this.rbCyUpgrade = new System.Windows.Forms.RadioButton();
@@ -61,7 +61,7 @@
             this.pnlInstallMode = new System.Windows.Forms.Panel();
             this.pnlInstaller = new System.Windows.Forms.Panel();
             this.pnlInstallAs = new System.Windows.Forms.Panel();
-            this.chkOptics2 = new System.Windows.Forms.CheckBox();
+            this.rbOptics3 = new System.Windows.Forms.RadioButton();
             this.pnlProduct.SuspendLayout();
             this.pnlConfig.SuspendLayout();
             this.pnlInstallMode.SuspendLayout();
@@ -139,15 +139,15 @@
             this.txtInstallDir.TabIndex = 16;
             this.txtInstallDir.Text = "C:\\Program Files\\Cylance\\Desktop";
             // 
-            // rbOptics
+            // rbOptics2
             // 
-            this.rbOptics.AutoSize = true;
-            this.rbOptics.Location = new System.Drawing.Point(87, 3);
-            this.rbOptics.Name = "rbOptics";
-            this.rbOptics.Size = new System.Drawing.Size(55, 17);
-            this.rbOptics.TabIndex = 1;
-            this.rbOptics.Text = "Optics";
-            this.rbOptics.UseVisualStyleBackColor = true;
+            this.rbOptics2.AutoSize = true;
+            this.rbOptics2.Location = new System.Drawing.Point(81, 3);
+            this.rbOptics2.Name = "rbOptics2";
+            this.rbOptics2.Size = new System.Drawing.Size(49, 17);
+            this.rbOptics2.TabIndex = 1;
+            this.rbOptics2.Text = "Opt2";
+            this.rbOptics2.UseVisualStyleBackColor = true;
             // 
             // rbProtect
             // 
@@ -366,9 +366,9 @@
             // 
             this.pnlProduct.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlProduct.Controls.Add(this.chkOptics2);
+            this.pnlProduct.Controls.Add(this.rbOptics3);
             this.pnlProduct.Controls.Add(this.rbProtect);
-            this.pnlProduct.Controls.Add(this.rbOptics);
+            this.pnlProduct.Controls.Add(this.rbOptics2);
             this.pnlProduct.Location = new System.Drawing.Point(3, 73);
             this.pnlProduct.Name = "pnlProduct";
             this.pnlProduct.Size = new System.Drawing.Size(190, 24);
@@ -434,17 +434,15 @@
             this.pnlInstallAs.Size = new System.Drawing.Size(190, 24);
             this.pnlInstallAs.TabIndex = 38;
             // 
-            // chkOptics2
+            // rbOptics3
             // 
-            this.chkOptics2.AutoSize = true;
-            this.chkOptics2.Checked = true;
-            this.chkOptics2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOptics2.Location = new System.Drawing.Point(149, 4);
-            this.chkOptics2.Name = "chkOptics2";
-            this.chkOptics2.Size = new System.Drawing.Size(32, 17);
-            this.chkOptics2.TabIndex = 2;
-            this.chkOptics2.Text = "2";
-            this.chkOptics2.UseVisualStyleBackColor = true;
+            this.rbOptics3.AutoSize = true;
+            this.rbOptics3.Location = new System.Drawing.Point(132, 3);
+            this.rbOptics3.Name = "rbOptics3";
+            this.rbOptics3.Size = new System.Drawing.Size(49, 17);
+            this.rbOptics3.TabIndex = 2;
+            this.rbOptics3.Text = "Opt3";
+            this.rbOptics3.UseVisualStyleBackColor = true;
             // 
             // InstallOptionsGroup
             // 
@@ -497,7 +495,7 @@
         private System.Windows.Forms.CheckBox chkDebugBuild;
         private System.Windows.Forms.Label lblInstallPath;
         private System.Windows.Forms.TextBox txtInstallDir;
-        private System.Windows.Forms.RadioButton rbOptics;
+        private System.Windows.Forms.RadioButton rbOptics2;
         private System.Windows.Forms.RadioButton rbProtect;
         private System.Windows.Forms.RadioButton rbBootstrapper;
         private System.Windows.Forms.RadioButton rbCyUpgrade;
@@ -524,6 +522,6 @@
         private System.Windows.Forms.Panel pnlInstaller;
         private System.Windows.Forms.Panel pnlInstallAs;
         private System.Windows.Forms.RadioButton rbQa2New;
-        private System.Windows.Forms.CheckBox chkOptics2;
+        private System.Windows.Forms.RadioButton rbOptics3;
     }
 }
