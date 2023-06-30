@@ -62,6 +62,10 @@ namespace UnifiCommands.CommandsProvider
         /// </summary>
         public InstallProductType Product { get; set; }
 
+        /// <summary>
+        /// Show test task or not.
+        /// </summary>
+        public bool Visible { get; set; } = true;
 
         public object Clone()
         {

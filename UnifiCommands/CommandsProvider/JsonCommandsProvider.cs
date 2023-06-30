@@ -170,7 +170,7 @@ namespace UnifiCommands.CommandsProvider
         /// <returns></returns>
         private List<TestTask> FilterTasks(List<TestTask> tasks)
         {
-            return TestTasks.Where(t => (t.ShowTaskOnMachine & _showOnMachine) == _showOnMachine).ToList();
+            return TestTasks.Where(t => (t.ShowTaskOnMachine & _showOnMachine) == _showOnMachine && t.Visible).ToList();
             //return tasks;
         }
 

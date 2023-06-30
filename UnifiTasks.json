@@ -912,15 +912,15 @@
 			},
 			{
 				"Command": "FileCopy",
-				"Arguments": "${UserDesktopFolder}\\NLog.dll, $[CylanceDesktopFolder]",
-				"DisplayText": "Copy NLog.dll",
+				"Arguments": "${UserDesktopFolder}\\CEFTest.exe, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy CEFTest.exe",
 				"Type": "code",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "FileCopy",
-				"Arguments": "${UserDesktopFolder}\\Cylance.CEF.Server.dll, $[CylanceDesktopFolder]",
-				"DisplayText": "Copy CEF Server",
+				"Arguments": "${UserDesktopFolder}\\NLog.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy NLog.dll",
 				"Type": "code",
 				"ShowOnMachine": "Test"
 			}
@@ -1974,8 +1974,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"optics_version\"",
-				"DisplayText": "Follow optics_version",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
+				"DisplayText": "Follow [jason]",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
 			}
