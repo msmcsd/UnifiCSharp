@@ -97,6 +97,10 @@ namespace SelfHostUnifiApi
             SendMessageToSocketServer(SocketEvent.Progress, message);
         }
 
+        public void LogSocketMessage(Type type, string message) { }
+
+        public void LogSocketError(Type type, string message) { }
+
         public void SendReport(string json)
         {
             SendMessageToSocketServer(SocketEvent.Report, json);
