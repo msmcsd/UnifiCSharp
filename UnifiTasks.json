@@ -597,6 +597,12 @@
 				"Arguments": "get-wmiobject -namespace root\\cylance -class protect",
 				"DisplayText": "Show WMI",
 				"KeywordForSuccess": "ApplicationState : Protected"
+			},
+			{
+				"Command": "cmd.exe",
+				"Arguments": "/C WMIC /Node:localhost /Namespace:\\\\root\\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List",
+				"DisplayText": "Get AV List",
+				"KeywordForSuccess": "CylancePROTECT"
 			}
 		]
 	},
@@ -640,6 +646,11 @@
 				"Command": "cmd.exe",
 				"Arguments": "/C reg delete HKLM\\SOFTWARE\\Cylance\\Desktop /v LastStateRestorePoint /f",
 				"DisplayText": "Remove Token Key"
+			},
+			{
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\Microsoft\\Security Center\\Feature",
+				"DisplayText": "AMMPL Key"
 			}
 		]
 	},
@@ -700,26 +711,20 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"AMSI provider\"",
-				"DisplayText": "Follow AMSI",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"WSC\"",
+				"DisplayText": "Follow WSC",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \" Error: \"",
-				"DisplayText": "Follow Error",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"Security Center\"",
+				"DisplayText": "Follow Security Center",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
 				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
 				"DisplayText": "Follow [jason]",
-				"ShowOnMachine": "Test"
-			},
-			{
-				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"OpticsCommandChannelOpticsVersion\"",
-				"DisplayText": "Follow OpticsCommandChannelOpticsVersion",
 				"ShowOnMachine": "Test"
 			},
 			{
@@ -853,7 +858,7 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"DisplayText": "",
+				"DisplayText": ""
 			},
 			{
 				"Command": "cmd.exe",
@@ -877,6 +882,42 @@
 				"Command": "cmd.exe",
 				"Arguments": "/c logman stop cydrvlog -ets",
 				"DisplayText": "Stop logman"
+			}
+		]
+	},
+	{
+		"Name": "CEF Test",
+		"CommandGroup": "Dos",
+		"Commands": [
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v CEF /t REG_DWORD /d 0 /f",
+				"DisplayText": "Disable"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v CEF /t REG_DWORD /d 1 /f",
+				"DisplayText": "Restart CEF"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v CEF /t REG_DWORD /d 2 /f",
+				"DisplayText": "Start CEF"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v CEF /t REG_DWORD /d 3 /f",
+				"DisplayText": "Stop CEF"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v CEF /t REG_DWORD /d 4 /f",
+				"DisplayText": "Unregister OAS Bus"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v CEF /t REG_DWORD /d 5 /f",
+				"DisplayText": "Request Optics Version"
 			}
 		]
 	},
@@ -912,8 +953,8 @@
 			},
 			{
 				"Command": "FileCopy",
-				"Arguments": "${UserDesktopFolder}\\CEFTest.exe, $[CylanceDesktopFolder]",
-				"DisplayText": "Copy CEFTest.exe",
+				"Arguments": "${UserDesktopFolder}\\Cylance.CEF.Server.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Cylance.CEF.Server.dll",
 				"Type": "code",
 				"ShowOnMachine": "Test"
 			},
@@ -921,6 +962,13 @@
 				"Command": "FileCopy",
 				"Arguments": "${UserDesktopFolder}\\NLog.dll, $[CylanceDesktopFolder]",
 				"DisplayText": "Copy NLog.dll",
+				"Type": "code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "FileCopy",
+				"Arguments": "${UserDesktopFolder}\\CEFTest.exe, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy CEFTest.exe",
 				"Type": "code",
 				"ShowOnMachine": "Test"
 			}
@@ -1373,6 +1421,13 @@
 				"Command": "${ExplorerPath}",
 				"Arguments": "${UserProfileFolder}\\AppData\\Local\\Temp",
 				"DisplayText": "Temp Folder",
+				"IconSourcePath": "${ExplorerPath}",
+				"TaskImage": "Explorer.bmp"
+			},
+			{
+				"Command": "${ExplorerPath}",
+				"Arguments": "\\\\vmware-host\\Shared Folders\\VMWare-Share\\TestTools",
+				"DisplayText": "TestTool Folder",
 				"IconSourcePath": "${ExplorerPath}",
 				"TaskImage": "Explorer.bmp"
 			},
@@ -1974,8 +2029,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
-				"DisplayText": "Follow [jason]",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"WSC\"",
+				"DisplayText": "Follow WSC",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
 			}

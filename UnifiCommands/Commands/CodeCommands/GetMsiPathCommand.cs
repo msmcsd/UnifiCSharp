@@ -9,7 +9,7 @@ namespace UnifiCommands.Commands.CodeCommands
     /// </summary>
     public class GetMsiPathCommand : Command
     {
-        private const string ProductName = "Cylance PROTECT";
+        private const string ProductName = "CylancePROTECT";
 
         public GetMsiPathCommand(ILogger logger) : base(logger) { }
 

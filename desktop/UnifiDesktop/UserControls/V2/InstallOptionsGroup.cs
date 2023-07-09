@@ -10,6 +10,7 @@ using Unifi;
 using Unifi.Observers.Animation;
 using UnifiCommands;
 using UnifiCommands.CommandInfo;
+using UnifiCommands.Commands.CodeCommands;
 using UnifiCommands.CommandsProvider;
 using UnifiCommands.Logging;
 using UnifiCommands.Socket;
@@ -98,7 +99,8 @@ namespace UnifiDesktop.UserControls
                     GetInstallMode = GetInstallMode,
                     GetToken = GetToken,
                     CompileMode = chkDebugBuild.Checked? "Debug": "",
-                    OpticsInstallerName = OpticsInstallerName
+                    OpticsInstallerName = OpticsInstallerName,
+                    GetMsiInstallerPath = GetMsiInstallerPath
                 };
 
                 SocketMessage broadcastMessage = new SocketMessage
@@ -345,6 +347,15 @@ namespace UnifiDesktop.UserControls
             get
             {
                 return rbOptics2.Checked ? $"OpticsInstaller{Variables.ArchNone}" : rbOptics3.Checked? $"CylanceOptics_x{Variables.Arch32}" : "";
+            }
+        }
+
+        private string GetMsiInstallerPath
+        {
+            get
+            {
+                GetMsiPathCommand msiPath = new GetMsiPathCommand(Logger);
+                return msiPath.Execute().Result;
             }
         }
 

@@ -19,6 +19,8 @@ namespace UnifiCommands.Socket.MessageClasses
 
         public string OpticsInstallerName { get; set; }
 
+        public string GetMsiInstallerPath { get; set; }
+
         private string ProtectLogPath => Path.Combine(CylanceDesktopFolder, $@"log\{DateTime.Today:yyyy-MM-dd}.log");
 
         private string OpticsLogPath => Path.Combine("C:\\ProgramData\\Cylance\\Optics\\Log", $@"Optics-{DateTime.Today:yyyy-MM-dd}.csv");
