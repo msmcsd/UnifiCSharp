@@ -69,6 +69,16 @@ namespace UnifiDesktop.UserControls
 
         private void lstCommands_DoubleClick(object sender, EventArgs e)
         {
+            RunBatchCommands();
+        }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            RunBatchCommands();
+        }
+
+        private void RunBatchCommands()
+        {
             if (lstCommands.Items.Count == 0)
             {
                 Debug.WriteLine(GetType(), "lstCommands.Items.Count = 0");
@@ -132,5 +142,6 @@ namespace UnifiDesktop.UserControls
             Brush brush = info.Type == CommandType.Code ? Brushes.Green : Brushes.Black;
             e.Graphics.DrawString(e.Item.SubItems[1].Text, lstCommands.Font, brush, e.Bounds);
         }
+
     }
 }

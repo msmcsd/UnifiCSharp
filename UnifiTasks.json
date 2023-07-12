@@ -650,7 +650,12 @@
 			{
 				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
 				"Arguments": "HKLM\\SOFTWARE\\Microsoft\\Security Center\\Feature",
-				"DisplayText": "AMMPL Key"
+				"DisplayText": "AMPPL Key"
+			},
+			{
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance /v Wsc /t REG_DWORD /d 0 /f",
+				"DisplayText": "Enable WSC Registration"
 			}
 		]
 	},
@@ -1375,6 +1380,12 @@
 				"Command": "ServiceState",
 				"Arguments": "CyOptics, ServiceState",
 				"DisplayText": "Optics",
+				"Type": "Code"
+			},
+			{
+				"Command": "ServiceState",
+				"Arguments": "wscsvc, ServiceState",
+				"DisplayText": "WSC",
 				"Type": "Code"
 			}
 		]
