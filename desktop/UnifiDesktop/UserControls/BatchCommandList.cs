@@ -69,12 +69,12 @@ namespace UnifiDesktop.UserControls
 
         private void lstCommands_DoubleClick(object sender, EventArgs e)
         {
-            RunBatchCommands();
+            btnRun_Click(sender, e);
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            RunBatchCommands();
+            Task.Run(RunBatchCommands);
         }
 
         private void RunBatchCommands()
