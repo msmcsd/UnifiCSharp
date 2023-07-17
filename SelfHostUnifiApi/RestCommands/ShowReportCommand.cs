@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using UnifiCommands.CommandInfo;
@@ -22,7 +23,8 @@ namespace SelfHostUnifiApi.RestCommands
 
         public void ShowReport(bool installedReport)
         {
-            _items = UnifiCommands.Commands.CodeCommands.ShowReportCommand.RunReport(CommandsProvider.DosTasks, installedReport, logger, UnifiCommands.AppType.Web);
+            var commands = CommandsProvider.DosTasks.SelectMany(t => t.Commands).Where(c => !string.IsNullOrEmpty(c.KeywordForSuccess)).ToList();
+            _items = UnifiCommands.Commands.CodeCommands.ShowReportCommand.RunReport(commands, installedReport, logger, UnifiCommands.AppType.Web);
             string json = JsonConvert.SerializeObject(_items);
             logger.SendReport(json);
         }
