@@ -704,37 +704,37 @@
 		"Commands": [
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"CyUpdate(\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"CyUpdate(\"",
 				"DisplayText": "Follow CyUpdate(",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"reboot\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"reboot\"",
 				"DisplayText": "Follow Reboot Key",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"WSC\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"WSC\"",
 				"DisplayText": "Follow WSC",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"Security Center\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"Security Center\"",
 				"DisplayText": "Follow Security Center",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"[jason]\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
 				"DisplayText": "Follow [jason]",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"optics_version\" \"CyUpdate(\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"optics_version\"",
 				"DisplayText": "Follow optics_version",
 				"ShowOnMachine": "Test"
 			},
@@ -1106,13 +1106,13 @@
 		"Commands": [
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \" inventory\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
 				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"report_type\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"report_type\"",
 				"DisplayText": "Follow report_type",
 				"ShowOnMachine": "Test"
 			}
@@ -2035,7 +2035,7 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" \"[jason]\"",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
 				"DisplayText": "Follow [jason]",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
