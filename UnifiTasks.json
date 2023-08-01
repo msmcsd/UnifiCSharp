@@ -648,14 +648,14 @@
 				"DisplayText": "Remove Token Key"
 			},
 			{
-				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
-				"Arguments": "HKLM\\SOFTWARE\\Microsoft\\Security Center\\Feature",
-				"DisplayText": "AMPPL Key"
+				"Command": "\"${PsExecPath}\"",
+				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add \"HKLM\\SOFTWARE\\Microsoft\\Security Center\\Feature\" /v DisableAVCheck /t REG_DWORD /d 0 /f",
+				"DisplayText": "Enforce AMPPL for WSC"
 			},
 			{
-				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance /v Wsc /t REG_DWORD /d 0 /f",
-				"DisplayText": "Enable WSC Registration"
+				"Command": "\"C:\\Program Files\\SysInternals\\regjump.exe\"",
+				"Arguments": "HKLM\\SOFTWARE\\Microsoft\\Security Center\\Feature",
+				"DisplayText": "Show AMPPL for WSC"
 			}
 		]
 	},
@@ -704,37 +704,37 @@
 		"Commands": [
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"CyUpdate(\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"CyUpdate(\"",
 				"DisplayText": "Follow CyUpdate(",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"reboot\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"reboot\"",
 				"DisplayText": "Follow Reboot Key",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"WSC\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"WSC\"",
 				"DisplayText": "Follow WSC",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"Security Center\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"Security Center\"",
 				"DisplayText": "Follow Security Center",
 				"ShowOnMachine": "All"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"[jason]\"",
 				"DisplayText": "Follow [jason]",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"optics_version\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"optics_version\" \"CyUpdate(\"",
 				"DisplayText": "Follow optics_version",
 				"ShowOnMachine": "Test"
 			},
@@ -972,8 +972,8 @@
 			},
 			{
 				"Command": "FileCopy",
-				"Arguments": "${UserDesktopFolder}\\CEFTest.exe, $[CylanceDesktopFolder]",
-				"DisplayText": "Copy CEFTest.exe",
+				"Arguments": "${VmWareSharedFolder}\\TestTools\\Rollback\\Cylance.Host.Updater.dll, $[CylanceDesktopFolder]",
+				"DisplayText": "Copy Rollback Updater",
 				"Type": "code",
 				"ShowOnMachine": "Test"
 			}
@@ -1106,13 +1106,13 @@
 		"Commands": [
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"Arguments": "\"$[ProtectLogPath]\" \" inventory\"",
 				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Test"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"report_type\"",
+				"Arguments": "\"$[ProtectLogPath]\" \"report_type\"",
 				"DisplayText": "Follow report_type",
 				"ShowOnMachine": "Test"
 			}
@@ -1485,7 +1485,7 @@
 				"IconSourcePath": "${NotepadPath}",
 				"ShowOnMachine": "Test",
 				"Visible": false,
-				"TaskImage": "Cmd.mp"
+				"TaskImage": "Cmd.bmp"
 			},
 			{
 				"Command": "${NotepadPath}",
@@ -2029,19 +2029,14 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "\"${PsExecPath}\"",
-				"Arguments": "-s -i -d -accepteula cmd.exe /C reg add HKLM\\Software\\Cylance\\Desktop /v SoftwareInventory /t REG_DWORD /d 503 /f",
-				"DisplayText": "ServiceUnavailable"
-			},
-			{
 				"Command": "Install_Protect_Msi_Admin_Quiet",
 				"DisplayText": "Install Proect Msi Admin Quiet",
 				"Type": "Function"
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"WSC\"",
-				"DisplayText": "Follow WSC",
+				"Arguments": "\"$[ProtectLogPath]\" \"[jason]\"",
+				"DisplayText": "Follow [jason]",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
 			}
@@ -2056,6 +2051,25 @@
 				"Command": "DownloadInstaller",
 				"Arguments": "Protect/job/Agent/job/BC/job/agent-b-branch-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest BC'",
 				"DisplayText": "Download Latest BC",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest 3.0 Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/REL/job/3-0/job/agent-x-3-0-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.0'",
+				"DisplayText": "Download Latest Release 3.0",
 				"Type": "Code",
 				"ShowOnMachine": "Test"
 			},
