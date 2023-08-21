@@ -1146,27 +1146,27 @@
 				"DisplayText": "Sync Deps"
 			},
 			{
-				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:major=3;minor=0;build=0000;revision=0 C:\\Projects\\CylanceProtect\\src\\CyProtect.sln",
 				"DisplayText": "Compile Debug Protect"
 			},
 			{
-				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Platform=x64 /property:major=3;minor=0;build=0000;revision=0 C:\\Projects\\CylanceProtect\\src\\CyNativeAgent\\Win\\CyNativeAgent.vcxproj",
 				"DisplayText": "Compile 64-bit Service"
 			},
 			{
-				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 /property:Platform=x64 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Installerx64\\Cylance.Host.Installerx64.wixproj",
 				"DisplayText": "Build 64-bit Installer"
 			},
 			{
-				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 /property:Platform=x86 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Installer\\Cylance.Host.Installer.wixproj",
 				"DisplayText": "Build 32-bit Installer"
 			},
 			{
-				"Command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
+				"Command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe\"",
 				"Arguments": "/target:Rebuild /property:Configuration=Debug /property:Version=3.0.0000.0 C:\\Projects\\CylanceProtect\\src\\Cylance.Host.Bootstrapper\\Cylance.Host.Bootstrapper.wixproj",
 				"DisplayText": "Build Bootstrapper"
 			},
@@ -2046,8 +2046,8 @@
 			},
 			{
 				"Command": "Tail",
-				"Arguments": "\"$[ProtectLogPath]\" 1 \"[jason]\"",
-				"DisplayText": "Follow [jason]",
+				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
+				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
 			}

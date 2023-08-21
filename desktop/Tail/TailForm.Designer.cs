@@ -37,6 +37,8 @@ namespace Tail
             this.btnNextError = new System.Windows.Forms.Button();
             this.btnPrevError = new System.Windows.Forms.Button();
             this.grpFileInfo = new System.Windows.Forms.GroupBox();
+            this.lblFileNotFound = new System.Windows.Forms.Label();
+            this.txtFile = new System.Windows.Forms.TextBox();
             this.lblFile = new System.Windows.Forms.Label();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.lblEnterFilter = new System.Windows.Forms.Label();
@@ -44,8 +46,6 @@ namespace Tail
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.txtFile = new System.Windows.Forms.TextBox();
-            this.lblFileNotFound = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.grpFileInfo.SuspendLayout();
             this.SuspendLayout();
@@ -132,11 +132,30 @@ namespace Tail
             this.grpFileInfo.Controls.Add(this.txtFilter);
             this.grpFileInfo.Controls.Add(this.lblEnterFilter);
             this.grpFileInfo.Controls.Add(this.lblFilter);
-            this.grpFileInfo.Location = new System.Drawing.Point(789, 3);
+            this.grpFileInfo.Location = new System.Drawing.Point(643, 3);
             this.grpFileInfo.Name = "grpFileInfo";
-            this.grpFileInfo.Size = new System.Drawing.Size(503, 55);
+            this.grpFileInfo.Size = new System.Drawing.Size(649, 55);
             this.grpFileInfo.TabIndex = 7;
             this.grpFileInfo.TabStop = false;
+            // 
+            // lblFileNotFound
+            // 
+            this.lblFileNotFound.AutoSize = true;
+            this.lblFileNotFound.ForeColor = System.Drawing.Color.Red;
+            this.lblFileNotFound.Location = new System.Drawing.Point(392, 10);
+            this.lblFileNotFound.Name = "lblFileNotFound";
+            this.lblFileNotFound.Size = new System.Drawing.Size(71, 13);
+            this.lblFileNotFound.TabIndex = 8;
+            this.lblFileNotFound.Text = "File not found";
+            this.lblFileNotFound.Visible = false;
+            // 
+            // txtFile
+            // 
+            this.txtFile.Location = new System.Drawing.Point(83, 7);
+            this.txtFile.Name = "txtFile";
+            this.txtFile.Size = new System.Drawing.Size(303, 20);
+            this.txtFile.TabIndex = 7;
+            this.txtFile.TextChanged += new System.EventHandler(this.txtFile_TextChanged);
             // 
             // lblFile
             // 
@@ -204,25 +223,6 @@ namespace Tail
             this.btnClear.TabIndex = 0;
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // txtFile
-            // 
-            this.txtFile.Location = new System.Drawing.Point(83, 7);
-            this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(303, 20);
-            this.txtFile.TabIndex = 7;
-            this.txtFile.TextChanged += new System.EventHandler(this.txtFile_TextChanged);
-            // 
-            // lblFileNotFound
-            // 
-            this.lblFileNotFound.AutoSize = true;
-            this.lblFileNotFound.ForeColor = System.Drawing.Color.Red;
-            this.lblFileNotFound.Location = new System.Drawing.Point(392, 10);
-            this.lblFileNotFound.Name = "lblFileNotFound";
-            this.lblFileNotFound.Size = new System.Drawing.Size(71, 13);
-            this.lblFileNotFound.TabIndex = 8;
-            this.lblFileNotFound.Text = "File not found";
-            this.lblFileNotFound.Visible = false;
             // 
             // TailForm
             // 

@@ -8,8 +8,9 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
+using Timer = System.Timers.Timer;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Tail
 {
@@ -29,6 +30,8 @@ namespace Tail
 
         private List<int> _errorLines = new List<int>();
         private int _currentErrorLineIndex;
+
+        private Timer _timer;
 
         private string Filter
         {
@@ -71,15 +74,33 @@ namespace Tail
             Text = $"Tail {new FileInfo(Assembly.GetEntryAssembly().Location).LastWriteTime}";
             if (IsElevated()) Text = $"{Text} (Administrator)";
 
-            if (!File.Exists(_textFile) || string.IsNullOrWhiteSpace(Filter))
+            if (string.IsNullOrWhiteSpace(Filter))
             {
                 btnStop.Enabled = false;
                 return;
             }
 
+            if (!File.Exists(_textFile))
+            {
+                lblFileNotFound.Text = "Waiting for file to be created...";
+                _timer = new Timer();
+                _timer.Interval = 1000;
+                _timer.Elapsed += OnTimer;
+                _timer.Enabled = true;
+                return;
+            }
 
-            btnStop.Enabled = true;
             await StartFollow();
+        }
+
+        private async void OnTimer(Object source, ElapsedEventArgs e)
+        {
+            if (File.Exists(_textFile))
+            {
+                _timer.Enabled = false;
+
+                await StartFollow();
+            }
         }
 
         private bool IsElevated()
@@ -95,6 +116,7 @@ namespace Tail
         {
             btnStart.Enabled = false;
             btnStop.Enabled = true;
+            lblFileNotFound.Visible = false;
 
             chkFollowTail.Checked = true;
             _errorLines.Clear();
