@@ -388,6 +388,11 @@
 				"DisplayText": "Start Service"
 			},
 			{
+				"Command": "sc.exe",
+				"Arguments": "stop CylanceSvc",
+				"DisplayText": "Stop Service"
+			},
+			{
 				"Command": "\"$[CylanceDesktopFolder]\\CylanceUI.exe\"",
 				"Arguments": "-update",
 				"DisplayText": "Check for Update",
@@ -1415,6 +1420,12 @@
 				"TaskImage": "Registry.bmp"
 			},
 			{
+				"Command": "${PsExecPath}",
+				"Arguments": "-s -i -d -accepteula \"C:\\Program Files\\Sysinternals\\procexp.exe\"",
+				"DisplayText": "Process Explorer",
+				"IconSourcePath": "\"C:\\Program Files\\Sysinternals\\procexp.exe\""
+			},
+			{
 				"Command": "${ExplorerPath}",
 				"Arguments": "\"$[CylanceDesktopFolder]\"",
 				"DisplayText": "Cylance Desktop",
@@ -2062,14 +2073,14 @@
 		]
 	},
 	{
-		"Name": "Download and Install Latest 3.0 Msi",
+		"Name": "Download and Install Latest 3.2 Msi",
 		"CommandGroup": "Batch",
 		"ShowTaskOnMachine": "Test",
 		"Commands": [
 			{
 				"Command": "DownloadInstaller",
-				"Arguments": "Protect/job/Agent/job/REL/job/3-0/job/agent-x-3-0-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.0'",
-				"DisplayText": "Download Latest Release 3.0",
+				"Arguments": "Protect/job/Agent/job/REL/job/3-2/job/agent-x-3-2-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.2'",
+				"DisplayText": "Download Latest Release 3.2",
 				"Type": "Code",
 				"ShowOnMachine": "Test"
 			},
@@ -2100,14 +2111,52 @@
 		]
 	},
 	{
-		"Name": "Download and Install Latest 3.2 Msi",
+		"Name": "Download and Install Latest 3.0 Msi",
 		"CommandGroup": "Batch",
 		"ShowTaskOnMachine": "Test",
 		"Commands": [
 			{
 				"Command": "DownloadInstaller",
-				"Arguments": "Protect/job/Agent/job/REL/job/3-2/job/agent-x-3-2-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.2'",
-				"DisplayText": "Download Latest Release 3.2",
+				"Arguments": "Protect/job/Agent/job/REL/job/3-0/job/agent-x-3-0-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 3.0'",
+				"DisplayText": "Download Latest Release 3.0",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest 1580 Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/REL/job/1580/job/agent-x-1580-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 1580'",
+				"DisplayText": "Download Latest Release 1580",
+				"Type": "Code",
+				"ShowOnMachine": "Test"
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
+			}
+		]
+	},
+	{
+		"Name": "Download and Install Latest 1570 Msi",
+		"CommandGroup": "Batch",
+		"ShowTaskOnMachine": "Test",
+		"Commands": [
+			{
+				"Command": "DownloadInstaller",
+				"Arguments": "Protect/job/Agent/job/REL/job/1570/job/agent-x-1570-dna, lastSuccessfulBuild, ${ProtectMsiNameByVmArch}, 'Latest Release 1570'",
+				"DisplayText": "Download Latest Release 1570",
 				"Type": "Code",
 				"ShowOnMachine": "Test"
 			},

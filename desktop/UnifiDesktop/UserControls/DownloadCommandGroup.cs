@@ -40,6 +40,7 @@ namespace UnifiDesktop.UserControls
 
         private List<ReleaseUrl> _releaseUrls = new List<ReleaseUrl>
         {
+            new ReleaseUrl { Name="3.2", Url = "Protect/job/Agent/job/REL/job/3-2/job/agent-x-3-2-dna" },
             new ReleaseUrl { Name="3.1", Url = "Protect/job/Agent/job/REL/job/3-1/job/agent-x-3-1-dna" },
             new ReleaseUrl { Name="3.0", Url = "Protect/job/Agent/job/REL/job/3-0/job/agent-x-3-0-dna" },
             new ReleaseUrl { Name="2.1.1580", Url = "Protect/job/Agent/job/REL/job/1580/job/agent-x-1580-dna" },
