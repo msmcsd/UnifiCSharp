@@ -2040,16 +2040,16 @@
 				"ShowOnMachine": "Test"
 			},
 			{
-				"Command": "Install_Protect_Msi_Admin_Quiet",
-				"DisplayText": "Install Proect Msi Admin Quiet",
-				"Type": "Function"
-			},
-			{
 				"Command": "Tail",
 				"Arguments": "\"$[ProtectLogPath]\" 1 \" inventory\"",
 				"DisplayText": "Follow inventory",
 				"ShowOnMachine": "Test",
 				"FireAndForget": true
+			},
+			{
+				"Command": "Install_Protect_Msi_Admin_Quiet",
+				"DisplayText": "Install Proect Msi Admin Quiet",
+				"Type": "Function"
 			}
 		]
 	},
